@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>breakOS — Nikolas Trimandylis</title>
+    <meta
+      name="description"
+      content="breakOS: the operating system that is also a person. Portfolio of Nikolas Trimandylis."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/breakos.css" />
+  </head>
+  <body>
+    <!-- live wallpaper -->
+    <canvas id="wallpaper" aria-hidden="true"></canvas>
+    <div class="crt" aria-hidden="true"></div>
+
+    <!-- desktop icons (parallax layer) -->
+    <div class="icons" aria-hidden="true">
+      <div class="icon" data-depth="0.04" style="top: 14%; left: 6%">
+        <span class="icon-glyph">▣</span><span class="icon-label">my_computer</span>
+      </div>
+      <div class="icon" data-depth="0.09" style="top: 38%; right: 5%">
+        <span class="icon-glyph">🗑</span><span class="icon-label">recycle bin (full)</span>
+      </div>
+      <div class="icon" data-depth="0.06" style="top: 64%; left: 4%">
+        <span class="icon-glyph">▤</span><span class="icon-label">untitled_final_v2_REAL</span>
+      </div>
+      <div class="icon" data-depth="0.12" style="top: 80%; right: 9%">
+        <span class="icon-glyph">◈</span><span class="icon-label">do_not_open.txt</span>
+      </div>
+      <div class="icon" data-depth="0.07" style="top: 8%; right: 22%">
+        <span class="icon-glyph">✆</span><span class="icon-label">dial_up.exe</span>
+      </div>
+    </div>
+
+    <!-- OS notification (speed judge etc.) -->
+    <div class="os-toast" id="os-toast" role="status"></div>
+
+    <main id="desktop">
+      <!-- ══ BOOT — scroll-driven ══ -->
+      <section id="boot">
+        <div class="boot-pin">
+          <div class="boot-screen">
+            <p class="boot-brand">breakOS<span class="blink">_</span></p>
+            <p class="boot-ver">v2.6.11 — it builds. it breaks. it reboots.</p>
+            <div class="boot-log" id="boot-log"></div>
+            <p class="boot-hint" id="boot-hint">▼ scroll to boot ▼</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ DESKTOP SESSION ══ -->
+      <section class="ws" id="ws-files">
+        <div class="window" id="win-files" data-app="things-i-made" data-drift="left">
+          <div class="titlebar">
+            <span class="tb-title">▤ ~/things-i-made</span>
+            <span class="tb-btns">
+              <button class="tb-btn" data-act="max" aria-label="maximize">□</button>
+              <button class="tb-btn" data-act="close" aria-label="close">✕</button>
+            </span>
+          </div>
+          <div class="win-body">
+            <div class="filerow filehead">
+              <span>name</span><span>kind</span><span>year</span><span>verdict</span>
+            </div>
+            <button class="filerow" data-file="0">
+              <span class="fname">petal_ai.app</span><span>swift · ai</span><span>2024</span>
+              <span class="fverdict">teaches. actually.</span>
+            </button>
+            <button class="filerow" data-file="1">
+              <span class="fname">llm_mafia.py</span><span>python · ai</span><span>2024</span>
+              <span class="fverdict">LLMs lie. proved it.</span>
+            </button>
+            <button class="filerow" data-file="2">
+              <span class="fname">jarvis.ts</span><span>typescript · ai</span><span>2024</span>
+              <span class="fverdict">siri wasn't enough</span>
+            </button>
+            <button class="filerow" data-file="3">
+              <span class="fname">kizuna.app</span><span>typescript</span><span>2023</span>
+              <span class="fverdict">real users. terrifying.</span>
+            </button>
+            <button class="filerow" data-file="4">
+              <span class="fname">cosmos.glsl</span><span>glsl · webgl</span><span>2023</span>
+              <span class="fverdict">math as vibes</span>
+            </button>
+            <p class="win-status">5 items · 0 regrets · click a file to open</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ws" id="ws-monitor">
+        <div class="window" id="win-monitor" data-app="system-monitor" data-drift="right">
+          <div class="titlebar">
+            <span class="tb-title">◔ System Monitor — live from api.github.com</span>
+            <span class="tb-btns">
+              <button class="tb-btn" data-act="max" aria-label="maximize">□</button>
+              <button class="tb-btn" data-act="close" aria-label="close">✕</button>
+            </span>
+          </div>
+          <div class="win-body">
+            <p class="mon-note">
+              every row below is a real repository, fetched live. no curation.
+              the API sees all and forgives nothing.
+            </p>
+            <div class="mon-table" id="mon-table">
+              <div class="monrow monhead">
+                <span>pid</span><span>process</span><span>lang</span><span>mem</span><span>last active</span>
+              </div>
+              <p class="mon-loading" id="mon-loading">polling github<span class="blink">…</span></p>
+            </div>
+            <div class="mon-load" id="mon-load">
+              <span>render: <em id="stat-fps">—</em> fps</span>
+              <span>scroll depth: <em id="stat-depth">0%</em></span>
+              <span>session uptime: <em id="stat-uptime">0s</em></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ws" id="ws-terminal">
+        <div class="window" id="win-terminal" data-app="terminal" data-drift="left">
+          <div class="titlebar">
+            <span class="tb-title">▮ terminal — guest@breakos</span>
+            <span class="tb-btns">
+              <button class="tb-btn" data-act="max" aria-label="maximize">□</button>
+              <button class="tb-btn" data-act="close" aria-label="close">✕</button>
+            </span>
+          </div>
+          <div class="win-body term-body" id="term-body">
+            <div id="term-out">
+              <p>breakOS terminal. type <em>help</em> if lost. most are.</p>
+            </div>
+            <div class="term-line">
+              <span class="term-prompt">guest@breakos:~$</span>
+              <input id="term-input" type="text" autocomplete="off" spellcheck="false" aria-label="terminal input" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ws" id="ws-about">
+        <div class="window" id="win-about" data-app="about" data-drift="right">
+          <div class="titlebar">
+            <span class="tb-title">◍ About This Computer</span>
+            <span class="tb-btns">
+              <button class="tb-btn" data-act="max" aria-label="maximize">□</button>
+              <button class="tb-btn" data-act="close" aria-label="close">✕</button>
+            </span>
+          </div>
+          <div class="win-body about-body">
+            <img src="assets/seal.png" alt="seal — official breakOS mascot" class="about-seal" id="about-seal" />
+            <div class="about-meta">
+              <h1 class="about-name">breakOS</h1>
+              <p class="about-sub">a Nikolas Trimandylis production · est. 2007, usable since ~2021</p>
+              <dl class="spec-table">
+                <dt>processor</dt><dd>1 × human, runs warm under deadline</dd>
+                <dt>languages</dt><dd>swift, python, typescript, glsl — whatever the idea needs</dd>
+                <dt>memory</dt><dd>selective. remembers API signatures, forgets where keys are</dd>
+                <dt>graphics</dt><dd>integrated. see wallpaper. it's doing its best</dd>
+                <dt>mascot</dt><dd>seal (pictured). non-negotiable. type "seal" anywhere</dd>
+                <dt>known issues</dt><dd>starts side projects at 1am. will not patch</dd>
+              </dl>
+              <p class="about-copy">
+                Neither a purist nor a generalist — a builder between languages.
+                Vibecodes for the fun of it, ships because finishing feels better
+                than starting. This entire OS is a metaphor and it knows it.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ws" id="ws-mail">
+        <div class="window" id="win-mail" data-app="new-message" data-drift="left">
+          <div class="titlebar">
+            <span class="tb-title">✉ New Message</span>
+            <span class="tb-btns">
+              <button class="tb-btn" data-act="max" aria-label="maximize">□</button>
+              <button class="tb-btn" data-act="close" aria-label="close">✕</button>
+            </span>
+          </div>
+          <div class="win-body mail-body">
+            <div class="mail-field"><span>to:</span><a href="mailto:nicktrim8@duck.com">nicktrim8@duck.com</a><em class="mail-note">// yes, the email is a duck</em></div>
+            <div class="mail-field"><span>cc:</span><a href="https://github.com/nitrimandylis" target="_blank" rel="noopener">github.com/nitrimandylis</a></div>
+            <div class="mail-field"><span>subject:</span><b>let's build something weird</b></div>
+            <p class="mail-draft">
+              hi nick,<br /><br />
+              I scrolled through your entire fake operating system and now I
+              would like to [ hire you / fund you / argue about tabs vs spaces ].<br /><br />
+              regards,<br />
+              a person of taste
+            </p>
+            <a class="mail-send" href="mailto:nicktrim8@duck.com?subject=let's build something weird">send ▸</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══ SHUTDOWN ══ -->
+      <section class="ws" id="ws-shutdown">
+        <div class="shutdown-dialog" id="shutdown-dialog">
+          <p class="sd-title">⏻ Shut down breakOS?</p>
+          <p class="sd-body">you've reached the bottom. there is nothing below this. I checked.</p>
+          <div class="sd-btns">
+            <button class="sd-btn" id="sd-yes">Yes</button>
+            <button class="sd-btn" id="sd-alsoyes">Also Yes</button>
+          </div>
+          <p class="sd-fine" id="sd-uptime"></p>
+        </div>
+      </section>
+    </main>
+
+    <!-- taskbar -->
+    <footer class="taskbar" id="taskbar">
+      <button class="tb-start" id="tb-start">▣ breakOS</button>
+      <div class="tb-progress"><div class="tb-progress-fill" id="tb-progress-fill"></div></div>
+      <div class="tb-tray" id="tb-tray"></div>
+      <span class="tb-clock" id="tb-clock">--:--</span>
+    </footer>
+
+    <!-- file detail overlay -->
+    <div class="overlay" id="overlay" aria-hidden="true">
+      <div class="window overlay-win">
+        <div class="titlebar">
+          <span class="tb-title" id="ov-title">▤ file</span>
+          <span class="tb-btns">
+            <button class="tb-btn" id="ov-close" data-act="close" aria-label="close">✕</button>
+          </span>
+        </div>
+        <div class="win-body">
+          <h2 class="ov-name" id="ov-name"></h2>
+          <p class="ov-voice" id="ov-voice"></p>
+          <p class="ov-body" id="ov-body"></p>
+          <p class="ov-meta" id="ov-meta"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BSOD -->
+    <div class="bsod" id="bsod" aria-hidden="true">
+      <div class="bsod-inner">
+        <p class="bsod-face">:(</p>
+        <p>
+          breakOS ran into a problem and needs to restart.<br />
+          we're just collecting some feelings, then we'll restart for you.
+        </p>
+        <p class="bsod-code">
+          stop code: VISITOR_ATTEMPTED_TO_LEAVE<br />
+          what failed: nothing. this is theatre.
+        </p>
+        <p class="bsod-pct" id="bsod-pct">0% complete</p>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="js/wallpaper.js"></script>
+    <script src="js/os.js"></script>
+    <script src="js/boot.js"></script>
+    <script src="js/monitor.js"></script>
+    <script src="js/terminal.js"></script>
+  </body>
+</html>

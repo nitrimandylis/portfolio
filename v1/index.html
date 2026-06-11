@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nikolas Trimandylis — builds things, breaks things</title>
+    <meta name="description" content="Developer portfolio of Nikolas Trimandylis. Scroll responsibly." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <canvas id="shader-canvas"></canvas>
+    <div class="cursor-glow" id="cursor-glow"></div>
+    <div class="speed-judge" id="speed-judge" aria-hidden="true"></div>
+
+    <div class="ambient" aria-hidden="true">
+      <span class="ghost-n" id="ghost-n">N</span>
+    </div>
+
+    <!-- NAV -->
+    <header>
+      <nav>
+        <a href="#hero" class="logo">nicktrim<em>.</em></a>
+        <ul class="nav-links">
+          <li><a href="#log" data-section="log">things i've made</a></li>
+          <li><a href="#about" data-section="about">about</a></li>
+          <li><a href="#github" data-section="github">receipts</a></li>
+          <li><a href="#contact" data-section="contact">contact</a></li>
+        </ul>
+      </nav>
+      <div class="rail"><div class="rail-fill" id="rail-fill"></div></div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section id="hero" data-screen-label="01 Hero">
+        <p class="hero-pre">
+          <span class="a">// </span>nikolas trimandylis · 2025
+        </p>
+        <h1 class="hero-name">
+          <span class="line"
+            ><span class="line-inner">Build<em>.</em></span></span
+          >
+          <span class="line"
+            ><span class="line-inner">Break<em>.</em></span></span
+          >
+          <span class="line"
+            ><span class="line-inner">Repeat<em>.</em></span></span
+          >
+        </h1>
+        <p class="hero-sub">
+          An exploratory AI tinkerer who vibecodes for the fun of it.
+        </p>
+        <p class="hero-body">
+          Neither a purist nor a generalist — a builder between languages.
+          Swift, Python, TypeScript, Flask, GLSL. Whatever the idea needs.
+        </p>
+        <div class="hero-tags">
+          <span class="tag">swift</span>
+          <span class="tag">python</span>
+          <span class="tag">typescript</span>
+          <span class="tag">flask</span>
+          <span class="tag">glsl</span>
+          <span class="tag hi">ai</span>
+        </div>
+      </section>
+
+      <!-- MARQUEE -->
+      <div id="strip">
+        <div class="marquee">
+          <span class="marquee-item">built<em>.</em></span>
+          <span class="marquee-dot">·</span>
+          <span class="marquee-item">shipped<em>.</em></span>
+          <span class="marquee-dot">·</span>
+          <span class="marquee-item">broke<em>.</em></span>
+          <span class="marquee-dot">·</span>
+          <span class="marquee-item">a builder between <em>languages</em></span>
+          <span class="marquee-dot">·</span>
+          <span class="marquee-item">ai-curious<em>.</em></span>
+          <span class="marquee-dot">·</span>
+          <span class="marquee-item">unafraid of <em>weird</em></span>
+          <span class="marquee-dot">·</span>
+          <!-- dupe -->
+          <span class="marquee-item">built<em>.</em></span>
+          <span class="marquee-dot">·</span>
+          <span class="marquee-item">shipped<em>.</em></span>
+          <span class="marquee-dot">·</span>
+          <span class="marquee-item">broke<em>.</em></span>
+          <span class="marquee-dot">·</span>
+          <span class="marquee-item">a builder between <em>languages</em></span>
+          <span class="marquee-dot">·</span>
+          <span class="marquee-item">ai-curious<em>.</em></span>
+          <span class="marquee-dot">·</span>
+          <span class="marquee-item">unafraid of <em>weird</em></span>
+          <span class="marquee-dot">·</span>
+        </div>
+      </div>
+
+      <!-- LOG -->
+      <section id="log" data-screen-label="02 Log">
+        <div class="log-header">
+          <span class="log-header-label"
+            ><span class="a">// </span>things i've made</span
+          >
+          <span class="log-count"><em>05 entries</em></span>
+        </div>
+
+        <div class="entry" data-project="0">
+          <span class="entry-num">01</span>
+          <div class="entry-body">
+            <p class="entry-kicker">
+              <span class="a">+ </span>featured · swift · ai
+            </p>
+            <h2 class="entry-title">Petal<em>.AI</em></h2>
+            <p class="entry-voice">An AI tutor that actually teaches.</p>
+            <p class="entry-note">
+              <span class="a">// </span>built for IBDP students who needed
+              something that explains — not just answers<br />
+              <span class="a">+ </span>deployed. used. improved.
+            </p>
+            <div class="entry-tags">
+              <span class="tag">swift</span>
+              <span class="tag">swiftui</span>
+              <span class="tag">gemini api</span>
+              <span class="tag hi">ai</span>
+            </div>
+          </div>
+          <span class="entry-year">2024</span>
+        </div>
+
+        <div class="entry" data-project="1">
+          <span class="entry-num">02</span>
+          <div class="entry-body">
+            <p class="entry-kicker">
+              <span class="a">+ </span>experiment · python · ai
+            </p>
+            <h2 class="entry-title">LLM<em>-Mafia</em></h2>
+            <p class="entry-voice">LLMs lie. Proved it.</p>
+            <p class="entry-note">
+              <span class="a">// </span>built to see if language models would
+              deceive each other<br />
+              <span class="a">+ </span>they did — better than expected
+            </p>
+            <div class="entry-tags">
+              <span class="tag">python</span>
+              <span class="tag">flask</span>
+              <span class="tag hi">ai</span>
+            </div>
+          </div>
+          <span class="entry-year">2024</span>
+        </div>
+
+        <div class="entry" data-project="2">
+          <span class="entry-num">03</span>
+          <div class="entry-body">
+            <p class="entry-kicker">
+              <span class="a">+ </span>personal · typescript · ai
+            </p>
+            <h2 class="entry-title">J.A.R.V.I.S<em>.</em></h2>
+            <p class="entry-voice">A personal AI that knows the context.</p>
+            <p class="entry-note">
+              <span class="a">// </span>because Siri wasn't enough<br />
+              <span class="a">+ </span>persistent memory, tool use, voice
+            </p>
+            <div class="entry-tags">
+              <span class="tag">typescript</span>
+              <span class="tag">next.js</span>
+              <span class="tag hi">ai</span>
+            </div>
+          </div>
+          <span class="entry-year">2024</span>
+        </div>
+
+        <div class="entry" data-project="3">
+          <span class="entry-num">04</span>
+          <div class="entry-body">
+            <p class="entry-kicker">
+              <span class="a">+ </span>community · typescript
+            </p>
+            <h2 class="entry-title">kizuna<em>.</em></h2>
+            <p class="entry-voice">A place for people between places.</p>
+            <p class="entry-note">
+              <span class="a">// </span>full-stack, real-time, production<br />
+              <span class="a">+ </span>built from scratch because I needed it
+            </p>
+            <div class="entry-tags">
+              <span class="tag">typescript</span>
+              <span class="tag">next.js</span>
+              <span class="tag">postgres</span>
+            </div>
+          </div>
+          <span class="entry-year">2023</span>
+        </div>
+
+        <div class="entry" data-project="4">
+          <span class="entry-num">05</span>
+          <div class="entry-body">
+            <p class="entry-kicker">
+              <span class="a">+ </span>experiment · glsl · webgl
+            </p>
+            <h2 class="entry-title">cosmos<em>.</em></h2>
+            <p class="entry-voice">Scroll velocity as texture.</p>
+            <p class="entry-note">
+              <span class="a">// </span>a tech demo built through vibecoding<br />
+              <span class="a">+ </span>the background of this page is a
+              descendant
+            </p>
+            <div class="entry-tags">
+              <span class="tag">glsl</span>
+              <span class="tag">webgl</span>
+              <span class="tag">typescript</span>
+            </div>
+          </div>
+          <span class="entry-year">2023</span>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" data-screen-label="03 About">
+        <div class="about-grid">
+          <div class="about-left">
+            <p class="about-label"><span class="a">// </span>about</p>
+            <div class="seal-wrap">
+              <img
+                id="about-seal"
+                class="about-seal"
+                alt="nikolas — seal mascot"
+                src="assets/seal.png"
+              />
+            </div>
+            <p class="about-caption">
+              <span class="a">// </span>that's me, apparently<br />
+              <span class="a">+ </span>swift · python · typescript · flask ·
+              glsl
+            </p>
+          </div>
+          <div class="about-right">
+            <h2 class="about-heading" id="about-heading">
+              a builder<br />between<br />languages<em>.</em>
+            </h2>
+            <p class="about-pull" id="about-pull">
+              neither a purist nor a generalist.
+            </p>
+            <p class="about-para" id="about-para">
+              IBDP student — Computer Science HL, Mathematics AA HL, Business
+              SL. Focused on AI, full-stack development, and building things
+              that are either genuinely useful or genuinely interesting. Ideally
+              both.
+            </p>
+            <p class="about-notes" id="about-notes">
+              <span class="a">// </span>built an LLM-powered Mafia game because
+              I wanted to see if they'd lie<br />
+              <span class="a">+ </span>they did — better than expected<br />
+              <span class="a">// </span>vibecoded a WebGL flow field in a
+              weekend for the fun of it<br />
+              <span class="a">+ </span>this one surprised me
+            </p>
+            <blockquote class="about-quote" id="about-quote">
+              "Dark mode should be mandatory. Fresh installs solve everything.
+              Git is a mystery I refuse to solve."
+            </blockquote>
+            <div class="about-setup">
+              <p class="about-notes" style="margin-bottom: 0.75rem">
+                <span class="a">// </span>setup
+              </p>
+              <table class="setup-table" id="setup-table">
+                <tbody>
+                  <tr>
+                    <td>machine</td>
+                    <td>MacBook Pro M3 Pro</td>
+                  </tr>
+                  <tr>
+                    <td>os</td>
+                    <td>macOS</td>
+                  </tr>
+                  <tr>
+                    <td>terminal</td>
+                    <td>Ghostty</td>
+                  </tr>
+                  <tr>
+                    <td>editors</td>
+                    <td>Zed · VS Code</td>
+                  </tr>
+                  <tr>
+                    <td>browser</td>
+                    <td>Helium</td>
+                  </tr>
+                  <tr>
+                    <td>theme</td>
+                    <td>Nord / Catppuccin</td>
+                  </tr>
+                  <tr>
+                    <td>ai agent</td>
+                    <td>Claude Code</td>
+                  </tr>
+                  <tr>
+                    <td>pkg manager</td>
+                    <td>Homebrew</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- GITHUB — live receipts -->
+      <section id="github" data-screen-label="04 Receipts">
+        <div class="log-header">
+          <span class="log-header-label"
+            ><span class="a">// </span>receipts — pulled live from github</span
+          >
+          <span class="log-count" id="gh-count"><em>fetching…</em></span>
+        </div>
+        <p class="gh-disclaimer">
+          <span class="a">// </span>everything below is real-time from the
+          GitHub API. if it looks empty, either I deleted everything in a fit
+          of refactoring, or you hit the rate limit. probably the rate limit.
+        </p>
+        <div class="gh-grid" id="gh-grid" aria-live="polite"></div>
+        <p class="gh-footnote" id="gh-footnote"></p>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" data-screen-label="05 Contact">
+        <div class="contact-inner">
+          <p class="contact-label">
+            <span class="a">// </span>contact · open to work
+          </p>
+          <h2 class="contact-head" id="contact-head">
+            let's build<br />something<br /><em
+              ><span id="cycle-word" class="cycle-word">weird.</span></em
+            >
+          </h2>
+          <div class="contact-row">
+            <div>
+              <a href="mailto:nicktrim8@duck.com" class="contact-link"
+                >nicktrim8@duck.com</a
+              >
+              <p class="about-caption" style="margin-top: 0.6rem">
+                <span class="a">// </span>yes, my email is indeed a duck
+              </p>
+              <a
+                href="https://github.com/nitrimandylis"
+                target="_blank"
+                class="contact-link"
+                >github.com/nitrimandylis</a
+              >
+            </div>
+          </div>
+          <div class="contact-foot">
+            <div class="contact-nt">NT<em>.</em></div>
+            <p class="contact-colophon">
+              <span class="a">// </span>organic brutalism · 2025<br />
+              <span class="a">+ </span>glsl · lenis · gsap · fraunces
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- the bottom -->
+      <section id="the-end" aria-label="the end">
+        <p class="end-line"><span class="a">// </span>you scrolled all the way down. respect.</p>
+        <p class="end-line dim">there is nothing below this. I checked.</p>
+        <p class="end-line dim" id="visit-counter"></p>
+      </section>
+    </main>
+
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay">
+      <div class="overlay-panel">
+        <button class="overlay-close" id="overlay-close">esc ×</button>
+        <p class="overlay-num" id="ov-num"></p>
+        <h2 class="overlay-title" id="ov-title"></h2>
+        <p class="overlay-voice" id="ov-voice"></p>
+        <p class="overlay-note" id="ov-note"></p>
+        <p class="overlay-body" id="ov-body"></p>
+        <div class="overlay-tags" id="ov-tags"></div>
+      </div>
+    </div>
+
+    <!-- CDNs -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <script src="js/shader.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/github.js"></script>
+    <script src="js/extras.js"></script>
+  </body>
+</html>
