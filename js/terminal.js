@@ -30,7 +30,7 @@
         "commands: ls · cat <file> · whoami · uname · uptime · github · contact · clear · sudo hire-nick · rm -rf /",
       ),
     ls: () => print(Object.keys(PROJECTS).join("   ") + "   about.txt"),
-    whoami: () => print("guest. but the OS is nikolas trimandylis — swift, python, typescript, glsl."),
+    whoami: () => print("guest. but the OS is nick trimandylis — swift, python, typescript, glsl."),
     uname: () => print("breakOS 2.6.11 'Definitely Stable' — human/1 SMP PREEMPT est.2007"),
     uptime: () => {
       const s = Math.floor(performance.now() / 1000);
@@ -68,7 +68,7 @@
       print("[sudo] password for guest: (accepted. flattery counts)");
       print("generating offer letter…");
       print(
-        'Dear Nikolas, we were going to interview other candidates but the\nfake operating system broke us. Start Monday?\n→ send it: <a href="mailto:nicktrim8@duck.com?subject=re: sudo hire-nick" style="color:#f8b26a">nicktrim8@duck.com</a>',
+        'Dear Nick, we were going to interview other candidates but the\nfake operating system broke us. Start Monday?\n→ send it: <a href="mailto:nicktrim8@duck.com?subject=re: sudo hire-nick" style="color:#f8b26a">nicktrim8@duck.com</a>',
         true,
       );
       return;

@@ -46,4 +46,4 @@ There are several. Opening the browser console is a good start. Typing a
 certain four-letter marine mammal is another.
 
 ---
-built by [Nikolas Trimandylis](https://github.com/nitrimandylis) · nicktrim8@duck.com (yes, the email is a duck)
+built by [Nick Trimandylis](https://github.com/nitrimandylis) · nicktrim8@duck.com (yes, the email is a duck)
