@@ -161,52 +161,144 @@ document.getElementById("tb-start").addEventListener("click", () => {
   notify("start menu not found. there is only scroll.");
 });
 
-// ── file manager: curated projects ──
-const FILES = [
-  {
-    name: "petal_ai.app",
+// ── shared repo fetch: one request, 30-min cache, monitor.js reuses this ──
+window.BREAKOS_REPOS = (function () {
+  const USER = "nitrimandylis";
+  const CACHE_KEY = "breakos-repos-v1";
+  const CACHE_TTL = 1000 * 60 * 30;
+  try {
+    const c = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+    if (c && Date.now() - c.at < CACHE_TTL) return Promise.resolve(c.repos);
+  } catch (_) {}
+  return fetch(`https://api.github.com/users/${USER}/repos?sort=pushed&per_page=100`)
+    .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+    .then((repos) => {
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), repos }));
+      } catch (_) {}
+      return repos;
+    });
+})();
+
+// ── file manager: most recently committed repos, curated copy where it exists ──
+const FILE_COPY = {
+  "petal.ai": {
+    label: "petal_ai.app",
+    verdict: "teaches. actually.",
     voice: "An AI tutor that actually teaches.",
     body: "Built in SwiftUI with the Gemini API. The insight: students don't need answers — they need the next question. Petal structures learning as dialogue, not retrieval. Native iOS, deployed, used by real IBDP students.",
-    meta: "kind: swift · swiftui · gemini api · ai\nstatus: deployed. used. improved.",
+    kind: "swift · ai",
   },
-  {
-    name: "llm_mafia.py",
+  "llm-mafia": {
+    label: "llm_mafia.py",
+    verdict: "LLMs lie. proved it.",
     voice: "LLMs lie. Proved it.",
     body: "Multi-agent Mafia game where every player is an LLM. Given social incentive, will they produce strategic deception? Yes — and eerily well. Flask backend, async agent loop.",
-    meta: "kind: python · flask · ai\nstatus: the models are still lying somewhere",
+    kind: "python · ai",
   },
-  {
-    name: "jarvis.ts",
+  "j.a.r.v.i.s.": {
+    label: "jarvis.ts",
+    verdict: "siri wasn't enough",
     voice: "A personal AI that knows the context.",
     body: "Voice-activated personal assistant with persistent memory and tool-use scaffolding. Not a wrapper — a system. Built because I wanted something that remembered what we talked about yesterday.",
-    meta: "kind: typescript · next.js · ai\nstatus: remembers more than I do",
+    kind: "typescript · ai",
   },
-  {
-    name: "kizuna.app",
+  kizuna: {
+    label: "kizuna.app",
+    verdict: "real users. terrifying.",
     voice: "A place for people between places.",
     body: "Community platform — real-time messaging, profiles, discovery. Built from scratch because no existing product fit. Full-stack TypeScript, PostgreSQL, deployed and used by real people.",
-    meta: "kind: typescript · next.js · postgres\nstatus: production. real users. terrifying.",
+    kind: "typescript",
   },
-  {
-    name: "cosmos.glsl",
+  cosmos: {
+    label: "cosmos.glsl",
+    verdict: "math as vibes",
     voice: "Scroll velocity as texture.",
     body: "Simplex noise flow field driven by scroll velocity. Fast = chaos, rest = ambient drift. Built in a weekend through vibecoding. The wallpaper behind these windows is its descendant — third generation now.",
-    meta: "kind: glsl · webgl · typescript\nstatus: ancestor of this very page",
+    kind: "glsl · webgl",
   },
-];
+  focal: {
+    label: "focal.py",
+    verdict: "photos, but organized",
+    voice: "Photo management for a camera nobody makes software for.",
+    body: "Desktop photo management app for Sony Cyber-shot libraries. Import, organize, browse — built because the official tooling stopped trying. Python, runs on the desk, not the cloud.",
+    kind: "python · desktop",
+  },
+  portfolio: {
+    label: "breakos.sys",
+    verdict: "you are here",
+    voice: "You are looking at it.",
+    body: "This site. A portfolio disguised as an operating system. It builds. It breaks. It reboots. Opening this file from inside this file is the closest breakOS gets to recursion.",
+    kind: "html · css · js",
+  },
+};
 
+const FILE_EXT = {
+  Swift: ".app",
+  Python: ".py",
+  TypeScript: ".ts",
+  JavaScript: ".js",
+  HTML: ".html",
+  CSS: ".css",
+  GLSL: ".glsl",
+  Shell: ".sh",
+  "C++": ".cpp",
+  C: ".c",
+  Rust: ".rs",
+  Go: ".go",
+};
+
+const FILE_COUNT = 7;
+const filesTable = document.getElementById("files-table");
+const filesStatus = document.getElementById("files-status");
 const overlay = document.getElementById("overlay");
-document.querySelectorAll(".filerow[data-file]").forEach((row) => {
-  row.addEventListener("click", () => {
-    const f = FILES[+row.dataset.file];
-    if (!f) return;
-    document.getElementById("ov-title").textContent = "▤ " + f.name;
-    document.getElementById("ov-name").textContent = f.name;
-    document.getElementById("ov-voice").textContent = f.voice;
-    document.getElementById("ov-body").textContent = f.body;
-    document.getElementById("ov-meta").innerText = f.meta;
-    overlay.classList.add("open");
+
+function fileEntry(repo) {
+  const curated = FILE_COPY[repo.name.toLowerCase()] || {};
+  const slug = repo.name.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+  return {
+    name: curated.label || slug + (FILE_EXT[repo.language] || ".bin"),
+    kind: curated.kind || (repo.language || "vibes").toLowerCase(),
+    year: new Date(repo.created_at).getFullYear(),
+    verdict: curated.verdict || (repo.description ? repo.description.split(/[.!?]/)[0].toLowerCase() : "no description. bold."),
+    voice: curated.voice || repo.description || "No description. The commits speak, allegedly.",
+    body: curated.body || [repo.description || "Undocumented.", "Written mostly in " + (repo.language || "something GitHub can't classify") + ".", "Last commit " + new Date(repo.pushed_at).toLocaleDateString() + "."].join(" "),
+    meta: "kind: " + (curated.kind || (repo.language || "unknown").toLowerCase()) + "\nlast commit: " + new Date(repo.pushed_at).toLocaleDateString() + "\nstatus: " + (curated.verdict || "see commit log"),
+  };
+}
+
+function openFile(f) {
+  document.getElementById("ov-title").textContent = "▤ " + f.name;
+  document.getElementById("ov-name").textContent = f.name;
+  document.getElementById("ov-voice").textContent = f.voice;
+  document.getElementById("ov-body").textContent = f.body;
+  document.getElementById("ov-meta").innerText = f.meta;
+  overlay.classList.add("open");
+}
+
+window.BREAKOS_REPOS.then((repos) => {
+  const entries = repos
+    .filter((r) => !r.fork && r.name.toLowerCase() !== "nitrimandylis")
+    .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
+    .slice(0, FILE_COUNT)
+    .map(fileEntry);
+  filesTable.textContent = "";
+  entries.forEach((f) => {
+    const row = document.createElement("button");
+    row.className = "filerow";
+    ["name", "kind", "year", "verdict"].forEach((k) => {
+      const span = document.createElement("span");
+      if (k === "name") span.className = "fname";
+      if (k === "verdict") span.className = "fverdict";
+      span.textContent = f[k];
+      row.appendChild(span);
+    });
+    row.addEventListener("click", () => openFile(f));
+    filesTable.appendChild(row);
   });
+  filesStatus.textContent = entries.length + " items · sorted by last commit · click a file to open";
+}).catch(() => {
+  filesStatus.textContent = "directory unreadable. github api said no. the work exists — github.com/nitrimandylis";
 });
 document.getElementById("ov-close").addEventListener("click", () => overlay.classList.remove("open"));
 overlay.addEventListener("click", (e) => {

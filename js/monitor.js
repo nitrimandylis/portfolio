@@ -3,8 +3,6 @@
 // ════════════════════════════════════════════════
 (function monitor() {
   const USER = "nitrimandylis";
-  const CACHE_KEY = "breakos-repos-v1";
-  const CACHE_TTL = 1000 * 60 * 30;
   const table = document.getElementById("mon-table");
   const loading = document.getElementById("mon-loading");
 
@@ -42,24 +40,8 @@
       "github api said no. rate limit, probably. the repos exist — github.com/" + USER;
   }
 
-  try {
-    const c = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
-    if (c && Date.now() - c.at < CACHE_TTL) {
-      render(c.repos);
-    } else {
-      throw 0;
-    }
-  } catch (_) {
-    fetch(`https://api.github.com/users/${USER}/repos?sort=pushed&per_page=100`)
-      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((repos) => {
-        try {
-          localStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), repos }));
-        } catch (_) {}
-        render(repos);
-      })
-      .catch(fail);
-  }
+  // fetch + cache live in os.js (window.BREAKOS_REPOS) — one request for both windows
+  window.BREAKOS_REPOS.then(render).catch(fail);
 
   // ── honest system load: real fps, real scroll depth, real uptime ──
   const fpsEl = document.getElementById("stat-fps");
