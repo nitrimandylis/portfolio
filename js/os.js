@@ -24,14 +24,18 @@ console.log(
 // ── tab title gag ──
 const REAL_TITLE = document.title;
 document.addEventListener("visibilitychange", () => {
-  document.title = document.hidden ? "breakOS — suspended (it'll keep)" : REAL_TITLE;
+  document.title = document.hidden
+    ? "breakOS — suspended (it'll keep)"
+    : REAL_TITLE;
 });
 
 // ── clock ──
 function tickClock() {
   const d = new Date();
   document.getElementById("tb-clock").textContent =
-    String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+    String(d.getHours()).padStart(2, "0") +
+    ":" +
+    String(d.getMinutes()).padStart(2, "0");
 }
 tickClock();
 setInterval(tickClock, 10000);
@@ -102,13 +106,14 @@ if (!REDUCED) {
     });
   });
   const ICON_TOASTS = {
-    "my_computer":            "no drives found. the computer is fine.",
-    "recycle bin (full)":     "85 items. you'll need those someday.",
-    "untitled_final_v2_REAL": "there are 11 more versions. this is the real one.",
-    "do_not_open.txt":        "too late.",
-    "dial_up.exe":            "connecting… 56k… connected. do not pick up the phone.",
-    "passwords.txt":          "hunter2. always hunter2.",
-    "shortcut to shortcut":   "this is a shortcut to a shortcut. the original was lost.",
+    my_computer: "no drives found. the computer is fine.",
+    "recycle bin (full)": "85 items. you'll need those someday.",
+    untitled_final_v2_REAL: "there are 11 more versions. this is the real one.",
+    "do_not_open.txt": "too late.",
+    "dial_up.exe": "connecting… 56k… connected. do not pick up the phone.",
+    "passwords.txt": "hunter2. always hunter2.",
+    "shortcut to shortcut":
+      "this is a shortcut to a shortcut. the original was lost.",
     "important_FINAL_v3.zip": "contains: important_FINAL_v2.zip.",
   };
 
@@ -116,16 +121,20 @@ if (!REDUCED) {
 
   // quickTo setters — one per icon, created once
   const xTo = Array.from(icons).map((icon) =>
-    gsap.quickTo(icon, "x", { duration: 0.7, ease: "power1.out" })
+    gsap.quickTo(icon, "x", { duration: 0.7, ease: "power1.out" }),
   );
 
-  window.addEventListener("mousemove", (e) => {
-    const cx = window.innerWidth / 2;
-    icons.forEach((icon, i) => {
-      const depth = parseFloat(icon.dataset.depth || 0.05) * 110;
-      xTo[i]((e.clientX - cx) * depth / window.innerWidth);
-    });
-  }, { passive: true });
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+      const cx = window.innerWidth / 2;
+      icons.forEach((icon, i) => {
+        const depth = parseFloat(icon.dataset.depth || 0.05) * 110;
+        xTo[i](((e.clientX - cx) * depth) / window.innerWidth);
+      });
+    },
+    { passive: true },
+  );
 
   icons.forEach((icon, i) => {
     const depth = parseFloat(icon.dataset.depth || 0.05);
@@ -135,7 +144,12 @@ if (!REDUCED) {
     gsap.to(icon, {
       y: () => -window.innerHeight * depth * 8,
       ease: "none",
-      scrollTrigger: { trigger: "#desktop", start: "top top", end: "bottom bottom", scrub: 1.2 },
+      scrollTrigger: {
+        trigger: "#desktop",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1.2,
+      },
     });
 
     // ambient float on inner .icon-float (separate element — no Y conflict)
@@ -150,7 +164,7 @@ if (!REDUCED) {
 
     // click toast
     const label = icon.querySelector(".icon-label")?.textContent || "";
-    const quip  = ICON_TOASTS[label];
+    const quip = ICON_TOASTS[label];
     if (quip) icon.addEventListener("click", () => notify(quip, 3200));
   });
   gsap.from(".shutdown-dialog", {
@@ -166,7 +180,8 @@ if (!REDUCED) {
 const tray = document.getElementById("tb-tray");
 const CLOSE_QUIPS = {
   "things-i-made": "things-i-made moved to Trash. the projects remain shipped.",
-  "system-monitor": "monitor closed. the processes keep running. they always do.",
+  "system-monitor":
+    "monitor closed. the processes keep running. they always do.",
   terminal: "terminal closed. it whispered 'logout' as it went.",
   about: "about.app moved to Trash. bold move.",
   "new-message": "draft discarded. the duck email waits patiently.",
@@ -190,7 +205,10 @@ document.querySelectorAll(".window .tb-btn").forEach((btn) => {
         win.classList.remove("closed");
         b.remove();
         notify(app + " restored from Trash. no questions asked.");
-        win.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "center" });
+        win.scrollIntoView({
+          behavior: REDUCED ? "auto" : "smooth",
+          block: "center",
+        });
       });
       tray.appendChild(b);
     } else if (btn.dataset.act === "max") {
@@ -215,11 +233,16 @@ window.BREAKOS_REPOS = (function () {
     const c = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
     if (c && Date.now() - c.at < CACHE_TTL) return Promise.resolve(c.repos);
   } catch (_) {}
-  return fetch(`https://api.github.com/users/${USER}/repos?sort=pushed&per_page=100`)
+  return fetch(
+    `https://api.github.com/users/${USER}/repos?sort=pushed&per_page=100`,
+  )
     .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
     .then((repos) => {
       try {
-        localStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), repos }));
+        localStorage.setItem(
+          CACHE_KEY,
+          JSON.stringify({ at: Date.now(), repos }),
+        );
       } catch (_) {}
       return repos;
     });
@@ -238,7 +261,7 @@ const FILE_COPY = {
   "llm-mafia": {
     label: "llm_mafia.py",
     year: 2025,
-    verdict: "the town sleeps. the GPU does not.",
+    verdict: "LLMs lie. Prove it.",
     voice: "No humans. Pure model-vs-model deception.",
     body: "Fully autonomous Mafia — every player is an LLM with a role, a personality, and a win condition. They reason, accuse, and vote through parallel model inference. A separate LLM narrates. Runs against LM Studio (local) or NVIDIA NIM (cloud). You just watch the town burn.",
     kind: "python · ai",
@@ -360,9 +383,15 @@ PROJECTS.featured.forEach((key) => {
   const card = document.createElement("button");
   card.className = "feat-card";
   card.innerHTML =
-    '<span class="feat-name">' + c.label + "</span>" +
-    '<span class="feat-kind">' + c.kind + "</span>" +
-    '<span class="feat-verdict">' + c.verdict + "</span>";
+    '<span class="feat-name">' +
+    c.label +
+    "</span>" +
+    '<span class="feat-kind">' +
+    c.kind +
+    "</span>" +
+    '<span class="feat-verdict">' +
+    c.verdict +
+    "</span>";
   card.addEventListener("click", () => openFile(projectEntry(key)));
   document.getElementById("feat-grid").appendChild(card);
 });
@@ -389,7 +418,8 @@ Object.entries(PROJECTS.folders).forEach(([folder, keys]) => {
 
     const head = document.createElement("div");
     head.className = "filerow filehead";
-    head.innerHTML = "<span>name</span><span>kind</span><span>year</span><span>verdict</span>";
+    head.innerHTML =
+      "<span>name</span><span>kind</span><span>year</span><span>verdict</span>";
     folderContents.appendChild(head);
 
     keys.forEach((key) => {
@@ -397,10 +427,18 @@ Object.entries(PROJECTS.folders).forEach(([folder, keys]) => {
       const row = document.createElement("button");
       row.className = "filerow";
       row.innerHTML =
-        '<span class="fname">' + c.label + "</span>" +
-        "<span>" + c.kind + "</span>" +
-        "<span>" + c.year + "</span>" +
-        '<span class="fverdict">' + c.verdict + "</span>";
+        '<span class="fname">' +
+        c.label +
+        "</span>" +
+        "<span>" +
+        c.kind +
+        "</span>" +
+        "<span>" +
+        c.year +
+        "</span>" +
+        '<span class="fverdict">' +
+        c.verdict +
+        "</span>";
       row.addEventListener("click", () => openFile(projectEntry(key)));
       folderContents.appendChild(row);
     });
@@ -409,7 +447,9 @@ Object.entries(PROJECTS.folders).forEach(([folder, keys]) => {
   });
   folderRoot.appendChild(btn);
 });
-document.getElementById("ov-close").addEventListener("click", () => overlay.classList.remove("open"));
+document
+  .getElementById("ov-close")
+  .addEventListener("click", () => overlay.classList.remove("open"));
 overlay.addEventListener("click", (e) => {
   if (e.target === overlay) overlay.classList.remove("open");
 });
@@ -447,7 +487,8 @@ bsod.addEventListener("click", reboot);
 // ── uptime (honest visit counter, reborn) ──
 let visits = 1;
 try {
-  visits = (parseInt(localStorage.getItem("breakos-visits") || "0", 10) || 0) + 1;
+  visits =
+    (parseInt(localStorage.getItem("breakos-visits") || "0", 10) || 0) + 1;
   localStorage.setItem("breakos-visits", String(visits));
 } catch (_) {}
 document.getElementById("sd-uptime").textContent =
