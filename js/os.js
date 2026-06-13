@@ -8,6 +8,7 @@ const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 // ── Lenis smooth scroll ──
 if (!REDUCED) {
   const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+  window.__lenis = lenis;
   lenis.on("scroll", ScrollTrigger.update);
   gsap.ticker.add((t) => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
