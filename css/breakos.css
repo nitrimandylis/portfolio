@@ -82,17 +82,30 @@ em {
 .icons {
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: 11;
   pointer-events: none;
 }
 .icon {
   position: absolute;
+  will-change: transform;
+  pointer-events: all;
+  cursor: pointer;
+  user-select: none;
+}
+.icon-float {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
   opacity: 0.55;
-  will-change: transform;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+.icon:hover .icon-float {
+  opacity: 0.9;
+}
+.icon:hover .icon-label {
+  color: var(--coral);
 }
 .icon-glyph {
   font-size: 2rem;
@@ -104,6 +117,7 @@ em {
   color: var(--ink-soft);
   background: var(--paper);
   padding: 0 4px;
+  transition: color 0.15s;
 }
 
 /* ── BOOT ── */
@@ -281,6 +295,91 @@ em {
   font-family: var(--ff-chrome);
   font-size: 1.05rem;
   color: var(--ink-soft);
+}
+
+/* ── featured cards ── */
+.section-label {
+  font-family: var(--ff-chrome);
+  font-size: 1rem;
+  color: var(--bevel-dark);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.7rem;
+}
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.55rem;
+}
+.feat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.65rem 0.7rem;
+  background: none;
+  border: 1.5px solid var(--bevel-dark);
+  border-top: 3px solid var(--teal);
+  text-align: left;
+  cursor: pointer;
+  transition: border-top-color 0.12s, background 0.12s;
+}
+.feat-card:hover {
+  border-top-color: var(--coral);
+  background: var(--paper-deep);
+}
+.feat-name {
+  font-family: var(--ff-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.feat-kind {
+  font-family: var(--ff-mono);
+  font-size: 0.63rem;
+  color: var(--ink-soft);
+}
+.feat-verdict {
+  font-family: var(--ff-body);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--coral);
+  margin-top: auto;
+  padding-top: 0.4rem;
+}
+
+/* ── folder browser ── */
+.folder-root {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.folder-btn {
+  font-family: var(--ff-chrome);
+  font-size: 1.15rem;
+  color: var(--ink);
+  background: none;
+  border: 1.5px solid var(--bevel-dark);
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s;
+}
+.folder-btn:hover {
+  background: var(--paper-deep);
+  border-color: var(--teal);
+  color: var(--teal);
+}
+.folder-back {
+  display: inline-block;
+  font-family: var(--ff-chrome);
+  font-size: 1.1rem;
+  color: var(--teal);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 0.5rem;
+}
+.folder-back:hover {
+  color: var(--coral);
 }
 
 /* ── monitor ── */
@@ -703,6 +802,9 @@ em {
   }
   .window {
     width: 100%;
+  }
+  .feat-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
   .filerow {
     grid-template-columns: 1.4fr 1fr;

@@ -23,20 +23,29 @@
 
     <!-- desktop icons (parallax layer) -->
     <div class="icons" aria-hidden="true">
-      <div class="icon" data-depth="0.04" style="top: 14%; left: 6%">
-        <span class="icon-glyph">▣</span><span class="icon-label">my_computer</span>
+      <div class="icon" data-depth="0.04" data-tilt="1.2" style="top: 14%; left: 6%">
+        <div class="icon-float"><span class="icon-glyph">▣</span><span class="icon-label">my_computer</span></div>
       </div>
-      <div class="icon" data-depth="0.09" style="top: 38%; right: 5%">
-        <span class="icon-glyph">🗑</span><span class="icon-label">recycle bin (full)</span>
+      <div class="icon" data-depth="0.09" data-tilt="-1.8" style="top: 38%; right: 5%">
+        <div class="icon-float"><span class="icon-glyph">🗑</span><span class="icon-label">recycle bin (full)</span></div>
       </div>
-      <div class="icon" data-depth="0.06" style="top: 64%; left: 4%">
-        <span class="icon-glyph">▤</span><span class="icon-label">untitled_final_v2_REAL</span>
+      <div class="icon" data-depth="0.06" data-tilt="2.5" style="top: 64%; left: 4%">
+        <div class="icon-float"><span class="icon-glyph">▤</span><span class="icon-label">untitled_final_v2_REAL</span></div>
       </div>
-      <div class="icon" data-depth="0.12" style="top: 80%; right: 9%">
-        <span class="icon-glyph">◈</span><span class="icon-label">do_not_open.txt</span>
+      <div class="icon" data-depth="0.12" data-tilt="-3" style="top: 80%; right: 9%">
+        <div class="icon-float"><span class="icon-glyph">◈</span><span class="icon-label">do_not_open.txt</span></div>
       </div>
-      <div class="icon" data-depth="0.07" style="top: 8%; right: 22%">
-        <span class="icon-glyph">✆</span><span class="icon-label">dial_up.exe</span>
+      <div class="icon" data-depth="0.07" data-tilt="1.5" style="top: 8%; right: 22%">
+        <div class="icon-float"><span class="icon-glyph">✆</span><span class="icon-label">dial_up.exe</span></div>
+      </div>
+      <div class="icon" data-depth="0.05" data-tilt="-1" style="top: 52%; left: 8%">
+        <div class="icon-float"><span class="icon-glyph">⚠</span><span class="icon-label">passwords.txt</span></div>
+      </div>
+      <div class="icon" data-depth="0.10" data-tilt="2" style="top: 22%; right: 7%">
+        <div class="icon-float"><span class="icon-glyph">◫</span><span class="icon-label">shortcut to shortcut</span></div>
+      </div>
+      <div class="icon" data-depth="0.08" data-tilt="-2.2" style="top: 70%; right: 14%">
+        <div class="icon-float"><span class="icon-glyph">✦</span><span class="icon-label">important_FINAL_v3.zip</span></div>
       </div>
     </div>
 
@@ -58,31 +67,52 @@
 
       <!-- ══ DESKTOP SESSION ══ -->
       <section class="ws" id="ws-files">
-        <div class="window" id="win-files" data-app="things-i-made" data-drift="left">
+        <div
+          class="window"
+          id="win-files"
+          data-app="things-i-made"
+          data-drift="left"
+        >
           <div class="titlebar">
             <span class="tb-title">▤ ~/things-i-made</span>
             <span class="tb-btns">
-              <button class="tb-btn" data-act="max" aria-label="maximize">□</button>
-              <button class="tb-btn" data-act="close" aria-label="close">✕</button>
+              <button class="tb-btn" data-act="max" aria-label="maximize">
+                □
+              </button>
+              <button class="tb-btn" data-act="close" aria-label="close">
+                ✕
+              </button>
             </span>
           </div>
           <div class="win-body">
-            <div class="filerow filehead">
-              <span>name</span><span>kind</span><span>year</span><span>verdict</span>
-            </div>
-            <div id="files-table"></div>
-            <p class="win-status" id="files-status">reading directory…</p>
+            <p class="section-label">── featured ──</p>
+            <div class="feat-grid" id="feat-grid"></div>
+            <p class="section-label" style="margin-top:1.2rem">── browse ──</p>
+            <div id="folder-root" class="folder-root"></div>
+            <div id="folder-contents" class="folder-contents" hidden></div>
+            <p class="win-status" id="files-status">4 pinned · browse by folder</p>
           </div>
         </div>
       </section>
 
       <section class="ws" id="ws-monitor">
-        <div class="window" id="win-monitor" data-app="system-monitor" data-drift="right">
+        <div
+          class="window"
+          id="win-monitor"
+          data-app="system-monitor"
+          data-drift="right"
+        >
           <div class="titlebar">
-            <span class="tb-title">◔ System Monitor — live from api.github.com</span>
+            <span class="tb-title"
+              >◔ System Monitor — live from api.github.com</span
+            >
             <span class="tb-btns">
-              <button class="tb-btn" data-act="max" aria-label="maximize">□</button>
-              <button class="tb-btn" data-act="close" aria-label="close">✕</button>
+              <button class="tb-btn" data-act="max" aria-label="maximize">
+                □
+              </button>
+              <button class="tb-btn" data-act="close" aria-label="close">
+                ✕
+              </button>
             </span>
           </div>
           <div class="win-body">
@@ -92,9 +122,12 @@
             </p>
             <div class="mon-table" id="mon-table">
               <div class="monrow monhead">
-                <span>pid</span><span>process</span><span>lang</span><span>mem</span><span>last active</span>
+                <span>pid</span><span>process</span><span>lang</span
+                ><span>mem</span><span>last active</span>
               </div>
-              <p class="mon-loading" id="mon-loading">polling github<span class="blink">…</span></p>
+              <p class="mon-loading" id="mon-loading">
+                polling github<span class="blink">…</span>
+              </p>
             </div>
             <div class="mon-load" id="mon-load">
               <span>render: <em id="stat-fps">—</em> fps</span>
@@ -106,12 +139,21 @@
       </section>
 
       <section class="ws" id="ws-terminal">
-        <div class="window" id="win-terminal" data-app="terminal" data-drift="left">
+        <div
+          class="window"
+          id="win-terminal"
+          data-app="terminal"
+          data-drift="left"
+        >
           <div class="titlebar">
             <span class="tb-title">▮ terminal — guest@breakos</span>
             <span class="tb-btns">
-              <button class="tb-btn" data-act="max" aria-label="maximize">□</button>
-              <button class="tb-btn" data-act="close" aria-label="close">✕</button>
+              <button class="tb-btn" data-act="max" aria-label="maximize">
+                □
+              </button>
+              <button class="tb-btn" data-act="close" aria-label="close">
+                ✕
+              </button>
             </span>
           </div>
           <div class="win-body term-body" id="term-body">
@@ -120,7 +162,13 @@
             </div>
             <div class="term-line">
               <span class="term-prompt">guest@breakos:~$</span>
-              <input id="term-input" type="text" autocomplete="off" spellcheck="false" aria-label="terminal input" />
+              <input
+                id="term-input"
+                type="text"
+                autocomplete="off"
+                spellcheck="false"
+                aria-label="terminal input"
+              />
             </div>
           </div>
         </div>
@@ -131,27 +179,49 @@
           <div class="titlebar">
             <span class="tb-title">◍ About This Computer</span>
             <span class="tb-btns">
-              <button class="tb-btn" data-act="max" aria-label="maximize">□</button>
-              <button class="tb-btn" data-act="close" aria-label="close">✕</button>
+              <button class="tb-btn" data-act="max" aria-label="maximize">
+                □
+              </button>
+              <button class="tb-btn" data-act="close" aria-label="close">
+                ✕
+              </button>
             </span>
           </div>
           <div class="win-body about-body">
-            <img src="assets/seal.png" alt="seal — official breakOS mascot" class="about-seal" id="about-seal" />
+            <img
+              src="assets/seal.png"
+              alt="seal — official breakOS mascot"
+              class="about-seal"
+              id="about-seal"
+            />
             <div class="about-meta">
               <h1 class="about-name">breakOS</h1>
-              <p class="about-sub">a Nick Trimandylis production · est. 2007, usable since ~2021</p>
+              <p class="about-sub">
+                a Nick Trimandylis production · est. 2009, usable since ~2023
+              </p>
               <dl class="spec-table">
-                <dt>processor</dt><dd>1 × human, runs warm under deadline</dd>
-                <dt>languages</dt><dd>swift, python, typescript, glsl — whatever the idea needs</dd>
-                <dt>memory</dt><dd>selective. remembers API signatures, forgets where keys are</dd>
-                <dt>graphics</dt><dd>integrated. see wallpaper. it's doing its best</dd>
-                <dt>mascot</dt><dd>seal (pictured). non-negotiable. type "seal" anywhere</dd>
-                <dt>known issues</dt><dd>starts side projects at 1am. will not patch</dd>
+                <dt>processor</dt>
+                <dd>1 × human, runs warm under deadline</dd>
+                <dt>languages</dt>
+                <dd>
+                  swift, python, typescript, html/js — whatever the idea needs
+                </dd>
+                <dt>memory</dt>
+                <dd>
+                  selective. remembers API signatures, forgets where keys are
+                </dd>
+                <dt>graphics</dt>
+                <dd>integrated. see wallpaper. it's doing its best</dd>
+                <dt>mascot</dt>
+                <dd>seal (pictured). non-negotiable. type "seal" anywhere</dd>
+                <dt>known issues</dt>
+                <dd>starts side projects at 1am. will not patch</dd>
               </dl>
               <p class="about-copy">
                 Neither a purist nor a generalist — a builder between languages.
-                Vibecodes for the fun of it, ships because finishing feels better
-                than starting. This entire OS is a metaphor and it knows it.
+                Vibecodes for the fun of it, ships because finishing feels
+                better than starting. This entire OS is a metaphor and it knows
+                it.
               </p>
             </div>
           </div>
@@ -159,26 +229,54 @@
       </section>
 
       <section class="ws" id="ws-mail">
-        <div class="window" id="win-mail" data-app="new-message" data-drift="left">
+        <div
+          class="window"
+          id="win-mail"
+          data-app="new-message"
+          data-drift="left"
+        >
           <div class="titlebar">
             <span class="tb-title">✉ New Message</span>
             <span class="tb-btns">
-              <button class="tb-btn" data-act="max" aria-label="maximize">□</button>
-              <button class="tb-btn" data-act="close" aria-label="close">✕</button>
+              <button class="tb-btn" data-act="max" aria-label="maximize">
+                □
+              </button>
+              <button class="tb-btn" data-act="close" aria-label="close">
+                ✕
+              </button>
             </span>
           </div>
           <div class="win-body mail-body">
-            <div class="mail-field"><span>to:</span><a href="mailto:nicktrim8@duck.com">nicktrim8@duck.com</a><em class="mail-note">// yes, the email is a duck</em></div>
-            <div class="mail-field"><span>cc:</span><a href="https://github.com/nitrimandylis" target="_blank" rel="noopener">github.com/nitrimandylis</a></div>
-            <div class="mail-field"><span>subject:</span><b>let's build something weird</b></div>
+            <div class="mail-field">
+              <span>to:</span
+              ><a href="mailto:nicktrim8@duck.com">nicktrim8@duck.com</a
+              ><em class="mail-note">// yes, the email is a duck</em>
+            </div>
+            <div class="mail-field">
+              <span>cc:</span
+              ><a
+                href="https://github.com/nitrimandylis"
+                target="_blank"
+                rel="noopener"
+                >github.com/nitrimandylis</a
+              >
+            </div>
+            <div class="mail-field">
+              <span>subject:</span><b>let's build something weird</b>
+            </div>
             <p class="mail-draft">
               hi nick,<br /><br />
               I scrolled through your entire fake operating system and now I
-              would like to [ hire you / fund you / argue about tabs vs spaces ].<br /><br />
+              would like to [ hire you / fund you / argue about tabs vs spaces
+              ].<br /><br />
               regards,<br />
               a person of taste
             </p>
-            <a class="mail-send" href="mailto:nicktrim8@duck.com?subject=let's build something weird">send ▸</a>
+            <a
+              class="mail-send"
+              href="mailto:nicktrim8@duck.com?subject=let's build something weird"
+              >send ▸</a
+            >
           </div>
         </div>
       </section>
@@ -187,7 +285,9 @@
       <section class="ws" id="ws-shutdown">
         <div class="shutdown-dialog" id="shutdown-dialog">
           <p class="sd-title">⏻ Shut down breakOS?</p>
-          <p class="sd-body">you've reached the bottom. there is nothing below this. I checked.</p>
+          <p class="sd-body">
+            you've reached the bottom. there is nothing below this. I checked.
+          </p>
           <div class="sd-btns">
             <button class="sd-btn" id="sd-yes">Yes</button>
             <button class="sd-btn" id="sd-alsoyes">Also Yes</button>
@@ -200,7 +300,9 @@
     <!-- taskbar -->
     <footer class="taskbar" id="taskbar">
       <button class="tb-start" id="tb-start">▣ breakOS</button>
-      <div class="tb-progress"><div class="tb-progress-fill" id="tb-progress-fill"></div></div>
+      <div class="tb-progress">
+        <div class="tb-progress-fill" id="tb-progress-fill"></div>
+      </div>
       <div class="tb-tray" id="tb-tray"></div>
       <span class="tb-clock" id="tb-clock">--:--</span>
     </footer>
@@ -211,7 +313,14 @@
         <div class="titlebar">
           <span class="tb-title" id="ov-title">▤ file</span>
           <span class="tb-btns">
-            <button class="tb-btn" id="ov-close" data-act="close" aria-label="close">✕</button>
+            <button
+              class="tb-btn"
+              id="ov-close"
+              data-act="close"
+              aria-label="close"
+            >
+              ✕
+            </button>
           </span>
         </div>
         <div class="win-body">

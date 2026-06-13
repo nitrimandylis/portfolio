@@ -100,13 +100,57 @@ if (!REDUCED) {
       scrollTrigger: { trigger: win, start: "top 85%" },
     });
   });
-  document.querySelectorAll(".icon").forEach((icon) => {
+  const ICON_TOASTS = {
+    "my_computer":            "no drives found. the computer is fine.",
+    "recycle bin (full)":     "85 items. you'll need those someday.",
+    "untitled_final_v2_REAL": "there are 11 more versions. this is the real one.",
+    "do_not_open.txt":        "too late.",
+    "dial_up.exe":            "connecting… 56k… connected. do not pick up the phone.",
+    "passwords.txt":          "hunter2. always hunter2.",
+    "shortcut to shortcut":   "this is a shortcut to a shortcut. the original was lost.",
+    "important_FINAL_v3.zip": "contains: important_FINAL_v2.zip.",
+  };
+
+  const icons = document.querySelectorAll(".icon");
+
+  // quickTo setters — one per icon, created once
+  const xTo = Array.from(icons).map((icon) =>
+    gsap.quickTo(icon, "x", { duration: 0.7, ease: "power1.out" })
+  );
+
+  window.addEventListener("mousemove", (e) => {
+    const cx = window.innerWidth / 2;
+    icons.forEach((icon, i) => {
+      const depth = parseFloat(icon.dataset.depth || 0.05) * 110;
+      xTo[i]((e.clientX - cx) * depth / window.innerWidth);
+    });
+  }, { passive: true });
+
+  icons.forEach((icon, i) => {
     const depth = parseFloat(icon.dataset.depth || 0.05);
+    const float = icon.querySelector(".icon-float");
+
+    // scroll parallax on outer .icon (Y only — no conflict with float)
     gsap.to(icon, {
       y: () => -window.innerHeight * depth * 8,
       ease: "none",
       scrollTrigger: { trigger: "#desktop", start: "top top", end: "bottom bottom", scrub: 1.2 },
     });
+
+    // ambient float on inner .icon-float (separate element — no Y conflict)
+    gsap.to(float, {
+      y: "+=" + (5 + i * 1.4),
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      duration: 2.6 + i * 0.38,
+      delay: i * 0.32,
+    });
+
+    // click toast
+    const label = icon.querySelector(".icon-label")?.textContent || "";
+    const quip  = ICON_TOASTS[label];
+    if (quip) icon.addEventListener("click", () => notify(quip, 3200));
   });
   gsap.from(".shutdown-dialog", {
     scale: 0.7,
@@ -180,10 +224,11 @@ window.BREAKOS_REPOS = (function () {
     });
 })();
 
-// ── file manager: most recently committed repos, curated copy where it exists ──
+// ── file manager ──
 const FILE_COPY = {
   "petal.ai": {
-    label: "petal_ai.app",
+    label: "petal_ai.swift",
+    year: 2025,
     verdict: "teaches. actually.",
     voice: "An AI tutor that actually teaches.",
     body: "Built in SwiftUI with the Gemini API. The insight: students don't need answers — they need the next question. Petal structures learning as dialogue, not retrieval. Native iOS, deployed, used by real IBDP students.",
@@ -191,6 +236,7 @@ const FILE_COPY = {
   },
   "llm-mafia": {
     label: "llm_mafia.py",
+    year: 2025,
     verdict: "LLMs lie. proved it.",
     voice: "LLMs lie. Proved it.",
     body: "Multi-agent Mafia game where every player is an LLM. Given social incentive, will they produce strategic deception? Yes — and eerily well. Flask backend, async agent loop.",
@@ -198,20 +244,55 @@ const FILE_COPY = {
   },
   "j.a.r.v.i.s.": {
     label: "jarvis.ts",
+    year: 2026,
     verdict: "siri wasn't enough",
     voice: "A personal AI that knows the context.",
     body: "Voice-activated personal assistant with persistent memory and tool-use scaffolding. Not a wrapper — a system. Built because I wanted something that remembered what we talked about yesterday.",
     kind: "typescript · ai",
   },
   kizuna: {
-    label: "kizuna.app",
+    label: "kizuna.html",
+    year: 2026,
     verdict: "real users. terrifying.",
     voice: "A place for people between places.",
     body: "Community platform — real-time messaging, profiles, discovery. Built from scratch because no existing product fit. Full-stack TypeScript, PostgreSQL, deployed and used by real people.",
     kind: "typescript",
   },
+  tokenpilot: {
+    label: "tokenpilot.ts",
+    year: 2026,
+    verdict: "money, but for tokens",
+    voice: "LLM spend analysis for people who actually check.",
+    body: "Cost analysis and optimization tool for Anthropic and OpenAI admin APIs. Because 'it's just an API call' is what you say before the bill arrives. CLI-first, TypeScript. Built for the kind of developer who audits usage before shipping.",
+    kind: "typescript · cli",
+  },
+  "pm-dashboard": {
+    label: "pm_dashboard.js",
+    year: 2026,
+    verdict: "the IB, managed",
+    voice: "Mission control for surviving the IB Diploma.",
+    body: "Industrial-brutalist dashboard built for the IB Diploma. Two-way Notion sync, real-time task tracking, deadline visibility. Vanilla JS, Bun backend. Started as a productivity experiment. Became load-bearing.",
+    kind: "javascript · bun",
+  },
+  "ib-news-site": {
+    label: "ib_news_site.html",
+    year: 2025,
+    verdict: "a CMS. for a school.",
+    voice: "The school newspaper needed a website.",
+    body: "Full content management system for the school newspaper — articles, editing, publishing workflow. IB CS internal assessment project. Deployed. Used by actual student journalists. The CMS manages content. This felt like a reasonable achievement at the time.",
+    kind: "html · css · js",
+  },
+  starspace: {
+    label: "starspace.html",
+    year: 2025,
+    verdict: "cs education, but cooler",
+    voice: "Three cutting-edge CS fields, explained interactively.",
+    body: "Interactive educational website introducing ML, quantum computing, and computer vision to middle and high school students. Built for a science outreach project. Proves that plain HTML and good copy can compete with React.",
+    kind: "html · js",
+  },
   cosmos: {
-    label: "cosmos.glsl",
+    label: "cosmos.js",
+    year: 2026,
     verdict: "math as vibes",
     voice: "Scroll velocity as texture.",
     body: "Simplex noise flow field driven by scroll velocity. Fast = chaos, rest = ambient drift. Built in a weekend through vibecoding. The wallpaper behind these windows is its descendant — third generation now.",
@@ -219,6 +300,7 @@ const FILE_COPY = {
   },
   focal: {
     label: "focal.py",
+    year: 2026,
     verdict: "photos, but organized",
     voice: "Photo management for a camera nobody makes software for.",
     body: "Desktop photo management app for Sony Cyber-shot libraries. Import, organize, browse — built because the official tooling stopped trying. Python, runs on the desk, not the cloud.",
@@ -226,6 +308,7 @@ const FILE_COPY = {
   },
   portfolio: {
     label: "breakos.sys",
+    year: 2026,
     verdict: "you are here",
     voice: "You are looking at it.",
     body: "This site. A portfolio disguised as an operating system. It builds. It breaks. It reboots. Opening this file from inside this file is the closest breakOS gets to recursion.",
@@ -233,37 +316,31 @@ const FILE_COPY = {
   },
 };
 
-const FILE_EXT = {
-  Swift: ".app",
-  Python: ".py",
-  TypeScript: ".ts",
-  JavaScript: ".js",
-  HTML: ".html",
-  CSS: ".css",
-  GLSL: ".glsl",
-  Shell: ".sh",
-  "C++": ".cpp",
-  C: ".c",
-  Rust: ".rs",
-  Go: ".go",
+const PROJECTS = {
+  featured: ["petal.ai", "kizuna", "llm-mafia", "ib-news-site"],
+  folders: {
+    "ai/": ["petal.ai", "llm-mafia", "tokenpilot", "j.a.r.v.i.s."],
+    "web/": ["kizuna", "pm-dashboard", "ib-news-site", "starspace"],
+    "creative/": ["cosmos", "portfolio"],
+    "desktop/": ["focal"],
+  },
 };
 
-const FILE_COUNT = 7;
-const filesTable = document.getElementById("files-table");
 const filesStatus = document.getElementById("files-status");
 const overlay = document.getElementById("overlay");
+const folderRoot = document.getElementById("folder-root");
+const folderContents = document.getElementById("folder-contents");
 
-function fileEntry(repo) {
-  const curated = FILE_COPY[repo.name.toLowerCase()] || {};
-  const slug = repo.name.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+function projectEntry(key) {
+  const c = FILE_COPY[key];
   return {
-    name: curated.label || slug + (FILE_EXT[repo.language] || ".bin"),
-    kind: curated.kind || (repo.language || "vibes").toLowerCase(),
-    year: new Date(repo.created_at).getFullYear(),
-    verdict: curated.verdict || (repo.description ? repo.description.split(/[.!?]/)[0].toLowerCase() : "no description. bold."),
-    voice: curated.voice || repo.description || "No description. The commits speak, allegedly.",
-    body: curated.body || [repo.description || "Undocumented.", "Written mostly in " + (repo.language || "something GitHub can't classify") + ".", "Last commit " + new Date(repo.pushed_at).toLocaleDateString() + "."].join(" "),
-    meta: "kind: " + (curated.kind || (repo.language || "unknown").toLowerCase()) + "\nlast commit: " + new Date(repo.pushed_at).toLocaleDateString() + "\nstatus: " + (curated.verdict || "see commit log"),
+    name: c.label,
+    kind: c.kind,
+    year: c.year,
+    verdict: c.verdict,
+    voice: c.voice,
+    body: c.body,
+    meta: "kind: " + c.kind + "\nyear: " + c.year + "\nstatus: " + c.verdict,
   };
 }
 
@@ -276,29 +353,60 @@ function openFile(f) {
   overlay.classList.add("open");
 }
 
-window.BREAKOS_REPOS.then((repos) => {
-  const entries = repos
-    .filter((r) => !r.fork && r.name.toLowerCase() !== "nitrimandylis")
-    .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
-    .slice(0, FILE_COUNT)
-    .map(fileEntry);
-  filesTable.textContent = "";
-  entries.forEach((f) => {
-    const row = document.createElement("button");
-    row.className = "filerow";
-    ["name", "kind", "year", "verdict"].forEach((k) => {
-      const span = document.createElement("span");
-      if (k === "name") span.className = "fname";
-      if (k === "verdict") span.className = "fverdict";
-      span.textContent = f[k];
-      row.appendChild(span);
+// featured cards
+PROJECTS.featured.forEach((key) => {
+  const c = FILE_COPY[key];
+  const card = document.createElement("button");
+  card.className = "feat-card";
+  card.innerHTML =
+    '<span class="feat-name">' + c.label + "</span>" +
+    '<span class="feat-kind">' + c.kind + "</span>" +
+    '<span class="feat-verdict">' + c.verdict + "</span>";
+  card.addEventListener("click", () => openFile(projectEntry(key)));
+  document.getElementById("feat-grid").appendChild(card);
+});
+
+// folder navigation
+Object.entries(PROJECTS.folders).forEach(([folder, keys]) => {
+  const btn = document.createElement("button");
+  btn.className = "folder-btn";
+  btn.textContent = "▸ " + folder;
+  btn.addEventListener("click", () => {
+    folderRoot.hidden = true;
+    folderContents.hidden = false;
+    folderContents.innerHTML = "";
+
+    const back = document.createElement("button");
+    back.className = "folder-back";
+    back.textContent = "← " + folder;
+    back.addEventListener("click", () => {
+      folderRoot.hidden = false;
+      folderContents.hidden = true;
+      filesStatus.textContent = "4 pinned · browse by folder";
     });
-    row.addEventListener("click", () => openFile(f));
-    filesTable.appendChild(row);
+    folderContents.appendChild(back);
+
+    const head = document.createElement("div");
+    head.className = "filerow filehead";
+    head.innerHTML = "<span>name</span><span>kind</span><span>year</span><span>verdict</span>";
+    folderContents.appendChild(head);
+
+    keys.forEach((key) => {
+      const c = FILE_COPY[key];
+      const row = document.createElement("button");
+      row.className = "filerow";
+      row.innerHTML =
+        '<span class="fname">' + c.label + "</span>" +
+        "<span>" + c.kind + "</span>" +
+        "<span>" + c.year + "</span>" +
+        '<span class="fverdict">' + c.verdict + "</span>";
+      row.addEventListener("click", () => openFile(projectEntry(key)));
+      folderContents.appendChild(row);
+    });
+
+    filesStatus.textContent = folder + " · " + keys.length + " items";
   });
-  filesStatus.textContent = entries.length + " items · sorted by last commit · click a file to open";
-}).catch(() => {
-  filesStatus.textContent = "directory unreadable. github api said no. the work exists — github.com/nitrimandylis";
+  folderRoot.appendChild(btn);
 });
 document.getElementById("ov-close").addEventListener("click", () => overlay.classList.remove("open"));
 overlay.addEventListener("click", (e) => {
