@@ -16,32 +16,24 @@
     body.scrollTop = body.scrollHeight;
   }
 
-  // synced with FILE_COPY in os.js
+  // synced with FILE_COPY in os.js — the curated six, plus this site
   const FILES = {
     "petal_ai.swift":
       "iOS 17+ AI study companion. SwiftUI + Gemini. CSV-loaded curriculum, streak tracking, haptic feedback. a tutor with a system prompt and an agenda.",
-    "llm_mafia.py":
-      "fully autonomous Mafia — every player an LLM. parallel inference, game master narrator, LM Studio or NVIDIA NIM. you just watch the town burn.",
-    "jarvis.ts":
-      "personal AI assistant agent. multi-model (Claude + Gemini), TypeScript, Bun. persistent memory, tool use. not a wrapper — a system.",
-    "kizuna.py":
-      "CAS and events platform for the IBDP community. Flask + PostgreSQL, deployed on Render. club directory, event registration, admin dashboard. self-governing.",
     "tokenpilot.ts":
       "LLM spend auditor. reads Anthropic + OpenAI admin APIs, 6-rule detection engine, confidence-scored savings. Next.js 16. keys never leave the tab.",
-    "pm_dashboard.js":
-      "IB diploma mission control. five views, two-way Notion sync, vanilla ES modules, Bun proxy. no framework. no bundler. became load-bearing.",
+    "apex.ts":
+      "F1 dashboard — real standings and replayable telemetry from Jolpica + OpenF1. scrub a session lap by lap. TypeScript, real data, no fake numbers.",
+    "llm_mafia.py":
+      "fully autonomous Mafia — every player an LLM. parallel inference, game master narrator, LM Studio or NVIDIA NIM. you just watch the town burn.",
+    "jukebox.ts":
+      "Apple Music jukebox for the terminal. search, queue, control playback without leaving the shell. TypeScript on Bun. now-playing where your prompt used to be.",
     "ib_news_site.py":
       "the CGS IB Gazette — Flask + PostgreSQL CMS. submission portal, admin dashboard, tag system, search. EB Garamond. deployed. used by actual student journalists.",
-    "starspace.html":
-      "interactive CS education site: LLMs, quantum computing, robotics. available in English and Greek. zero frameworks. the students are the ones learning the complicated stuff.",
-    "cosmos.js":
-      "3D space observatory vibecoded by Claude Opus 4.6 in one session — Three.js starfield, mission cards, real-time stats. 900+ lines. one prompt. react + three.js + vite.",
-    "focal.py":
-      "desktop photo manager for Sony Cyber-shot libraries. Flask + pywebview (native window). EXIF on upload, SQLite, thumbnails via Pillow. IB CS internal assessment.",
     "breakos.sys":
       "this site. a portfolio disguised as an OS. opening this file is the closest it gets to recursion.",
     "about.txt":
-      "nick trimandylis. IBDP student, CS HL. builder between languages. ships because finishing beats starting.",
+      "nick trimandylis. builds things useful or interesting, ideally both. python · typescript · swift, lately in the terminal. starts a repo most weeks, ships most of them.",
   };
 
   // window map for 'open' command
@@ -91,7 +83,7 @@
 
     whoami: () =>
       print(
-        "guest. the OS belongs to nick trimandylis — swift · python · typescript · glsl.",
+        "guest. the OS belongs to nick trimandylis — python · typescript · swift. builds things useful or interesting, ideally both.",
       ),
 
     uname: () =>
