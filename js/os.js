@@ -290,6 +290,22 @@ const FILE_COPY = {
     body: "Reads your Anthropic and OpenAI Admin APIs, runs actual token volumes through a 6-rule detection engine, returns confidence-scored savings recommendations. Everything client-side — keys live in sessionStorage, die when the tab does. Next.js 16, TypeScript strict, React 19.",
     kind: "typescript · next.js",
   },
+  apex: {
+    label: "apex.ts",
+    year: 2026,
+    verdict: "the race, on replay.",
+    voice: "An F1 dashboard that remembers every lap.",
+    body: "Real standings and replayable telemetry pulled live from Jolpica and OpenF1 — scrub a session lap by lap and watch the gaps open and close. TypeScript, real data, no fake numbers. The season is the database.",
+    kind: "typescript",
+  },
+  jukebox: {
+    label: "jukebox.ts",
+    year: 2026,
+    verdict: "now playing, in a terminal.",
+    voice: "Apple Music, driven from the command line.",
+    body: "A terminal jukebox for Apple Music — search, queue, and control playback without ever leaving the shell. Built in TypeScript on Bun, it renders now-playing where your prompt used to be. One of the terminal toys, and the one that stuck.",
+    kind: "typescript · bun",
+  },
   "pm-dashboard": {
     label: "pm_dashboard.js",
     year: 2026,
