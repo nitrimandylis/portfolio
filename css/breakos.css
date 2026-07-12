@@ -252,52 +252,13 @@ em {
   padding: clamp(1rem, 3vw, 1.8rem);
 }
 
-/* ── file manager ── */
-.filerow {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 0.5fr 1.3fr;
-  gap: 0.6rem;
-  width: 100%;
-  text-align: left;
-  align-items: baseline;
-  padding: 0.55rem 0.6rem;
-  background: none;
-  border: none;
-  border-bottom: 1px dashed var(--bevel-dark);
-  font-family: var(--ff-mono);
-  font-size: 0.78rem;
-  color: var(--ink-soft);
-  cursor: pointer;
-}
-.filerow:hover {
-  background: var(--paper-deep);
-}
-.filerow:hover .fname {
-  color: var(--coral);
-}
-.filehead {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--bevel-dark);
-  cursor: default;
-  pointer-events: none;
-}
-.fname {
-  font-weight: 500;
-  color: var(--ink);
-}
-.fverdict {
-  font-style: italic;
-}
+/* ── project gallery ── */
 .win-status {
   margin-top: 0.9rem;
   font-family: var(--ff-chrome);
   font-size: 1.05rem;
   color: var(--ink-soft);
 }
-
-/* ── featured cards ── */
 .section-label {
   font-family: var(--ff-chrome);
   font-size: 1rem;
@@ -305,81 +266,65 @@ em {
   letter-spacing: 0.05em;
   margin-bottom: 0.7rem;
 }
-.feat-grid {
+.poster-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.55rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7rem;
 }
-.feat-card {
+.poster-card {
+  --accent: var(--teal);
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.65rem 0.7rem;
-  background: none;
-  border: 1.5px solid var(--bevel-dark);
-  border-top: 3px solid var(--teal);
+  min-height: 9.5rem;
   text-align: left;
-  cursor: pointer;
-  transition: border-top-color 0.12s, background 0.12s;
-}
-.feat-card:hover {
-  border-top-color: var(--coral);
-  background: var(--paper-deep);
-}
-.feat-name {
-  font-family: var(--ff-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--ink);
-}
-.feat-kind {
-  font-family: var(--ff-mono);
-  font-size: 0.63rem;
-  color: var(--ink-soft);
-}
-.feat-verdict {
-  font-family: var(--ff-body);
-  font-size: 0.8rem;
-  font-style: italic;
-  color: var(--coral);
-  margin-top: auto;
-  padding-top: 0.4rem;
-}
-
-/* ── folder browser ── */
-.folder-root {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-.folder-btn {
-  font-family: var(--ff-chrome);
-  font-size: 1.15rem;
-  color: var(--ink);
-  background: none;
+  background: var(--win);
   border: 1.5px solid var(--bevel-dark);
-  padding: 0.25rem 0.75rem;
+  box-shadow: inset 1px 1px 0 var(--bevel-light);
   cursor: pointer;
-  transition: background 0.1s, border-color 0.1s;
+  transition: transform 0.14s var(--ease), box-shadow 0.14s var(--ease);
 }
-.folder-btn:hover {
-  background: var(--paper-deep);
-  border-color: var(--teal);
-  color: var(--teal);
+.poster-card:hover {
+  transform: translateY(-3px);
+  box-shadow: inset 1px 1px 0 var(--bevel-light), 0 6px 0 -2px var(--accent);
 }
-.folder-back {
-  display: inline-block;
+.poster-bar {
+  display: flex;
+  gap: 0.32rem;
+  align-items: center;
+  padding: 0.42rem 0.55rem;
+  background: var(--accent);
+}
+.poster-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+}
+.poster-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.55rem 0.7rem 0.75rem;
+}
+.poster-name {
   font-family: var(--ff-chrome);
-  font-size: 1.1rem;
-  color: var(--teal);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  line-height: 1.05;
+  color: var(--ink);
 }
-.folder-back:hover {
-  color: var(--coral);
+.poster-verdict {
+  margin-top: auto;
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+.poster-kind {
+  font-family: var(--ff-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
 }
 
 /* ── monitor ── */
@@ -803,15 +748,8 @@ em {
   .window {
     width: 100%;
   }
-  .feat-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .filerow {
-    grid-template-columns: 1.4fr 1fr;
-  }
-  .filerow span:nth-child(3),
-  .filerow span:nth-child(4) {
-    display: none;
+  .poster-grid {
+    grid-template-columns: 1fr;
   }
   .monrow {
     grid-template-columns: 1.6fr 0.8fr 1.2fr;

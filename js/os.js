@@ -356,20 +356,18 @@ const FILE_COPY = {
   },
 };
 
-const PROJECTS = {
-  featured: ["petal.ai", "kizuna", "llm-mafia", "ib-news-site"],
-  folders: {
-    "ai/": ["petal.ai", "llm-mafia", "tokenpilot", "j.a.r.v.i.s."],
-    "web/": ["kizuna", "pm-dashboard", "ib-news-site", "starspace"],
-    "creative/": ["cosmos", "portfolio"],
-    "desktop/": ["focal"],
-  },
-};
+// the curated six, in display order. one accent colour each — reads on both
+// the cream theme and the batman-jazz dark theme.
+const GALLERY = [
+  { key: "petal.ai", accent: "#d98324" },
+  { key: "tokenpilot", accent: "#2f8f8c" },
+  { key: "apex", accent: "#d64550" },
+  { key: "llm-mafia", accent: "#7d5ba6" },
+  { key: "jukebox", accent: "#e0518a" },
+  { key: "ib-news-site", accent: "#4a6fa5" },
+];
 
-const filesStatus = document.getElementById("files-status");
 const overlay = document.getElementById("overlay");
-const folderRoot = document.getElementById("folder-root");
-const folderContents = document.getElementById("folder-contents");
 
 function projectEntry(key) {
   const c = FILE_COPY[key];
@@ -393,75 +391,32 @@ function openFile(f) {
   overlay.classList.add("open");
 }
 
-// featured cards
-PROJECTS.featured.forEach((key) => {
+// poster gallery
+const posterGrid = document.getElementById("poster-grid");
+GALLERY.forEach(({ key, accent }) => {
   const c = FILE_COPY[key];
   const card = document.createElement("button");
-  card.className = "feat-card";
+  card.className = "poster-card";
+  card.style.setProperty("--accent", accent);
   card.innerHTML =
-    '<span class="feat-name">' +
+    '<span class="poster-bar">' +
+    '<span class="poster-dot"></span>' +
+    '<span class="poster-dot"></span>' +
+    '<span class="poster-dot"></span>' +
+    "</span>" +
+    '<span class="poster-body">' +
+    '<span class="poster-name">' +
     c.label +
     "</span>" +
-    '<span class="feat-kind">' +
+    '<span class="poster-verdict">' +
+    c.verdict +
+    "</span>" +
+    '<span class="poster-kind">' +
     c.kind +
     "</span>" +
-    '<span class="feat-verdict">' +
-    c.verdict +
     "</span>";
   card.addEventListener("click", () => openFile(projectEntry(key)));
-  document.getElementById("feat-grid").appendChild(card);
-});
-
-// folder navigation
-Object.entries(PROJECTS.folders).forEach(([folder, keys]) => {
-  const btn = document.createElement("button");
-  btn.className = "folder-btn";
-  btn.textContent = "▸ " + folder;
-  btn.addEventListener("click", () => {
-    folderRoot.hidden = true;
-    folderContents.hidden = false;
-    folderContents.innerHTML = "";
-
-    const back = document.createElement("button");
-    back.className = "folder-back";
-    back.textContent = "← " + folder;
-    back.addEventListener("click", () => {
-      folderRoot.hidden = false;
-      folderContents.hidden = true;
-      filesStatus.textContent = "4 pinned · browse by folder";
-    });
-    folderContents.appendChild(back);
-
-    const head = document.createElement("div");
-    head.className = "filerow filehead";
-    head.innerHTML =
-      "<span>name</span><span>kind</span><span>year</span><span>verdict</span>";
-    folderContents.appendChild(head);
-
-    keys.forEach((key) => {
-      const c = FILE_COPY[key];
-      const row = document.createElement("button");
-      row.className = "filerow";
-      row.innerHTML =
-        '<span class="fname">' +
-        c.label +
-        "</span>" +
-        "<span>" +
-        c.kind +
-        "</span>" +
-        "<span>" +
-        c.year +
-        "</span>" +
-        '<span class="fverdict">' +
-        c.verdict +
-        "</span>";
-      row.addEventListener("click", () => openFile(projectEntry(key)));
-      folderContents.appendChild(row);
-    });
-
-    filesStatus.textContent = folder + " · " + keys.length + " items";
-  });
-  folderRoot.appendChild(btn);
+  posterGrid.appendChild(card);
 });
 document
   .getElementById("ov-close")
