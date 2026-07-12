@@ -77,6 +77,7 @@
           "  date                  current date\n" +
           "  ping <host>           network diagnostics\n" +
           "  echo <text>           print text\n" +
+          "  theme [batman|default] switch appearance\n" +
           "  git log               commit history\n" +
           "  github                open github profile\n" +
           "  contact               get email address\n" +
@@ -210,6 +211,25 @@
       }
       print("opening " + target + "…");
       return;
+    }
+
+    if (cmd === "theme" || cmd.startsWith("theme ")) {
+      const arg = cmd.length > 5 ? cmd.slice(6).trim() : "";
+      if (!arg)
+        return print(
+          "appearance: " +
+            window.__getTheme() +
+            " — try: theme batman | theme default",
+        );
+      if (["batman", "jazz", "dark"].includes(arg)) {
+        window.__setTheme("batman");
+        return print("appearance → batman jazz. gotham loaded.");
+      }
+      if (["default", "cream", "light"].includes(arg)) {
+        window.__setTheme("default");
+        return print("appearance → default. the cream returns.");
+      }
+      return print("theme: " + arg + ": unknown. try: batman | default");
     }
 
     if (cmd.startsWith("echo ")) return print(cmd.slice(5));

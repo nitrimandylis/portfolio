@@ -23,6 +23,29 @@
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ── batman-jazz theme (taskbar toggle / `theme` command) ── */
+[data-theme="batman"] {
+  --paper: #0b0e16; /* near-black room */
+  --paper-deep: #141a28;
+  --ink: #e8ecf5; /* light text on dark */
+  --ink-soft: #93a0bd; /* steel-blue midtone */
+  --coral: #e85a9c; /* neon-pink accent */
+  --teal: #6aa2b8; /* steel-blue */
+  --teal-deep: #3f7a8c;
+  --win: #10141f;
+  --bevel-light: #262f44;
+  --bevel-dark: #05070c;
+}
+/* the real wallpaper, behind a scrim tuned to keep windows legible */
+[data-theme="batman"] body {
+  background:
+    linear-gradient(rgba(8, 10, 18, 0.62), rgba(8, 10, 18, 0.8)),
+    url("../assets/batman-jazz.jpg") center / cover no-repeat fixed;
+}
+[data-theme="batman"] #wallpaper {
+  display: none; /* photo replaces the halftone canvas in this theme */
+}
+
 html {
   scroll-behavior: auto;
 }
@@ -612,6 +635,19 @@ em {
   cursor: pointer;
 }
 .tb-app:hover {
+  background: var(--coral);
+  color: var(--paper);
+}
+.tb-theme {
+  font-family: var(--ff-chrome);
+  font-size: 0.95rem;
+  background: var(--win);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 0 8px;
+  cursor: pointer;
+}
+.tb-theme:hover {
   background: var(--coral);
   color: var(--paper);
 }

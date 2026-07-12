@@ -428,6 +428,29 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") overlay.classList.remove("open");
 });
 
+// ── appearance: cream (default) / batman-jazz dark ──
+// the <head> already applied the saved theme before paint; here we wire the
+// taskbar toggle and expose hooks the terminal's `theme` command calls.
+const THEME_KEY = "breakos-theme";
+function applyTheme(name) {
+  const batman = name === "batman";
+  if (batman) document.documentElement.setAttribute("data-theme", "batman");
+  else document.documentElement.removeAttribute("data-theme");
+  localStorage.setItem(THEME_KEY, batman ? "batman" : "default");
+}
+window.__getTheme = () =>
+  document.documentElement.getAttribute("data-theme") === "batman"
+    ? "batman"
+    : "default";
+window.__setTheme = applyTheme;
+
+const themeBtn = document.getElementById("tb-theme");
+if (themeBtn) {
+  themeBtn.addEventListener("click", () =>
+    applyTheme(window.__getTheme() === "batman" ? "default" : "batman"),
+  );
+}
+
 // ── shutdown → BSOD → reboot ──
 const bsod = document.getElementById("bsod");
 function crash() {

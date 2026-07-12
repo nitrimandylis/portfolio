@@ -20,6 +20,13 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/breakos.css" />
+    <script>
+      // apply saved appearance before first paint — no flash of the wrong theme
+      try {
+        if (localStorage.getItem("breakos-theme") === "batman")
+          document.documentElement.setAttribute("data-theme", "batman");
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <!-- live wallpaper -->
@@ -308,6 +315,14 @@
         <div class="tb-progress-fill" id="tb-progress-fill"></div>
       </div>
       <div class="tb-tray" id="tb-tray"></div>
+      <button
+        class="tb-theme"
+        id="tb-theme"
+        aria-label="toggle appearance"
+        title="appearance: cream / batman jazz"
+      >
+        ◐ theme
+      </button>
       <span class="tb-clock" id="tb-clock">--:--</span>
     </footer>
 
