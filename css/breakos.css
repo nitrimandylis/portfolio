@@ -45,6 +45,23 @@
 [data-theme="batman"] #wallpaper {
   display: none; /* photo replaces the halftone canvas in this theme */
 }
+/* the terminal normally inverts to a dark box; on this already-dark theme that
+   flips it white, so match the other windows instead */
+[data-theme="batman"] .term-body {
+  background: var(--win);
+  color: var(--ink);
+}
+[data-theme="batman"] #term-input {
+  color: var(--ink);
+}
+/* faint labels use --bevel-dark, which is near-black here — lift them so they
+   stay readable without touching the bevel shadows that also use it */
+[data-theme="batman"] .section-label,
+[data-theme="batman"] .monhead,
+[data-theme="batman"] .mail-field span,
+[data-theme="batman"] .sd-fine {
+  color: var(--ink-soft);
+}
 
 html {
   scroll-behavior: auto;
@@ -562,6 +579,7 @@ em {
   font-size: 1.25rem;
   padding: 0.3em 1.4em;
   background: var(--paper);
+  color: var(--ink);
   border: 2px solid var(--ink);
   cursor: pointer;
   box-shadow: 4px 4px 0 rgba(29, 36, 56, 0.25);
