@@ -22,7 +22,10 @@ feature.
   like one but is a wallpaper repo — it stays out.)
 - Easter eggs: seal, f1 start lights, trash-attempt counter, defrag, console
   kernel, rm -rf /, vim.
-- Two themes: cream (default) and batman-jazz (dark), persisted.
+- Themes: cream (default), batman-jazz (hand-tuned), plus nine live from the
+  swatchbook repo's palette.toml files (night-city, nord, tokyo-night, …).
+  `swatch apply <palette>` in the terminal is a working command; the taskbar
+  theme button cycles everything. Persisted, flash-free on reload.
 
 ## Where it's headed
 

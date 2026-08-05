@@ -110,6 +110,7 @@ IBM Plex Mono for data.
 - type <kbd>f</kbd><kbd>1</kbd> anywhere → five red lights. you know what happens when they go out
 - type <kbd>c</kbd><kbd>l</kbd><kbd>a</kbd><kbd>u</kbd><kbd>d</kbd><kbd>e</kbd> anywhere → clawd (hand-drawn, on loan from anthropic) scuttles up to say hi
 - terminal: `claude` → an interactive Claude Code session. scripted, zero tokens, full attitude. it will ask permission to use Bash. deny it
+- terminal: `swatch apply night-city` → the one CLI that actually runs here. the themes are **live palette.toml files** from [swatchbook](https://github.com/nitrimandylis/swatchbook) — nine of them, plus the built-ins. the taskbar `◐ theme` button cycles the lot
 - drag a project file into the trash → the OS declines, and counts your attempts
 - terminal: `defrag` → the wallpaper tidies itself up, then admits nothing moved
 - terminal: `sudo hire-nick` → generates an offer letter addressed to me

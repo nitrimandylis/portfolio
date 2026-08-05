@@ -21,10 +21,26 @@
     />
     <link rel="stylesheet" href="css/breakos.css" />
     <script>
-      // apply saved appearance before first paint — no flash of the wrong theme
+      // apply saved appearance before first paint — no flash of the wrong
+      // theme. swatchbook themes restore from their cached variable snapshot.
       try {
-        if (localStorage.getItem("breakos-theme") === "batman")
+        var th = localStorage.getItem("breakos-theme");
+        if (th === "batman")
           document.documentElement.setAttribute("data-theme", "batman");
+        else if (th && th !== "default") {
+          var saved = JSON.parse(
+            localStorage.getItem("breakos-theme-vars") || "null",
+          );
+          if (saved) {
+            document.documentElement.setAttribute("data-theme", "swatch");
+            document.documentElement.setAttribute(
+              "data-variant",
+              saved.variant,
+            );
+            for (var k in saved.vars)
+              document.documentElement.style.setProperty(k, saved.vars[k]);
+          }
+        }
       } catch (e) {}
     </script>
   </head>
@@ -492,6 +508,7 @@
     <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="js/wallpaper.js"></script>
+    <script src="js/swatchbook.js"></script>
     <script src="js/os.js"></script>
     <script src="js/boot.js"></script>
     <script src="js/monitor.js"></script>

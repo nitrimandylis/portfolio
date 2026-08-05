@@ -29,6 +29,24 @@
   resize();
   window.addEventListener("resize", resize);
 
+  // dot colour follows the theme — swatchbook palettes recolour the field
+  let dotCol = "rgba(31, 138, 140, 0.18)";
+  window.__setWallDot = (hex) => {
+    if (!hex || hex[0] !== "#") {
+      dotCol = "rgba(31, 138, 140, 0.18)";
+      return;
+    }
+    const n = parseInt(hex.slice(1), 16);
+    dotCol =
+      "rgba(" +
+      ((n >> 16) & 255) +
+      ", " +
+      ((n >> 8) & 255) +
+      ", " +
+      (n & 255) +
+      ", 0.22)";
+  };
+
   // scroll velocity feeds turbulence — same trick, new clothes
   let vel = 0;
   let smooth = 0;
@@ -81,7 +99,7 @@
     const t = (performance.now() - t0) / 1000;
 
     ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = "rgba(31, 138, 140, 0.18)";
+    ctx.fillStyle = dotCol;
 
     const mix = defragStart ? defragMix(performance.now()) : 0;
     for (const d of dots) {

@@ -1164,27 +1164,121 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// ── appearance: cream (default) / batman-jazz dark ──
+// ── appearance: cream (default) / batman-jazz / any swatchbook palette ──
 // the <head> already applied the saved theme before paint; here we wire the
-// taskbar toggle and expose hooks the terminal's `theme` command calls.
+// taskbar toggle and expose hooks the terminal's theme/swatch commands call.
 const THEME_KEY = "breakos-theme";
-function applyTheme(name) {
-  const batman = name === "batman";
-  if (batman) document.documentElement.setAttribute("data-theme", "batman");
-  else document.documentElement.removeAttribute("data-theme");
-  localStorage.setItem(THEME_KEY, batman ? "batman" : "default");
+const THEME_VARS_KEY = "breakos-theme-vars";
+const THEME_VAR_NAMES = [
+  "--paper",
+  "--paper-deep",
+  "--ink",
+  "--ink-soft",
+  "--coral",
+  "--teal",
+  "--teal-deep",
+  "--win",
+  "--bevel-light",
+  "--bevel-dark",
+];
+
+// move a hex toward white (f > 0) or black (f < 0)
+function shade(hex, f) {
+  const n = parseInt(hex.slice(1), 16);
+  const t = f < 0 ? 0 : 255;
+  const p = Math.abs(f);
+  const ch = (c) => Math.round(c + (t - c) * p);
+  const r = ch((n >> 16) & 255),
+    g = ch((n >> 8) & 255),
+    b = ch(n & 255);
+  return "#" + ((r << 16) | (g << 8) | b).toString(16).padStart(6, "0");
 }
-window.__getTheme = () =>
-  document.documentElement.getAttribute("data-theme") === "batman"
-    ? "batman"
-    : "default";
+
+// swatch roles → the site's design tokens
+function varsFromRoles(roles) {
+  return {
+    "--paper": roles.base,
+    "--paper-deep": roles.overlay || roles.surface,
+    "--ink": roles.text,
+    "--ink-soft": roles.muted,
+    "--coral": roles.accent,
+    "--teal": roles.deep || roles.accent,
+    "--teal-deep": shade(roles.deep || roles.accent, -0.2),
+    "--win": roles.surface,
+    "--bevel-light": shade(roles.surface, 0.12),
+    "--bevel-dark": shade(roles.base, -0.5),
+  };
+}
+
+function clearCustomTheme() {
+  const root = document.documentElement;
+  THEME_VAR_NAMES.forEach((k) => root.style.removeProperty(k));
+  root.removeAttribute("data-variant");
+  localStorage.removeItem(THEME_VARS_KEY);
+  if (window.__setWallDot) window.__setWallDot(null);
+}
+
+function applyTheme(name) {
+  if (name === "batman-jazz" || name === "jazz" || name === "dark")
+    name = "batman";
+  if (name === "cream" || name === "light") name = "default";
+  const root = document.documentElement;
+  if (name === "batman" || name === "default") {
+    clearCustomTheme();
+    if (name === "batman") root.setAttribute("data-theme", "batman");
+    else root.removeAttribute("data-theme");
+    localStorage.setItem(THEME_KEY, name);
+    return Promise.resolve(true);
+  }
+  return window
+    .BREAKOS_SWATCHBOOK()
+    .then((themes) => {
+      const t = themes[name];
+      if (!t) return false;
+      const vars = varsFromRoles(t.roles);
+      root.setAttribute("data-theme", "swatch");
+      root.setAttribute("data-variant", t.variant);
+      Object.entries(vars).forEach(
+        ([k, v]) => v && root.style.setProperty(k, v),
+      );
+      localStorage.setItem(THEME_KEY, name);
+      localStorage.setItem(
+        THEME_VARS_KEY,
+        JSON.stringify({ vars, variant: t.variant }),
+      );
+      if (window.__setWallDot) window.__setWallDot(vars["--teal"]);
+      return true;
+    })
+    .catch(() => false);
+}
+window.__getTheme = () => localStorage.getItem(THEME_KEY) || "default";
 window.__setTheme = applyTheme;
 
+// a custom theme restored by the <head> script needs its wallpaper dots back
+try {
+  const saved = JSON.parse(localStorage.getItem(THEME_VARS_KEY) || "null");
+  if (saved && window.__setWallDot) window.__setWallDot(saved.vars["--teal"]);
+} catch (_) {}
+
+// taskbar toggle cycles every theme it knows about; the swatchbook
+// list joins the rotation once its first fetch resolves
+let themeCycle = ["default", "batman"];
 const themeBtn = document.getElementById("tb-theme");
 if (themeBtn) {
-  themeBtn.addEventListener("click", () =>
-    applyTheme(window.__getTheme() === "batman" ? "default" : "batman"),
-  );
+  themeBtn.addEventListener("click", () => {
+    window
+      .BREAKOS_SWATCHBOOK()
+      .then((t) => {
+        themeCycle = ["default", "batman"].concat(Object.keys(t));
+      })
+      .catch(() => {});
+    const cur = window.__getTheme();
+    const next =
+      themeCycle[(themeCycle.indexOf(cur) + 1) % themeCycle.length];
+    applyTheme(next).then((ok) => {
+      if (ok) notify("appearance → " + next);
+    });
+  });
 }
 
 // ── shutdown → BSOD → reboot ──

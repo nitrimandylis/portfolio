@@ -47,13 +47,15 @@
 [data-theme="batman"] #wallpaper {
   display: none; /* photo replaces the halftone canvas in this theme */
 }
-/* the terminal normally inverts to a dark box; on this already-dark theme that
-   flips it white, so match the other windows instead */
-[data-theme="batman"] .term-body {
+/* the terminal normally inverts to a dark box; on already-dark themes
+   (batman, or any dark swatchbook palette) match the other windows instead */
+[data-theme="batman"] .term-body,
+[data-variant="dark"] .term-body {
   background: var(--win);
   color: var(--ink);
 }
-[data-theme="batman"] #term-input {
+[data-theme="batman"] #term-input,
+[data-variant="dark"] #term-input {
   color: var(--ink);
 }
 /* faint labels use --bevel-dark, which is near-black here — lift them so they
@@ -62,7 +64,12 @@
 [data-theme="batman"] .monhead,
 [data-theme="batman"] .pkghead,
 [data-theme="batman"] .mail-field span,
-[data-theme="batman"] .sd-fine {
+[data-theme="batman"] .sd-fine,
+[data-variant="dark"] .section-label,
+[data-variant="dark"] .monhead,
+[data-variant="dark"] .pkghead,
+[data-variant="dark"] .mail-field span,
+[data-variant="dark"] .sd-fine {
   color: var(--ink-soft);
 }
 
@@ -489,7 +496,8 @@ em {
   background: var(--ink);
   color: #c96442;
 }
-[data-theme="batman"] .cc-box-title {
+[data-theme="batman"] .cc-box-title,
+[data-variant="dark"] .cc-box-title {
   background: var(--win);
 }
 .cc-cols {

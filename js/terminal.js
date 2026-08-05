@@ -264,7 +264,8 @@
           "  date                  current date\n" +
           "  ping <host>           network diagnostics\n" +
           "  echo <text>           print text\n" +
-          "  theme [batman|default] switch appearance\n" +
+          "  theme [name]          switch appearance (swatchbook palettes included)\n" +
+          "  swatch apply <name>   same, but as the actual CLI\n" +
           "  claude                start a claude code session\n" +
           "  git log               commit history\n" +
           "  github                open github profile\n" +
@@ -503,21 +504,76 @@
 
     if (cmd === "theme" || cmd.startsWith("theme ")) {
       const arg = cmd.length > 5 ? cmd.slice(6).trim() : "";
-      if (!arg)
+      if (!arg) {
+        print("appearance: " + window.__getTheme());
+        print("built in: default · batman");
+        window
+          .BREAKOS_SWATCHBOOK()
+          .then((t) =>
+            print("from swatchbook: " + Object.keys(t).join(" · ")),
+          )
+          .catch(() =>
+            print("swatchbook unreachable — the built-ins still work."),
+          );
+        return;
+      }
+      window.__setTheme(arg).then((ok) => {
+        if (!ok)
+          return print(
+            "theme: " + arg + ": unknown. `theme` alone lists them.",
+          );
+        if (arg === "batman" || arg === "jazz" || arg === "dark")
+          print("appearance → batman jazz. gotham loaded.");
+        else if (arg === "default" || arg === "cream" || arg === "light")
+          print("appearance → default. the cream returns.");
+        else print("appearance → " + arg + ". palette courtesy of swatchbook.");
+      });
+      return;
+    }
+
+    // ── swatch: the one CLI that actually runs here. one surface, though ──
+    if (cmd === "swatch" || cmd.startsWith("swatch ")) {
+      const parts = cmd.split(/\s+/);
+      if (parts.length === 1)
         return print(
-          "appearance: " +
-            window.__getTheme() +
-            " — try: theme batman | theme default",
+          "swatch — desktop theming, browser edition.\n" +
+            "  swatch list             palettes from the swatchbook repo\n" +
+            "  swatch apply <palette>  retheme this website\n" +
+            "(the real one writes 20 surfaces. this one writes 1. it counts.)",
         );
-      if (["batman", "jazz", "dark"].includes(arg)) {
-        window.__setTheme("batman");
-        return print("appearance → batman jazz. gotham loaded.");
+      if (parts[1] === "list") {
+        print("resolving swatchbook…");
+        window
+          .BREAKOS_SWATCHBOOK()
+          .then((t) => {
+            Object.values(t).forEach((p) =>
+              print(
+                "  " +
+                  p.id.padEnd(14) +
+                  "(" +
+                  p.variant +
+                  ")  " +
+                  p.description,
+              ),
+            );
+            print("plus built in: default · batman");
+          })
+          .catch(() => print("swatch: registry unreachable. github's turn."));
+        return;
       }
-      if (["default", "cream", "light"].includes(arg)) {
-        window.__setTheme("default");
-        return print("appearance → default. the cream returns.");
+      if (parts[1] === "apply" && parts[2]) {
+        window.__setTheme(parts[2]).then((ok) =>
+          print(
+            ok
+              ? "swatch: applied " +
+                  parts[2] +
+                  " to 1 surface (this website). the real one does 20."
+              : "swatch: " + parts[2] + ": not in the book. try: swatch list",
+          ),
+        );
+        return;
       }
-      return print("theme: " + arg + ": unknown. try: batman | default");
+      return print("swatch: usage: swatch list · swatch apply <palette>");
     }
 
     if (cmd.startsWith("echo ")) return print(cmd.slice(5));

@@ -69,8 +69,17 @@ Files:
   recreation of the real Claude Code TTY (`.cc-*` classes: bordered banner,
   clawd sprite via `window.__clawdSprite`, status block with a real-uptime
   session bar), and the prompt becomes a terracotta `❯` with a pink caret.
+- `js/swatchbook.js` — lazy theme registry (`window.BREAKOS_SWATCHBOOK()`):
+  fetches the real `palette.toml` files from the swatchbook repo (24h cache,
+  `breakos-swatchbook-v1`, minimal TOML parser). batman-jazz is skipped —
+  the site ships a hand-tuned build of it. os.js maps roles → CSS vars
+  (`varsFromRoles`), stamps `data-theme="swatch"` + `data-variant`, and
+  snapshots vars to `breakos-theme-vars` so the head script can restore a
+  custom theme before first paint with no fetch. `[data-variant="dark"]`
+  carries the dark-theme CSS overrides.
 - `js/wallpaper.js` — canvas halftone dots; scroll velocity feeds dot size
-  and drift. `window.__defrag()` packs the dots into a grid and releases
+  and drift. Dot colour follows the theme via `window.__setWallDot`.
+  `window.__defrag()` packs the dots into a grid and releases
   them (guarded against resize mid-run). In the batman-jazz theme the canvas
   is hidden and `assets/batman-jazz.jpg` becomes the wallpaper.
 - `v1/` — previous design + original prototype. Frozen; do not edit or load
@@ -79,8 +88,9 @@ Files:
 ## Libraries
 
 GSAP 3.12 + ScrollTrigger, Lenis 1.0 — CDN `<script>` tags at the bottom of
-`index.html`. Load order matters: libs → wallpaper → os → boot → monitor →
-breakpkg → terminal (terminal reads `window.BREAKPKG`).
+`index.html`. Load order matters: libs → wallpaper → swatchbook → os → boot →
+monitor → breakpkg → terminal (terminal reads `window.BREAKPKG` and
+`window.BREAKOS_SWATCHBOOK`).
 
 ## Conventions
 
