@@ -187,39 +187,54 @@ if (DESKTOP) {
       icon.setPointerCapture(e.pointerId);
       const sx = e.clientX,
         sy = e.clientY;
-      const r = icon.getBoundingClientRect();
+      // dragging a selected icon moves the whole selection with it
+      const members = icon.classList.contains("selected")
+        ? iconEls.filter((i) => i.classList.contains("selected"))
+        : [icon];
+      const group = members.map((el) => ({
+        el,
+        r: el.getBoundingClientRect(),
+      }));
       let moved = false;
       const move = (ev) => {
         const dx = ev.clientX - sx,
           dy = ev.clientY - sy;
         if (!moved && Math.hypot(dx, dy) > 5) {
           moved = true;
-          icon.classList.add("dragged");
-          icon.style.right = "auto";
+          group.forEach(({ el }) => {
+            el.classList.add("dragged");
+            el.style.right = "auto";
+          });
         }
         if (!moved) return;
-        icon.style.left =
-          Math.max(2, Math.min(r.left + dx, window.innerWidth - r.width - 2)) +
-          "px";
-        icon.style.top =
-          Math.max(
-            2,
-            Math.min(r.top + dy, window.innerHeight - r.height - 46),
-          ) + "px";
+        group.forEach(({ el, r }) => {
+          el.style.left =
+            Math.max(
+              2,
+              Math.min(r.left + dx, window.innerWidth - r.width - 2),
+            ) + "px";
+          el.style.top =
+            Math.max(
+              2,
+              Math.min(r.top + dy, window.innerHeight - r.height - 46),
+            ) + "px";
+        });
       };
       const up = () => {
         icon.removeEventListener("pointermove", move);
         icon.removeEventListener("pointerup", up);
         icon.removeEventListener("pointercancel", up);
-        icon.classList.remove("dragged");
+        group.forEach(({ el }) => el.classList.remove("dragged"));
         if (moved) {
           justDragged = true;
           setTimeout(() => (justDragged = false), 0);
-          const rr = icon.getBoundingClientRect();
-          iconPos[iconKey(icon)] = [
-            +((rr.left / window.innerWidth) * 100).toFixed(2),
-            +((rr.top / window.innerHeight) * 100).toFixed(2),
-          ];
+          group.forEach(({ el }) => {
+            const rr = el.getBoundingClientRect();
+            iconPos[iconKey(el)] = [
+              +((rr.left / window.innerWidth) * 100).toFixed(2),
+              +((rr.top / window.innerHeight) * 100).toFixed(2),
+            ];
+          });
           try {
             localStorage.setItem(ICON_POS_KEY, JSON.stringify(iconPos));
           } catch (_) {}

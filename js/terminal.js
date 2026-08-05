@@ -187,7 +187,7 @@
       print("  005  github.api              sleeping (30m cache)");
       print("  006  icon.parallax           running");
       print("  007  wm.service              running (windows drag now)");
-      print("  008  breakpkg.registry       running (8 packages)");
+      print("  008  breakpkg.registry       running (7 packages)");
       print("  009  terminal.sh             running  ← you are here");
       print("  010  ego.check               not found");
     },

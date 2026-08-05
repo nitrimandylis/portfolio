@@ -18,7 +18,8 @@ feature.
 - Curated six in the file manager: petal.ai, tokenpilot, apex, llm-mafia,
   agent-wrapped, ib-news-site.
 - breakpkg window + terminal `pkg`/`man` commands cover the CLI family:
-  swatch, juke, jazz, bacpack, dt, cine, sealfetch, agent-wrapped.
+  swatch, juke, jazz, bacpack, dt, cine, agent-wrapped. (sealfetch looked
+  like one but is a wallpaper repo — it stays out.)
 - Easter eggs: seal, f1 start lights, trash-attempt counter, defrag, console
   kernel, rm -rf /, vim.
 - Two themes: cream (default) and batman-jazz (dark), persisted.

@@ -30,7 +30,7 @@
     ["ok", `display: ${vw} on ${ua} — diagnostics, not tracking`],
     ["ok", `${mem} · ${cores}`],
     ["ok", "mounting /dev/projects… 6 entries, 0 abandoned (public ones, anyway)"],
-    ["ok", "breakpkg: 8 command-line packages linked. one escaped to npm"],
+    ["ok", "breakpkg: 7 command-line packages linked. one escaped to npm"],
     ["warn", "mounting github api… rate limit: hopefully fine"],
     ["ok", "wallpaper.service started — it reacts to your scroll. test it later"],
     ["ok", "mascot.service loaded (seal, 284KB, worth it)"],

@@ -43,12 +43,6 @@
       man: "cine — what's playing in Athens, with verdicts attached. cine watch <title> streams into IINA. can alert when booking opens.",
     },
     {
-      bin: "sealfetch",
-      repo: "sealfetch",
-      desc: "neofetch, but it is a seal, and it is a wallpaper. Mac + iPhone variants.",
-      man: "sealfetch — system info beside a seal. the seal is load-bearing; see also the mascot of this OS.",
-    },
-    {
       bin: "agent-wrapped",
       repo: "agent-wrapped",
       npm: "@nitrimandylis/agent-wrapped",
@@ -58,8 +52,8 @@
   ];
 
   const GH = "https://github.com/nitrimandylis/";
-  // repos that ship a real man page at man/<bin>.1 (sealfetch and
-  // agent-wrapped don't — their `man` falls back to the blurb above)
+  // repos that ship a real man page at man/<bin>.1 (agent-wrapped
+  // doesn't — its `man` falls back to the blurb above)
   const HAS_MAN = ["swatch", "juke", "jazz", "bacpack", "dt", "cine"];
   // what happens when you run the bin inside a browser tab
   const RUN_QUIPS = {
@@ -69,7 +63,6 @@
     bacpack: "bacpack: no ManageBac session. lucky you.",
     dt: "dt: found 0 dotfiles. this machine is a tab.",
     cine: "cine: no cinemas within reach of this sandbox. Athens has several.",
-    sealfetch: "sealfetch: the seal is already on display duty. see About This Computer.",
     "agent-wrapped":
       "agent-wrapped: no transcripts in here. run it on your own machine: bunx @nitrimandylis/agent-wrapped",
   };
