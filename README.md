@@ -43,7 +43,8 @@ canon.
 
 ```console
 guest@breakos:~$ whoami
-guest. but the OS is nick trimandylis — swift, python, typescript, glsl.
+guest. the OS belongs to nick trimandylis — python · typescript · swift.
+builds things useful or interesting, ideally both.
 ```
 
 ## 🪟 The apps
@@ -89,6 +90,7 @@ flowchart LR
 |---|---|---|
 | 🎨 design system | `css/breakos.css` | cream CRT paper, ink navy, coral, teal. bevels. scanlines |
 | 🌊 live wallpaper | `js/wallpaper.js` | canvas halftone dots reacting to scroll — now with `defrag` support |
+| 🎭 themes | `js/swatchbook.js` | palette.toml files fetched live from the swatchbook repo, mapped onto the design tokens |
 | ⏻ boot | `js/boot.js` | honest boot log (`performance` + `navigator`, zero fiction), hands off to the desktop |
 | 🪟 window manager | `js/os.js` | drag, z-order, minimize/maximize, taskbar switcher, start menu, trash, BSOD, easter eggs |
 | ▦ packages | `js/breakpkg.js` | the CLI registry — GitHub push dates + live npm version, one shared fetch |
@@ -108,7 +110,8 @@ IBM Plex Mono for data.
 - open the browser console → the kernel has opinions about you
 - type <kbd>s</kbd><kbd>e</kbd><kbd>a</kbd><kbd>l</kbd> anywhere → `mascot.service` deploys
 - type <kbd>f</kbd><kbd>1</kbd> anywhere → five red lights. you know what happens when they go out
-- type <kbd>c</kbd><kbd>l</kbd><kbd>a</kbd><kbd>u</kbd><kbd>d</kbd><kbd>e</kbd> anywhere → clawd (hand-drawn, on loan from anthropic) scuttles up to say hi
+- type <kbd>c</kbd><kbd>l</kbd><kbd>a</kbd><kbd>u</kbd><kbd>d</kbd><kbd>e</kbd> anywhere → clawd, the pixel crab, rises from the taskbar to blink, say hi, and leave a heart
+- scroll the boot too fast → the OS files a complaint
 - terminal: `claude` → an interactive Claude Code session. scripted, zero tokens, full attitude. it will ask permission to use Bash. deny it
 - type <kbd>m</kbd><kbd>a</kbd><kbd>f</kbd><kbd>i</kbd><kbd>a</kbd> anywhere → night falls, and the town from [LLM-Mafia](https://llm-mafia.vercel.app) convenes to accuse one of your **open windows**. the vote is real: it closes. cases continue the library's numbering
 - terminal: `swatch apply night-city` → the one CLI that actually runs here. the themes are **live palette.toml files** from [swatchbook](https://github.com/nitrimandylis/swatchbook) — nine of them, plus the built-ins. the taskbar `◐ theme` button opens a picker that rethemes the desktop live as you browse

@@ -20,8 +20,10 @@ feature.
 - breakpkg window + terminal `pkg`/`man` commands cover the CLI family:
   swatch, juke, jazz, bacpack, dt, cine, agent-wrapped. (sealfetch looked
   like one but is a wallpaper repo — it stays out.)
-- Easter eggs: seal, f1 start lights, trash-attempt counter, defrag, console
-  kernel, rm -rf /, vim.
+- Easter eggs: seal, clawd (typed "claude" or the terminal's scripted Claude
+  Code session with its recreated startup TTY), the mafia night phase (the
+  llm-mafia town votes out an open window), f1 start lights in apex's design
+  language, trash-attempt counter, defrag, console kernel, rm -rf /, vim.
 - Themes: cream (default), batman-jazz (hand-tuned), plus nine live from the
   swatchbook repo's palette.toml files (night-city, nord, tokyo-night, …).
   `swatch apply <palette>` in the terminal is a working command; the taskbar
