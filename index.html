@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=VT323&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=VT323&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@600;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/breakos.css" />
@@ -418,9 +418,15 @@
       <button class="sm-item sm-danger" id="sm-shutdown">⏻ shut down…</button>
     </nav>
 
-    <!-- f1 start lights (type "f1") -->
+    <!-- f1 start lights (type "f1") — styled after apex, the F1 dashboard -->
     <div class="f1-lights" id="f1-lights" aria-hidden="true">
-      <span></span><span></span><span></span><span></span><span></span>
+      <div class="f1-panel">
+        <p class="f1-label">apex.exe — race start</p>
+        <div class="f1-row">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <p class="f1-headline"><span>lights out and away we go.</span></p>
     </div>
 
     <!-- taskbar -->

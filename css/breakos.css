@@ -1083,7 +1083,8 @@ a.pkgrow:hover .pkg-name {
   box-shadow: 10px 12px 0 rgba(29, 36, 56, 0.22);
 }
 
-/* f1 start lights (type "f1") */
+/* f1 start lights (type "f1") — apex's design language, on loan:
+   near-black panel, hairline rules, race red, Outfit display type */
 .f1-lights {
   position: fixed;
   top: 9vh;
@@ -1091,27 +1092,79 @@ a.pkgrow:hover .pkg-name {
   transform: translateX(-50%);
   z-index: 160;
   display: none;
-  gap: 14px;
-  padding: 12px 16px;
-  background: var(--ink);
-  border: 2px solid var(--ink);
-  box-shadow: 6px 6px 0 rgba(29, 36, 56, 0.3);
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
   pointer-events: none;
 }
 .f1-lights.on {
   display: flex;
 }
-.f1-lights span {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #2a2a33;
-  border: 3px solid #101018;
-  transition: background 80ms linear, box-shadow 80ms linear;
+.f1-panel {
+  background: #070709;
+  border: 1px solid rgba(244, 243, 241, 0.08);
+  padding: 14px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
-.f1-lights span.lit {
-  background: #d10000;
-  box-shadow: 0 0 18px rgba(209, 0, 0, 0.8);
+.f1-label {
+  font-family: "Outfit", "Helvetica Neue", sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244, 243, 241, 0.55);
+}
+.f1-row {
+  display: flex;
+  gap: 12px;
+}
+.f1-row span {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(244, 243, 241, 0.06);
+  border: 1px solid rgba(244, 243, 241, 0.1);
+  transition: background 60ms linear, box-shadow 140ms var(--ease-strong);
+}
+.f1-row span.lit {
+  background: #d40f0c;
+  border-color: #d40f0c;
+  box-shadow:
+    0 0 22px rgba(212, 15, 12, 0.75),
+    inset 0 0 8px rgba(241, 69, 63, 0.8);
+}
+/* the payoff: an apex hero headline — white on the skewed red bar */
+.f1-headline {
+  opacity: 0;
+}
+.f1-headline span {
+  display: inline-block;
+  font-family: "Outfit", "Helvetica Neue", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #f4f3f1;
+  background: #d40f0c;
+  padding: 0.08em 0.35em 0.12em;
+  transform: rotate(-1.2deg);
+}
+.f1-lights.go .f1-headline {
+  opacity: 1;
+}
+.f1-lights.go .f1-headline span {
+  animation: f1-sweep 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes f1-sweep {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
 
 /* press feedback on the pressables that lacked it */

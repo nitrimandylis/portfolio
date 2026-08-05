@@ -1239,20 +1239,21 @@ function runF1() {
     f1Busy = false;
     return;
   }
-  const lights = f1El.querySelectorAll("span");
+  const lights = f1El.querySelectorAll(".f1-row span");
   f1El.classList.add("on");
   lights.forEach((l, i) =>
     setTimeout(() => l.classList.add("lit"), 420 * (i + 1)),
   );
-  // random hold, then all out at once — that part is the actual start
+  // random hold, then all out at once — that part is the actual start.
+  // the payoff is an apex-style headline, not a toast.
   setTimeout(
     () => {
       lights.forEach((l) => l.classList.remove("lit"));
-      notify("lights out and away we go.");
+      f1El.classList.add("go");
       setTimeout(() => {
-        f1El.classList.remove("on");
+        f1El.classList.remove("on", "go");
         f1Busy = false;
-      }, 900);
+      }, 2000);
     },
     420 * 5 + 500 + Math.random() * 1200,
   );
