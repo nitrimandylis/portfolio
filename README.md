@@ -35,7 +35,9 @@ it's an entire (fictional) operating system. You **scroll to boot it** —
 the boot log prints *true diagnostics* about your actual page load — and
 when boot hits 100%, the page stops being a page. It becomes a **desktop**:
 windows drag, stack, minimize to a real taskbar, and launch from icons or
-a start menu. On phones you get **breakOS Mobile**, the scroll edition,
+a start menu. The icons drag too — single click selects, double-click
+launches, and an empty patch of desk gives you a marquee. Where you leave
+things is where they stay. On phones you get **breakOS Mobile**, the scroll edition,
 because the mobile version of any OS is always slightly worse. That is
 canon.
 
@@ -52,7 +54,8 @@ guest. but the OS is nick trimandylis — swift, python, typescript, glsl.
 | ▤ | **`~/things-i-made`** | file manager of the curated six: `petal_ai.swift`, `tokenpilot.ts`, `apex.ts`, `llm_mafia.py`, `agent_wrapped.ts`, `ib_news_site.py` — click to open, drag to trash to be told no |
 | ▦ | **breakpkg** | package manager for the CLI family — swatch, juke, jazz, bacpack, dt, cine, sealfetch, agent-wrapped. every row a real repo; agent-wrapped's npm version fetched **live** from the registry |
 | ◔ | **System Monitor** | my repos, fetched **live** from the GitHub API as processes — real sizes as memory, real push times as uptime, plus *your* actual FPS |
-| ▮ | **terminal** | a working shell. `help`, `pkg list`, `man swatch`, `defrag`, `sudo hire-nick`, `vim` (good luck quitting) |
+| ▮ | **terminal** | a working shell. `help`, `pkg list`, `defrag`, `sudo hire-nick`, `vim` (good luck quitting). `man juke` fetches the CLI's **actual man page** from its repo and renders it |
+| ❒ | **the .docx icons** | the IB coursework — EE and four IAs — sitting on the desk like any real desktop. they open; they do not download. sealed until results day |
 | ◍ | **About This Computer** | processor: `1 × human, runs warm under deadline`. peripherals: `8 command-line tools attached. one escaped to npm` |
 | ⏻ | **start menu → Shut down?** | `[Yes]` `[Also Yes]` → BSOD → `stop code: VISITOR_ATTEMPTED_TO_LEAVE` → reboots you to the boot log |
 

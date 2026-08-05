@@ -58,7 +58,32 @@
   ];
 
   const GH = "https://github.com/nitrimandylis/";
-  PKGS.forEach((p) => (p.url = GH + p.repo));
+  // repos that ship a real man page at man/<bin>.1 (sealfetch and
+  // agent-wrapped don't — their `man` falls back to the blurb above)
+  const HAS_MAN = ["swatch", "juke", "jazz", "bacpack", "dt", "cine"];
+  // what happens when you run the bin inside a browser tab
+  const RUN_QUIPS = {
+    swatch: "swatch: no desktop surfaces found to theme. ironic, given the surroundings.",
+    juke: "juke: Music.app not found in this browser. the silence continues.",
+    jazz: "jazz: this terminal cannot render video. it can barely render text.",
+    bacpack: "bacpack: no ManageBac session. lucky you.",
+    dt: "dt: found 0 dotfiles. this machine is a tab.",
+    cine: "cine: no cinemas within reach of this sandbox. Athens has several.",
+    sealfetch: "sealfetch: the seal is already on display duty. see About This Computer.",
+    "agent-wrapped":
+      "agent-wrapped: no transcripts in here. run it on your own machine: bunx @nitrimandylis/agent-wrapped",
+  };
+  PKGS.forEach((p) => {
+    p.url = GH + p.repo;
+    if (HAS_MAN.includes(p.bin))
+      p.manUrl =
+        "https://raw.githubusercontent.com/nitrimandylis/" +
+        p.repo +
+        "/main/man/" +
+        p.bin +
+        ".1";
+    p.quip = RUN_QUIPS[p.bin];
+  });
 
   // live npm version, 30-min cache — same pattern as the repos fetch
   const NPM_KEY = "breakos-npm-v1";

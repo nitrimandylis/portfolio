@@ -20,9 +20,10 @@ Two modes, one markup, decided once per page load at the 720px breakpoint:
 Files:
 
 - `index.html` — all markup: boot section, six `.window` sections (files,
-  monitor, breakpkg, terminal, about, mail), app icons + decor icons +
-  functional trash, start menu, shutdown dialog + `#sd-modal` shell, taskbar,
-  file-detail overlay, f1 lights, BSOD overlay.
+  monitor, breakpkg, terminal, about, mail), desktop icons (app launchers,
+  coursework `.docx` icons, decor, functional trash), start menu, shutdown
+  dialog + `#sd-modal` shell, taskbar, file-detail overlay, f1 lights, BSOD
+  overlay.
 - `css/breakos.css` — single stylesheet. Design tokens in `:root` (cream
   `--paper`, navy `--ink`, `--coral`, `--teal`, `--ease-strong`); a
   `[data-theme="batman"]` block remaps them to the neon-noir "batman jazz"
@@ -30,28 +31,37 @@ Files:
   (stage, WM states, start menu, breakpkg, f1, trash) sits above the 720px
   "breakOS Mobile" media query.
 - `js/os.js` — core: Lenis smooth scroll, the window manager (`APPS`/`WM`,
-  `openApp`/`closeApp`/`minimizeApp`/`focusApp`), boot→desktop handoff,
-  curated gallery (`GALLERY` + `FILE_COPY`, six featured posters), trash
-  drag with attempt counter (`breakos-trash-attempts`), f1 + seal cheat
-  codes, appearance toggle (persisted to `breakos-theme`; exposed as
-  `window.__setTheme`/`__getTheme`), shutdown → BSOD → reboot, toasts.
+  `openApp`/`closeApp`/`minimizeApp`/`focusApp`; maximize parks inline
+  left/top in `st.premax`, dragging a maximized titlebar unsnaps it), the
+  desktop icon system (single click selects, double-click opens, drag with
+  positions persisted to `breakos-icons-v1` as vw/vh, background marquee;
+  no parallax — parallax used to scrub icons off-screen), boot→desktop
+  handoff, curated gallery (`GALLERY` + `FILE_COPY`), coursework overlay
+  (`DOC_COPY` — described, never downloadable), trash drag with attempt
+  counter (`breakos-trash-attempts`), f1 + seal cheat codes, appearance
+  toggle (persisted to `breakos-theme`), shutdown → BSOD → reboot, toasts.
   Shared GitHub fetch lives here as `window.BREAKOS_REPOS` (30-min cache,
   `breakos-repos-v1`).
 - `js/boot.js` — scroll-scrubbed boot log; lines computed from real
   diagnostics (`performance`, `navigator`). Keep lines truthful — that's the
   joke. Fires `__enterDesktop` at progress ≈ 1.
 - `js/breakpkg.js` — the CLI-family registry (`window.BREAKPKG`): 8 packages,
-  each a real repo. Renders the breakpkg window from `BREAKOS_REPOS` data;
-  agent-wrapped's version is fetched live from registry.npmjs.org (30-min
-  cache, `breakos-npm-v1`). terminal.js reads `window.BREAKPKG` for
-  `pkg`/`man`.
+  each a real repo, with `manUrl` for the six repos that ship `man/<bin>.1`
+  and a `quip` for running the bin in a tab. Renders the breakpkg window
+  from `BREAKOS_REPOS` data; agent-wrapped's version is fetched live from
+  registry.npmjs.org (30-min cache, `breakos-npm-v1`).
 - `js/monitor.js` — GitHub repos as "processes"; real FPS/uptime; the third
   stat is scroll depth on mobile and open-window count on the desktop
   (`window.__winCount`).
 - `js/terminal.js` — command parser. Add commands to `CMDS` or as cases in
   `run()`. `FILES` (its `ls`/`cat` filesystem) mirrors the six gallery
-  projects; `open` routes through `window.__openApp` when booted; `pkg` and
-  `man` read `window.BREAKPKG`; `defrag` calls `window.__defrag`.
+  projects; `open` routes through `window.__openApp` when booted; `pkg
+  list`/`pkg info` read `window.BREAKPKG` (there is no `pkg install` —
+  everything is preinstalled, that's the joke); `man <bin>` fetches the
+  repo's real `man/<bin>.1` (30-min cache, `breakos-man-<bin>`) and renders
+  it via `renderRoff` (a roff-lite formatter, only the macros those pages
+  use); typing a bin name runs its deadpan refusal quip; `defrag` calls
+  `window.__defrag`.
 - `js/wallpaper.js` — canvas halftone dots; scroll velocity feeds dot size
   and drift. `window.__defrag()` packs the dots into a grid and releases
   them (guarded against resize mid-run). In the batman-jazz theme the canvas
@@ -83,12 +93,15 @@ breakpkg → terminal (terminal reads `window.BREAKPKG`).
 `node --check js/*.js` for syntax; then serve and check both modes:
 
 - **Desktop (>720px)**: scroll the boot to 100% — desktop must take over
-  (scroll locks, boot screen hidden, files window auto-opens). Drag a window,
-  minimize/restore from the taskbar, open breakpkg from its icon (8 rows,
-  live npm version on agent-wrapped), run `pkg list` / `man swatch` /
-  `defrag` in the terminal, drag a poster to the trash (counter increments,
-  file survives), type `f1`, then start menu → shut down → BSOD → reboot
-  must land back on a scrollable boot log.
+  (scroll locks, boot screen hidden, files window auto-opens). Drag a
+  window; maximize one (must fill the stage), drag its titlebar (must
+  unsnap), close it maximized and reopen (must come back normal with a □
+  glyph). Drag an icon (position must survive reload), marquee-select a few,
+  double-click a `.docx` (overlay, no download). Run `pkg list` /
+  `pkg info swatch` / `man juke` (real man page) / `swatch` / `defrag` in
+  the terminal, drag a poster to the trash (counter increments, file
+  survives), type `f1`, then start menu → shut down → BSOD → reboot must
+  land back on a scrollable boot log.
 - **Mobile (≤720px)**: linear scroll session — boot completes, windows drift
   in, close-to-tray works, minimize buttons hidden.
 - Toggle appearance (taskbar `◐ theme` or `theme batman`) and confirm the

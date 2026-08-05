@@ -120,68 +120,187 @@ if (!REDUCED && !DESKTOP) {
   });
 }
 
-// ── decor icons: parallax + quips (app icons stay put — launch targets don't wander) ──
-if (!REDUCED) {
-  const ICON_TOASTS = {
-    my_computer: "no drives found. the computer is fine.",
-    untitled_final_v2_REAL: "there are 11 more versions. this is the real one.",
-    "do_not_open.txt": "too late.",
-    "dial_up.exe": "connecting… 56k… connected. do not pick up the phone.",
-    "passwords.txt": "hunter2. always hunter2.",
-    "shortcut to shortcut":
-      "this is a shortcut to a shortcut. the original was lost.",
-    "important_FINAL_v3.zip": "contains: important_FINAL_v2.zip.",
-  };
+// ── desktop icons: select, drag, double-click to open.
+//    no parallax — real desktops hold still (and parallax used to scrub
+//    icons clean off-screen by the end of the boot). positions persist. ──
+const ICON_QUIPS = {
+  my_computer: "no drives found. the computer is fine.",
+  untitled_final_v2_REAL: "there are 11 more versions. this is the real one.",
+  "do_not_open.txt": "too late.",
+  "dial_up.exe": "connecting… 56k… connected. do not pick up the phone.",
+  "passwords.txt": "hunter2. always hunter2.",
+  "shortcut to shortcut":
+    "this is a shortcut to a shortcut. the original was lost.",
+  "important_FINAL_v3.zip": "contains: important_FINAL_v2.zip.",
+};
+const iconEls = Array.from(document.querySelectorAll(".icon"));
+const ICON_POS_KEY = "breakos-icons-v1";
+let iconPos = {};
+try {
+  iconPos = JSON.parse(localStorage.getItem(ICON_POS_KEY) || "{}");
+} catch (_) {}
+const iconKey = (icon) =>
+  icon.id ||
+  icon.dataset.open ||
+  icon.dataset.doc ||
+  (icon.querySelector(".icon-label")?.textContent || "");
 
-  const icons = document.querySelectorAll(".icon.decor");
+// restore saved spots (stored as viewport percentages)
+iconEls.forEach((icon) => {
+  const p = iconPos[iconKey(icon)];
+  if (p) {
+    icon.style.left = p[0] + "vw";
+    icon.style.top = p[1] + "vh";
+    icon.style.right = "auto";
+  }
+});
 
-  // quickTo setters — one per icon, created once
-  const xTo = Array.from(icons).map((icon) =>
-    gsap.quickTo(icon, "x", { duration: 0.7, ease: "power1.out" }),
-  );
+function clearIconSel() {
+  iconEls.forEach((i) => i.classList.remove("selected"));
+}
 
-  window.addEventListener(
-    "mousemove",
-    (e) => {
-      const cx = window.innerWidth / 2;
-      icons.forEach((icon, i) => {
-        const depth = parseFloat(icon.dataset.depth || 0.05) * 110;
-        xTo[i](((e.clientX - cx) * depth) / window.innerWidth);
-      });
-    },
-    { passive: true },
-  );
-
-  icons.forEach((icon, i) => {
-    const depth = parseFloat(icon.dataset.depth || 0.05);
-    const float = icon.querySelector(".icon-float");
-
-    // scroll parallax on outer .icon (Y only — no conflict with float)
-    gsap.to(icon, {
-      y: () => -window.innerHeight * depth * 8,
-      ease: "none",
-      scrollTrigger: {
-        trigger: "#desktop",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1.2,
-      },
-    });
-
-    // ambient float on inner .icon-float (separate element — no Y conflict)
-    gsap.to(float, {
-      y: "+=" + (5 + i * 1.4),
+// gentle ambient float on the inner element — never fights dragging
+if (!REDUCED)
+  iconEls.forEach((icon, i) => {
+    gsap.to(icon.querySelector(".icon-float"), {
+      y: "+=" + (4 + (i % 5)),
       repeat: -1,
       yoyo: true,
       ease: "sine.inOut",
-      duration: 2.6 + i * 0.38,
-      delay: i * 0.32,
+      duration: 2.6 + (i % 7) * 0.35,
+      delay: (i % 6) * 0.3,
+    });
+  });
+
+let appHintShown = false;
+if (DESKTOP) {
+  iconEls.forEach((icon) => {
+    icon.style.touchAction = "none";
+    let justDragged = false;
+    icon.addEventListener("pointerdown", (e) => {
+      e.stopPropagation(); // the background marquee must not start on icons
+      icon.setPointerCapture(e.pointerId);
+      const sx = e.clientX,
+        sy = e.clientY;
+      const r = icon.getBoundingClientRect();
+      let moved = false;
+      const move = (ev) => {
+        const dx = ev.clientX - sx,
+          dy = ev.clientY - sy;
+        if (!moved && Math.hypot(dx, dy) > 5) {
+          moved = true;
+          icon.classList.add("dragged");
+          icon.style.right = "auto";
+        }
+        if (!moved) return;
+        icon.style.left =
+          Math.max(2, Math.min(r.left + dx, window.innerWidth - r.width - 2)) +
+          "px";
+        icon.style.top =
+          Math.max(
+            2,
+            Math.min(r.top + dy, window.innerHeight - r.height - 46),
+          ) + "px";
+      };
+      const up = () => {
+        icon.removeEventListener("pointermove", move);
+        icon.removeEventListener("pointerup", up);
+        icon.removeEventListener("pointercancel", up);
+        icon.classList.remove("dragged");
+        if (moved) {
+          justDragged = true;
+          setTimeout(() => (justDragged = false), 0);
+          const rr = icon.getBoundingClientRect();
+          iconPos[iconKey(icon)] = [
+            +((rr.left / window.innerWidth) * 100).toFixed(2),
+            +((rr.top / window.innerHeight) * 100).toFixed(2),
+          ];
+          try {
+            localStorage.setItem(ICON_POS_KEY, JSON.stringify(iconPos));
+          } catch (_) {}
+        }
+      };
+      icon.addEventListener("pointermove", move);
+      icon.addEventListener("pointerup", up);
+      icon.addEventListener("pointercancel", up);
     });
 
-    // click toast
-    const label = icon.querySelector(".icon-label")?.textContent || "";
-    const quip = ICON_TOASTS[label];
-    if (quip) icon.addEventListener("click", () => notify(quip, 3200));
+    icon.addEventListener("click", (e) => {
+      if (justDragged) return;
+      const was = icon.classList.contains("selected");
+      if (!e.shiftKey) clearIconSel();
+      icon.classList.toggle("selected", e.shiftKey ? !was : true);
+      if (icon.dataset.open && !appHintShown) {
+        appHintShown = true;
+        notify(
+          "single click selects. double-click launches. this is an OS, not a website.",
+          3600,
+        );
+      }
+    });
+
+    icon.addEventListener("dblclick", () => {
+      clearIconSel();
+      if (icon.dataset.open) return openApp(icon.dataset.open, "icon");
+      if (icon.id === "icon-trash") return trashSummary();
+      if (icon.dataset.doc) return openDoc(icon.dataset.doc);
+      const q = ICON_QUIPS[iconKey(icon)];
+      if (q) notify(q, 3200);
+    });
+  });
+
+  // marquee selection on empty desktop
+  let mq = null,
+    mx = 0,
+    my = 0;
+  document.addEventListener("pointerdown", (e) => {
+    if (!booted || mq) return;
+    const t = e.target;
+    if (
+      t !== document.body &&
+      t !== document.documentElement &&
+      t.tagName !== "MAIN"
+    )
+      return;
+    if (!e.shiftKey) clearIconSel();
+    mx = e.clientX;
+    my = e.clientY;
+    mq = document.createElement("div");
+    mq.className = "marquee";
+    document.body.appendChild(mq);
+    const move = (ev) => {
+      const x = Math.min(mx, ev.clientX),
+        y = Math.min(my, ev.clientY);
+      const w = Math.abs(ev.clientX - mx),
+        h = Math.abs(ev.clientY - my);
+      Object.assign(mq.style, {
+        left: x + "px",
+        top: y + "px",
+        width: w + "px",
+        height: h + "px",
+      });
+      iconEls.forEach((icon) => {
+        const r = icon.getBoundingClientRect();
+        const hit =
+          r.left < x + w && r.right > x && r.top < y + h && r.bottom > y;
+        if (hit) icon.classList.add("selected");
+        else if (!ev.shiftKey) icon.classList.remove("selected");
+      });
+    };
+    const up = () => {
+      document.removeEventListener("pointermove", move);
+      document.removeEventListener("pointerup", up);
+      if (mq) mq.remove();
+      mq = null;
+    };
+    document.addEventListener("pointermove", move);
+    document.addEventListener("pointerup", up);
+  });
+} else {
+  // mobile hides the icons; keep quips wired for odd viewports
+  iconEls.forEach((icon) => {
+    const q = ICON_QUIPS[iconKey(icon)];
+    if (q) icon.addEventListener("click", () => notify(q, 3200));
   });
 }
 
@@ -223,6 +342,8 @@ function openApp(key, src) {
   if (st.open) return focusApp(key);
   st.open = true;
   st.el.classList.remove("closed");
+  gsap.killTweensOf(st.el);
+  gsap.set(st.el, { clearProps: "transform,opacity" });
   if (!st.placed) {
     placeApp(st);
     st.placed = true;
@@ -264,12 +385,22 @@ function closeApp(key) {
   if (!st || !st.open) return;
   const done = () => {
     st.el.classList.add("closed");
-    st.el.classList.remove("maximized");
+    if (st.el.classList.contains("maximized")) {
+      // a closed window forgets it was maximized — and gets its spot back
+      st.el.classList.remove("maximized");
+      if (st.premax) {
+        st.el.style.left = st.premax.left;
+        st.el.style.top = st.premax.top;
+      }
+      if (WM.__setMaxGlyph) WM.__setMaxGlyph(st);
+    }
+    gsap.set(st.el, { clearProps: "transform,opacity" });
     st.open = false;
     st.minimized = false;
     focusTop();
     syncTaskbar();
   };
+  gsap.killTweensOf(st.el);
   if (REDUCED) done();
   else
     gsap.to(st.el, {
@@ -277,10 +408,7 @@ function closeApp(key) {
       opacity: 0,
       duration: 0.14,
       ease: "power2.out",
-      onComplete: () => {
-        gsap.set(st.el, { clearProps: "scale,opacity" });
-        done();
-      },
+      onComplete: done,
     });
   notify(CLOSE_QUIPS[key] || key + " closed.");
 }
@@ -294,6 +422,7 @@ function minimizeApp(key) {
     focusTop();
     syncTaskbar();
   };
+  gsap.killTweensOf(st.el);
   if (REDUCED) done();
   else {
     st.el.style.transformOrigin = "50% 100%";
@@ -316,6 +445,7 @@ function restoreApp(key) {
   if (!st || !st.minimized) return;
   st.minimized = false;
   st.el.classList.remove("closed");
+  gsap.killTweensOf(st.el);
   focusApp(key);
   if (!REDUCED)
     gsap.fromTo(
@@ -441,26 +571,42 @@ if (DESKTOP) {
     bar.addEventListener("pointerdown", (e) => {
       if (e.target.closest(".tb-btn")) return;
       focusApp(key);
-      if (el.classList.contains("maximized")) return;
       const st = WM[key];
       if (st.dragging) return; // multi-touch protection
       st.dragging = true;
       bar.setPointerCapture(e.pointerId);
-      const sx = e.clientX,
+      let sx = e.clientX,
         sy = e.clientY;
-      const ox = parseFloat(el.style.left) || 0,
+      let ox = parseFloat(el.style.left) || 0,
         oy = parseFloat(el.style.top) || 0;
       const W = stage.clientWidth,
-        H = stage.clientHeight,
-        w = el.offsetWidth;
+        H = stage.clientHeight;
+      let w = el.offsetWidth;
+      let wasMax = el.classList.contains("maximized");
       let moved = false;
       const move = (ev) => {
         const dx = ev.clientX - sx,
           dy = ev.clientY - sy;
-        if (!moved && Math.abs(dx) + Math.abs(dy) > 2) {
+        if (!moved && Math.abs(dx) + Math.abs(dy) > (wasMax ? 6 : 2)) {
           moved = true;
           el.classList.add("dragging");
+          if (wasMax) {
+            // drag unsnaps a maximized window — it pops back to normal
+            // size under the cursor, like a real OS
+            wasMax = false;
+            el.classList.remove("maximized");
+            setMaxGlyph(st);
+            w = Math.min(720, W * 0.72); // matches the stage width rule
+            ox = Math.max(-w + 130, Math.min(ev.clientX - w * 0.4, W - 130));
+            oy = Math.max(0, ev.clientY - 14);
+            el.style.left = ox + "px";
+            el.style.top = oy + "px";
+            sx = ev.clientX;
+            sy = ev.clientY;
+            return;
+          }
         }
+        if (!moved) return;
         el.style.left =
           Math.max(-w + 130, Math.min(ox + dx, W - 130)) + "px";
         el.style.top = Math.max(0, Math.min(oy + dy, H - 44)) + "px";
@@ -487,21 +633,37 @@ if (DESKTOP) {
     });
   });
 
-  function toggleMax(key) {
-    const st = WM[key];
-    st.el.classList.toggle("maximized");
+  function setMaxGlyph(st) {
     const btn = st.el.querySelector('.tb-btn[data-act="max"]');
     if (btn)
       btn.textContent = st.el.classList.contains("maximized") ? "❐" : "□";
+  }
+
+  function toggleMax(key) {
+    const st = WM[key];
+    gsap.killTweensOf(st.el);
+    gsap.set(st.el, { clearProps: "transform,opacity" });
+    if (st.el.classList.contains("maximized")) {
+      // restore the pre-max spot
+      st.el.classList.remove("maximized");
+      st.el.style.left = st.premax ? st.premax.left : st.el.style.left;
+      st.el.style.top = st.premax ? st.premax.top : st.el.style.top;
+    } else {
+      // inline left/top would override the maximized inset — park them
+      st.premax = { left: st.el.style.left, top: st.el.style.top };
+      st.el.style.left = "";
+      st.el.style.top = "";
+      st.el.classList.add("maximized");
+    }
+    setMaxGlyph(st);
     if (!REDUCED)
       gsap.from(st.el, { scale: 0.985, duration: 0.15, ease: "expo.out" });
     focusApp(key);
   }
+  WM.__toggleMax = toggleMax;
+  WM.__setMaxGlyph = setMaxGlyph;
 
-  // app icons launch
-  document.querySelectorAll(".app-icon[data-open]").forEach((icon) => {
-    icon.addEventListener("click", () => openApp(icon.dataset.open, "icon"));
-  });
+  // (app icons launch on double-click — wired in the icon system above)
 } else {
   // ── mobile: the old close/maximize/tray behavior, unchanged ──
   document.querySelectorAll(".window .tb-btn").forEach((btn) => {
@@ -556,7 +718,7 @@ function enterDesktop() {
   else {
     stage.classList.add("on");
     gsap.from(stage, { opacity: 0, duration: 0.35, ease: "power1.out" });
-    gsap.from(".app-icon", {
+    gsap.from(".app-icon, .icon.doc", {
       opacity: 0,
       y: 6,
       duration: 0.25,
@@ -581,8 +743,11 @@ function exitDesktop() {
     const st = WM[k];
     st.open = false;
     st.minimized = false;
+    gsap.killTweensOf(st.el);
+    gsap.set(st.el, { clearProps: "transform,opacity" });
     st.el.classList.add("closed");
     st.el.classList.remove("maximized", "inactive");
+    if (WM.__setMaxGlyph) WM.__setMaxGlyph(st);
   });
   syncTaskbar();
   hideMenu();
@@ -747,6 +912,61 @@ function openFile(f) {
   overlay.classList.add("open");
 }
 
+// ── coursework on the desk: real documents, described but not distributed ──
+const DOC_COPY = {
+  ee: {
+    label: "extended_essay.docx",
+    kind: "business management · extended essay",
+    status: "submitted",
+    voice: "4,000 words on the company that ate the GPU market.",
+    body: "The IB Extended Essay, on NVIDIA — how a graphics-card company became the axis of the AI buildout, examined with Business Management tools. Researched, referenced, word-counted to the wire.",
+  },
+  business_ia: {
+    label: "business_ia.docx",
+    kind: "business management · IA",
+    status: "in revision",
+    voice: "A commentary on Roblox. The users build the product.",
+    body: "Business Management IA analysing Roblox Corporation. Currently in second-draft territory: sharper argument, fewer adjectives.",
+  },
+  cs_ia: {
+    label: "cs_ia.docx",
+    kind: "computer science · IA",
+    status: "in development",
+    voice: "Focal — a photo manager built for a real client.",
+    body: "The CS IA: Focal, a desktop photo manager. Flask and SQLite wrapped in pywebview, built against a real client's requirements and documented to IB spec.",
+  },
+  math_ia: {
+    label: "math_ia.docx",
+    kind: "mathematics AA HL · IA",
+    status: "in progress",
+    voice: "Graph theory, applied until it confesses.",
+    body: "Mathematics AA HL exploration built on graph theory. Proofs where possible, simulation where honest.",
+  },
+  gp_ia: {
+    label: "gp_ia.docx",
+    kind: "global politics · IA",
+    status: "in progress",
+    voice: "Greek education and who actually gets a say.",
+    body: "Global Politics IA on Greek education and democratic participation — power, legitimacy and representation, applied to the school system that produced its author.",
+  },
+};
+
+function openDoc(k) {
+  const d = DOC_COPY[k];
+  if (!d) return;
+  document.getElementById("ov-title").textContent = "❒ " + d.label;
+  document.getElementById("ov-name").textContent = d.label;
+  document.getElementById("ov-voice").textContent = d.voice;
+  document.getElementById("ov-body").textContent = d.body;
+  document.getElementById("ov-meta").innerText =
+    "kind: " +
+    d.kind +
+    "\nstatus: " +
+    d.status +
+    "\ndownload: disabled — sealed until results day";
+  overlay.classList.add("open");
+}
+
 // ── trash: a real drop target. deletion is not on the menu ──
 const trashIcon = document.getElementById("icon-trash");
 const trashLabel = document.getElementById("trash-label");
@@ -784,15 +1004,14 @@ function trashAttempt(key) {
     3600,
   );
 }
-if (trashIcon)
-  trashIcon.addEventListener("click", () =>
-    notify(
-      "trash contains: 0 projects, " +
-        trashTries +
-        " failed attempts, 1 crumpled cover letter. everything shipped.",
-      3600,
-    ),
+function trashSummary() {
+  notify(
+    "trash contains: 0 projects, " +
+      trashTries +
+      " failed attempts, 1 crumpled cover letter. everything shipped.",
+    3600,
   );
+}
 
 // drag a poster card toward the trash (desktop mode only)
 function wireFileDrag(card, key) {
@@ -915,6 +1134,7 @@ document.addEventListener("keydown", (e) => {
     overlay.classList.remove("open");
     hideMenu();
     sdModal.classList.remove("open");
+    clearIconSel();
   }
 });
 

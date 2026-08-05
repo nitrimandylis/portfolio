@@ -53,6 +53,61 @@
     contact: { app: "new-message", sec: "#ws-mail", win: "win-mail" },
   };
 
+  // roff-lite: enough of man(7) to render the repos' real man pages.
+  // not a troff implementation — just the macros these six pages use.
+  function renderRoff(src) {
+    const clean = (s) =>
+      s
+        .replace(/\\f[BIRP]/g, "")
+        .replace(/\\-/g, "-")
+        .replace(/\\\(bu/g, "•")
+        .replace(/\\&/g, "")
+        .replace(/\\ /g, " ");
+    const unquote = (s) => s.replace(/^"|"$/g, "");
+    const out = [];
+    src.split("\n").forEach((ln) => {
+      if (ln.startsWith('.\\"')) return; // comment
+      if (ln.startsWith(".TH ")) {
+        const parts = ln.slice(4).match(/"[^"]*"|\S+/g) || [];
+        const name = unquote(parts[0] || "").toUpperCase();
+        const sec = unquote(parts[1] || "1");
+        const extra = parts
+          .slice(2)
+          .map(unquote)
+          .filter(Boolean)
+          .join("  ·  ");
+        out.push(name + "(" + sec + ")" + (extra ? "   " + extra : ""));
+        return;
+      }
+      if (ln.startsWith(".SH ")) {
+        out.push("");
+        out.push(clean(unquote(ln.slice(4))));
+        return;
+      }
+      if (ln.startsWith(".SS ")) {
+        out.push("");
+        out.push("  " + clean(unquote(ln.slice(4))));
+        return;
+      }
+      if (/^\.(TP|PP|P|LP)\b/.test(ln)) {
+        out.push("");
+        return;
+      }
+      if (/^\.(B|I|BR|IR|BI|IB|RB|RI)\s/.test(ln)) {
+        out.push(
+          "  " + clean(ln.replace(/^\.\w+\s+/, "").replace(/"/g, "")),
+        );
+        return;
+      }
+      if (ln.startsWith(".")) return; // any other macro: drop the line
+      out.push(clean(ln));
+    });
+    return out
+      .join("\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+  }
+
   // command history
   const hist = [];
   let histIdx = -1;
@@ -66,8 +121,8 @@
           "  open <window>         open a window\n" +
           "                        windows: files · packages · monitor · terminal · about · mail\n" +
           "  pkg list              installed command-line tools\n" +
-          "  pkg install <name>    install one (sort of)\n" +
-          "  man <tool>            manual pages exist now. some of them\n" +
+          "  pkg info <name>       details on one of them\n" +
+          "  man <tool>            the real man page, fetched from the repo\n" +
           "  defrag                defragment the wallpaper\n" +
           "  whoami                identify current user\n" +
           "  pwd                   print working directory\n" +
@@ -224,9 +279,8 @@
     // ── breakpkg: same registry as the Packages window ──
     if (cmd === "pkg" || cmd === "pkg list" || cmd === "pkg ls") {
       const pkgs = window.BREAKPKG || [];
-      if (cmd === "pkg")
-        return print("usage: pkg list · pkg install <name>");
-      print("breakpkg registry — " + pkgs.length + " packages:");
+      if (cmd === "pkg") return print("usage: pkg list · pkg info <name>");
+      print("breakpkg registry — " + pkgs.length + " packages, all preinstalled:");
       pkgs.forEach((p) =>
         print(
           "  " +
@@ -235,12 +289,14 @@
             p.desc,
         ),
       );
-      print("(the Packages window has the live versions. this is the same data.)");
+      print(
+        "(everything ships with the OS — this is a portfolio, not a store. try: pkg info swatch)",
+      );
       return;
     }
 
-    if (cmd.startsWith("pkg install ")) {
-      const name = cmd.slice(12).trim().toLowerCase();
+    if (cmd.startsWith("pkg info ")) {
+      const name = cmd.slice(9).trim().toLowerCase();
       const p = (window.BREAKPKG || []).find(
         (x) => x.bin === name || x.repo === name,
       );
@@ -250,34 +306,27 @@
             name +
             ": not in the registry. nick hasn't built that yet. give him a weekend.",
         );
-      const frames = [
-        "[##--------] resolving " + p.bin,
-        "[#####-----] fetching from github",
-        "[########--] linking into /usr/local/bin (spiritually)",
-        "[##########] done.",
-      ];
-      const line = document.createElement("p");
-      out.appendChild(line);
-      frames.forEach((f, i) =>
-        setTimeout(() => {
-          line.textContent = f;
-          body.scrollTop = body.scrollHeight;
-          if (i === frames.length - 1)
-            print(
-              p.bin +
-                " installed. the real one lives here: " +
-                '<a href="' +
-                p.url +
-                '" target="_blank" rel="noopener">' +
-                p.url +
-                "</a>" +
-                (p.npm ? "\nor for real: bunx " + p.npm : ""),
-              true,
-            );
-        }, 420 * i),
+      print(
+        p.bin +
+          "\n  " +
+          p.desc +
+          "\n  channel: " +
+          (p.npm ? "npm (" + p.npm + ")" : "source") +
+          "\n  repo: " +
+          '<a href="' +
+          p.url +
+          '" target="_blank" rel="noopener">' +
+          p.url +
+          "</a>" +
+          (p.manUrl ? "\n  docs: man " + p.bin : ""),
+        true,
       );
       return;
     }
+    if (cmd.startsWith("pkg install "))
+      return print(
+        "pkg: install: everything is already installed. it's a portfolio — the packages come with the person. try: pkg list",
+      );
 
     if (cmd === "defrag") {
       if (window.__getTheme && window.__getTheme() === "batman")
@@ -363,9 +412,15 @@
       const p = (window.BREAKPKG || []).find(
         (x) => x.bin === s || x.repo === s,
       );
-      if (p)
+      if (!p)
         return print(
-          s.toUpperCase() +
+          "man: no manual entry for " +
+            s +
+            ". breakOS documents its packages and nothing else. try: man swatch",
+        );
+      const fallback = () =>
+        print(
+          p.bin.toUpperCase() +
             "(1)\n\nNAME\n  " +
             p.bin +
             " — " +
@@ -375,11 +430,28 @@
             "\n\nSOURCE\n  " +
             p.url,
         );
-      return print(
-        "man: no manual entry for " +
-          s +
-          ". breakOS documents its packages and nothing else. try: man swatch",
-      );
+      if (!p.manUrl) return fallback();
+      // the real man page, straight from the repo (30-min cache)
+      const key = "breakos-man-" + p.bin;
+      try {
+        const c = JSON.parse(localStorage.getItem(key) || "null");
+        if (c && Date.now() - c.at < 1000 * 60 * 30)
+          return print(renderRoff(c.txt));
+      } catch (_) {}
+      print("fetching the real man page from " + p.repo + "…");
+      fetch(p.manUrl)
+        .then((r) => (r.ok ? r.text() : Promise.reject(r.status)))
+        .then((txt) => {
+          try {
+            localStorage.setItem(
+              key,
+              JSON.stringify({ at: Date.now(), txt }),
+            );
+          } catch (_) {}
+          print(renderRoff(txt));
+        })
+        .catch(fallback);
+      return;
     }
 
     if (cmd === "cd" || cmd.startsWith("cd ")) {
@@ -423,6 +495,18 @@
 
     const fn = CMDS[cmd];
     if (fn) return fn();
+
+    // the installed CLIs exist as commands — they just can't do much in a tab
+    const bin = cmd.split(" ")[0];
+    const pk = (window.BREAKPKG || []).find((x) => x.bin === bin);
+    if (pk)
+      return print(
+        (pk.quip || pk.bin + ": cannot run inside a browser tab.") +
+          "\n→ " +
+          (pk.manUrl ? "man " + pk.bin + "  ·  " : "") +
+          pk.url,
+      );
+
     print("breaksh: " + cmd + ": command not found. 'help' lists real ones.");
   }
 
