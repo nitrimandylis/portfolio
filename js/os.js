@@ -1,9 +1,14 @@
 // ════════════════════════════════════════════════
 //  OS CORE — smooth scroll, window manager, taskbar,
 //  file manager, shutdown/BSOD, and the humor runtime
+//  v3: after boot, desktop mode is real — windows drag,
+//  stack, minimize, and launch from icons. mobile keeps
+//  the scroll session ("breakOS Mobile" is worse on purpose).
 // ════════════════════════════════════════════════
 gsap.registerPlugin(ScrollTrigger);
 const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// one mode per page load — matches the 720px "breakOS Mobile" breakpoint
+const DESKTOP = window.matchMedia("(min-width: 721px)").matches;
 
 // ── Lenis smooth scroll ──
 if (!REDUCED) {
@@ -16,7 +21,7 @@ if (!REDUCED) {
 
 // ── kernel log (console easter egg) ──
 console.log(
-  "%cbreakOS kernel 2.6.11%c\n[ ok ] devtools detected — promoting visitor to power user\n[ ok ] this console is the only part of the site with no CSS. enjoy the silence\n[warn] the OS is a metaphor. the repos are real: https://github.com/nitrimandylis\n[ ok ] try typing `seal` on the page. or `rm -rf /` in the terminal window. coward.",
+  "%cbreakOS kernel 3.0%c\n[ ok ] devtools detected — promoting visitor to power user\n[ ok ] this console is the only part of the site with no CSS. enjoy the silence\n[warn] the OS is a metaphor. the repos are real: https://github.com/nitrimandylis\n[ ok ] the windows drag now. try throwing a project in the trash. it won't work.",
   "color:#f25c4a;font-size:20px;font-family:monospace;font-weight:bold",
   "color:#1f8a8c;font-family:monospace;font-size:12px",
 );
@@ -40,10 +45,11 @@ function tickClock() {
 tickClock();
 setInterval(tickClock, 10000);
 
-// ── scroll progress in taskbar ──
+// ── scroll progress in taskbar (boot progress, once booted it stays full) ──
 window.addEventListener(
   "scroll",
   () => {
+    if (document.body.classList.contains("booted")) return;
     const el = document.documentElement;
     const pct = el.scrollTop / (el.scrollHeight - el.clientHeight) || 0;
     document.getElementById("tb-progress-fill").style.width = pct * 100 + "%";
@@ -72,8 +78,8 @@ if (!REDUCED) {
     cool = 0;
   const FAST = [
     "notice: scroll velocity exceeds reading speed",
-    "the windows drift in nicely, you know. if you let them.",
-    "achievement unlocked: speedrun (portfolio%)",
+    "the boot log is honest, you know. if you read it.",
+    "achievement unlocked: speedrun (boot%)",
   ];
   window.addEventListener(
     "scroll",
@@ -91,8 +97,8 @@ if (!REDUCED) {
   );
 }
 
-// ── window drift-in + icon parallax ──
-if (!REDUCED) {
+// ── mobile-only: window drift-in on scroll (desktop mode animates per-open) ──
+if (!REDUCED && !DESKTOP) {
   document.querySelectorAll(".window[data-drift]").forEach((win) => {
     const fromLeft = win.dataset.drift === "left";
     gsap.from(win, {
@@ -105,9 +111,19 @@ if (!REDUCED) {
       scrollTrigger: { trigger: win, start: "top 85%" },
     });
   });
+  gsap.from(".shutdown-dialog", {
+    scale: 0.7,
+    opacity: 0,
+    ease: "back.out(1.6)",
+    duration: 0.7,
+    scrollTrigger: { trigger: "#ws-shutdown", start: "top 70%" },
+  });
+}
+
+// ── decor icons: parallax + quips (app icons stay put — launch targets don't wander) ──
+if (!REDUCED) {
   const ICON_TOASTS = {
     my_computer: "no drives found. the computer is fine.",
-    "recycle bin (full)": "85 items. you'll need those someday.",
     untitled_final_v2_REAL: "there are 11 more versions. this is the real one.",
     "do_not_open.txt": "too late.",
     "dial_up.exe": "connecting… 56k… connected. do not pick up the phone.",
@@ -117,7 +133,7 @@ if (!REDUCED) {
     "important_FINAL_v3.zip": "contains: important_FINAL_v2.zip.",
   };
 
-  const icons = document.querySelectorAll(".icon");
+  const icons = document.querySelectorAll(".icon.decor");
 
   // quickTo setters — one per icon, created once
   const xTo = Array.from(icons).map((icon) =>
@@ -167,64 +183,460 @@ if (!REDUCED) {
     const quip = ICON_TOASTS[label];
     if (quip) icon.addEventListener("click", () => notify(quip, 3200));
   });
-  gsap.from(".shutdown-dialog", {
-    scale: 0.7,
-    opacity: 0,
-    ease: "back.out(1.6)",
-    duration: 0.7,
-    scrollTrigger: { trigger: "#ws-shutdown", start: "top 70%" },
-  });
 }
 
-// ── window manager: close / maximize / tray ──
+// ════════════════════════════════════════════════
+//  WINDOW MANAGER
+//  desktop: real WM — drag, z-order, minimize, launch.
+//  mobile: the old close-to-tray behavior, untouched.
+// ════════════════════════════════════════════════
 const tray = document.getElementById("tb-tray");
 const CLOSE_QUIPS = {
   "things-i-made": "things-i-made moved to Trash. the projects remain shipped.",
   "system-monitor":
     "monitor closed. the processes keep running. they always do.",
+  breakpkg: "breakpkg closed. the packages stay installed. that's the deal.",
   terminal: "terminal closed. it whispered 'logout' as it went.",
   about: "about.app moved to Trash. bold move.",
   "new-message": "draft discarded. the duck email waits patiently.",
 };
 
-document.querySelectorAll(".window .tb-btn").forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const win = btn.closest(".window");
-    if (win.classList.contains("overlay-win")) return; // overlay handles itself
-    const app = win.dataset.app;
-    if (btn.dataset.act === "close") {
-      win.classList.add("closed");
-      win.classList.remove("maximized");
-      notify(CLOSE_QUIPS[app] || app + " closed.");
-      const b = document.createElement("button");
-      b.className = "tb-app";
-      b.textContent = "▣ " + app;
-      b.title = "reopen " + app;
-      b.addEventListener("click", () => {
-        win.classList.remove("closed");
-        b.remove();
-        notify(app + " restored from Trash. no questions asked.");
-        win.scrollIntoView({
-          behavior: REDUCED ? "auto" : "smooth",
-          block: "center",
-        });
+const APPS = {
+  "things-i-made": { win: "win-files", glyph: "▤", name: "things-i-made" },
+  breakpkg: { win: "win-pkg", glyph: "▦", name: "breakpkg" },
+  "system-monitor": { win: "win-monitor", glyph: "◔", name: "monitor" },
+  terminal: { win: "win-terminal", glyph: "▮", name: "terminal" },
+  about: { win: "win-about", glyph: "◍", name: "about" },
+  "new-message": { win: "win-mail", glyph: "✉", name: "message" },
+};
+
+const WM = {}; // app key → live state
+let zTop = 20;
+let booted = false;
+
+function openApp(key, src) {
+  if (!DESKTOP) return;
+  const st = WM[key];
+  if (!st) return;
+  if (!booted) return notify("still booting. scroll.");
+  if (st.minimized) return restoreApp(key);
+  if (st.open) return focusApp(key);
+  st.open = true;
+  st.el.classList.remove("closed");
+  if (!st.placed) {
+    placeApp(st);
+    st.placed = true;
+  }
+  focusApp(key);
+  if (!REDUCED) {
+    // launched from taskbar → grow from below; otherwise from center-ish
+    st.el.style.transformOrigin = src === "taskbar" ? "50% 110%" : "50% 60%";
+    gsap.fromTo(
+      st.el,
+      { scale: 0.94, opacity: 0, y: 8 },
+      {
+        scale: 1,
+        opacity: 1,
+        y: 0,
+        duration: 0.2,
+        ease: "expo.out",
+        clearProps: "scale,opacity,y",
+      },
+    );
+    // package rows cascade in on first open — 40ms apart, decorative only
+    if (key === "breakpkg" && !st.staggered) {
+      st.staggered = true;
+      gsap.from(".pkgpkg", {
+        opacity: 0,
+        y: 6,
+        duration: 0.22,
+        stagger: 0.04,
+        ease: "expo.out",
+        clearProps: "opacity,y",
       });
-      tray.appendChild(b);
-    } else if (btn.dataset.act === "max") {
-      win.classList.toggle("maximized");
-      btn.textContent = win.classList.contains("maximized") ? "❐" : "□";
+    }
+  }
+  syncTaskbar();
+}
+
+function closeApp(key) {
+  const st = WM[key];
+  if (!st || !st.open) return;
+  const done = () => {
+    st.el.classList.add("closed");
+    st.el.classList.remove("maximized");
+    st.open = false;
+    st.minimized = false;
+    focusTop();
+    syncTaskbar();
+  };
+  if (REDUCED) done();
+  else
+    gsap.to(st.el, {
+      scale: 0.96,
+      opacity: 0,
+      duration: 0.14,
+      ease: "power2.out",
+      onComplete: () => {
+        gsap.set(st.el, { clearProps: "scale,opacity" });
+        done();
+      },
+    });
+  notify(CLOSE_QUIPS[key] || key + " closed.");
+}
+
+function minimizeApp(key) {
+  const st = WM[key];
+  if (!st || !st.open || st.minimized) return;
+  st.minimized = true;
+  const done = () => {
+    st.el.classList.add("closed");
+    focusTop();
+    syncTaskbar();
+  };
+  if (REDUCED) done();
+  else {
+    st.el.style.transformOrigin = "50% 100%";
+    gsap.to(st.el, {
+      scale: 0.9,
+      y: 26,
+      opacity: 0,
+      duration: 0.16,
+      ease: "power2.out",
+      onComplete: () => {
+        gsap.set(st.el, { clearProps: "scale,y,opacity" });
+        done();
+      },
+    });
+  }
+}
+
+function restoreApp(key) {
+  const st = WM[key];
+  if (!st || !st.minimized) return;
+  st.minimized = false;
+  st.el.classList.remove("closed");
+  focusApp(key);
+  if (!REDUCED)
+    gsap.fromTo(
+      st.el,
+      { scale: 0.92, y: 18, opacity: 0 },
+      {
+        scale: 1,
+        y: 0,
+        opacity: 1,
+        duration: 0.18,
+        ease: "expo.out",
+        clearProps: "scale,y,opacity",
+      },
+    );
+  syncTaskbar();
+}
+
+function focusApp(key) {
+  const st = WM[key];
+  if (!st) return;
+  st.el.style.zIndex = ++zTop;
+  Object.keys(APPS).forEach((k) =>
+    WM[k].el.classList.toggle("inactive", k !== key),
+  );
+  WM.__focused = key;
+  syncTaskbar();
+}
+
+function focusTop() {
+  // after a close/minimize, hand focus to whichever open window is highest
+  let best = null,
+    bestZ = -1;
+  Object.entries(APPS).forEach(([k]) => {
+    const s = WM[k];
+    if (s.open && !s.minimized && +s.el.style.zIndex > bestZ) {
+      bestZ = +s.el.style.zIndex;
+      best = k;
     }
   });
+  if (best) focusApp(best);
+}
+
+function placeApp(st) {
+  // cascade defaults, clear of the icon column on the left
+  const stage = document.getElementById("stage");
+  const W = stage.clientWidth,
+    H = stage.clientHeight;
+  const w = Math.min(st.el.offsetWidth || 720, W - 40);
+  const i = st.index;
+  st.el.style.left =
+    Math.max(150, Math.min(150 + i * 40, W - w - 24)) + "px";
+  st.el.style.top = Math.min(34 + i * 34, Math.max(24, H - 320)) + "px";
+}
+
+function syncTaskbar() {
+  if (!DESKTOP) return;
+  Object.entries(APPS).forEach(([key]) => {
+    const st = WM[key];
+    if (!st || !st.btn) return;
+    st.btn.dataset.state = st.minimized
+      ? "min"
+      : st.open
+        ? "open"
+        : "closed";
+    st.btn.classList.toggle(
+      "active",
+      st.open && !st.minimized && WM.__focused === key,
+    );
+  });
+  if (window.__onWinCount) window.__onWinCount(window.__winCount());
+}
+window.__winCount = () =>
+  Object.keys(APPS).filter((k) => WM[k] && WM[k].open && !WM[k].minimized)
+    .length;
+window.__openApp = openApp;
+
+if (DESKTOP) {
+  // build the stage and adopt every window into it
+  document.body.classList.add("desktop");
+  const stage = document.createElement("div");
+  stage.id = "stage";
+  document.querySelector("main").appendChild(stage);
+
+  Object.entries(APPS).forEach(([key, app], i) => {
+    const el = document.getElementById(app.win);
+    stage.appendChild(el);
+    el.classList.add("closed");
+    WM[key] = {
+      el,
+      index: i,
+      open: false,
+      minimized: false,
+      placed: false,
+    };
+
+    // taskbar button — a real app switcher, not a graveyard
+    const b = document.createElement("button");
+    b.className = "tb-task";
+    b.dataset.state = "closed";
+    b.innerHTML = app.glyph + " " + app.name;
+    b.title = key;
+    b.addEventListener("click", () => {
+      const st = WM[key];
+      if (!st.open) return openApp(key, "taskbar");
+      if (st.minimized) return restoreApp(key);
+      if (WM.__focused === key) return minimizeApp(key);
+      focusApp(key);
+    });
+    tray.appendChild(b);
+    WM[key].btn = b;
+
+    // any mousedown in the window raises it — like a real OS
+    el.addEventListener("pointerdown", () => {
+      if (WM.__focused !== key) focusApp(key);
+    });
+
+    // titlebar: drag + dblclick maximize + button actions
+    const bar = el.querySelector(".titlebar");
+    bar.addEventListener("dblclick", (e) => {
+      if (e.target.closest(".tb-btn")) return;
+      toggleMax(key);
+    });
+    bar.addEventListener("pointerdown", (e) => {
+      if (e.target.closest(".tb-btn")) return;
+      focusApp(key);
+      if (el.classList.contains("maximized")) return;
+      const st = WM[key];
+      if (st.dragging) return; // multi-touch protection
+      st.dragging = true;
+      bar.setPointerCapture(e.pointerId);
+      const sx = e.clientX,
+        sy = e.clientY;
+      const ox = parseFloat(el.style.left) || 0,
+        oy = parseFloat(el.style.top) || 0;
+      const W = stage.clientWidth,
+        H = stage.clientHeight,
+        w = el.offsetWidth;
+      let moved = false;
+      const move = (ev) => {
+        const dx = ev.clientX - sx,
+          dy = ev.clientY - sy;
+        if (!moved && Math.abs(dx) + Math.abs(dy) > 2) {
+          moved = true;
+          el.classList.add("dragging");
+        }
+        el.style.left =
+          Math.max(-w + 130, Math.min(ox + dx, W - 130)) + "px";
+        el.style.top = Math.max(0, Math.min(oy + dy, H - 44)) + "px";
+      };
+      const up = () => {
+        st.dragging = false;
+        el.classList.remove("dragging");
+        bar.removeEventListener("pointermove", move);
+        bar.removeEventListener("pointerup", up);
+        bar.removeEventListener("pointercancel", up);
+      };
+      bar.addEventListener("pointermove", move);
+      bar.addEventListener("pointerup", up);
+      bar.addEventListener("pointercancel", up);
+    });
+
+    el.querySelectorAll(".tb-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (btn.dataset.act === "close") closeApp(key);
+        else if (btn.dataset.act === "min") minimizeApp(key);
+        else if (btn.dataset.act === "max") toggleMax(key);
+      });
+    });
+  });
+
+  function toggleMax(key) {
+    const st = WM[key];
+    st.el.classList.toggle("maximized");
+    const btn = st.el.querySelector('.tb-btn[data-act="max"]');
+    if (btn)
+      btn.textContent = st.el.classList.contains("maximized") ? "❐" : "□";
+    if (!REDUCED)
+      gsap.from(st.el, { scale: 0.985, duration: 0.15, ease: "expo.out" });
+    focusApp(key);
+  }
+
+  // app icons launch
+  document.querySelectorAll(".app-icon[data-open]").forEach((icon) => {
+    icon.addEventListener("click", () => openApp(icon.dataset.open, "icon"));
+  });
+} else {
+  // ── mobile: the old close/maximize/tray behavior, unchanged ──
+  document.querySelectorAll(".window .tb-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const win = btn.closest(".window");
+      if (win.classList.contains("overlay-win")) return;
+      const app = win.dataset.app;
+      if (btn.dataset.act === "close") {
+        win.classList.add("closed");
+        win.classList.remove("maximized");
+        notify(CLOSE_QUIPS[app] || app + " closed.");
+        const b = document.createElement("button");
+        b.className = "tb-app";
+        b.textContent = "▣ " + app;
+        b.title = "reopen " + app;
+        b.addEventListener("click", () => {
+          win.classList.remove("closed");
+          b.remove();
+          notify(app + " restored from Trash. no questions asked.");
+          win.scrollIntoView({
+            behavior: REDUCED ? "auto" : "smooth",
+            block: "center",
+          });
+        });
+        tray.appendChild(b);
+      } else if (btn.dataset.act === "max") {
+        win.classList.toggle("maximized");
+        btn.textContent = win.classList.contains("maximized") ? "❐" : "□";
+      }
+    });
+  });
+}
+
+// ════════════════════════════════════════════════
+//  BOOT → DESKTOP handoff
+// ════════════════════════════════════════════════
+const startMenu = document.getElementById("start-menu");
+const sdModal = document.getElementById("sd-modal");
+
+function enterDesktop() {
+  if (!DESKTOP || booted) return;
+  booted = true;
+  document.body.classList.add("booted");
+  document.documentElement.style.overflow = "hidden";
+  if (window.__lenis) window.__lenis.stop();
+  document.getElementById("tb-progress-fill").style.width = "100%";
+  // adopt the shutdown dialog into its modal shell
+  sdModal.appendChild(document.querySelector(".shutdown-dialog"));
+  const stage = document.getElementById("stage");
+  if (REDUCED) stage.classList.add("on");
+  else {
+    stage.classList.add("on");
+    gsap.from(stage, { opacity: 0, duration: 0.35, ease: "power1.out" });
+    gsap.from(".app-icon", {
+      opacity: 0,
+      y: 6,
+      duration: 0.25,
+      stagger: 0.04,
+      ease: "expo.out",
+      clearProps: "opacity,y",
+    });
+  }
+  setTimeout(() => openApp("things-i-made", "icon"), 550);
+  notify("desktop session started. the windows drag now. go on.");
+}
+window.__enterDesktop = enterDesktop;
+
+function exitDesktop() {
+  if (!booted) return;
+  booted = false;
+  document.body.classList.remove("booted");
+  document.getElementById("stage").classList.remove("on");
+  document.documentElement.style.overflow = "";
+  if (window.__lenis) window.__lenis.start();
+  Object.keys(APPS).forEach((k) => {
+    const st = WM[k];
+    st.open = false;
+    st.minimized = false;
+    st.el.classList.add("closed");
+    st.el.classList.remove("maximized", "inactive");
+  });
+  syncTaskbar();
+  hideMenu();
+  sdModal.classList.remove("open");
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+// ── start button / start menu ──
+function hideMenu() {
+  startMenu.classList.remove("open");
+  startMenu.setAttribute("aria-hidden", "true");
+}
+document.getElementById("tb-start").addEventListener("click", (e) => {
+  if (DESKTOP && booted) {
+    e.stopPropagation();
+    const open = startMenu.classList.toggle("open");
+    startMenu.setAttribute("aria-hidden", String(!open));
+  } else if (DESKTOP) {
+    notify("start menu loads after boot. scroll.");
+  } else {
+    window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" });
+    notify("start menu not found. there is only scroll.");
+  }
+});
+startMenu.querySelectorAll(".sm-item[data-open]").forEach((item) => {
+  item.addEventListener("click", () => {
+    openApp(item.dataset.open, "taskbar");
+    hideMenu();
+  });
+});
+document.getElementById("sm-shutdown").addEventListener("click", () => {
+  hideMenu();
+  sdModal.classList.add("open");
+  sdModal.setAttribute("aria-hidden", "false");
+  if (!REDUCED)
+    gsap.fromTo(
+      ".shutdown-dialog",
+      { scale: 0.92, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.2, ease: "expo.out" },
+    );
+});
+document.addEventListener("click", (e) => {
+  if (
+    startMenu.classList.contains("open") &&
+    !startMenu.contains(e.target) &&
+    e.target.id !== "tb-start"
+  )
+    hideMenu();
+});
+sdModal.addEventListener("click", (e) => {
+  if (e.target === sdModal) sdModal.classList.remove("open");
 });
 
-// ── start button ──
-document.getElementById("tb-start").addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" });
-  notify("start menu not found. there is only scroll.");
-});
-
-// ── shared repo fetch: one request, 30-min cache, monitor.js reuses this ──
+// ── shared repo fetch: one request, 30-min cache, monitor.js + breakpkg reuse this ──
 window.BREAKOS_REPOS = (function () {
   const USER = "nitrimandylis";
   const CACHE_KEY = "breakos-repos-v1";
@@ -282,13 +694,13 @@ const FILE_COPY = {
     body: "Real standings and replayable telemetry pulled live from Jolpica and OpenF1 — scrub a session lap by lap and watch the gaps open and close. TypeScript, real data, no fake numbers. The season is the database.",
     kind: "typescript",
   },
-  jukebox: {
-    label: "jukebox.ts",
+  "agent-wrapped": {
+    label: "agent_wrapped.ts",
     year: 2026,
-    verdict: "now playing, in a terminal.",
-    voice: "Apple Music, driven from the command line.",
-    body: "A terminal jukebox for Apple Music — search, queue, and control playback without ever leaving the shell. Built in TypeScript on Bun, it renders now-playing where your prompt used to be. One of the terminal toys, and the one that stuck.",
-    kind: "typescript · bun",
+    verdict: "you, but benchmarked.",
+    voice: "Your Claude Code month, scored and rendered as a card.",
+    body: "Reads your last ~30 days of Claude Code transcripts — locally, offline, nothing leaves the machine — scores the usage, assigns an archetype, and renders a shareable PNG or SVG card, including what the month would have cost at API rates. Published to npm. One bunx away from an identity crisis.",
+    kind: "typescript · cli · npm",
   },
   "ib-news-site": {
     label: "ib_news_site.py",
@@ -307,7 +719,7 @@ const GALLERY = [
   { key: "tokenpilot", accent: "#2f8f8c" },
   { key: "apex", accent: "#d64550" },
   { key: "llm-mafia", accent: "#7d5ba6" },
-  { key: "jukebox", accent: "#e0518a" },
+  { key: "agent-wrapped", accent: "#e0518a" },
   { key: "ib-news-site", accent: "#4a6fa5" },
 ];
 
@@ -335,6 +747,135 @@ function openFile(f) {
   overlay.classList.add("open");
 }
 
+// ── trash: a real drop target. deletion is not on the menu ──
+const trashIcon = document.getElementById("icon-trash");
+const trashLabel = document.getElementById("trash-label");
+const TRASH_KEY = "breakos-trash-attempts";
+let trashTries = 0;
+try {
+  trashTries = parseInt(localStorage.getItem(TRASH_KEY) || "0", 10) || 0;
+} catch (_) {}
+function paintTrashLabel() {
+  trashLabel.textContent =
+    trashTries === 0
+      ? "trash"
+      : "trash (" + trashTries + (trashTries === 1 ? " attempt)" : " attempts)");
+}
+paintTrashLabel();
+const TRASH_QUIPS = {
+  "petal.ai": "petal_ai.swift cannot be deleted: it teaches. actually.",
+  "llm-mafia": "llm_mafia.py refused. the town voted against it.",
+  tokenpilot: "tokenpilot.ts audited the delete request. denied: wasteful.",
+  apex: "apex.ts cannot be deleted mid-season. contractual.",
+  "agent-wrapped": "agent_wrapped.ts scored that attempt. archetype: deleter.",
+  "ib-news-site": "ib_news_site.py is protected by the free press.",
+};
+function trashAttempt(key) {
+  trashTries++;
+  try {
+    localStorage.setItem(TRASH_KEY, String(trashTries));
+  } catch (_) {}
+  paintTrashLabel();
+  notify(
+    (TRASH_QUIPS[key] || "file cannot be deleted: it shipped.") +
+      " (attempt #" +
+      trashTries +
+      ")",
+    3600,
+  );
+}
+if (trashIcon)
+  trashIcon.addEventListener("click", () =>
+    notify(
+      "trash contains: 0 projects, " +
+        trashTries +
+        " failed attempts, 1 crumpled cover letter. everything shipped.",
+      3600,
+    ),
+  );
+
+// drag a poster card toward the trash (desktop mode only)
+function wireFileDrag(card, key) {
+  if (!DESKTOP) return;
+  card.style.touchAction = "none"; // drag owns the pointer, not scroll
+  let ghost = null,
+    started = false,
+    sx = 0,
+    sy = 0,
+    origin = null;
+  card.addEventListener("pointerdown", (e) => {
+    sx = e.clientX;
+    sy = e.clientY;
+    started = false;
+    origin = card.getBoundingClientRect();
+    card.setPointerCapture(e.pointerId);
+    const move = (ev) => {
+      const dx = ev.clientX - sx,
+        dy = ev.clientY - sy;
+      if (!started && Math.hypot(dx, dy) > 7) {
+        started = true;
+        ghost = card.cloneNode(true);
+        ghost.className = "poster-card file-ghost";
+        ghost.style.width = origin.width + "px";
+        document.body.appendChild(ghost);
+      }
+      if (!ghost) return;
+      ghost.style.left = ev.clientX - origin.width / 2 + "px";
+      ghost.style.top = ev.clientY - 24 + "px";
+      const tr = trashIcon.getBoundingClientRect();
+      const hot =
+        ev.clientX > tr.left - 14 &&
+        ev.clientX < tr.right + 14 &&
+        ev.clientY > tr.top - 14 &&
+        ev.clientY < tr.bottom + 14;
+      trashIcon.classList.toggle("trash-hot", hot);
+    };
+    const up = (ev) => {
+      card.removeEventListener("pointermove", move);
+      card.removeEventListener("pointerup", up);
+      card.removeEventListener("pointercancel", up);
+      if (!ghost) return;
+      const g = ghost;
+      ghost = null;
+      const hot = trashIcon.classList.contains("trash-hot");
+      trashIcon.classList.remove("trash-hot");
+      if (hot) {
+        const tr = trashIcon.getBoundingClientRect();
+        gsap.to(g, {
+          left: tr.left + tr.width / 2 - origin.width / 2,
+          top: tr.top,
+          scale: 0.15,
+          opacity: 0,
+          duration: REDUCED ? 0 : 0.22,
+          ease: "power2.in",
+          onComplete: () => g.remove(),
+        });
+        trashAttempt(key);
+      } else {
+        gsap.to(g, {
+          left: origin.left,
+          top: origin.top,
+          opacity: 0,
+          duration: REDUCED ? 0 : 0.2,
+          ease: "expo.out",
+          onComplete: () => g.remove(),
+        });
+      }
+      // swallow the click that would open the file
+      const stop = (ce) => {
+        ce.stopPropagation();
+        ce.preventDefault();
+        card.removeEventListener("click", stop, true);
+      };
+      card.addEventListener("click", stop, true);
+      setTimeout(() => card.removeEventListener("click", stop, true), 0);
+    };
+    card.addEventListener("pointermove", move);
+    card.addEventListener("pointerup", up);
+    card.addEventListener("pointercancel", up);
+  });
+}
+
 // poster gallery
 const posterGrid = document.getElementById("poster-grid");
 GALLERY.forEach(({ key, accent }) => {
@@ -360,6 +901,7 @@ GALLERY.forEach(({ key, accent }) => {
     "</span>" +
     "</span>";
   card.addEventListener("click", () => openFile(projectEntry(key)));
+  wireFileDrag(card, key);
   posterGrid.appendChild(card);
 });
 document
@@ -369,7 +911,11 @@ overlay.addEventListener("click", (e) => {
   if (e.target === overlay) overlay.classList.remove("open");
 });
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") overlay.classList.remove("open");
+  if (e.key === "Escape") {
+    overlay.classList.remove("open");
+    hideMenu();
+    sdModal.classList.remove("open");
+  }
 });
 
 // ── appearance: cream (default) / batman-jazz dark ──
@@ -398,6 +944,7 @@ if (themeBtn) {
 // ── shutdown → BSOD → reboot ──
 const bsod = document.getElementById("bsod");
 function crash() {
+  sdModal.classList.remove("open");
   bsod.classList.add("on");
   bsod.setAttribute("aria-hidden", "false");
   let pct = 0;
@@ -414,8 +961,9 @@ function crash() {
 function reboot() {
   bsod.classList.remove("on");
   bsod.setAttribute("aria-hidden", "true");
-  window.scrollTo({ top: 0, behavior: "auto" });
-  notify("rebooted. welcome back. it's still a portfolio.");
+  if (DESKTOP) exitDesktop();
+  else window.scrollTo({ top: 0, behavior: "auto" });
+  notify("rebooted. scroll to boot again. the OS remembers nothing. you might.");
 }
 window.__crash = crash;
 document.getElementById("sd-yes").addEventListener("click", crash);
@@ -434,7 +982,36 @@ document.getElementById("sd-uptime").textContent =
     ? "boot #1 on this machine — localStorage says we've never met. hi."
     : `boot #${visits} — counted by your own localStorage. you surveil yourself.`;
 
-// ── seal cheat code ──
+// ── cheat codes: seal, f1 ──
+const f1El = document.getElementById("f1-lights");
+let f1Busy = false;
+function runF1() {
+  if (f1Busy) return;
+  f1Busy = true;
+  if (REDUCED) {
+    notify("lights out and away we go.");
+    f1Busy = false;
+    return;
+  }
+  const lights = f1El.querySelectorAll("span");
+  f1El.classList.add("on");
+  lights.forEach((l, i) =>
+    setTimeout(() => l.classList.add("lit"), 420 * (i + 1)),
+  );
+  // random hold, then all out at once — that part is the actual start
+  setTimeout(
+    () => {
+      lights.forEach((l) => l.classList.remove("lit"));
+      notify("lights out and away we go.");
+      setTimeout(() => {
+        f1El.classList.remove("on");
+        f1Busy = false;
+      }, 900);
+    },
+    420 * 5 + 500 + Math.random() * 1200,
+  );
+}
+
 let kbuf = "";
 document.addEventListener("keydown", (e) => {
   if (e.target.tagName === "INPUT" || e.key.length !== 1) return;
@@ -448,4 +1025,5 @@ document.addEventListener("keydown", (e) => {
     notify("mascot.service activated");
     setTimeout(() => img.remove(), 4000);
   }
+  if (kbuf.endsWith("f1")) runF1();
 });

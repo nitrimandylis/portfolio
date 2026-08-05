@@ -45,6 +45,35 @@
     { passive: true },
   );
 
+  // ── defrag: dots pack into a tidy grid, hold, then drift home.
+  //    net fragments moved: zero. that's the joke, and it's true. ──
+  let defragStart = 0; // 0 = idle
+  const D_GATHER = 1400,
+    D_HOLD = 1100,
+    D_RETURN = 1000;
+  window.__defrag = () => {
+    if (reduced || defragStart) return false;
+    const cols = Math.ceil(Math.sqrt(dots.length * (w / Math.max(h, 1))));
+    dots.forEach((d, i) => {
+      d.tx = 16 + (i % cols) * 13;
+      d.ty = 16 + Math.floor(i / cols) * 13;
+    });
+    defragStart = performance.now();
+    return true;
+  };
+  const easeInOut = (p) =>
+    p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+  function defragMix(now) {
+    // returns 0..1 = how far toward the packed grid we currently are
+    const t = now - defragStart;
+    if (t < D_GATHER) return easeInOut(t / D_GATHER);
+    if (t < D_GATHER + D_HOLD) return 1;
+    if (t < D_GATHER + D_HOLD + D_RETURN)
+      return 1 - easeInOut((t - D_GATHER - D_HOLD) / D_RETURN);
+    defragStart = 0;
+    return 0;
+  }
+
   const t0 = performance.now();
   function draw() {
     smooth += (vel - smooth) * 0.06;
@@ -54,6 +83,7 @@
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = "rgba(31, 138, 140, 0.18)";
 
+    const mix = defragStart ? defragMix(performance.now()) : 0;
     for (const d of dots) {
       const wob =
         Math.sin(t * 0.5 + d.seed + d.x * 0.004) *
@@ -61,8 +91,15 @@
       const r = 1.1 + Math.abs(wob) * 1.6 + smooth * 0.18;
       const ox = Math.sin(t * 0.2 + d.seed) * (3 + smooth * 0.6);
       const oy = Math.cos(t * 0.25 + d.seed * 2) * (3 + smooth * 0.6);
+      let px = d.x + ox,
+        py = d.y + oy;
+      // (d.tx guard: a resize mid-defrag rebuilds dots without targets)
+      if (mix > 0 && d.tx !== undefined) {
+        px += (d.tx - px) * mix;
+        py += (d.ty - py) * mix;
+      }
       ctx.beginPath();
-      ctx.arc(d.x + ox, d.y + oy, r, 0, Math.PI * 2);
+      ctx.arc(px, py, mix > 0 ? Math.max(r, 1.4) : r, 0, Math.PI * 2);
       ctx.fill();
     }
     if (!reduced) requestAnimationFrame(draw);

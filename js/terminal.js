@@ -26,8 +26,8 @@
       "F1 dashboard — real standings and replayable telemetry from Jolpica + OpenF1. scrub a session lap by lap. TypeScript, real data, no fake numbers.",
     "llm_mafia.py":
       "fully autonomous Mafia — every player an LLM. parallel inference, game master narrator, LM Studio or NVIDIA NIM. you just watch the town burn.",
-    "jukebox.ts":
-      "Apple Music jukebox for the terminal. search, queue, control playback without leaving the shell. TypeScript on Bun. now-playing where your prompt used to be.",
+    "agent_wrapped.ts":
+      "your Claude Code month as a scored, shareable card. reads ~30 days of local transcripts, offline, assigns an archetype, prices the month at API rates. on npm: bunx @nitrimandylis/agent-wrapped.",
     "ib_news_site.py":
       "the CGS IB Gazette — Flask + PostgreSQL CMS. submission portal, admin dashboard, tag system, search. EB Garamond. deployed. used by actual student journalists.",
     "breakos.sys":
@@ -36,17 +36,21 @@
       "nick trimandylis. builds things useful or interesting, ideally both. python · typescript · swift, lately in the terminal. starts a repo most weeks, ships most of them.",
   };
 
-  // window map for 'open' command
+  // window map for 'open' command — app key drives the desktop WM,
+  // sec/win drive the mobile scroll fallback
   const WINS = {
-    files: { sec: "#ws-files", win: "win-files" },
-    "things-i-made": { sec: "#ws-files", win: "win-files" },
-    monitor: { sec: "#ws-monitor", win: "win-monitor" },
-    "system-monitor": { sec: "#ws-monitor", win: "win-monitor" },
-    terminal: { sec: "#ws-terminal", win: "win-terminal" },
-    about: { sec: "#ws-about", win: "win-about" },
-    mail: { sec: "#ws-mail", win: "win-mail" },
-    message: { sec: "#ws-mail", win: "win-mail" },
-    contact: { sec: "#ws-mail", win: "win-mail" },
+    files: { app: "things-i-made", sec: "#ws-files", win: "win-files" },
+    "things-i-made": { app: "things-i-made", sec: "#ws-files", win: "win-files" },
+    monitor: { app: "system-monitor", sec: "#ws-monitor", win: "win-monitor" },
+    "system-monitor": { app: "system-monitor", sec: "#ws-monitor", win: "win-monitor" },
+    packages: { app: "breakpkg", sec: "#ws-pkg", win: "win-pkg" },
+    breakpkg: { app: "breakpkg", sec: "#ws-pkg", win: "win-pkg" },
+    pkg: { app: "breakpkg", sec: "#ws-pkg", win: "win-pkg" },
+    terminal: { app: "terminal", sec: "#ws-terminal", win: "win-terminal" },
+    about: { app: "about", sec: "#ws-about", win: "win-about" },
+    mail: { app: "new-message", sec: "#ws-mail", win: "win-mail" },
+    message: { app: "new-message", sec: "#ws-mail", win: "win-mail" },
+    contact: { app: "new-message", sec: "#ws-mail", win: "win-mail" },
   };
 
   // command history
@@ -60,7 +64,11 @@
           "  ls [-la]              list files\n" +
           "  cat <file>            read a file\n" +
           "  open <window>         open a window\n" +
-          "                        windows: files · monitor · terminal · about · mail\n" +
+          "                        windows: files · packages · monitor · terminal · about · mail\n" +
+          "  pkg list              installed command-line tools\n" +
+          "  pkg install <name>    install one (sort of)\n" +
+          "  man <tool>            manual pages exist now. some of them\n" +
+          "  defrag                defragment the wallpaper\n" +
           "  whoami                identify current user\n" +
           "  pwd                   print working directory\n" +
           "  ps                    running processes\n" +
@@ -88,7 +96,7 @@
 
     uname: () =>
       print(
-        "breakOS 2.6.11 'Definitely Stable' — human/1 SMP PREEMPT est.2007",
+        "breakOS 3.0 'Now With Windows' — human/1 SMP PREEMPT est.2007",
       ),
 
     uptime: () => {
@@ -118,8 +126,10 @@
       print("  004  gsap.timeline           running");
       print("  005  github.api              sleeping (30m cache)");
       print("  006  icon.parallax           running");
-      print("  007  terminal.sh             running  ← you are here");
-      print("  008  ego.check               not found");
+      print("  007  wm.service              running (windows drag now)");
+      print("  008  breakpkg.registry       running (8 packages)");
+      print("  009  terminal.sh             running  ← you are here");
+      print("  010  ego.check               not found");
     },
 
     github: () => {
@@ -192,8 +202,14 @@
         return print(
           "open: " +
             target +
-            ": no such window. try: files · monitor · about · mail",
+            ": no such window. try: files · packages · monitor · about · mail",
         );
+      if (document.body.classList.contains("booted") && window.__openApp) {
+        // desktop session: the WM handles it
+        window.__openApp(w.app, "taskbar");
+        print("opening " + target + "…");
+        return;
+      }
       const win = document.getElementById(w.win);
       if (win) win.classList.remove("closed");
       const sec = document.querySelector(w.sec);
@@ -202,6 +218,86 @@
         else sec.scrollIntoView({ behavior: "smooth" });
       }
       print("opening " + target + "…");
+      return;
+    }
+
+    // ── breakpkg: same registry as the Packages window ──
+    if (cmd === "pkg" || cmd === "pkg list" || cmd === "pkg ls") {
+      const pkgs = window.BREAKPKG || [];
+      if (cmd === "pkg")
+        return print("usage: pkg list · pkg install <name>");
+      print("breakpkg registry — " + pkgs.length + " packages:");
+      pkgs.forEach((p) =>
+        print(
+          "  " +
+            p.bin.padEnd(14) +
+            (p.npm ? "[npm]    " : "[source] ") +
+            p.desc,
+        ),
+      );
+      print("(the Packages window has the live versions. this is the same data.)");
+      return;
+    }
+
+    if (cmd.startsWith("pkg install ")) {
+      const name = cmd.slice(12).trim().toLowerCase();
+      const p = (window.BREAKPKG || []).find(
+        (x) => x.bin === name || x.repo === name,
+      );
+      if (!p)
+        return print(
+          "pkg: " +
+            name +
+            ": not in the registry. nick hasn't built that yet. give him a weekend.",
+        );
+      const frames = [
+        "[##--------] resolving " + p.bin,
+        "[#####-----] fetching from github",
+        "[########--] linking into /usr/local/bin (spiritually)",
+        "[##########] done.",
+      ];
+      const line = document.createElement("p");
+      out.appendChild(line);
+      frames.forEach((f, i) =>
+        setTimeout(() => {
+          line.textContent = f;
+          body.scrollTop = body.scrollHeight;
+          if (i === frames.length - 1)
+            print(
+              p.bin +
+                " installed. the real one lives here: " +
+                '<a href="' +
+                p.url +
+                '" target="_blank" rel="noopener">' +
+                p.url +
+                "</a>" +
+                (p.npm ? "\nor for real: bunx " + p.npm : ""),
+              true,
+            );
+        }, 420 * i),
+      );
+      return;
+    }
+
+    if (cmd === "defrag") {
+      if (window.__getTheme && window.__getTheme() === "batman")
+        return print(
+          "defrag: the batman-jazz wallpaper is a photograph. photographs do not fragment.",
+        );
+      const started = window.__defrag && window.__defrag();
+      if (!started)
+        return print(
+          "defrag: wallpaper unavailable (reduced motion, or already defragmenting).",
+        );
+      print("defragmenting wallpaper… watch the dots.");
+      setTimeout(() => print("consolidating free space… looks great."), 1400);
+      setTimeout(
+        () =>
+          print(
+            "defrag complete. 0 fragments moved. everything was already where it belonged.",
+          ),
+        3600,
+      );
       return;
     }
 
@@ -263,11 +359,26 @@
     }
 
     if (cmd.startsWith("man ")) {
-      const s = cmd.slice(4).trim();
+      const s = cmd.slice(4).trim().toLowerCase();
+      const p = (window.BREAKPKG || []).find(
+        (x) => x.bin === s || x.repo === s,
+      );
+      if (p)
+        return print(
+          s.toUpperCase() +
+            "(1)\n\nNAME\n  " +
+            p.bin +
+            " — " +
+            p.desc +
+            "\n\nDESCRIPTION\n  " +
+            p.man +
+            "\n\nSOURCE\n  " +
+            p.url,
+        );
       return print(
         "man: no manual entry for " +
           s +
-          ". breakOS ships without documentation. this is a feature.",
+          ". breakOS documents its packages and nothing else. try: man swatch",
       );
     }
 

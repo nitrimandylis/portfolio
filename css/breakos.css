@@ -21,6 +21,8 @@
   --ff-body: "Atkinson Hyperlegible", sans-serif;
   --ff-mono: "IBM Plex Mono", monospace;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  /* strong ease-out — UI enters want punch, not mush */
+  --ease-strong: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* ── batman-jazz theme (taskbar toggle / `theme` command) ── */
@@ -58,6 +60,7 @@
    stay readable without touching the bevel shadows that also use it */
 [data-theme="batman"] .section-label,
 [data-theme="batman"] .monhead,
+[data-theme="batman"] .pkghead,
 [data-theme="batman"] .mail-field span,
 [data-theme="batman"] .sd-fine {
   color: var(--ink-soft);
@@ -790,8 +793,292 @@ em {
   100% { bottom: -60vh; transform: translateX(-50%) rotate(4deg); }
 }
 
+/* ════════════════════════════════════════════════
+   v3 DESKTOP SESSION — real windows on a real stage
+   ════════════════════════════════════════════════ */
+
+/* app icons are <button>s — undo the button chrome, keep the icon look */
+.app-icon {
+  background: none;
+  border: none;
+  font: inherit;
+  padding: 0;
+  transition: transform 120ms var(--ease-strong);
+}
+.app-icon .icon-float {
+  opacity: 0.8;
+}
+.app-icon:hover .icon-float {
+  opacity: 1;
+}
+.app-icon:active {
+  transform: scale(0.95);
+}
+.app-icon.trash-hot .icon-glyph {
+  display: inline-block;
+  transform: scale(1.35);
+  transition: transform 120ms var(--ease-strong);
+}
+.app-icon.trash-hot .icon-label {
+  color: var(--coral);
+}
+
+/* desktop mode: workspace sections empty out, the stage takes over */
+body.desktop .ws,
+body.desktop #ws-shutdown {
+  display: none;
+}
+/* once booted, the boot screen stops shining through the stage */
+body.booted #boot {
+  visibility: hidden;
+}
+#stage {
+  position: fixed;
+  inset: 0 0 44px 0;
+  z-index: 12;
+  display: none;
+  pointer-events: none;
+}
+body.booted #stage.on {
+  display: block;
+}
+body.desktop #stage .window {
+  position: absolute;
+  pointer-events: auto;
+  width: min(720px, 72vw);
+}
+body.desktop #stage .window .win-body {
+  max-height: 58vh;
+  overflow-y: auto;
+}
+body.desktop .titlebar {
+  cursor: grab;
+  user-select: none;
+}
+body.desktop .window.dragging {
+  box-shadow:
+    inset 1px 1px 0 var(--bevel-light),
+    inset -2px -2px 0 var(--bevel-dark),
+    14px 16px 0 rgba(29, 36, 56, 0.24);
+}
+body.desktop .window.dragging .titlebar {
+  cursor: grabbing;
+}
+/* unfocused windows dim their titlebar — the OS knows where you are */
+body.desktop .window.inactive .titlebar {
+  background: var(--ink-soft);
+}
+body.desktop .window.maximized {
+  position: fixed;
+  inset: 2vh 2vw calc(2vh + 44px);
+  width: auto;
+}
+body.desktop .window.maximized .win-body {
+  max-height: none;
+}
+
+/* taskbar app switcher */
+.tb-task {
+  font-family: var(--ff-chrome);
+  font-size: 0.95rem;
+  background: var(--win);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 0 8px;
+  cursor: pointer;
+  transition: transform 120ms var(--ease-strong), opacity 150ms ease;
+}
+.tb-task[data-state="closed"] {
+  opacity: 0.5;
+}
+.tb-task[data-state="min"] {
+  border-style: dashed;
+}
+.tb-task.active {
+  background: var(--teal);
+  color: var(--paper);
+}
+.tb-task:hover {
+  opacity: 1;
+}
+.tb-task:active {
+  transform: scale(0.96);
+}
+body.booted .tb-progress-fill {
+  width: 100%;
+}
+
+/* start menu — anchored to its trigger, grows from the bottom-left */
+.start-menu {
+  position: fixed;
+  left: 8px;
+  bottom: 52px;
+  z-index: 96;
+  min-width: 240px;
+  background: var(--win);
+  border: 2px solid var(--ink);
+  box-shadow:
+    inset 1px 1px 0 var(--bevel-light),
+    8px 8px 0 rgba(29, 36, 56, 0.2);
+  padding: 0.4rem 0;
+  opacity: 0;
+  transform: translateY(6px) scale(0.97);
+  transform-origin: 12% 100%;
+  pointer-events: none;
+  transition:
+    opacity 160ms var(--ease-strong),
+    transform 160ms var(--ease-strong);
+}
+.start-menu.open {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.sm-head {
+  font-family: var(--ff-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  padding: 0.2rem 0.9rem 0.4rem;
+}
+.sm-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: var(--ff-chrome);
+  font-size: 1.2rem;
+  color: var(--ink);
+  background: none;
+  border: none;
+  padding: 0.28rem 0.9rem;
+  cursor: pointer;
+}
+.sm-item:hover {
+  background: var(--teal);
+  color: var(--paper);
+}
+.sm-item:active {
+  transform: scale(0.98);
+}
+.sm-danger:hover {
+  background: var(--coral);
+}
+.sm-rule {
+  border-top: 1px dashed var(--bevel-dark);
+  margin: 0.35rem 0;
+}
+
+/* shutdown modal shell (desktop) */
+.sd-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 89;
+  background: rgba(29, 36, 56, 0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.sd-modal.open {
+  display: flex;
+}
+
+/* breakpkg */
+.pkgrow {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr 0.7fr 0.9fr;
+  gap: 0.1rem 0.5rem;
+  padding: 0.45rem 0.5rem;
+  font-family: var(--ff-mono);
+  font-size: 0.74rem;
+  border-bottom: 1px dashed var(--bevel-dark);
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.pkghead {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bevel-dark);
+}
+.pkg-name {
+  color: var(--ink);
+  font-weight: 500;
+}
+a.pkgrow:hover .pkg-name {
+  color: var(--coral);
+}
+.pkg-chan {
+  color: var(--teal-deep);
+}
+.pkg-desc {
+  grid-column: 1 / -1;
+  font-size: 0.7rem;
+}
+
+/* dragged file ghost */
+.file-ghost {
+  position: fixed;
+  z-index: 170;
+  pointer-events: none;
+  opacity: 0.92;
+  transform: rotate(2deg);
+  box-shadow: 10px 12px 0 rgba(29, 36, 56, 0.22);
+}
+
+/* f1 start lights (type "f1") */
+.f1-lights {
+  position: fixed;
+  top: 9vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 160;
+  display: none;
+  gap: 14px;
+  padding: 12px 16px;
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 rgba(29, 36, 56, 0.3);
+  pointer-events: none;
+}
+.f1-lights.on {
+  display: flex;
+}
+.f1-lights span {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #2a2a33;
+  border: 3px solid #101018;
+  transition: background 80ms linear, box-shadow 80ms linear;
+}
+.f1-lights span.lit {
+  background: #d10000;
+  box-shadow: 0 0 18px rgba(209, 0, 0, 0.8);
+}
+
+/* press feedback on the pressables that lacked it */
+.sd-btn,
+.tb-btn,
+.poster-card {
+  transition-property: transform, box-shadow, background, color;
+  transition-duration: 140ms;
+  transition-timing-function: var(--ease-strong);
+}
+.sd-btn:active,
+.tb-btn:active {
+  transform: scale(0.94);
+}
+.poster-card:active {
+  transform: scale(0.985);
+}
+
 /* ── breakOS Mobile ── */
 @media (max-width: 720px) {
+  .tb-btn[data-act="min"] {
+    display: none;
+  }
   .icons {
     display: none;
   }
