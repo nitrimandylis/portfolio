@@ -1166,6 +1166,59 @@ body.booted .tb-progress-fill {
   margin: 0.35rem 0;
 }
 
+/* theme picker — same chrome as the start menu, anchored to ◐ theme */
+.theme-menu {
+  position: fixed;
+  right: 56px;
+  bottom: 52px;
+  z-index: 96;
+  min-width: 230px;
+  max-height: min(60vh, 480px);
+  overflow-y: auto;
+  background: var(--win);
+  border: 2px solid var(--ink);
+  box-shadow:
+    inset 1px 1px 0 var(--bevel-light),
+    8px 8px 0 rgba(29, 36, 56, 0.2);
+  padding: 0.4rem 0;
+  opacity: 0;
+  transform: translateY(6px) scale(0.97);
+  transform-origin: 88% 100%;
+  pointer-events: none;
+  transition:
+    opacity 160ms var(--ease-strong),
+    transform 160ms var(--ease-strong);
+}
+.theme-menu.open {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.tm-mark {
+  color: var(--coral);
+}
+.tm-current {
+  color: var(--coral);
+}
+.tm-variant {
+  float: right;
+  font-family: var(--ff-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-top: 0.35em;
+}
+.sm-item:hover .tm-variant {
+  color: var(--paper);
+}
+.tm-loading {
+  font-family: var(--ff-chrome);
+  font-size: 1rem;
+  color: var(--ink-soft);
+  padding: 0.3rem 0.9rem;
+}
+
 /* shutdown modal shell (desktop) */
 .sd-modal {
   position: fixed;

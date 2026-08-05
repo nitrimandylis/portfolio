@@ -1159,6 +1159,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     overlay.classList.remove("open");
     hideMenu();
+    hideThemeMenu();
     sdModal.classList.remove("open");
     clearIconSel();
   }
@@ -1260,24 +1261,83 @@ try {
   if (saved && window.__setWallDot) window.__setWallDot(saved.vars["--teal"]);
 } catch (_) {}
 
-// taskbar toggle cycles every theme it knows about; the swatchbook
-// list joins the rotation once its first fetch resolves
-let themeCycle = ["default", "batman"];
+// taskbar ◐ theme opens a picker. choosing applies live and keeps the
+// menu open — it's a theme browser, not a form. outside click / Esc closes.
+const themeMenu = document.getElementById("theme-menu");
 const themeBtn = document.getElementById("tb-theme");
+
+function hideThemeMenu() {
+  themeMenu.classList.remove("open");
+  themeMenu.setAttribute("aria-hidden", "true");
+}
+
+function buildThemeMenu(themes) {
+  const cur = window.__getTheme();
+  themeMenu.innerHTML = "";
+  const head = document.createElement("p");
+  head.className = "sm-head";
+  head.textContent = "appearance";
+  themeMenu.appendChild(head);
+  const items = [
+    { id: "default", label: "cream (default)", variant: "light" },
+    { id: "batman", label: "batman jazz", variant: "dark" },
+  ].concat(
+    Object.values(themes || {}).map((t) => ({
+      id: t.id,
+      label: t.id,
+      variant: t.variant,
+    })),
+  );
+  items.forEach((it) => {
+    const b = document.createElement("button");
+    b.className = "sm-item tm-item" + (it.id === cur ? " tm-current" : "");
+    b.innerHTML =
+      '<span class="tm-mark">' +
+      (it.id === cur ? "●" : "○") +
+      "</span> " +
+      it.label +
+      ' <span class="tm-variant">' +
+      it.variant +
+      "</span>";
+    b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      applyTheme(it.id).then((ok) => {
+        if (ok) buildThemeMenu(themes); // move the ● marker, stay open
+      });
+    });
+    themeMenu.appendChild(b);
+  });
+  if (!themes) {
+    const p = document.createElement("p");
+    p.className = "tm-loading";
+    p.textContent = "resolving swatchbook…";
+    themeMenu.appendChild(p);
+  }
+}
+
 if (themeBtn) {
-  themeBtn.addEventListener("click", () => {
+  themeBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (themeMenu.classList.contains("open")) return hideThemeMenu();
+    buildThemeMenu(null);
+    themeMenu.classList.add("open");
+    themeMenu.setAttribute("aria-hidden", "false");
     window
       .BREAKOS_SWATCHBOOK()
       .then((t) => {
-        themeCycle = ["default", "batman"].concat(Object.keys(t));
+        if (themeMenu.classList.contains("open")) buildThemeMenu(t);
       })
-      .catch(() => {});
-    const cur = window.__getTheme();
-    const next =
-      themeCycle[(themeCycle.indexOf(cur) + 1) % themeCycle.length];
-    applyTheme(next).then((ok) => {
-      if (ok) notify("appearance → " + next);
-    });
+      .catch(() => {
+        const p = themeMenu.querySelector(".tm-loading");
+        if (p) p.textContent = "swatchbook unreachable — built-ins only.";
+      });
+  });
+  document.addEventListener("click", (e) => {
+    if (
+      themeMenu.classList.contains("open") &&
+      !themeMenu.contains(e.target)
+    )
+      hideThemeMenu();
   });
 }
 
