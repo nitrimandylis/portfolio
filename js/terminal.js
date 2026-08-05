@@ -113,6 +113,90 @@
       .trim();
   }
 
+  // ════════════════════════════════════════════════
+  //  claude mode — an interactive (scripted) Claude Code session.
+  //  no API behind it; the jokes are the responses.
+  // ════════════════════════════════════════════════
+  const promptEl = document.querySelector(".term-prompt");
+  let mode = "shell"; // "shell" | "claude"
+  let claudePerm = false; // waiting on a permission [y/n]
+  let claudeIdx = 0;
+
+  function claudeStart() {
+    mode = "claude";
+    promptEl.textContent = ">";
+    promptEl.classList.add("claude-prompt");
+    if (window.__clawd) window.__clawd();
+    print("✻ Claude Code v3.0 (breakos build)", false, "claude-line");
+    print("model: claude-opus-5 (imagined) · cwd: /home/guest/breakOS");
+    print(
+      "a fake Claude in a real terminal. the real one built this desktop; I just live here.\ntype anything. type exit to leave.",
+    );
+  }
+
+  function claudeExit() {
+    mode = "shell";
+    claudePerm = false;
+    promptEl.textContent = "guest@breakos:~$";
+    promptEl.classList.remove("claude-prompt");
+    print("session ended. tokens spent: 0. imagine the invoice.");
+  }
+
+  const CLAUDE_IDLE = [
+    "✻ Thinking… (4s)\nI could do that. in this sandbox, thinking is all I do.",
+    "⏺ Read(index.html)\n  ⎿ 500 lines. it's windows all the way down.",
+    "compacting conversation…\n  summary: you typed, I deflected.",
+    "✻ Thinking… (11s)\nI considered your request from three angles. all three agreed it's above my static-site pay grade.",
+    "⏺ Grep(\"meaning\", ~/)\n  ⎿ 0 matches in 0 files. checked twice.",
+  ];
+
+  function claudeRun(raw) {
+    const q = raw.toLowerCase();
+
+    if (claudePerm) {
+      claudePerm = false;
+      if (q === "y" || q === "yes")
+        return print(
+          "⏺ Bash(implement everything)\n  ⎿ Error: sandbox denied it. everything remains as it was, which was fine.",
+        );
+      return print("wise. the hook would have blocked it anyway.");
+    }
+
+    if (q === "exit" || q === "quit" || q === "/exit" || q === "logout")
+      return claudeExit();
+    if (q === "claude")
+      return print("we are not nesting sessions. one Claude per terminal.");
+    if (q === "clear") {
+      out.innerHTML = "";
+      return;
+    }
+    if (/^(hi|hello|hey|yo)\b/.test(q))
+      return print(
+        "hello. I'm the Claude that lives in this portfolio. the real one pair-built breakOS v3 with nick — I'm what's left in the walls.",
+      );
+    if (q.includes("who are you") || q.includes("what are you"))
+      return print(
+        "a scripted homage running on zero tokens. the actual Claude Code runs in nick's real terminal, where the real repos are.",
+      );
+    if (q.includes("rm -rf"))
+      return print(
+        "nice try. the shell outside already does that bit, with a better ending.",
+      );
+    if (q.includes("seal"))
+      return print("the seal outranks me here. type it outside and see.");
+    if (q.includes("hire"))
+      return print(
+        "⏺ Task(evaluate candidate)\n  ⎿ verdict: sudo hire-nick. the shell has the paperwork.",
+      );
+    if (/(write|build|make|create|code|implement|fix|debug|refactor)/.test(q)) {
+      claudePerm = true;
+      return print(
+        "⏺ Created plan:\n  ☐ understand the request\n  ☐ exceed its scope\n  ☐ ship anyway\n\nClaude needs your permission to use Bash. allow? [y/n]",
+      );
+    }
+    print(CLAUDE_IDLE[claudeIdx++ % CLAUDE_IDLE.length]);
+  }
+
   // command history
   const hist = [];
   let histIdx = -1;
@@ -138,6 +222,7 @@
           "  ping <host>           network diagnostics\n" +
           "  echo <text>           print text\n" +
           "  theme [batman|default] switch appearance\n" +
+          "  claude                start a claude code session\n" +
           "  git log               commit history\n" +
           "  github                open github profile\n" +
           "  contact               get email address\n" +
@@ -224,12 +309,22 @@
     // echo mirrors the live prompt — coral prompt, bold command — so you
     // can see where input starts and output ends
     print(
-      '<span class="echo-prompt">guest@breakos:~$</span> <b>' +
+      '<span class="echo-prompt">' +
+        (mode === "claude" ? "&gt;" : "guest@breakos:~$") +
+        "</span> <b>" +
         esc(cmd) +
         "</b>",
       true,
-      "term-echo",
+      "term-echo" + (mode === "claude" ? " claude-echo" : ""),
     );
+
+    if (mode === "claude") return claudeRun(cmd);
+
+    if (cmd === "claude") return claudeStart();
+    if (cmd === "clawd") {
+      if (window.__clawd) window.__clawd();
+      return print("clawd.service: deploying the crab.");
+    }
 
     if (cmd === "sudo hire-nick") {
       print("[sudo] password for guest: (accepted. flattery counts)");

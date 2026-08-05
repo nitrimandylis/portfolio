@@ -38,7 +38,8 @@ Files:
   no parallax — parallax used to scrub icons off-screen), boot→desktop
   handoff, curated gallery (`GALLERY` + `FILE_COPY`), coursework overlay
   (`DOC_COPY` — described, never downloadable), trash drag with attempt
-  counter (`breakos-trash-attempts`), f1 + seal cheat codes, appearance
+  counter (`breakos-trash-attempts`), f1 + seal + claude cheat codes (clawd
+  is an original inline-SVG rendition, `window.__clawd`), appearance
   toggle (persisted to `breakos-theme`), shutdown → BSOD → reboot, toasts.
   Shared GitHub fetch lives here as `window.BREAKOS_REPOS` (30-min cache,
   `breakos-repos-v1`).
@@ -62,7 +63,9 @@ Files:
   repo's real `man/<bin>.1` (30-min cache, `breakos-man-<bin>`) and renders
   it via `renderRoff` (a roff-lite formatter, only the macros those pages
   use); typing a bin name runs its deadpan refusal quip; `defrag` calls
-  `window.__defrag`.
+  `window.__defrag`; `claude` enters a scripted interactive Claude Code
+  mode (`mode` state machine, terracotta prompt, keyword-matched responses
+  + a fake permission flow — no API behind it, keep it that way).
 - `js/wallpaper.js` — canvas halftone dots; scroll velocity feeds dot size
   and drift. `window.__defrag()` packs the dots into a grid and releases
   them (guarded against resize mid-run). In the batman-jazz theme the canvas

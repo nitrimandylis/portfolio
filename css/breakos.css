@@ -463,6 +463,11 @@ em {
 .term-echo b {
   font-weight: 400; /* VT323 has no bold — the color split does the work */
 }
+/* claude mode wears anthropic terracotta */
+.term-prompt.claude-prompt,
+.claude-echo .echo-prompt {
+  color: #da7756;
+}
 .term-line {
   display: flex;
   gap: 0.5rem;
@@ -815,6 +820,44 @@ em {
   35% { bottom: -6vh; transform: translateX(-50%) rotate(2deg); }
   65% { bottom: -6vh; transform: translateX(-50%) rotate(-2deg); }
   100% { bottom: -60vh; transform: translateX(-50%) rotate(4deg); }
+}
+
+/* ── clawd takeover (type "claude") ── */
+.clawd-takeover {
+  position: fixed;
+  right: 6vw;
+  bottom: -50vh;
+  width: min(36vw, 250px);
+  z-index: 150;
+  pointer-events: none;
+  animation: clawd-peek 4.6s var(--ease) forwards;
+}
+@keyframes clawd-peek {
+  0% { bottom: -50vh; transform: rotate(6deg); }
+  30% { bottom: -2vh; transform: rotate(-3deg); }
+  45% { transform: rotate(2deg); }
+  60% { bottom: -2vh; transform: rotate(-1deg); }
+  78% { bottom: -2vh; }
+  100% { bottom: -50vh; transform: rotate(7deg); }
+}
+.clawd-claw {
+  animation: clawd-snap 0.7s ease-in-out infinite alternate;
+}
+.clawd-claw-l {
+  transform-origin: 40px 85px;
+}
+.clawd-claw-r {
+  transform-origin: 160px 85px;
+  animation-name: clawd-snap-r;
+  animation-delay: 0.35s;
+}
+@keyframes clawd-snap {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-8deg); }
+}
+@keyframes clawd-snap-r {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(8deg); }
 }
 
 /* ════════════════════════════════════════════════

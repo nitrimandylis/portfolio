@@ -1259,11 +1259,52 @@ function runF1() {
   );
 }
 
+// clawd — anthropic's crab, hand-drawn homage. the real one is busy.
+let clawdBusy = false;
+function runClawd() {
+  if (clawdBusy) return;
+  clawdBusy = true;
+  const div = document.createElement("div");
+  div.className = "clawd-takeover";
+  div.setAttribute("aria-hidden", "true");
+  div.innerHTML =
+    '<svg viewBox="0 0 200 150">' +
+    '<g stroke="#b85c3e" stroke-width="6" stroke-linecap="round" fill="none">' +
+    '<path d="M60 120 Q50 134 38 140"/><path d="M78 126 Q73 140 65 146"/>' +
+    '<path d="M122 126 Q127 140 135 146"/><path d="M140 120 Q150 134 162 140"/>' +
+    "</g>" +
+    '<g class="clawd-claw clawd-claw-l">' +
+    '<path d="M52 94 Q32 86 26 70" stroke="#b85c3e" stroke-width="7" fill="none" stroke-linecap="round"/>' +
+    '<path d="M38 46 A17 17 0 1 0 16 68 L 30 58 Z" fill="#da7756" stroke="#b85c3e" stroke-width="3.5" stroke-linejoin="round"/>' +
+    "</g>" +
+    '<g class="clawd-claw clawd-claw-r">' +
+    '<path d="M148 94 Q168 86 174 70" stroke="#b85c3e" stroke-width="7" fill="none" stroke-linecap="round"/>' +
+    '<path d="M162 46 A17 17 0 1 1 184 68 L 170 58 Z" fill="#da7756" stroke="#b85c3e" stroke-width="3.5" stroke-linejoin="round"/>' +
+    "</g>" +
+    '<ellipse cx="100" cy="100" rx="52" ry="38" fill="#da7756" stroke="#b85c3e" stroke-width="4"/>' +
+    '<path d="M86 70 Q83 52 82 46" stroke="#b85c3e" stroke-width="5" fill="none" stroke-linecap="round"/>' +
+    '<path d="M114 70 Q117 52 118 46" stroke="#b85c3e" stroke-width="5" fill="none" stroke-linecap="round"/>' +
+    '<circle cx="82" cy="42" r="9" fill="#fffdf7" stroke="#b85c3e" stroke-width="3"/>' +
+    '<circle cx="118" cy="42" r="9" fill="#fffdf7" stroke="#b85c3e" stroke-width="3"/>' +
+    '<circle cx="83" cy="43" r="3.6" fill="#1d2438"/>' +
+    '<circle cx="117" cy="43" r="3.6" fill="#1d2438"/>' +
+    '<path d="M90 108 Q100 115 110 108" stroke="#b85c3e" stroke-width="4" fill="none" stroke-linecap="round"/>' +
+    "</svg>";
+  document.body.appendChild(div);
+  notify("clawd.service activated — anthropic's mascot, on loan.");
+  setTimeout(() => {
+    div.remove();
+    clawdBusy = false;
+  }, 4600);
+}
+window.__clawd = runClawd;
+
 let kbuf = "";
 document.addEventListener("keydown", (e) => {
   if (e.target.tagName === "INPUT" || e.key.length !== 1) return;
-  kbuf = (kbuf + e.key.toLowerCase()).slice(-4);
-  if (kbuf === "seal") {
+  kbuf = (kbuf + e.key.toLowerCase()).slice(-8);
+  if (kbuf.endsWith("seal")) {
+    kbuf = "";
     const img = document.createElement("img");
     img.src = "assets/seal.png";
     img.alt = "";
@@ -1272,5 +1313,12 @@ document.addEventListener("keydown", (e) => {
     notify("mascot.service activated");
     setTimeout(() => img.remove(), 4000);
   }
-  if (kbuf.endsWith("f1")) runF1();
+  if (kbuf.endsWith("f1")) {
+    kbuf = "";
+    runF1();
+  }
+  if (kbuf.endsWith("claude")) {
+    kbuf = "";
+    runClawd();
+  }
 });
