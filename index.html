@@ -16,15 +16,31 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=VT323&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=VT323&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@600;800&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/breakos.css" />
     <script>
-      // apply saved appearance before first paint — no flash of the wrong theme
+      // apply saved appearance before first paint — no flash of the wrong
+      // theme. swatchbook themes restore from their cached variable snapshot.
       try {
-        if (localStorage.getItem("breakos-theme") === "batman")
+        var th = localStorage.getItem("breakos-theme");
+        if (th === "batman")
           document.documentElement.setAttribute("data-theme", "batman");
+        else if (th && th !== "default") {
+          var saved = JSON.parse(
+            localStorage.getItem("breakos-theme-vars") || "null",
+          );
+          if (saved) {
+            document.documentElement.setAttribute("data-theme", "swatch");
+            document.documentElement.setAttribute(
+              "data-variant",
+              saved.variant,
+            );
+            for (var k in saved.vars)
+              document.documentElement.style.setProperty(k, saved.vars[k]);
+          }
+        }
       } catch (e) {}
     </script>
   </head>
@@ -33,30 +49,67 @@
     <canvas id="wallpaper" aria-hidden="true"></canvas>
     <div class="crt" aria-hidden="true"></div>
 
-    <!-- desktop icons (parallax layer) -->
+    <!-- desktop icons: app launchers (left column, still) + decor (parallax) -->
     <div class="icons" aria-hidden="true">
-      <div class="icon" data-depth="0.04" data-tilt="1.2" style="top: 14%; left: 6%">
+      <!-- real app icons — wired by os.js in desktop mode, hidden until boot -->
+      <button class="icon app-icon" data-open="things-i-made" style="top: 10%; left: 3%">
+        <div class="icon-float"><span class="icon-glyph">▤</span><span class="icon-label">things-i-made</span></div>
+      </button>
+      <button class="icon app-icon" data-open="breakpkg" style="top: 22%; left: 3%">
+        <div class="icon-float"><span class="icon-glyph">▦</span><span class="icon-label">breakpkg</span></div>
+      </button>
+      <button class="icon app-icon" data-open="system-monitor" style="top: 34%; left: 3%">
+        <div class="icon-float"><span class="icon-glyph">◔</span><span class="icon-label">system_monitor</span></div>
+      </button>
+      <button class="icon app-icon" data-open="terminal" style="top: 46%; left: 3%">
+        <div class="icon-float"><span class="icon-glyph">▮</span><span class="icon-label">terminal</span></div>
+      </button>
+      <button class="icon app-icon" data-open="about" style="top: 58%; left: 3%">
+        <div class="icon-float"><span class="icon-glyph">◍</span><span class="icon-label">about.app</span></div>
+      </button>
+      <button class="icon app-icon" data-open="new-message" style="top: 70%; left: 3%">
+        <div class="icon-float"><span class="icon-glyph">✉</span><span class="icon-label">new_message</span></div>
+      </button>
+      <!-- functional trash — drop a project file in, see what happens -->
+      <button class="icon app-icon" id="icon-trash" style="top: 38%; right: 5%">
+        <div class="icon-float"><span class="icon-glyph">🗑</span><span class="icon-label" id="trash-label">trash</span></div>
+      </button>
+      <!-- coursework: real documents, described on double-click, never downloadable -->
+      <button class="icon doc" data-doc="ee" style="top: 12%; right: 34%">
+        <div class="icon-float"><span class="icon-glyph">❒</span><span class="icon-label">extended_essay.docx</span></div>
+      </button>
+      <button class="icon doc" data-doc="business_ia" style="top: 27%; right: 30%">
+        <div class="icon-float"><span class="icon-glyph">❒</span><span class="icon-label">business_ia.docx</span></div>
+      </button>
+      <button class="icon doc" data-doc="cs_ia" style="top: 44%; right: 26%">
+        <div class="icon-float"><span class="icon-glyph">❒</span><span class="icon-label">cs_ia.docx</span></div>
+      </button>
+      <button class="icon doc" data-doc="math_ia" style="top: 61%; right: 31%">
+        <div class="icon-float"><span class="icon-glyph">❒</span><span class="icon-label">math_ia.docx</span></div>
+      </button>
+      <button class="icon doc" data-doc="gp_ia" style="top: 77%; right: 26%">
+        <div class="icon-float"><span class="icon-glyph">❒</span><span class="icon-label">gp_ia.docx</span></div>
+      </button>
+      <!-- decor: double-clickable jokes, not apps -->
+      <div class="icon decor" data-depth="0.04" data-tilt="1.2" style="top: 14%; left: 14%">
         <div class="icon-float"><span class="icon-glyph">▣</span><span class="icon-label">my_computer</span></div>
       </div>
-      <div class="icon" data-depth="0.09" data-tilt="-1.8" style="top: 38%; right: 5%">
-        <div class="icon-float"><span class="icon-glyph">🗑</span><span class="icon-label">recycle bin (full)</span></div>
-      </div>
-      <div class="icon" data-depth="0.06" data-tilt="2.5" style="top: 64%; left: 4%">
+      <div class="icon decor" data-depth="0.06" data-tilt="2.5" style="top: 64%; left: 12%">
         <div class="icon-float"><span class="icon-glyph">▤</span><span class="icon-label">untitled_final_v2_REAL</span></div>
       </div>
-      <div class="icon" data-depth="0.12" data-tilt="-3" style="top: 80%; right: 9%">
+      <div class="icon decor" data-depth="0.12" data-tilt="-3" style="top: 80%; right: 9%">
         <div class="icon-float"><span class="icon-glyph">◈</span><span class="icon-label">do_not_open.txt</span></div>
       </div>
-      <div class="icon" data-depth="0.07" data-tilt="1.5" style="top: 8%; right: 22%">
+      <div class="icon decor" data-depth="0.07" data-tilt="1.5" style="top: 8%; right: 22%">
         <div class="icon-float"><span class="icon-glyph">✆</span><span class="icon-label">dial_up.exe</span></div>
       </div>
-      <div class="icon" data-depth="0.05" data-tilt="-1" style="top: 52%; left: 8%">
+      <div class="icon decor" data-depth="0.05" data-tilt="-1" style="top: 52%; left: 16%">
         <div class="icon-float"><span class="icon-glyph">⚠</span><span class="icon-label">passwords.txt</span></div>
       </div>
-      <div class="icon" data-depth="0.10" data-tilt="2" style="top: 22%; right: 7%">
+      <div class="icon decor" data-depth="0.10" data-tilt="2" style="top: 22%; right: 7%">
         <div class="icon-float"><span class="icon-glyph">◫</span><span class="icon-label">shortcut to shortcut</span></div>
       </div>
-      <div class="icon" data-depth="0.08" data-tilt="-2.2" style="top: 70%; right: 14%">
+      <div class="icon decor" data-depth="0.08" data-tilt="-2.2" style="top: 70%; right: 14%">
         <div class="icon-float"><span class="icon-glyph">✦</span><span class="icon-label">important_FINAL_v3.zip</span></div>
       </div>
     </div>
@@ -70,7 +123,7 @@
         <div class="boot-pin">
           <div class="boot-screen">
             <p class="boot-brand">breakOS<span class="blink">_</span></p>
-            <p class="boot-ver">v2.6.11 — it builds. it breaks. it reboots.</p>
+            <p class="boot-ver">v3.0 — it builds. it breaks. it drags.</p>
             <div class="boot-log" id="boot-log"></div>
             <p class="boot-hint" id="boot-hint">▼ scroll to boot ▼</p>
           </div>
@@ -88,6 +141,9 @@
           <div class="titlebar">
             <span class="tb-title">▤ ~/things-i-made</span>
             <span class="tb-btns">
+              <button class="tb-btn" data-act="min" aria-label="minimize">
+                —
+              </button>
               <button class="tb-btn" data-act="max" aria-label="maximize">
                 □
               </button>
@@ -118,6 +174,9 @@
               >◔ System Monitor — live from api.github.com</span
             >
             <span class="tb-btns">
+              <button class="tb-btn" data-act="min" aria-label="minimize">
+                —
+              </button>
               <button class="tb-btn" data-act="max" aria-label="maximize">
                 □
               </button>
@@ -149,6 +208,43 @@
         </div>
       </section>
 
+      <section class="ws" id="ws-pkg">
+        <div class="window" id="win-pkg" data-app="breakpkg" data-drift="left">
+          <div class="titlebar">
+            <span class="tb-title">▦ breakpkg — package manager</span>
+            <span class="tb-btns">
+              <button class="tb-btn" data-act="min" aria-label="minimize">
+                —
+              </button>
+              <button class="tb-btn" data-act="max" aria-label="maximize">
+                □
+              </button>
+              <button class="tb-btn" data-act="close" aria-label="close">
+                ✕
+              </button>
+            </span>
+          </div>
+          <div class="win-body">
+            <p class="mon-note">
+              the CLI family — every row is a real repo. one escaped to npm;
+              its version below is fetched live. the rest ship as source.
+            </p>
+            <div class="pkg-table" id="pkg-table">
+              <div class="pkgrow pkghead">
+                <span>package</span><span>channel</span><span>lang</span
+                ><span>pushed</span>
+              </div>
+              <p class="mon-loading" id="pkg-loading">
+                resolving registry<span class="blink">…</span>
+              </p>
+            </div>
+            <p class="win-status" id="pkg-status">
+              7 packages · 0 vulnerabilities · audited by vibes
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section class="ws" id="ws-terminal">
         <div
           class="window"
@@ -159,6 +255,9 @@
           <div class="titlebar">
             <span class="tb-title">▮ terminal — guest@breakos</span>
             <span class="tb-btns">
+              <button class="tb-btn" data-act="min" aria-label="minimize">
+                —
+              </button>
               <button class="tb-btn" data-act="max" aria-label="maximize">
                 □
               </button>
@@ -190,6 +289,9 @@
           <div class="titlebar">
             <span class="tb-title">◍ About This Computer</span>
             <span class="tb-btns">
+              <button class="tb-btn" data-act="min" aria-label="minimize">
+                —
+              </button>
               <button class="tb-btn" data-act="max" aria-label="maximize">
                 □
               </button>
@@ -225,6 +327,8 @@
                 </dd>
                 <dt>graphics</dt>
                 <dd>integrated. see wallpaper. it's doing its best</dd>
+                <dt>peripherals</dt>
+                <dd>7 command-line tools attached. one escaped to npm</dd>
                 <dt>mascot</dt>
                 <dd>seal (pictured). non-negotiable. type "seal" anywhere</dd>
                 <dt>known issues</dt>
@@ -252,6 +356,9 @@
           <div class="titlebar">
             <span class="tb-title">✉ New Message</span>
             <span class="tb-btns">
+              <button class="tb-btn" data-act="min" aria-label="minimize">
+                —
+              </button>
               <button class="tb-btn" data-act="max" aria-label="maximize">
                 □
               </button>
@@ -310,6 +417,36 @@
         </div>
       </section>
     </main>
+
+    <!-- shutdown modal shell (desktop mode moves the dialog in here) -->
+    <div class="sd-modal" id="sd-modal" aria-hidden="true"></div>
+
+    <!-- start menu (desktop mode) -->
+    <nav class="start-menu" id="start-menu" aria-hidden="true">
+      <p class="sm-head">breakOS v3.0</p>
+      <button class="sm-item" data-open="things-i-made">▤ things-i-made</button>
+      <button class="sm-item" data-open="breakpkg">▦ breakpkg</button>
+      <button class="sm-item" data-open="system-monitor">◔ system monitor</button>
+      <button class="sm-item" data-open="terminal">▮ terminal</button>
+      <button class="sm-item" data-open="about">◍ about this computer</button>
+      <button class="sm-item" data-open="new-message">✉ new message</button>
+      <div class="sm-rule"></div>
+      <button class="sm-item sm-danger" id="sm-shutdown">⏻ shut down…</button>
+    </nav>
+
+    <!-- theme picker (taskbar ◐ theme) -->
+    <nav class="theme-menu" id="theme-menu" aria-hidden="true"></nav>
+
+    <!-- f1 start lights (type "f1") — styled after apex, the F1 dashboard -->
+    <div class="f1-lights" id="f1-lights" aria-hidden="true">
+      <div class="f1-panel">
+        <p class="f1-label">apex.exe — race start</p>
+        <div class="f1-row">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <p class="f1-headline"><span>lights out and away we go.</span></p>
+    </div>
 
     <!-- taskbar -->
     <footer class="taskbar" id="taskbar">
@@ -374,9 +511,11 @@
     <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="js/wallpaper.js"></script>
+    <script src="js/swatchbook.js"></script>
     <script src="js/os.js"></script>
     <script src="js/boot.js"></script>
     <script src="js/monitor.js"></script>
+    <script src="js/breakpkg.js"></script>
     <script src="js/terminal.js"></script>
   </body>
 </html>

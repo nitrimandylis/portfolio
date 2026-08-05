@@ -64,9 +64,16 @@
   frame();
 
   setInterval(() => {
-    const el = document.documentElement;
-    const pct = Math.round((el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100) || 0;
-    depthEl.textContent = pct + "%";
+    // desktop session has no scroll — report open windows instead. still real.
+    if (document.body.classList.contains("booted") && window.__winCount) {
+      depthEl.parentNode.childNodes[0].nodeValue = "windows open: ";
+      depthEl.textContent = window.__winCount();
+    } else {
+      depthEl.parentNode.childNodes[0].nodeValue = "scroll depth: ";
+      const el = document.documentElement;
+      const pct = Math.round((el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100) || 0;
+      depthEl.textContent = pct + "%";
+    }
     const s = Math.floor((performance.now() - t0) / 1000);
     upEl.textContent = s < 60 ? s + "s" : Math.floor(s / 60) + "m " + (s % 60) + "s";
   }, 1000);

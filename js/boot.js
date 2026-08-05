@@ -23,18 +23,25 @@
     ? navigator.hardwareConcurrency + " cores detected. using 1 for vibes."
     : "core count withheld";
 
+  const desktop = window.matchMedia("(min-width: 721px)").matches;
   const LINES = [
     ["ok", "BIOS handshake… firm, confident"],
     ["ok", `html parsed${loadMs ? " in " + loadMs + "ms — real number, check the network tab" : ""}`],
     ["ok", `display: ${vw} on ${ua} — diagnostics, not tracking`],
     ["ok", `${mem} · ${cores}`],
-    ["ok", "mounting /dev/projects… 5 entries, 0 abandoned (public ones, anyway)"],
+    ["ok", "mounting /dev/projects… 6 entries, 0 abandoned (public ones, anyway)"],
+    ["ok", "breakpkg: 7 command-line packages linked. one escaped to npm"],
     ["warn", "mounting github api… rate limit: hopefully fine"],
     ["ok", "wallpaper.service started — it reacts to your scroll. test it later"],
     ["ok", "mascot.service loaded (seal, 284KB, worth it)"],
     ["warn", "humor.daemon running — cannot be killed, even with -9"],
     ["ok", "login: guest (you). password skipped. we trust you"],
-    ["ok", "welcome to breakOS. keep scrolling — the desktop is below"],
+    [
+      "ok",
+      desktop
+        ? "welcome to breakOS. starting desktop session…"
+        : "welcome to breakOS Mobile. keep scrolling — the desktop is below",
+    ],
   ];
 
   LINES.forEach(([cls, text]) => {
@@ -56,9 +63,13 @@
         ps.forEach((p, i) => p.classList.toggle("lit", i < n));
         hint.style.opacity = self.progress > 0.92 ? 0 : 1;
         hint.textContent = self.progress > 0.05 ? "▼ keep scrolling — booting ▼" : "▼ scroll to boot ▼";
+        // 100% booted → hand over to the desktop (no-op on mobile)
+        if (self.progress > 0.995 && window.__enterDesktop)
+          window.__enterDesktop();
       },
     });
   } else {
     ps.forEach((p) => p.classList.add("lit"));
+    if (window.__enterDesktop) window.__enterDesktop();
   }
 })();
