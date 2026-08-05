@@ -282,6 +282,11 @@ if (DESKTOP) {
       t.tagName !== "MAIN"
     )
       return;
+    e.preventDefault(); // no native text selection while sweeping the desk
+    try {
+      window.getSelection().removeAllRanges();
+    } catch (_) {}
+    document.body.classList.add("marqueeing");
     if (!e.shiftKey) clearIconSel();
     mx = e.clientX;
     my = e.clientY;
@@ -310,6 +315,7 @@ if (DESKTOP) {
     const up = () => {
       document.removeEventListener("pointermove", move);
       document.removeEventListener("pointerup", up);
+      document.body.classList.remove("marqueeing");
       if (mq) mq.remove();
       mq = null;
     };

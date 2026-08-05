@@ -864,6 +864,11 @@ em {
   background: rgba(31, 138, 140, 0.12);
   pointer-events: none;
 }
+/* while a marquee is live, nothing on the page is text-selectable */
+body.marqueeing,
+body.marqueeing * {
+  user-select: none;
+}
 .app-icon.trash-hot .icon-glyph {
   display: inline-block;
   transform: scale(1.35);
