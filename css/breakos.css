@@ -828,10 +828,15 @@ em {
   position: fixed;
   right: 7vw;
   bottom: -40vh;
-  width: min(30vw, 210px);
+  width: min(32vw, 240px);
   z-index: 150;
   pointer-events: none;
   animation: clawd-peek 4.6s var(--ease) forwards;
+}
+.clawd-takeover canvas {
+  width: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 @keyframes clawd-peek {
   0% { bottom: -40vh; }

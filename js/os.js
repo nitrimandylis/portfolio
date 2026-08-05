@@ -1259,49 +1259,142 @@ function runF1() {
   );
 }
 
-// clawd — anthropic's pixel crab, recreated cell by cell.
-// '#' = terracotta, 'E' = eye, '.' = empty. 8px per cell.
-const CLAWD_GRID = [
-  "....##....##....",
-  "...##########...",
-  "...##E####E##...",
-  "...##E####E##...",
-  ".##############.",
-  "...##########...",
-  "...##########...",
-  "....#.#..#.#....",
-  "....#.#..#.#....",
+// clawd — anthropic's pixel crab, from the clawd-animation template:
+// canonical 14×8 body grid, eye variants, blink, bubble, heart, particles.
+const CLAWD_BODY = [
+  [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+  [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+  [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+  [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+  [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+  [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+  [0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0],
+  [0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0],
 ];
+const CLAWD_EYES = { left: { x: 4, y: 1 }, right: { x: 9, y: 1 } };
+const CLAWD_HEART = [
+  [1, 0, 1, 0, 0],
+  [1, 1, 1, 1, 0],
+  [0, 1, 1, 1, 0],
+  [0, 0, 1, 0, 0],
+];
+const CLAWD_COL = "#CD6E58";
+
 let clawdBusy = false;
 function runClawd() {
   if (clawdBusy) return;
   clawdBusy = true;
-  const cells = [];
-  CLAWD_GRID.forEach((row, y) => {
-    for (let x = 0; x < row.length; x++) {
-      const ch = row[x];
-      if (ch === ".") continue;
-      cells.push(
-        '<rect x="' +
-          x * 8 +
-          '" y="' +
-          y * 8 +
-          '" width="8" height="8" fill="' +
-          (ch === "E" ? "#10131c" : "#da7756") +
-          '"/>',
-      );
-    }
-  });
+
+  // grid canvas: 20×16 cells, 12px each, drawn at devicePixelRatio
+  const PX = 12,
+    GW = 20,
+    GH = 16;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const canvas = document.createElement("canvas");
+  canvas.width = GW * PX * dpr;
+  canvas.height = GH * PX * dpr;
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const px = (gx, gy, col) => {
+    ctx.fillStyle = col;
+    ctx.fillRect(gx * PX, gy * PX, PX, PX);
+  };
+
   const div = document.createElement("div");
   div.className = "clawd-takeover";
   div.setAttribute("aria-hidden", "true");
-  div.innerHTML =
-    '<svg viewBox="0 0 128 72" shape-rendering="crispEdges">' +
-    cells.join("") +
-    "</svg>";
+  div.appendChild(canvas);
   document.body.appendChild(div);
   notify("clawd.service activated — anthropic's mascot, on loan.");
+
+  const CX = 3,
+    CY = 7; // clawd's grid position
+  const particles = [];
+  function burst(gx, gy) {
+    for (let i = 0; i < 12; i++)
+      particles.push({
+        x: gx,
+        y: gy,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: -Math.random() * 0.8 - 0.3,
+        life: 1,
+      });
+  }
+
+  function drawClawd(eyes) {
+    for (let r = 0; r < CLAWD_BODY.length; r++)
+      for (let c = 0; c < CLAWD_BODY[r].length; c++)
+        if (CLAWD_BODY[r][c]) px(CX + c, CY + r, CLAWD_COL);
+    if (eyes.blink) return;
+    px(CX + CLAWD_EYES.left.x + eyes.dx, CY + CLAWD_EYES.left.y, "#000");
+    px(CX + CLAWD_EYES.right.x + eyes.dx, CY + CLAWD_EYES.right.y, "#000");
+  }
+
+  function drawBubble(text) {
+    const bx = CX + 4,
+      by = 2,
+      tw = text.length + 2;
+    for (let y = 0; y < 3; y++)
+      for (let x = 0; x < tw; x++) {
+        if ((y === 0 || y === 2) && (x === 0 || x === tw - 1)) continue;
+        const edge = y === 0 || y === 2 || x === 0 || x === tw - 1;
+        px(bx + x, by + y, edge ? "#888" : "#fff");
+      }
+    px(bx + 1, by + 3, "#888");
+    ctx.fillStyle = "#333";
+    ctx.font = "bold 11px 'Courier New', monospace";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    ctx.fillText(text, (bx + 1) * PX + 3, by * PX + 8);
+  }
+
+  function drawHeart(gx, gy) {
+    for (let r = 0; r < CLAWD_HEART.length; r++)
+      for (let c = 0; c < CLAWD_HEART[r].length; c++)
+        if (CLAWD_HEART[r][c]) px(gx + c, gy + r, CLAWD_COL);
+  }
+
+  let raf = 0;
+  const t0 = performance.now();
+  let heartShown = false;
+  function frame(now) {
+    const t = now - t0; // ms since entrance
+    ctx.clearRect(0, 0, GW * PX, GH * PX);
+
+    // blink every ~1.3s; glance left then right mid-visit
+    const blink = t % 1300 > 1150;
+    let dx = 0;
+    if (t > 1500 && t < 2100) dx = -1;
+    else if (t >= 2100 && t < 2700) dx = 1;
+    drawClawd({ blink, dx });
+
+    if (t > 1100 && t < 2600) drawBubble("hi.");
+    if (t >= 2800) {
+      if (!heartShown) {
+        heartShown = true;
+        burst(CX + 11, CY - 2);
+      }
+      // heart floats up and away
+      drawHeart(CX + 10, CY - 2 - Math.min(3, Math.floor((t - 2800) / 400)));
+    }
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.04;
+      p.life -= 0.02;
+      if (p.life <= 0) {
+        particles.splice(i, 1);
+        continue;
+      }
+      if (p.life > 0.15) px(Math.round(p.x), Math.round(p.y), CLAWD_COL);
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  raf = requestAnimationFrame(frame);
+
   setTimeout(() => {
+    cancelAnimationFrame(raf);
     div.remove();
     clawdBusy = false;
   }, 4600);
