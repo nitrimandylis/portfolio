@@ -393,6 +393,7 @@
     }
 
     if (cmd === "git log") {
+      print("commit 13c89d6  breakOS v3: boot into a real desktop");
       print(
         "commit 196e964  feat: overhaul things-i-made window and parallax icons",
       );
