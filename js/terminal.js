@@ -8,13 +8,18 @@
 
   body.addEventListener("click", () => input.focus());
 
-  function print(text, html = false) {
+  function print(text, html = false, cls = "") {
     const p = document.createElement("p");
+    if (cls) p.className = cls;
     if (html) p.innerHTML = text;
     else p.textContent = text;
     out.appendChild(p);
     body.scrollTop = body.scrollHeight;
   }
+
+  // user input goes through innerHTML when echoed — escape it
+  const esc = (s) =>
+    s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
   // synced with FILE_COPY in os.js — the curated six, plus this site
   const FILES = {
@@ -216,7 +221,15 @@
     if (!cmd) return;
     hist.unshift(cmd);
     histIdx = -1;
-    print("guest@breakos:~$ " + cmd);
+    // echo mirrors the live prompt — coral prompt, bold command — so you
+    // can see where input starts and output ends
+    print(
+      '<span class="echo-prompt">guest@breakos:~$</span> <b>' +
+        esc(cmd) +
+        "</b>",
+      true,
+      "term-echo",
+    );
 
     if (cmd === "sudo hire-nick") {
       print("[sudo] password for guest: (accepted. flattery counts)");

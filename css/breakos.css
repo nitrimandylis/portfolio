@@ -453,6 +453,16 @@ em {
   color: #f8b26a;
   text-decoration-color: var(--coral);
 }
+/* echoed commands read like the live prompt — a coral anchor per block */
+.term-echo {
+  margin-top: 0.55em;
+}
+.term-echo .echo-prompt {
+  color: var(--coral);
+}
+.term-echo b {
+  font-weight: 400; /* VT323 has no bold — the color split does the work */
+}
 .term-line {
   display: flex;
   gap: 0.5rem;
