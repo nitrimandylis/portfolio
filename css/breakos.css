@@ -253,7 +253,17 @@ em {
   inset: 2vh 2vw calc(2vh + 44px);
   width: auto;
   z-index: 80;
-  overflow: auto;
+  overflow: hidden; /* the body scrolls, not the window frame */
+  display: flex;
+  flex-direction: column;
+}
+/* the body grows to fill a maximized window — no cream void below the
+   terminal's dark box or any other capped win-body */
+.window.maximized .win-body {
+  flex: 1;
+  max-height: none !important;
+  min-height: 0;
+  overflow-y: auto;
 }
 .window.closed {
   display: none;

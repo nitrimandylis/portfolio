@@ -18,6 +18,11 @@ if (!REDUCED) {
   gsap.ticker.add((t) => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
 }
+// Lenis owns the wheel globally — scrollable panes must opt out or their
+// wheel events die once the desktop stops the root scroller
+document
+  .querySelectorAll(".win-body")
+  .forEach((el) => el.setAttribute("data-lenis-prevent", ""));
 
 // ── kernel log (console easter egg) ──
 console.log(
