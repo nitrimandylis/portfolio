@@ -64,8 +64,11 @@ Files:
   it via `renderRoff` (a roff-lite formatter, only the macros those pages
   use); typing a bin name runs its deadpan refusal quip; `defrag` calls
   `window.__defrag`; `claude` enters a scripted interactive Claude Code
-  mode (`mode` state machine, terracotta prompt, keyword-matched responses
-  + a fake permission flow — no API behind it, keep it that way).
+  mode (`mode` state machine, keyword-matched responses + a fake permission
+  flow — no API behind it, keep it that way). Its startup renders a
+  recreation of the real Claude Code TTY (`.cc-*` classes: bordered banner,
+  clawd sprite via `window.__clawdSprite`, status block with a real-uptime
+  session bar), and the prompt becomes a terracotta `❯` with a pink caret.
 - `js/wallpaper.js` — canvas halftone dots; scroll velocity feeds dot size
   and drift. `window.__defrag()` packs the dots into a grid and releases
   them (guarded against resize mid-run). In the batman-jazz theme the canvas

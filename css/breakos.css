@@ -468,6 +468,106 @@ em {
 .claude-echo .echo-prompt {
   color: #da7756;
 }
+.term-body.claude-on #term-input {
+  caret-color: #f0447c; /* the pink block cursor's spiritual heir */
+}
+
+/* ── the Claude Code startup TTY, rebuilt ── */
+.cc-box {
+  position: relative;
+  border: 1px solid #c96442;
+  border-radius: 6px;
+  padding: 0.9em 0.8em 0.7em;
+  margin: 0.8em 0 0.4em;
+  line-height: 1.35;
+}
+.cc-box-title {
+  position: absolute;
+  top: -0.7em;
+  left: 12px;
+  padding: 0 6px;
+  background: var(--ink);
+  color: #c96442;
+}
+[data-theme="batman"] .cc-box-title {
+  background: var(--win);
+}
+.cc-cols {
+  display: flex;
+  gap: 0.8em;
+}
+.cc-left {
+  flex: 0 0 38%;
+  text-align: center;
+  border-right: 1px solid rgba(201, 100, 66, 0.55);
+  padding-right: 0.8em;
+}
+.cc-sprite {
+  margin: 0.4em 0;
+}
+.cc-sprite svg {
+  image-rendering: pixelated;
+}
+.cc-right {
+  flex: 1;
+  min-width: 0;
+}
+.cc-h {
+  display: block;
+  color: #c96442;
+}
+.cc-rule {
+  border-top: 1px solid rgba(201, 100, 66, 0.55);
+  margin: 0.45em 0;
+}
+.cc-dim {
+  color: #8b90a0;
+}
+.cc-warn {
+  color: #e5c07b;
+  margin: 0.3em 0;
+}
+.cc-status {
+  margin: 0.4em 0 0.6em;
+  line-height: 1.4;
+}
+.cc-row {
+  display: flex;
+  gap: 0.7em;
+}
+.cc-k {
+  color: #c96442;
+  min-width: 4.5em;
+}
+.cc-rc {
+  margin-left: auto;
+  color: #98c379;
+}
+.cc-bar {
+  display: inline-block;
+  width: 9em;
+  height: 0.55em;
+  border: 1px solid #c96442;
+  vertical-align: middle;
+}
+.cc-bar-fill {
+  display: block;
+  height: 100%;
+  background: #c96442;
+}
+.cc-bypass {
+  color: #f0447c;
+  margin-top: 0.2em;
+}
+@media (max-width: 720px) {
+  .cc-cols {
+    flex-direction: column;
+  }
+  .cc-left {
+    border-right: none;
+    padding-right: 0;
+  }
+}
 .term-line {
   display: flex;
   gap: 0.5rem;

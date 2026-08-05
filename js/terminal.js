@@ -122,15 +122,57 @@
   let claudePerm = false; // waiting on a permission [y/n]
   let claudeIdx = 0;
 
+  // append a styled block element (the banner is layout, not a <p> of text)
+  function printEl(html, cls) {
+    const d = document.createElement("div");
+    d.className = cls;
+    d.innerHTML = html;
+    out.appendChild(d);
+    body.scrollTop = body.scrollHeight;
+  }
+
   function claudeStart() {
     mode = "claude";
-    promptEl.textContent = ">";
+    promptEl.textContent = "❯";
     promptEl.classList.add("claude-prompt");
-    if (window.__clawd) window.__clawd();
-    print("✻ Claude Code v3.0 (breakos build)", false, "claude-line");
-    print("model: claude-opus-5 (imagined) · cwd: /home/guest/breakOS");
-    print(
-      "a fake Claude in a real terminal. the real one built this desktop; I just live here.\ntype anything. type exit to leave.",
+    body.classList.add("claude-on");
+    const sprite = window.__clawdSprite ? window.__clawdSprite(5) : "";
+    // the real startup TTY, rebuilt: bordered banner, two columns, sprite
+    printEl(
+      '<span class="cc-box-title">Claude Code v3.0 (breakos build)</span>' +
+        '<div class="cc-cols">' +
+        '<div class="cc-left">' +
+        "<b>Welcome back, guest!</b>" +
+        '<div class="cc-sprite">' + sprite + "</div>" +
+        '<span class="cc-dim">Fable 5 with high effort · Claude API ·<br>' +
+        "guest&#39;s Organization<br>~/breakOS</span>" +
+        "</div>" +
+        '<div class="cc-right">' +
+        '<span class="cc-h">Tips for getting started</span>' +
+        "Run /init to create a CLAUDE.md file with instructions for Claude" +
+        '<div class="cc-rule"></div>' +
+        '<span class="cc-h">What&#39;s new</span>' +
+        "Fixed windows being metaphors; they drag now<br>" +
+        "Fixed rm -rf / lacking consequences<br>" +
+        "Fixed the seal outranking the crab (wontfix)<br>" +
+        '<em class="cc-dim">/release-notes for more</em>' +
+        "</div></div>",
+      "cc-box",
+    );
+    printEl(
+      "⚠ 1 MCP server needs authentication <span class=\"cc-dim\">· run /mcp</span>",
+      "cc-warn",
+    );
+    const mins = Math.floor(performance.now() / 60000);
+    const up = mins < 60 ? mins + "m" : Math.floor(mins / 60) + "hr " + (mins % 60) + "m";
+    const pct = Math.min(99, (mins / 240) * 100).toFixed(1);
+    printEl(
+      '<div class="cc-row"><span class="cc-k">Model</span><span><b>Fable 5</b> (imagined)</span><span class="cc-rc">/rc active</span></div>' +
+        '<div class="cc-row"><span class="cc-k">Git</span><span>⎇ breakos-v3 <span class="cc-dim">(clean, allegedly)</span></span></div>' +
+        '<div class="cc-row"><span class="cc-k">Context</span><span>0<span class="cc-dim">/1.0M</span> 0.0% <span class="cc-dim">— zero tokens. it&#39;s all scripted</span></span></div>' +
+        '<div class="cc-row"><span class="cc-k">Session</span><span><span class="cc-bar"><span class="cc-bar-fill" style="width:' + pct + '%"></span></span> ' + pct + "% <span class=\"cc-dim\">" + up + "</span></span></div>" +
+        '<div class="cc-bypass">▶▶ bypass permissions off <span class="cc-dim">(there is a fake [y/n] instead) · type anything · exit leaves</span></div>',
+      "cc-status",
     );
   }
 
@@ -139,6 +181,7 @@
     claudePerm = false;
     promptEl.textContent = "guest@breakos:~$";
     promptEl.classList.remove("claude-prompt");
+    body.classList.remove("claude-on");
     print("session ended. tokens spent: 0. imagine the invoice.");
   }
 

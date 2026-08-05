@@ -1280,6 +1280,30 @@ const CLAWD_HEART = [
 ];
 const CLAWD_COL = "#CD6E58";
 
+// static sprite as an SVG string — the terminal's TTY banner uses this
+window.__clawdSprite = function (cell) {
+  const rects = [];
+  for (let r = 0; r < CLAWD_BODY.length; r++)
+    for (let c = 0; c < CLAWD_BODY[r].length; c++)
+      if (CLAWD_BODY[r][c])
+        rects.push(
+          '<rect x="' + c * cell + '" y="' + r * cell +
+            '" width="' + cell + '" height="' + cell +
+            '" fill="' + CLAWD_COL + '"/>',
+        );
+  [CLAWD_EYES.left, CLAWD_EYES.right].forEach((e) =>
+    rects.push(
+      '<rect x="' + e.x * cell + '" y="' + e.y * cell +
+        '" width="' + cell + '" height="' + cell + '" fill="#000"/>',
+    ),
+  );
+  return (
+    '<svg viewBox="0 0 ' + 14 * cell + " " + 8 * cell +
+    '" width="' + 14 * cell + '" height="' + 8 * cell +
+    '" shape-rendering="crispEdges">' + rects.join("") + "</svg>"
+  );
+};
+
 let clawdBusy = false;
 function runClawd() {
   if (clawdBusy) return;
@@ -1334,24 +1358,26 @@ function runClawd() {
     const bx = CX + 4,
       by = 2,
       tw = text.length + 2;
+    // white bubble, dark crisp border, tail under its right side → head
     for (let y = 0; y < 3; y++)
       for (let x = 0; x < tw; x++) {
         if ((y === 0 || y === 2) && (x === 0 || x === tw - 1)) continue;
         const edge = y === 0 || y === 2 || x === 0 || x === tw - 1;
-        px(bx + x, by + y, edge ? "#888" : "#fff");
+        px(bx + x, by + y, edge ? "#333" : "#fff");
       }
-    px(bx + 1, by + 3, "#888");
+    px(bx + tw - 2, by + 3, "#333");
     ctx.fillStyle = "#333";
-    ctx.font = "bold 11px 'Courier New', monospace";
-    ctx.textAlign = "left";
-    ctx.textBaseline = "top";
-    ctx.fillText(text, (bx + 1) * PX + 3, by * PX + 8);
+    ctx.font = "bold 13px 'Courier New', monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(text, (bx + tw / 2) * PX, (by + 1) * PX + PX / 2);
   }
 
   function drawHeart(gx, gy) {
+    // pink, not body-colored — it must read as a heart, not a growth
     for (let r = 0; r < CLAWD_HEART.length; r++)
       for (let c = 0; c < CLAWD_HEART[r].length; c++)
-        if (CLAWD_HEART[r][c]) px(gx + c, gy + r, CLAWD_COL);
+        if (CLAWD_HEART[r][c]) px(gx + c, gy + r, "#f0447c");
   }
 
   let raf = 0;
@@ -1368,14 +1394,14 @@ function runClawd() {
     else if (t >= 2100 && t < 2700) dx = 1;
     drawClawd({ blink, dx });
 
-    if (t > 1100 && t < 2600) drawBubble("hi.");
-    if (t >= 2800) {
+    if (t > 1100 && t < 2500) drawBubble("hi.");
+    if (t >= 2700) {
       if (!heartShown) {
         heartShown = true;
-        burst(CX + 11, CY - 2);
+        burst(CX + 11, CY - 3);
       }
-      // heart floats up and away
-      drawHeart(CX + 10, CY - 2 - Math.min(3, Math.floor((t - 2800) / 400)));
+      // heart floats above the head — never touching the body
+      drawHeart(CX + 9, CY - 5 - Math.min(2, Math.floor((t - 2700) / 500)));
     }
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
@@ -1387,7 +1413,7 @@ function runClawd() {
         particles.splice(i, 1);
         continue;
       }
-      if (p.life > 0.15) px(Math.round(p.x), Math.round(p.y), CLAWD_COL);
+      if (p.life > 0.15) px(Math.round(p.x), Math.round(p.y), "#f0447c");
     }
     raf = requestAnimationFrame(frame);
   }
