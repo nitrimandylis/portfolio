@@ -38,8 +38,11 @@ Files:
   no parallax — parallax used to scrub icons off-screen), boot→desktop
   handoff, curated gallery (`GALLERY` + `FILE_COPY`), coursework overlay
   (`DOC_COPY` — described, never downloadable), trash drag with attempt
-  counter (`breakos-trash-attempts`), f1 + seal + claude cheat codes (clawd
-  is an original inline-SVG rendition, `window.__clawd`), appearance
+  counter (`breakos-trash-attempts`), f1 + seal + claude + mafia cheat codes
+  (clawd renders the canonical pixel grid on a canvas, `window.__clawd`; the
+  mafia night phase uses llm-mafia.vercel.app's shell tokens and cast, and
+  its vote closes a real open window via `closeApp` — case numbers continue
+  the site's library from 037, `breakos-mafia`), appearance
   toggle (persisted to `breakos-theme`), shutdown → BSOD → reboot, toasts.
   Shared GitHub fetch lives here as `window.BREAKOS_REPOS` (30-min cache,
   `breakos-repos-v1`).

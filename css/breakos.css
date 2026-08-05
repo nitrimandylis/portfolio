@@ -930,6 +930,129 @@ em {
   100% { bottom: -60vh; transform: translateX(-50%) rotate(4deg); }
 }
 
+/* ── mafia night phase (type "mafia") — tokens from llm-mafia.vercel.app:
+      shell blacks, neon red, gold verdicts, film grain, JetBrains Mono ── */
+.mafia-dim {
+  position: fixed;
+  inset: 0;
+  z-index: 92;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E"),
+    radial-gradient(
+      ellipse at center,
+      rgba(5, 6, 9, 0.72) 40%,
+      rgba(196, 30, 30, 0.14) 100%
+    ),
+    rgba(5, 6, 9, 0.72);
+  opacity: 1;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+.mafia-panel {
+  position: fixed;
+  top: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 94;
+  width: min(600px, 92vw);
+  background: #0a0b10;
+  border: 1px solid #1b1d26;
+  box-shadow:
+    0 0 46px rgba(255, 42, 42, 0.18),
+    0 18px 60px rgba(0, 0, 0, 0.6);
+  transition: opacity 0.45s ease;
+}
+.mafia-dim.out,
+.mafia-panel.out {
+  opacity: 0;
+}
+.mp-dots {
+  display: flex;
+  gap: 7px;
+  padding: 12px 14px;
+  border-bottom: 1px solid #1b1d26;
+}
+.mp-dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #2a2d38;
+}
+.mp-dots span.on {
+  background: #ff2a2a;
+  box-shadow: 0 0 8px rgba(255, 42, 42, 0.6);
+}
+.mp-body {
+  padding: 16px 18px 18px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #e7e9ee;
+}
+.mp-body p {
+  margin: 0 0 0.55em;
+  opacity: 0;
+  animation: mp-in 0.3s ease forwards;
+}
+@keyframes mp-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.mp-comment {
+  color: #8b8f9c;
+}
+.mp-votes {
+  letter-spacing: 0.2em;
+  color: #8b8f9c;
+}
+.mp-bar {
+  display: inline-block;
+  width: 56px;
+  height: 0.6em;
+  background: #12141c;
+  vertical-align: middle;
+  overflow: hidden;
+}
+.mp-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #ff2a2a;
+  animation: mp-fill 0.8s ease-out 0.2s forwards;
+}
+.mp-bar-w span {
+  background: #e7e9ee;
+  animation-name: mp-fill-w;
+}
+@keyframes mp-fill {
+  to {
+    width: 80%;
+  }
+}
+@keyframes mp-fill-w {
+  to {
+    width: 20%;
+  }
+}
+.mp-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  color: #fff;
+  text-shadow: 0 0 14px rgba(255, 42, 42, 0.65);
+}
+.mp-verdict {
+  color: #e0a000;
+  letter-spacing: 0.08em;
+}
+
 /* ── clawd takeover (type "claude") — pixel sprites don't rotate,
       they rise, hop twice, and leave ── */
 .clawd-takeover {

@@ -1581,6 +1581,128 @@ function runClawd() {
 }
 window.__clawd = runClawd;
 
+// ════════════════════════════════════════════════
+//  mafia — the town from llm-mafia.vercel.app convenes on breakOS,
+//  accuses one of your open windows, votes, and actually closes it.
+//  panel styling and cast are the real project's.
+// ════════════════════════════════════════════════
+const MAFIA_CAST = [
+  { name: "HOLMES", col: "#ff2a2a" }, // mafia red
+  { name: "SOCRATES", col: "#4da3ff" }, // detective blue
+  { name: "SAGE", col: "#69c66f" }, // doctor green
+  { name: "MARSHAL", col: "#e0a000" }, // gold
+  { name: "ARIA", col: "#8b8f9c" }, // villager gray
+];
+const MAFIA_CHARGES = {
+  "things-i-made": "six perfect alibis. nobody ships that clean.",
+  breakpkg: "installs nothing, calls itself a package manager.",
+  "system-monitor": "it has been watching everyone all session.",
+  terminal: "it executes whatever it is told. classic accomplice.",
+  about: "it knows too much about the operator.",
+  "new-message": "it has been drafting the same letter for hours.",
+};
+let mafiaBusy = false;
+function runMafia() {
+  if (mafiaBusy) return;
+  mafiaBusy = true;
+
+  const dim = document.createElement("div");
+  dim.className = "mafia-dim";
+  const panel = document.createElement("div");
+  panel.className = "mafia-panel";
+  panel.innerHTML =
+    '<div class="mp-dots"><span class="on"></span><span></span><span></span></div>' +
+    '<div class="mp-body" id="mp-body"></div>';
+  document.body.appendChild(dim);
+  document.body.appendChild(panel);
+  const bodyEl = panel.querySelector(".mp-body");
+
+  const line = (html, cls) => {
+    const p = document.createElement("p");
+    if (cls) p.className = cls;
+    p.innerHTML = html;
+    bodyEl.appendChild(p);
+    return p;
+  };
+  const say = (who, text) =>
+    line(
+      '<b style="color:' + who.col + '">' + who.name + "</b> › " + text,
+    );
+
+  // suspects: open, visible windows. no desktop session → no suspects.
+  const suspects = booted
+    ? Object.keys(APPS).filter((k) => WM[k].open && !WM[k].minimized)
+    : [];
+  const target = suspects.length
+    ? suspects[Math.floor(Math.random() * suspects.length)]
+    : null;
+  const tName = target ? APPS[target].name : null;
+
+  let caseNo = 37; // the site's library ends at CASE 036. breakOS continues it.
+  try {
+    caseNo = 37 + (parseInt(localStorage.getItem("breakos-mafia") || "0", 10) || 0);
+  } catch (_) {}
+
+  const steps = [];
+  steps.push(() => line("// replay: night falls on breakOS", "mp-comment"));
+  if (!target) {
+    steps.push(() => say(MAFIA_CAST[0], "the town gathered at the desktop."));
+    steps.push(() => say(MAFIA_CAST[4], "nobody was home. every window shut."));
+    steps.push(() =>
+      line("CASE " + caseNo + " · DISMISSED", "mp-verdict"),
+    );
+  } else {
+    steps.push(() => say(MAFIA_CAST[0], MAFIA_CHARGES[target]));
+    steps.push(() =>
+      line(
+        '<b style="color:#4da3ff">SOCRATES</b> ⟶ <b style="color:#69c66f">SAGE</b> › why do you defend ' +
+          tName +
+          "?",
+      ),
+    );
+    steps.push(() =>
+      say(MAFIA_CAST[3], "voting " + tName + ". the pattern doesn't add up."),
+    );
+    steps.push(() =>
+      line(
+        '<span class="mp-votes">VOTES</span> <b style="color:#ff2a2a">' +
+          tName.toUpperCase() +
+          '</b> <span class="mp-bar"><span></span></span> 4' +
+          ' <b style="color:#8b8f9c">TRASH</b> <span class="mp-bar mp-bar-w"><span></span></span> 1',
+      ),
+    );
+    steps.push(() => line("THE TOWN HAS SPOKEN", "mp-title"));
+    steps.push(() => {
+      closeApp(target); // the vote is real
+      line(
+        "CASE " + caseNo + " closed · " + tName + " was not the mafia.",
+        "mp-verdict",
+      );
+      try {
+        localStorage.setItem(
+          "breakos-mafia",
+          String(caseNo - 36),
+        );
+      } catch (_) {}
+    });
+  }
+
+  steps.forEach((fn, i) => setTimeout(fn, 700 + i * 1000));
+  setTimeout(
+    () => {
+      dim.classList.add("out");
+      panel.classList.add("out");
+      setTimeout(() => {
+        dim.remove();
+        panel.remove();
+        mafiaBusy = false;
+      }, 500);
+    },
+    700 + steps.length * 1000 + 1800,
+  );
+}
+window.__mafia = runMafia;
+
 let kbuf = "";
 document.addEventListener("keydown", (e) => {
   if (e.target.tagName === "INPUT" || e.key.length !== 1) return;
@@ -1602,5 +1724,9 @@ document.addEventListener("keydown", (e) => {
   if (kbuf.endsWith("claude")) {
     kbuf = "";
     runClawd();
+  }
+  if (kbuf.endsWith("mafia")) {
+    kbuf = "";
+    runMafia();
   }
 });

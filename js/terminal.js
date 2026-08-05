@@ -369,6 +369,12 @@
       if (window.__clawd) window.__clawd();
       return print("clawd.service: deploying the crab.");
     }
+    if (cmd === "mafia") {
+      if (window.__mafia) window.__mafia();
+      return print(
+        "convening the town… (careful. this terminal is also a suspect.)",
+      );
+    }
 
     if (cmd === "sudo hire-nick") {
       print("[sudo] password for guest: (accepted. flattery counts)");
