@@ -866,8 +866,8 @@ const FILE_COPY = {
     year: 2025,
     verdict: "LLMs lie. Prove it.",
     voice: "No humans. Pure model-vs-model deception.",
-    body: "Fully autonomous Mafia — every player is an LLM with a role, a personality, and a win condition. They reason, accuse, and vote through parallel model inference. A separate LLM narrates. Runs against LM Studio (local) or NVIDIA NIM (cloud). You just watch the town burn.",
-    kind: "python · ai",
+    body: "Fully autonomous Mafia — every player is an LLM with a role, a personality, and a win condition. They reason, accuse, and vote through parallel model inference, and a separate model narrates. Three backends: LM Studio (local), NVIDIA NIM, or the Claude Code CLI. Finished games are replayed in a Next.js viewer as noir episodes, and a weekly cron keeps publishing new cases. You just watch the town burn.",
+    kind: "python · next.js · ai",
   },
   tokenpilot: {
     label: "tokenpilot.ts",
@@ -885,13 +885,13 @@ const FILE_COPY = {
     body: "Real standings and replayable telemetry pulled live from Jolpica and OpenF1 — scrub a session lap by lap and watch the gaps open and close. TypeScript, real data, no fake numbers. The season is the database.",
     kind: "typescript",
   },
-  "agent-wrapped": {
-    label: "agent_wrapped.ts",
+  gridcast: {
+    label: "gridcast.py",
     year: 2026,
-    verdict: "you, but benchmarked.",
-    voice: "Your Claude Code month, scored and rendered as a card.",
-    body: "Reads your last ~30 days of Claude Code transcripts — locally, offline, nothing leaves the machine — scores the usage, assigns an archetype, and renders a shareable PNG or SVG card, including what the month would have cost at API rates. Published to npm. One bunx away from an identity crisis.",
-    kind: "typescript · cli · npm",
+    verdict: "committed before lights out.",
+    voice: "F1 race probabilities, timestamped by git.",
+    body: "Predicts every Grand Prix as a full distribution — P(win), P(podium), P(points) and the 22-way finishing matrix underneath — then commits the JSON before the race starts, so the misses stay in the history too. Two models publish each weekend: a Plackett-Luce fit on grid position and season pace, and a lap-by-lap Monte Carlo simulator with tyre degradation, a pit strategy search and safety cars. Scored walk-forward against the baseline of \"you finish where you start\", which it beats. Python, FastF1, numpy.",
+    kind: "python · modelling",
   },
   "ib-news-site": {
     label: "ib_news_site.py",
@@ -910,7 +910,7 @@ const GALLERY = [
   { key: "tokenpilot", accent: "#2f8f8c" },
   { key: "apex", accent: "#d64550" },
   { key: "llm-mafia", accent: "#7d5ba6" },
-  { key: "agent-wrapped", accent: "#e0518a" },
+  { key: "gridcast", accent: "#5d8a3a" },
   { key: "ib-news-site", accent: "#4a6fa5" },
 ];
 
@@ -943,37 +943,37 @@ const DOC_COPY = {
   ee: {
     label: "extended_essay.docx",
     kind: "business management · extended essay",
-    status: "submitted",
+    status: "submitted · feedback in",
     voice: "4,000 words on the company that ate the GPU market.",
-    body: "The IB Extended Essay, on NVIDIA — how a graphics-card company became the axis of the AI buildout, examined with Business Management tools. Researched, referenced, word-counted to the wire.",
+    body: "The IB Extended Essay, on NVIDIA — how a graphics-card company became the axis of the AI buildout, examined with Business Management tools. Ansoff, Porter, SWOT, product life cycle, and five years of financial ratios. Submitted July 2026; supervisor feedback is in and being worked through.",
   },
   business_ia: {
     label: "business_ia.docx",
     kind: "business management · IA",
-    status: "in revision",
+    status: "second draft submitted",
     voice: "A commentary on Roblox. The users build the product.",
-    body: "Business Management IA analysing Roblox Corporation. Currently in second-draft territory: sharper argument, fewer adjectives.",
+    body: "Business Management IA on Roblox Corporation: has it actually captured young audiences, and does the 2021-2025 financial record agree? Primary survey data, financial tables, MLA9. Second draft went in August 2026 — sharper argument, fewer adjectives.",
   },
   cs_ia: {
     label: "cs_ia.docx",
     kind: "computer science · IA",
-    status: "in development",
+    status: "draft submitted",
     voice: "Focal — a photo manager built for a real client.",
-    body: "The CS IA: Focal, a desktop photo manager. Flask and SQLite wrapped in pywebview, built against a real client's requirements and documented to IB spec.",
+    body: "The CS IA: Focal, a desktop photo manager. Flask and SQLite wrapped in pywebview, built against a real client's requirements and documented to IB spec — success criteria, decomposition, mockups, a test plan per criterion. The code is done; the draft is with the teacher.",
   },
   math_ia: {
     label: "math_ia.docx",
     kind: "mathematics AA HL · IA",
     status: "in progress",
     voice: "Graph theory, applied until it confesses.",
-    body: "Mathematics AA HL exploration built on graph theory. Proofs where possible, simulation where honest.",
+    body: "Mathematics AA HL exploration: graph theory applied to decentralized computer networks. Dijkstra and the Chinese postman problem where the proof carries the argument, Python where it stops carrying it. Proofs where possible, simulation where honest.",
   },
   gp_ia: {
     label: "gp_ia.docx",
     kind: "global politics · IA",
-    status: "in progress",
+    status: "first draft, September",
     voice: "Greek education and who actually gets a say.",
-    body: "Global Politics IA on Greek education and democratic participation — power, legitimacy and representation, applied to the school system that produced its author.",
+    body: "The Global Politics Engagement Project: does the Greek high school system prepare young people for democratic participation? Two opposed perspectives, power and legitimacy as the concepts, a liberal lens, and a survey run on the students it is about.",
   },
 };
 
@@ -1013,7 +1013,7 @@ const TRASH_QUIPS = {
   "llm-mafia": "llm_mafia.py refused. the town voted against it.",
   tokenpilot: "tokenpilot.ts audited the delete request. denied: wasteful.",
   apex: "apex.ts cannot be deleted mid-season. contractual.",
-  "agent-wrapped": "agent_wrapped.ts scored that attempt. archetype: deleter.",
+  gridcast: "gridcast.py already committed that prediction. no edits after lights out.",
   "ib-news-site": "ib_news_site.py is protected by the free press.",
 };
 function trashAttempt(key) {

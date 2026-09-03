@@ -30,9 +30,9 @@
     "apex.ts":
       "F1 dashboard — real standings and replayable telemetry from Jolpica + OpenF1. scrub a session lap by lap. TypeScript, real data, no fake numbers.",
     "llm_mafia.py":
-      "fully autonomous Mafia — every player an LLM. parallel inference, game master narrator, LM Studio or NVIDIA NIM. you just watch the town burn.",
-    "agent_wrapped.ts":
-      "your Claude Code month as a scored, shareable card. reads ~30 days of local transcripts, offline, assigns an archetype, prices the month at API rates. on npm: bunx @nitrimandylis/agent-wrapped.",
+      "fully autonomous Mafia — every player an LLM. parallel inference, game master narrator, LM Studio / NVIDIA NIM / Claude Code. finished games replay as noir episodes. you just watch the town burn.",
+    "gridcast.py":
+      "F1 race probabilities committed to git before lights out. Plackett-Luce plus a lap-by-lap Monte Carlo, scored walk-forward against \"you finish where you start\". python, fastf1, numpy.",
     "ib_news_site.py":
       "the CGS IB Gazette — Flask + PostgreSQL CMS. submission portal, admin dashboard, tag system, search. EB Garamond. deployed. used by actual student journalists.",
     "breakos.sys":
@@ -59,13 +59,15 @@
   };
 
   // roff-lite: enough of man(7) to render the repos' real man pages.
-  // not a troff implementation — just the macros these six pages use.
+  // not a troff implementation — just the macros these nine pages use.
   function renderRoff(src) {
     const clean = (s) =>
       s
         .replace(/\\f[BIRP]/g, "")
         .replace(/\\-/g, "-")
         .replace(/\\\(bu/g, "•")
+        .replace(/\\\(em/g, "\u2014")
+        .replace(/\\\(en/g, "\u2013")
         .replace(/\\&/g, "")
         .replace(/\\ /g, " ");
     const unquote = (s) => s.replace(/^"|"$/g, "");
@@ -443,7 +445,7 @@
         print(
           "  " +
             p.bin.padEnd(14) +
-            (p.npm ? "[npm]    " : "[source] ") +
+            ("[" + (p.npm ? "npm" : p.chan || "source") + "]").padEnd(9) +
             p.desc,
         ),
       );
@@ -469,7 +471,7 @@
           "\n  " +
           p.desc +
           "\n  channel: " +
-          (p.npm ? "npm (" + p.npm + ")" : "source") +
+          (p.npm ? "npm (" + p.npm + ")" : p.chan ? p.chan + " (" + p.bin + ")" : "source") +
           "\n  repo: " +
           '<a href="' +
           p.url +
@@ -545,7 +547,7 @@
           "swatch — desktop theming, browser edition.\n" +
             "  swatch list             palettes from the swatchbook repo\n" +
             "  swatch apply <palette>  retheme this website\n" +
-            "(the real one writes 20 surfaces. this one writes 1. it counts.)",
+            "(the real one writes 21 surfaces. this one writes 1. it counts.)",
         );
       if (parts[1] === "list") {
         print("resolving swatchbook…");

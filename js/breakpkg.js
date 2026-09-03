@@ -9,7 +9,7 @@
     {
       bin: "swatch",
       repo: "swatch",
-      desc: "themes the whole macOS desktop from one palette.toml — 20 surfaces, one command.",
+      desc: "themes the whole macOS desktop from one palette.toml — 21 surfaces, one command.",
       man: "swatch apply <palette> — writes Ghostty, btop, sketchybar, Zen, Cider, Legcord, yazi, zed, vscode and friends from a single palette file. swatch build <image> starts a theme from a wallpaper.",
     },
     {
@@ -49,12 +49,47 @@
       desc: "your Claude Code month as a scored, shareable card. offline, nothing uploaded.",
       man: "bunx @nitrimandylis/agent-wrapped — reads ~30 days of local transcripts, scores them, assigns an archetype, renders a PNG/SVG card with the would-be API cost.",
     },
+    {
+      bin: "aidetect",
+      repo: "aidetect",
+      chan: "pypi",
+      desc: "counts a draft the way the IB counts it, then scores how AI-written it reads. offline.",
+      man: "aidetect count draft.docx --limit 4000 — word count by section against the limit. aidetect score runs a DeBERTa detector over your own prose before a teacher runs Turnitin. uv tool install aidetect.",
+    },
+    {
+      bin: "brushwork",
+      repo: "brushwork",
+      npm: "brushwork",
+      desc: "repaints a photograph as visible brush strokes. oil, watercolour or ink.",
+      man: "brushwork photo.jpg --style oil — repaints the image stroke by stroke. --brush, --detail, --texture and --seed control the hand; --sheet renders a contact sheet of variants.",
+    },
+    {
+      bin: "nous",
+      repo: "nous",
+      desc: "any folder of linked markdown as a force graph, served on localhost.",
+      man: "nous <dir> — serves the vault as a graph and opens a browser. nous build <file> writes a standalone HTML you can send someone. its own theme format, config in ~/.config/nous.",
+    },
+    {
+      bin: "nocturne",
+      repo: "nocturne",
+      desc: "a terminal music visualizer shaped like an apartment building, lit by system audio.",
+      man: "nocturne — taps macOS system audio through Core Audio and flashes windows in a night-time building. --web mirrors the same building into a browser.",
+    },
+    {
+      bin: "shelf",
+      repo: "shelf",
+      desc: "every repo you have, on GitHub and on this machine, in one table.",
+      man: "shelf — lists GitHub ∪ local git repos with warm/cold triage. shelf audit flags missing READMEs, licenses, unpushed commits and dirty trees. shelf show <repo> for the detail.",
+    },
   ];
 
   const GH = "https://github.com/nitrimandylis/";
   // repos that ship a real man page at man/<bin>.1 (agent-wrapped
   // doesn't — its `man` falls back to the blurb above)
-  const HAS_MAN = ["swatch", "juke", "jazz", "bacpack", "dt", "cine"];
+  const HAS_MAN = [
+    "swatch", "juke", "jazz", "bacpack", "dt", "cine",
+    "nous", "nocturne", "shelf",
+  ];
   // what happens when you run the bin inside a browser tab
   const RUN_QUIPS = {
     swatch: "swatch: no desktop surfaces found to theme. ironic, given the surroundings.",
@@ -65,6 +100,11 @@
     cine: "cine: no cinemas within reach of this sandbox. Athens has several.",
     "agent-wrapped":
       "agent-wrapped: no transcripts in here. run it on your own machine: bunx @nitrimandylis/agent-wrapped",
+    aidetect: "aidetect: no draft supplied. this page is 0 words of coursework.",
+    brushwork: "brushwork: give it a photograph. a browser tab is not a photograph.",
+    nous: "nous: no markdown vault at this path. the graph is empty and so is the folder.",
+    nocturne: "nocturne: no audio device in a browser tab. the building stays dark.",
+    shelf: "shelf: 1 repo found on this machine. you are looking at it.",
   };
   PKGS.forEach((p) => {
     p.url = GH + p.repo;
@@ -128,7 +168,7 @@
       row.rel = "noopener";
       const chan = document.createElement("span");
       chan.className = "pkg-chan";
-      chan.textContent = p.npm ? "npm" : "source";
+      chan.textContent = p.npm ? "npm" : p.chan || "source";
       if (p.npm)
         npmVersion(p.npm)
           .then((v) => (chan.textContent = "npm v" + v))

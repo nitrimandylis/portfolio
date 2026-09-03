@@ -52,12 +52,12 @@ builds things useful or interesting, ideally both.
 | | app | what it actually does |
 |---|---|---|
 | ⏻ | **boot log** | scroll-scrubbed; every line is a real measurement of *your* browser. that's the joke — it's all true |
-| ▤ | **`~/things-i-made`** | file manager of the curated six: `petal_ai.swift`, `tokenpilot.ts`, `apex.ts`, `llm_mafia.py`, `agent_wrapped.ts`, `ib_news_site.py` — click to open, drag to trash to be told no |
-| ▦ | **breakpkg** | package manager for the CLI family — swatch, juke, jazz, bacpack, dt, cine, agent-wrapped. every row a real repo; agent-wrapped's npm version fetched **live** from the registry |
+| ▤ | **`~/things-i-made`** | file manager of the curated six: `petal_ai.swift`, `tokenpilot.ts`, `apex.ts`, `llm_mafia.py`, `gridcast.py`, `ib_news_site.py` — click to open, drag to trash to be told no |
+| ▦ | **breakpkg** | package manager for the CLI family — swatch, juke, jazz, bacpack, dt, cine, agent-wrapped, aidetect, brushwork, nous, nocturne, shelf. every row a real repo; the npm versions are fetched **live** from the registry |
 | ◔ | **System Monitor** | my repos, fetched **live** from the GitHub API as processes — real sizes as memory, real push times as uptime, plus *your* actual FPS |
 | ▮ | **terminal** | a working shell. `help`, `pkg list`, `defrag`, `sudo hire-nick`, `vim` (good luck quitting). `man juke` fetches the CLI's **actual man page** from its repo and renders it |
 | ❒ | **the .docx icons** | the IB coursework — EE and four IAs — sitting on the desk like any real desktop. they open; they do not download. sealed until results day |
-| ◍ | **About This Computer** | processor: `1 × human, runs warm under deadline`. peripherals: `7 command-line tools attached. one escaped to npm` |
+| ◍ | **About This Computer** | processor: `1 × human, runs warm under deadline`. peripherals: `12 command-line tools attached. three escaped to a registry` |
 | ⏻ | **start menu → Shut down?** | `[Yes]` `[Also Yes]` → BSOD → `stop code: VISITOR_ATTEMPTED_TO_LEAVE` → reboots you to the boot log |
 
 ## 🚀 Run it

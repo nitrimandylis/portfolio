@@ -49,12 +49,13 @@ Files:
 - `js/boot.js` — scroll-scrubbed boot log; lines computed from real
   diagnostics (`performance`, `navigator`). Keep lines truthful — that's the
   joke. Fires `__enterDesktop` at progress ≈ 1.
-- `js/breakpkg.js` — the CLI-family registry (`window.BREAKPKG`): 7 packages,
-  each a real repo, with `manUrl` for the six repos that ship `man/<bin>.1`
+- `js/breakpkg.js` — the CLI-family registry (`window.BREAKPKG`): 12 packages,
+  each a real repo, with `manUrl` for the nine repos that ship `man/<bin>.1`
   and a `quip` for running the bin in a tab. (sealfetch is not in it — that
   repo is wallpapers, not a CLI.) Renders the breakpkg window
-  from `BREAKOS_REPOS` data; agent-wrapped's version is fetched live from
-  registry.npmjs.org (30-min cache, `breakos-npm-v1`).
+  from `BREAKOS_REPOS` data; the npm versions (agent-wrapped, brushwork) are
+  fetched live from registry.npmjs.org (30-min cache, `breakos-npm-v1`).
+  Non-npm rows show `chan` if set (aidetect is `pypi`), else "source".
 - `js/monitor.js` — GitHub repos as "processes"; real FPS/uptime; the third
   stat is scroll depth on mobile and open-window count on the desktop
   (`window.__winCount`).
@@ -118,7 +119,7 @@ monitor → breakpkg → terminal (terminal reads `window.BREAKPKG` and
   its titlebar (must unsnap), close it maximized and reopen (must come back
   normal with a □ glyph). Drag an icon (position must survive reload),
   marquee-select a few, double-click a `.docx` (overlay, no download). Run
-  `pkg list` (7 rows) / `pkg info swatch` / `man juke` (real man page) /
+  `pkg list` (12 rows) / `pkg info swatch` / `man juke` (real man page) /
   `swatch` / `defrag` in the terminal, drag a poster to the trash (counter
   increments, file survives), type `f1`, then start menu → shut down →
   BSOD → reboot must land back on a scrollable boot log.

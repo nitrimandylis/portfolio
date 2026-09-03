@@ -9,17 +9,20 @@ real diagnostics, the system monitor streams real GitHub repos, the package
 manager shows a real live npm version, and every joke grows out of a working
 feature.
 
-## Current state (v3.0, Aug 2026)
+## Current state (v3.1, Sept 2026)
 
 - Scroll-scrubbed boot → real desktop session on >720px: draggable windows,
   z-order, minimize/maximize, taskbar app switcher, start menu, shutdown →
   BSOD → reboot loop.
 - Mobile (≤720px) keeps the linear scroll session, branded breakOS Mobile.
 - Curated six in the file manager: petal.ai, tokenpilot, apex, llm-mafia,
-  agent-wrapped, ib-news-site.
+  gridcast, ib-news-site. agent-wrapped rotated out in Sept 2026 — it is a
+  CLI and breakpkg already covers it in full, the same rule that moved
+  jukebox out.
 - breakpkg window + terminal `pkg`/`man` commands cover the CLI family:
-  swatch, juke, jazz, bacpack, dt, cine, agent-wrapped. (sealfetch looked
-  like one but is a wallpaper repo — it stays out.)
+  swatch, juke, jazz, bacpack, dt, cine, agent-wrapped, aidetect, brushwork,
+  nous, nocturne, shelf. (sealfetch looked like one but is a wallpaper repo
+  — it stays out.)
 - Easter eggs: seal, clawd (typed "claude" or the terminal's scripted Claude
   Code session with its recreated startup TTY), the mafia night phase (the
   llm-mafia town votes out an open window), f1 start lights in apex's design
@@ -32,7 +35,7 @@ feature.
 ## Where it's headed
 
 - Rotate the curated six as projects ship; the CLI family grows in breakpkg
-  (excali and ai-detect are candidates when they mature).
+  (excali, gridwatch and lamp are candidates when they mature).
 - Possible v3.x: window resize handles, visitor-presence gimmick, a real
   `screensaver` after idle.
 - Constraint that will not move: no frameworks, no build step, every stat
