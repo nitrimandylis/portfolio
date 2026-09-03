@@ -15,10 +15,12 @@ feature.
   z-order, minimize/maximize, taskbar app switcher, start menu, shutdown →
   BSOD → reboot loop.
 - Mobile (≤720px) keeps the linear scroll session, branded breakOS Mobile.
-- Curated six in the file manager: petal.ai, tokenpilot, apex, llm-mafia,
-  gridcast, ib-news-site. agent-wrapped rotated out in Sept 2026 — it is a
-  CLI and breakpkg already covers it in full, the same rule that moved
-  jukebox out.
+- The file manager mirrors the six repos **pinned on GitHub**, in pin order:
+  tokenpilot, LLM-Mafia, aidetect, bacpack, swatch, siren. GitHub only serves
+  pins through the authenticated GraphQL API, so the list is hand-synced in
+  `GALLERY` rather than fetched; changing the pins means editing that array.
+  Three of the six are also CLIs and so appear in breakpkg too — the pins win,
+  the overlap is deliberate.
 - breakpkg window + terminal `pkg`/`man` commands cover the CLI family:
   swatch, juke, jazz, bacpack, dt, cine, agent-wrapped, aidetect, brushwork,
   nous, nocturne, shelf. (sealfetch looked like one but is a wallpaper repo
@@ -34,8 +36,9 @@ feature.
 
 ## Where it's headed
 
-- Rotate the curated six as projects ship; the CLI family grows in breakpkg
-  (excali, gridwatch and lamp are candidates when they mature).
+- Re-sync the file manager whenever the GitHub pins change; the CLI family
+  grows in breakpkg (excali, gridwatch and lamp are candidates when they
+  mature).
 - Possible v3.x: window resize handles, visitor-presence gimmick, a real
   `screensaver` after idle.
 - Constraint that will not move: no frameworks, no build step, every stat

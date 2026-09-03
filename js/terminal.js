@@ -21,20 +21,20 @@
   const esc = (s) =>
     s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-  // synced with FILE_COPY in os.js — the curated six, plus this site
+  // synced with FILE_COPY in os.js — the six pinned repos, plus this site
   const FILES = {
-    "petal_ai.swift":
-      "iOS 17+ AI study companion. SwiftUI + Gemini. CSV-loaded curriculum, streak tracking, haptic feedback. a tutor with a system prompt and an agenda.",
     "tokenpilot.ts":
       "LLM spend auditor. reads Anthropic + OpenAI admin APIs, 6-rule detection engine, confidence-scored savings. Next.js 16. keys never leave the tab.",
-    "apex.ts":
-      "F1 dashboard — real standings and replayable telemetry from Jolpica + OpenF1. scrub a session lap by lap. TypeScript, real data, no fake numbers.",
     "llm_mafia.py":
       "fully autonomous Mafia — every player an LLM. parallel inference, game master narrator, LM Studio / NVIDIA NIM / Claude Code. finished games replay as noir episodes. you just watch the town burn.",
-    "gridcast.py":
-      "F1 race probabilities committed to git before lights out. Plackett-Luce plus a lap-by-lap Monte Carlo, scored walk-forward against \"you finish where you start\". python, fastf1, numpy.",
-    "ib_news_site.py":
-      "the CGS IB Gazette — Flask + PostgreSQL CMS. submission portal, admin dashboard, tag system, search. EB Garamond. deployed. used by actual student journalists.",
+    "aidetect.py":
+      "offline AI-writing detector for your own drafts. paragraph-level scoring plus an IB word count by section. DeBERTa and a Binoculars-style perplexity check, both local. the draft never leaves the machine. on pypi.",
+    "bacpack.ts":
+      "ManageBac from the terminal — what's due, class files, CAS logging, portfolio entries. bun, zero deps, one session cookie, a scraper built form by form because there is no API.",
+    "swatch.ts":
+      "one palette.toml → 21 macOS app configs. eight mechanisms, because every app hides its theme somewhere different. the theme button in this taskbar is a browser port of it.",
+    "siren.ts":
+      "four watchers, four crons, one ntfy topic: cinema tickets, F1 sessions, ManageBac deadlines, repo activity. a watcher is a folder and a workflow file. nothing else.",
     "breakos.sys":
       "this site. a portfolio disguised as an OS. opening this file is the closest it gets to recursion.",
     "about.txt":

@@ -36,7 +36,9 @@ Files:
   desktop icon system (single click selects, double-click opens, drag with
   positions persisted to `breakos-icons-v1` as vw/vh, background marquee;
   no parallax — parallax used to scrub icons off-screen), boot→desktop
-  handoff, curated gallery (`GALLERY` + `FILE_COPY`), coursework overlay
+  handoff, the pinned-repo gallery (`GALLERY` + `FILE_COPY` — a hand-synced
+  mirror of github.com/nitrimandylis's pins, since pins are GraphQL-only
+  and need auth), coursework overlay
   (`DOC_COPY` — described, never downloadable), trash drag with attempt
   counter (`breakos-trash-attempts`), f1 + seal + claude + mafia cheat codes
   (clawd renders the canonical pixel grid on a canvas, `window.__clawd`; the

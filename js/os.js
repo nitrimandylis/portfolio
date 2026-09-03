@@ -853,14 +853,6 @@ window.BREAKOS_REPOS = (function () {
 
 // ── file manager ──
 const FILE_COPY = {
-  "petal.ai": {
-    label: "petal_ai.swift",
-    year: 2025,
-    verdict: "teaches. actually.",
-    voice: "An AI study companion that knows the curriculum.",
-    body: "iOS 17+ app built in SwiftUI, powered by Gemini. Loads a curated curriculum from CSV so the tutor walks into every session already knowing what to teach. Streak tracking, haptic feedback, hand-built chat UI. Not a chatbot with a school uniform — a structured tutor with a system prompt and an agenda.",
-    kind: "swift · ai",
-  },
   "llm-mafia": {
     label: "llm_mafia.py",
     year: 2025,
@@ -877,41 +869,51 @@ const FILE_COPY = {
     body: "Reads your Anthropic and OpenAI Admin APIs, runs actual token volumes through a 6-rule detection engine, returns confidence-scored savings recommendations. Everything client-side — keys live in sessionStorage, die when the tab does. Next.js 16, TypeScript strict, React 19.",
     kind: "typescript · next.js",
   },
-  apex: {
-    label: "apex.ts",
+  aidetect: {
+    label: "aidetect.py",
     year: 2026,
-    verdict: "the race, on replay.",
-    voice: "An F1 dashboard that remembers every lap.",
-    body: "Real standings and replayable telemetry pulled live from Jolpica and OpenF1 — scrub a session lap by lap and watch the gaps open and close. TypeScript, real data, no fake numbers. The season is the database.",
-    kind: "typescript",
+    verdict: "reads a draft the way a machine would.",
+    voice: "Offline AI-writing detector, pointed at your own coursework.",
+    body: "Scores a draft paragraph by paragraph for how AI-generated it reads, before anyone else runs it through Turnitin — and counts the words the way the IB counts them, by section, against the limit. A DeBERTa classifier plus a Binoculars-style perplexity check, both local: the model downloads once and the draft never leaves the machine. On PyPI, one uv install, no clone to keep.",
+    kind: "python · cli · pypi",
   },
-  gridcast: {
-    label: "gridcast.py",
+  bacpack: {
+    label: "bacpack.ts",
     year: 2026,
-    verdict: "committed before lights out.",
-    voice: "F1 race probabilities, timestamped by git.",
-    body: "Predicts every Grand Prix as a full distribution — P(win), P(podium), P(points) and the 22-way finishing matrix underneath — then commits the JSON before the race starts, so the misses stay in the history too. Two models publish each weekend: a Plackett-Luce fit on grid position and season pace, and a lap-by-lap Monte Carlo simulator with tyre degradation, a pit strategy search and safety cars. Scored walk-forward against the baseline of \"you finish where you start\", which it beats. Python, FastF1, numpy.",
-    kind: "python · modelling",
+    verdict: "school, minus the browser.",
+    voice: "ManageBac from the terminal.",
+    body: "Reads a ManageBac account from the shell: what is due and what is already overdue, the handouts for a class, CAS experiences and reflections, Learner Portfolio entries — logged without opening a tab. Bun and TypeScript, zero runtime dependencies, one session cookie, and a scraper reverse-engineered form by form because there is no API.",
+    kind: "typescript · cli",
   },
-  "ib-news-site": {
-    label: "ib_news_site.py",
-    year: 2025,
-    verdict: "all the news that fits the schema.",
-    voice: "The CGS IB Gazette — a broadsheet that happens to be a web app.",
-    body: "Flask + PostgreSQL CMS powering the school's student newspaper. Writers submit through an open portal, editors moderate from an admin dashboard, readers browse by category, tag, or search. EB Garamond headlines, editorial design throughout. Deployed. Used by actual student journalists.",
-    kind: "python · flask",
+  swatch: {
+    label: "swatch.ts",
+    year: 2026,
+    verdict: "one palette, twenty-one surfaces.",
+    voice: "Themes an entire macOS desktop from a single file.",
+    body: "One palette.toml in, twenty-one app configs out: Ghostty, btop, sketchybar, Zen, Cider, Legcord, yazi, zed, VS Code and the rest. Eight different mechanisms underneath, because every app hides its theme somewhere else — a config file, a stylesheet, a plist, a client mod. swatch build <image> starts a whole theme from a wallpaper. The theme button in this taskbar is a browser port of it, running on the real palettes.",
+    kind: "typescript · cli",
+  },
+  siren: {
+    label: "siren.ts",
+    year: 2026,
+    verdict: "asks, so you do not have to.",
+    voice: "Every alert that has to poll something, in one repo.",
+    body: "Four watchers, four crons, one push topic: cinema tickets going on sale, F1 sessions, ManageBac deadlines, repo activity. Each is a folder with a script and a GitHub Actions schedule — no database, no queue, no plugin system, and adding one is copying a folder. It runs on a timer in the cloud and the phone buzzes only when the answer changes.",
+    kind: "typescript · actions",
   },
 };
 
-// the curated six, in display order. one accent colour each — reads on both
-// the cream theme and the batman-jazz dark theme.
+// mirrors the six repos pinned on github.com/nitrimandylis, in pin order.
+// GitHub only exposes pins through the authenticated GraphQL API, so this
+// list cannot be fetched from a static page — re-sync it by hand when the
+// pins change. one accent colour each, readable on cream and on batman-jazz.
 const GALLERY = [
-  { key: "petal.ai", accent: "#d98324" },
   { key: "tokenpilot", accent: "#2f8f8c" },
-  { key: "apex", accent: "#d64550" },
   { key: "llm-mafia", accent: "#7d5ba6" },
-  { key: "gridcast", accent: "#5d8a3a" },
-  { key: "ib-news-site", accent: "#4a6fa5" },
+  { key: "aidetect", accent: "#d64550" },
+  { key: "bacpack", accent: "#4a6fa5" },
+  { key: "swatch", accent: "#e0518a" },
+  { key: "siren", accent: "#d98324" },
 ];
 
 const overlay = document.getElementById("overlay");
@@ -1009,12 +1011,12 @@ function paintTrashLabel() {
 }
 paintTrashLabel();
 const TRASH_QUIPS = {
-  "petal.ai": "petal_ai.swift cannot be deleted: it teaches. actually.",
-  "llm-mafia": "llm_mafia.py refused. the town voted against it.",
   tokenpilot: "tokenpilot.ts audited the delete request. denied: wasteful.",
-  apex: "apex.ts cannot be deleted mid-season. contractual.",
-  gridcast: "gridcast.py already committed that prediction. no edits after lights out.",
-  "ib-news-site": "ib_news_site.py is protected by the free press.",
+  "llm-mafia": "llm_mafia.py refused. the town voted against it.",
+  aidetect: "aidetect.py scored that request. it reads machine-written.",
+  bacpack: "bacpack.ts checked the calendar. deleting this is not due.",
+  swatch: "swatch.ts will happily repaint the trash. emptying it, no.",
+  siren: "siren.ts pushed that to nick's phone. he has declined.",
 };
 function trashAttempt(key) {
   trashTries++;
