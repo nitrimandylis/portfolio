@@ -31,10 +31,10 @@
       "offline AI-writing detector for your own drafts. paragraph-level scoring plus an IB word count by section. DeBERTa and a Binoculars-style perplexity check, both local. the draft never leaves the machine. on pypi.",
     "bacpack.ts":
       "ManageBac from the terminal — what's due, class files, CAS logging, portfolio entries. bun, zero deps, one session cookie, a scraper built form by form because there is no API.",
-    "swatch.ts":
-      "one palette.toml → 21 macOS app configs. eight mechanisms, because every app hides its theme somewhere different. the theme button in this taskbar is a browser port of it.",
-    "siren.ts":
-      "four watchers, four crons, one ntfy topic: cinema tickets, F1 sessions, ManageBac deadlines, repo activity. a watcher is a folder and a workflow file. nothing else.",
+    "gridcast.py":
+      "F1 race outcomes as probabilities, not a predicted order. plackett-luce on fastf1 lap data, every call committed to git before lights out. 0.134 RPS against a 0.166 grid-order baseline.",
+    "whimprflow.rs":
+      "local-first voice dictation. hold Fn, whisper transcribes on-device, a local LLM tidies it, it pastes at the cursor. tauri + rust. greek in, english out.",
     "breakos.sys":
       "this site. a portfolio disguised as an OS. opening this file is the closest it gets to recursion.",
     "about.txt":

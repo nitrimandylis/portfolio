@@ -885,21 +885,21 @@ const FILE_COPY = {
     body: "Reads a ManageBac account from the shell: what is due and what is already overdue, the handouts for a class, CAS experiences and reflections, Learner Portfolio entries — logged without opening a tab. Bun and TypeScript, zero runtime dependencies, one session cookie, and a scraper reverse-engineered form by form because there is no API.",
     kind: "typescript · cli",
   },
-  swatch: {
-    label: "swatch.ts",
+  gridcast: {
+    label: "gridcast.py",
     year: 2026,
-    verdict: "one palette, twenty-one surfaces.",
-    voice: "Themes an entire macOS desktop from a single file.",
-    body: "One palette.toml in, twenty-one app configs out: Ghostty, btop, sketchybar, Zen, Cider, Legcord, yazi, zed, VS Code and the rest. Eight different mechanisms underneath, because every app hides its theme somewhere else — a config file, a stylesheet, a plist, a client mod. swatch build <image> starts a whole theme from a wallpaper. The theme button in this taskbar is a browser port of it, running on the real palettes.",
-    kind: "typescript · cli",
+    verdict: "the prediction is committed before the race.",
+    voice: "F1 race outcomes as probabilities, scored in public.",
+    body: "A Plackett-Luce model over FastF1 lap data that outputs P(win), P(podium) and P(points) for all twenty drivers, not one guessed finishing order. Every prediction is committed to git before lights out, so the timestamp is the git history and the scorecard cannot be edited after the fact. Walk-forward validated against a grid-order baseline: 0.134 mean RPS versus 0.166, beating it in seven of nine races.",
+    kind: "python · fastf1 · stats",
   },
-  siren: {
-    label: "siren.ts",
+  whimprflow: {
+    label: "whimprflow.rs",
     year: 2026,
-    verdict: "asks, so you do not have to.",
-    voice: "Every alert that has to poll something, in one repo.",
-    body: "Four watchers, four crons, one push topic: cinema tickets going on sale, F1 sessions, ManageBac deadlines, repo activity. Each is a folder with a script and a GitHub Actions schedule — no database, no queue, no plugin system, and adding one is copying a folder. It runs on a timer in the cloud and the phone buzzes only when the answer changes.",
-    kind: "typescript · actions",
+    verdict: "hold a key, talk, keep the audio.",
+    voice: "Local-first voice dictation. Nothing leaves the machine.",
+    body: "A Tauri app in Rust and React: hold Fn, speak, Whisper transcribes on-device, an optional local LLM cleans the text up, and it pastes at the cursor. A fork taken over and polished — push-to-talk, multi-language, an overlay that survives Spaces and full-screen apps, and CI that builds the DMG. Greek in, English out, and it replaced the paid app it was imitating.",
+    kind: "rust · tauri · whisper",
   },
 };
 
@@ -912,8 +912,8 @@ const GALLERY = [
   { key: "llm-mafia", accent: "#7d5ba6" },
   { key: "aidetect", accent: "#d64550" },
   { key: "bacpack", accent: "#4a6fa5" },
-  { key: "swatch", accent: "#e0518a" },
-  { key: "siren", accent: "#d98324" },
+  { key: "gridcast", accent: "#d98324" },
+  { key: "whimprflow", accent: "#4f9d69" },
 ];
 
 const overlay = document.getElementById("overlay");
@@ -1015,8 +1015,8 @@ const TRASH_QUIPS = {
   "llm-mafia": "llm_mafia.py refused. the town voted against it.",
   aidetect: "aidetect.py scored that request. it reads machine-written.",
   bacpack: "bacpack.ts checked the calendar. deleting this is not due.",
-  swatch: "swatch.ts will happily repaint the trash. emptying it, no.",
-  siren: "siren.ts pushed that to nick's phone. he has declined.",
+  gridcast: "gridcast.py gives that deletion a 4% chance. it is already committed.",
+  whimprflow: "whimprflow.rs heard the request. it transcribed 'no'.",
 };
 function trashAttempt(key) {
   trashTries++;

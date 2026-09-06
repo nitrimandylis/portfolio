@@ -16,10 +16,10 @@ feature.
   BSOD → reboot loop.
 - Mobile (≤720px) keeps the linear scroll session, branded breakOS Mobile.
 - The file manager mirrors the six repos **pinned on GitHub**, in pin order:
-  tokenpilot, LLM-Mafia, aidetect, bacpack, swatch, siren. GitHub only serves
+  tokenpilot, LLM-Mafia, aidetect, bacpack, gridcast, WhimprFlow. GitHub only serves
   pins through the authenticated GraphQL API, so the list is hand-synced in
   `GALLERY` rather than fetched; changing the pins means editing that array.
-  Three of the six are also CLIs and so appear in breakpkg too — the pins win,
+  Two of the six are also CLIs and so appear in breakpkg too — the pins win,
   the overlap is deliberate.
 - breakpkg window + terminal `pkg`/`man` commands cover the CLI family:
   swatch, juke, jazz, bacpack, dt, cine, agent-wrapped, aidetect, brushwork,

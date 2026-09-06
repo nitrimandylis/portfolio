@@ -52,7 +52,7 @@ builds things useful or interesting, ideally both.
 | | app | what it actually does |
 |---|---|---|
 | ⏻ | **boot log** | scroll-scrubbed; every line is a real measurement of *your* browser. that's the joke — it's all true |
-| ▤ | **`~/things-i-made`** | file manager mirroring the six repos pinned on GitHub: `tokenpilot.ts`, `llm_mafia.py`, `aidetect.py`, `bacpack.ts`, `swatch.ts`, `siren.ts` — click to open, drag to trash to be told no |
+| ▤ | **`~/things-i-made`** | file manager mirroring the six repos pinned on GitHub: `tokenpilot.ts`, `llm_mafia.py`, `aidetect.py`, `bacpack.ts`, `gridcast.py`, `whimprflow.rs` — click to open, drag to trash to be told no |
 | ▦ | **breakpkg** | package manager for the CLI family — swatch, juke, jazz, bacpack, dt, cine, agent-wrapped, aidetect, brushwork, nous, nocturne, shelf. every row a real repo; the npm versions are fetched **live** from the registry |
 | ◔ | **System Monitor** | my repos, fetched **live** from the GitHub API as processes — real sizes as memory, real push times as uptime, plus *your* actual FPS |
 | ▮ | **terminal** | a working shell. `help`, `pkg list`, `defrag`, `sudo hire-nick`, `vim` (good luck quitting). `man juke` fetches the CLI's **actual man page** from its repo and renders it |
