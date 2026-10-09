@@ -27,7 +27,14 @@
   </nav>
 </header>
 <main class="page photos">
-  <ul class="stream" id="stream"></ul>
+  <ul class="grid" id="grid"></ul>
+  <dialog class="lightbox" id="lightbox" aria-label="photo">
+    <button class="close" aria-label="close">close</button>
+    <button class="nav prev" aria-label="previous photo">&larr;</button>
+    <img alt="">
+    <p></p>
+    <button class="nav next" aria-label="next photo">&rarr;</button>
+  </dialog>
 </main>
 <footer>
   <div class="now"><span id="song"></span><span id="film"></span></div>
