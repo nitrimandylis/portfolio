@@ -69,7 +69,7 @@ Gloss is hover-only and softer since 2026-10-09: always-on, it turned dark image
   FutureBuilders, ACSTAC 3rd in one sentence; link /work); off the keyboard
   (films, music, photography; link /films). No skills grid, no Omilia, no
   UCL/uni plans, no F1. Copy through writing-style; Nick's rewrites win.
-- **Photos page:** square grid (changed 2026-10-09: the one-per-row stream scrolled too long),
+- **Photos page:** prints on the table: real-shape photos on cream print borders, slight tilts, in a grid (2026-10-09: the one-per-row stream scrolled too long, square crops looked generic and cut the portraits),
   click opens a native <dialog> lightbox with arrow keys, filename as caption, newest first. Nick drops files in photos/ and pushes;
   a GitHub Action makes WebP copies (~1600 and ~600px), STRIPS EXIF/GPS,
   writes photos.json. Originals never published. No Instagram source

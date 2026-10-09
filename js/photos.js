@@ -1,4 +1,4 @@
-// photos page: a grid from data/photos.json (written by tools/photos.py), newest first; click opens the lightbox
+// photos page: prints from data/photos.json (written by tools/photos.py), newest first; click opens the lightbox
 const grid = document.querySelector('#grid');
 const box = document.querySelector('#lightbox');
 const big = box.querySelector('img');
@@ -20,7 +20,8 @@ fetch('/data/photos.json').then(r => r.json()).then(d => {
   if (!photos.length) { grid.innerHTML = '<li><p class="lede">nothing here yet.</p></li>'; return; }
   grid.innerHTML = photos.map((p, i) => `
     <li><button data-i="${i}" aria-label="open ${p.name}">
-      <img src="/img/photos/${p.file}-600.webp" width="600" height="600" alt="${p.name}" loading="lazy">
+      <img src="/img/photos/${p.file}-600.webp" width="${p.w}" height="${p.h}" alt="${p.name}" loading="lazy">
+      <span>${p.name}</span>
     </button></li>`).join('');
 });
 
