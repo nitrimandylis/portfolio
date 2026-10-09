@@ -20,7 +20,8 @@ Still placeholder (the Rome photo): img/home/* (six) and the about card.
 Done 2026-10-09: work stills are real (four live-app screenshots at
 1000x1000; aidetect is its README sample output and bacpack its --help in a
 rendered terminal, because `due` would publish real school tasks); film
-posters are the Letterboxd posters, square-cropped a bit above centre.
+images are Letterboxd backdrops (stills, no text), square-cropped by hand;
+posters were rejected because square crops cut their titles.
 og.png renders from tools/og.html at 1200x630. favicon.svg, 404.html, og tags
 on every page. Night shift points at nitrimandylis.github.io/os/ (live once
 the repo is renamed). The handwriting has no "w" sample, so "work" borrows his
@@ -56,7 +57,7 @@ Gloss is hover-only and softer since 2026-10-09: always-on, it turned dark image
 - **Footer line:** content/songs.txt (16 songs), one random song per page load, no cycling (changed 2026-10-09: the 8s rotation distracted); a hand-picked list of favourite songs
   (not live), plus last Letterboxd film (public RSS, nick_trim8).
 - **Films page:** top four as polaroid posters (hand-set: The Odyssey,
-  Pacific Rim, Spider-Verse, Shutter Island); one stats line (films this
+  Pacific Rim, Across the Spider-Verse, Shutter Island); one stats line (films this
   year, lifetime = seeded 64 + logged, typical rating); diary list with
   his reviews verbatim. Data: a daily GitHub Action reads
   letterboxd.com/nick_trim8/rss/ (20 items, no CORS, browser fetch verified
