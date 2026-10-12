@@ -19,7 +19,7 @@ h1,h2{font-weight:500;font-size:1em;margin:0}
 
 /* chrome: handwritten name top-left, quiet nav top-right */
 .top{display:flex;justify-content:space-between;align-items:flex-start;padding:36px 44px 0}
-.name{display:block;width:205px;height:54px;background:currentColor;
+.name{display:block;width:190px;height:50px;background:currentColor;
   -webkit-mask:url(/hand/name.svg) left center/contain no-repeat;mask:url(/hand/name.svg) left center/contain no-repeat}
 .bio{margin:.7em 0 0;color:var(--mu);font-size:.78em;line-height:1.45}
 .top nav{display:flex;gap:1.4em;color:var(--mu);font-size:.9em;padding-top:4px}
@@ -78,9 +78,7 @@ footer .contact a:hover{color:var(--fg)}
              linear-gradient(115deg,transparent 38%,rgba(255,255,255,.07) 46%,rgba(255,255,255,.02) 52%,transparent 60%)}
 .pol.live:hover .img::after{opacity:1}
 .pol .cap{display:flex;align-items:center;height:calc(var(--w,220px)*22/88);padding-left:3px;font-size:.9em}
-.pol .cap img{height:calc(var(--w,220px)*19/88);width:auto}       /* his handwriting */
-.table .pol{aspect-ratio:88/108}                                    /* taller bottom strip on home, so the handwriting can be big */
-.table .pol .cap{height:calc(var(--w,220px)*23/88)}
+.pol .cap img{height:calc(var(--w,220px)*18/88);width:auto}       /* his handwriting */
 .pol.live:hover{transition:transform .08s linear}
 @media (prefers-reduced-motion:reduce){.pol{transition:none}}
 
@@ -88,7 +86,7 @@ footer .contact a:hover{color:var(--fg)}
 .home .top{position:absolute;inset:0 0 auto 0;z-index:1}
 .home main{flex:1;position:relative;min-height:100vh}
 /* the band between the header (name + bio) and the footer; --w sizes two rows of cards to fit it */
-.table{position:absolute;inset:140px 0 100px 0;margin:0;padding:0;list-style:none;--w:min(22vw,calc((100vh - 300px) / 2.58));
+.table{position:absolute;inset:125px 0 100px 0;margin:0;padding:0;list-style:none;--w:min(22vw,calc((100vh - 285px) / 2.5));
   display:grid;grid-template-columns:repeat(3,var(--w));gap:36px 48px;place-content:center}
 .table li{transform:rotate(var(--r))}
 .table li:hover{z-index:2}
@@ -103,7 +101,7 @@ footer .contact a:hover{color:var(--fg)}
 @media (max-width:720px){
   html{font-size:17px}
   .top{padding:28px 24px 0}
-  .name{width:160px;height:42px}
+  .name{width:150px;height:40px}
   footer{padding:0 24px 28px}
   main.page{padding:80px 24px 56px}
   .home main{min-height:0}
