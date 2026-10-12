@@ -1,1 +1,64 @@
-{"photos":[]}
+{
+ "photos": [
+  {
+   "file": "rome",
+   "name": "rome",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "rome-lunch",
+   "name": "rome, lunch",
+   "w": 1278,
+   "h": 1600
+  },
+  {
+   "file": "siena-after-dark",
+   "name": "siena, after dark",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "siena",
+   "name": "siena",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "tuscany",
+   "name": "tuscany",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "clouds",
+   "name": "clouds",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "dinner",
+   "name": "dinner",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "sunset",
+   "name": "sunset",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "corfu",
+   "name": "corfu",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "concert",
+   "name": "concert",
+   "w": 897,
+   "h": 1600
+  }
+ ]
+}
