@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>mockup h: tracklist</title>
+<style>
+@font-face{font-family:Chillax;src:url(/fonts/Chillax-Variable.woff2) format("woff2");font-weight:200 700}
+:root{--bg:#141312;--fg:#ebe4d8;--mu:#857b6e;--ac:#e0a35a;--line:rgba(235,228,216,.16)}
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--fg);font:400 19px/1.5 Chillax,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 44px}
+a{color:inherit;text-decoration:none}
+
+/* a back cover: the art on the left, the tracks on the right */
+.cover{display:grid;grid-template-columns:minmax(300px,440px) minmax(0,520px);gap:72px;align-items:center;width:100%;max-width:1080px}
+.art{aspect-ratio:1;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.8),0 2px 4px rgba(0,0,0,.5)}
+.art img{width:100%;height:100%;object-fit:cover}
+
+.name{display:block;width:230px;height:62px;background:currentColor;-webkit-mask:url(/hand/name.svg) left center/contain no-repeat;mask:url(/hand/name.svg) left center/contain no-repeat}
+.bio{color:var(--mu);margin:.5em 0 0}
+
+.tracks{list-style:none;margin:36px 0 0;padding:0;counter-reset:t;border-top:1px solid var(--line)}
+.tracks li{counter-increment:t}
+.tracks a{display:grid;grid-template-columns:2em 1fr auto;gap:1em;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.tracks a::before{content:counter(t);color:var(--mu);font-size:.85em}
+.tracks a:hover{color:var(--ac)}
+.tracks .t{font-size:1.15em;font-weight:500}
+.tracks .t small{font-size:.75em;font-weight:400;color:var(--mu);margin-left:.6em}
+.tracks .len{color:var(--mu);font-size:.85em}
+
+.liner{margin:30px 0 0;color:var(--mu);font-size:.85em;line-height:1.6}
+.liner b{font-weight:500;color:var(--fg)}
+.liner a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--mu)}
+.liner a:hover{color:var(--fg)}
+@media (max-width:860px){body{padding:36px 22px;align-items:start}.cover{grid-template-columns:1fr;gap:36px}.art{max-width:360px}.name{width:190px;height:50px}}
+</style>
+<body>
+<div class="cover">
+  <div class="art"><img src="/img/home/night-shift.jpg" alt=""></div>
+  <div>
+    <a class="name" href="/" aria-label="nick trim"></a>
+    <p class="bio">athens, final-year ib. builds tools, ships them, occasionally finishes them.</p>
+    <ol class="tracks">
+      <li><a href="/about/"><span class="t">about <small>three paragraphs</small></span><span class="len">0:40</span></a></li>
+      <li><a href="/work/"><span class="t">work <small>six featured, 27 total</small></span><span class="len">4:10</span></a></li>
+      <li><a href="/cv/"><span class="t">cv <small>the short one</small></span><span class="len">1:05</span></a></li>
+      <li><a href="/films/"><span class="t">films <small>84 logged</small></span><span class="len">2:30</span></a></li>
+      <li><a href="/photos/"><span class="t">photos <small>10 prints</small></span><span class="len">3:20</span></a></li>
+      <li><a href="https://os.nicktrim.com"><span class="t">night shift <small>the old site, as an os</small></span><span class="len">∞</span></a></li>
+    </ol>
+    <p class="liner">on repeat: <b>sweater weather</b>, the neighbourhood. last watched: <b>avengers: endgame</b>, ★★★★★.<br>
+    recorded in athens, 2026. <a href="mailto:nicktrim8@duck.com">email</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin</a>.</p>
+  </div>
+</div>
+</body>
+</html>
