@@ -78,7 +78,7 @@ footer .contact a:hover{color:var(--fg)}
              linear-gradient(115deg,transparent 38%,rgba(255,255,255,.07) 46%,rgba(255,255,255,.02) 52%,transparent 60%)}
 .pol.live:hover .img::after{opacity:1}
 .pol .cap{display:flex;align-items:center;height:calc(var(--w,220px)*22/88);padding-left:3px;font-size:.9em}
-.pol .cap img{height:calc(var(--w,220px)*15/88);width:auto}       /* his handwriting */
+.pol .cap img{height:calc(var(--w,220px)*18/88);width:auto}       /* his handwriting */
 .pol.live:hover{transition:transform .08s linear}
 @media (prefers-reduced-motion:reduce){.pol{transition:none}}
 

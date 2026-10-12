@@ -10,7 +10,7 @@ from pathlib import Path
 # The page, top to bottom: each row is (word, how many takes are on that row).
 ROWS = [("name", 2), ("name", 2), ("about", 4), ("cv", 4), ("work", 4),
         ("films", 4), ("photos", 4), ("night-shift", 2), ("night-shift", 2)]
-ABOVE, BELOW, PAD = 62, 26, 4   # same frame above/below the baseline for every word, so they share a scale
+ABOVE, BELOW, PAD = 48, 24, 4   # same frame above/below the baseline for every word, so they share a scale
 
 
 def mid_y(stroke):
