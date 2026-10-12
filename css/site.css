@@ -19,7 +19,7 @@ h1,h2{font-weight:500;font-size:1em;margin:0}
 
 /* chrome: handwritten name top-left, quiet nav top-right */
 .top{display:flex;justify-content:space-between;align-items:flex-start;padding:36px 44px 0}
-.name{display:block;width:225px;height:59px;background:currentColor;
+.name{display:block;width:205px;height:54px;background:currentColor;
   -webkit-mask:url(/hand/name.svg) left center/contain no-repeat;mask:url(/hand/name.svg) left center/contain no-repeat}
 .bio{margin:.7em 0 0;color:var(--mu);font-size:.78em;line-height:1.45}
 .top nav{display:flex;gap:1.4em;color:var(--mu);font-size:.9em;padding-top:4px}
@@ -78,9 +78,9 @@ footer .contact a:hover{color:var(--fg)}
              linear-gradient(115deg,transparent 38%,rgba(255,255,255,.07) 46%,rgba(255,255,255,.02) 52%,transparent 60%)}
 .pol.live:hover .img::after{opacity:1}
 .pol .cap{display:flex;align-items:center;height:calc(var(--w,220px)*22/88);padding-left:3px;font-size:.9em}
-.pol .cap img{height:calc(var(--w,220px)*21/88);width:auto}       /* his handwriting */
-.table .pol{aspect-ratio:88/110}                                    /* taller bottom strip on home, so the handwriting can be big */
-.table .pol .cap{height:calc(var(--w,220px)*25/88)}
+.pol .cap img{height:calc(var(--w,220px)*19/88);width:auto}       /* his handwriting */
+.table .pol{aspect-ratio:88/108}                                    /* taller bottom strip on home, so the handwriting can be big */
+.table .pol .cap{height:calc(var(--w,220px)*23/88)}
 .pol.live:hover{transition:transform .08s linear}
 @media (prefers-reduced-motion:reduce){.pol{transition:none}}
 
@@ -103,7 +103,7 @@ footer .contact a:hover{color:var(--fg)}
 @media (max-width:720px){
   html{font-size:17px}
   .top{padding:28px 24px 0}
-  .name{width:175px;height:46px}
+  .name{width:160px;height:42px}
   footer{padding:0 24px 28px}
   main.page{padding:80px 24px 56px}
   .home main{min-height:0}
