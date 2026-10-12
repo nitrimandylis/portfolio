@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>mockup b: contact sheet</title>
+<style>
+/* B. contact sheet: two film strips on photo paper, graphite notes, a china-marker circle picks a frame */
+@font-face{font-family:Chillax;src:url(/fonts/Chillax-Variable.woff2) format("woff2");font-weight:200 700}
+:root{--paper:#dddbd4;--graphite:#2c2b29;--mu:#77736b;--film:#191715;--edge:#d29a46;--marker:#b8322a;--f:min(19vw,23vh)}
+*{box-sizing:border-box}
+html{background:var(--paper);color:var(--graphite);font:400 17px/1.5 Chillax,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;padding:40px 5vw 32px;
+  background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:3px 3px}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--marker);outline-offset:4px}
+.hw{display:block;background:currentColor;-webkit-mask:var(--src) left center/contain no-repeat;mask:var(--src) left center/contain no-repeat}
+
+header{display:flex;align-items:flex-end;gap:28px}
+header .hw{height:64px;width:224px}
+header p{margin:0 0 12px;color:var(--mu);max-width:34em}
+
+.sheet{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:calc(var(--f)*.55);padding:3vh 0 calc(var(--f)*.3)}
+.strip{display:flex;gap:calc(var(--f)*.09);width:max-content;padding:calc(var(--f)*.16) calc(var(--f)*.12);background:var(--film);position:relative;
+  box-shadow:0 1px 0 rgba(0,0,0,.25);
+  /* sprocket holes, top and bottom */
+  background-image:repeating-linear-gradient(90deg,transparent 0 9px,var(--paper) 9px 17px,transparent 17px 26px),
+                   repeating-linear-gradient(90deg,transparent 0 9px,var(--paper) 9px 17px,transparent 17px 26px);
+  background-size:100% 9px,100% 9px;background-position:0 7px,0 calc(100% - 7px);background-repeat:repeat-x}
+.strip:nth-child(1){transform:rotate(-.6deg);margin-right:6vw}
+.strip:nth-child(2){transform:rotate(.5deg);margin-left:6vw}
+.strip::before,.strip::after{position:absolute;left:30px;font:500 9px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;color:var(--edge);opacity:.8}
+.strip::before{content:attr(data-edge);top:calc(var(--f)*.16 - 13px);left:40%}
+.frame{position:relative;width:var(--f)}
+.frame img{width:var(--f);aspect-ratio:1;object-fit:cover;filter:contrast(1.05) saturate(.8)}
+.frame .no{position:absolute;bottom:calc(var(--f)*-.075);left:2px;font:500 9px/1 ui-monospace,Menlo,monospace;color:var(--edge);opacity:.8}
+/* the label is written on the paper below the strip */
+.frame .hw{position:absolute;top:calc(100% + var(--f)*.2);left:0;height:calc(var(--f)*.2);width:100%;color:var(--graphite)}
+/* china marker: a rough circle drawn around the frame you point at */
+.frame svg{position:absolute;inset:-14% -12%;width:124%;height:128%;pointer-events:none;overflow:visible}
+.frame ellipse{fill:none;stroke:var(--marker);stroke-width:5;stroke-linecap:round;stroke-dasharray:1000;stroke-dashoffset:1000;opacity:0;transition:stroke-dashoffset .45s ease-out,opacity 0s .45s}
+.frame:hover ellipse,.frame:focus-visible ellipse{stroke-dashoffset:0;opacity:.9;transition:stroke-dashoffset .45s ease-out}
+
+footer{display:flex;justify-content:space-between;gap:20px;color:var(--mu);font-size:15px}
+footer b{color:var(--graphite);font-weight:500}
+footer nav{display:flex;gap:18px}
+footer nav a{color:var(--graphite);text-decoration:underline;text-decoration-color:var(--mu);text-underline-offset:3px}
+
+@media (max-width:760px){
+  :root{--f:50vw}
+  body{padding:28px 18px}
+  header{flex-direction:column;align-items:flex-start;gap:6px}
+  /* on a phone the film runs downwards and the labels sit in the margin beside it */
+  .sheet{align-items:flex-start}
+  .strip{flex-direction:column;padding:calc(var(--f)*.12) calc(var(--f)*.16);margin:0 !important;
+    background-image:repeating-linear-gradient(180deg,transparent 0 9px,var(--paper) 9px 17px,transparent 17px 26px),
+                     repeating-linear-gradient(180deg,transparent 0 9px,var(--paper) 9px 17px,transparent 17px 26px);
+    background-size:9px 100%,9px 100%;background-position:7px 0,calc(100% - 7px) 0;background-repeat:repeat-y}
+  .strip::before{display:none}
+  .frame .no{bottom:auto;top:2px;left:calc(var(--f)*-.12);writing-mode:vertical-rl}
+  .frame .hw{top:40%;left:calc(100% + var(--f)*.3);width:30vw;height:calc(var(--f)*.2)}
+  footer{flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){.frame ellipse{transition:none}}
+</style>
+<body>
+<header>
+  <span class="hw" style="--src:url(/hand/name.svg)" role="img" aria-label="nick trim"></span>
+  <p>athens, final-year ib. builds tools, ships them, occasionally finishes them.</p>
+</header>
+<main class="sheet">
+  <div class="strip" data-edge="NICKTRIM 400 &nbsp; ATHENS">
+    <a class="frame" href="/about/"><img src="/img/home/about.jpg" alt=""><span class="no">▸ 11</span><span class="hw" style="--src:url(/hand/about.svg)" role="img" aria-label="about"></span><svg viewBox="0 0 100 100" preserveAspectRatio="none"><ellipse cx="50" cy="50" rx="48" ry="46" transform="rotate(-3 50 50)" pathLength="1000"/></svg></a>
+    <a class="frame" href="/work/"><img src="/img/home/work.jpg" alt=""><span class="no">▸ 12</span><span class="hw" style="--src:url(/hand/work.svg)" role="img" aria-label="work"></span><svg viewBox="0 0 100 100" preserveAspectRatio="none"><ellipse cx="50" cy="50" rx="47" ry="47" transform="rotate(4 50 50)" pathLength="1000"/></svg></a>
+    <a class="frame" href="/cv/"><img src="/img/home/cv.jpg" alt=""><span class="no">▸ 13</span><span class="hw" style="--src:url(/hand/cv.svg)" role="img" aria-label="cv"></span><svg viewBox="0 0 100 100" preserveAspectRatio="none"><ellipse cx="50" cy="50" rx="48" ry="45" transform="rotate(-5 50 50)" pathLength="1000"/></svg></a>
+  </div>
+  <div class="strip" data-edge="NICKTRIM 400 &nbsp; NIGHT">
+    <a class="frame" href="/films/"><img src="/img/home/films.jpg" alt=""><span class="no">▸ 14</span><span class="hw" style="--src:url(/hand/films.svg)" role="img" aria-label="films"></span><svg viewBox="0 0 100 100" preserveAspectRatio="none"><ellipse cx="50" cy="50" rx="47" ry="46" transform="rotate(3 50 50)" pathLength="1000"/></svg></a>
+    <a class="frame" href="/photos/"><img src="/img/home/photos.jpg" alt=""><span class="no">▸ 15</span><span class="hw" style="--src:url(/hand/photos.svg)" role="img" aria-label="photos"></span><svg viewBox="0 0 100 100" preserveAspectRatio="none"><ellipse cx="50" cy="50" rx="48" ry="47" transform="rotate(-2 50 50)" pathLength="1000"/></svg></a>
+    <a class="frame" href="https://os.nicktrim.com"><img src="/img/home/night-shift.jpg" alt=""><span class="no">▸ 16</span><span class="hw" style="--src:url(/hand/night-shift.svg)" role="img" aria-label="night shift"></span><svg viewBox="0 0 100 100" preserveAspectRatio="none"><ellipse cx="50" cy="50" rx="47" ry="45" transform="rotate(5 50 50)" pathLength="1000"/></svg></a>
+  </div>
+</main>
+<footer>
+  <span>on repeat <b>sweater weather</b>, the neighbourhood. last watched <b>avengers: endgame</b></span>
+  <nav><a href="mailto:nicktrim8@duck.com">email</a><a href="https://www.linkedin.com/in/nitrimandylis">linkedin</a></nav>
+</footer>

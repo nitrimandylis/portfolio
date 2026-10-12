@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>mockup c: index</title>
+<style>
+/* C. index: the handwriting is the nav, huge; one print shows for the word you point at */
+@font-face{font-family:Chillax;src:url(/fonts/Chillax-Variable.woff2) format("woff2");font-weight:200 700}
+:root{--bg:#0f0b09;--fg:#efe6d6;--dim:#4a3f36;--mu:#8f7e6c;--paper:#efe9dc;--ac:#e0a35a;--h:min(10.5vh,9vw)}
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--fg);font:400 17px/1.5 Chillax,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;min-height:100vh;display:grid;grid-template-columns:minmax(220px,22vw) auto 1fr;gap:4vw;padding:44px 4vw}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ac);outline-offset:6px}
+.hw{display:block;background:currentColor;-webkit-mask:var(--src) left center/contain no-repeat;mask:var(--src) left center/contain no-repeat}
+
+aside{display:flex;flex-direction:column;gap:14px}
+aside .hw{height:44px;width:154px}
+aside p{margin:0;color:var(--mu);font-size:15px}
+aside p b{color:var(--fg);font-weight:500}
+aside nav{margin-top:auto;display:flex;flex-direction:column;gap:4px;font-size:15px}
+aside nav a{text-decoration:underline;text-decoration-color:var(--dim);text-underline-offset:3px}
+aside nav a:hover{text-decoration-color:var(--ac)}
+
+.words{display:flex;flex-direction:column;justify-content:center;gap:1.2vh;margin:0;padding:0;list-style:none}
+.words a{display:block;color:var(--dim);transition:color .15s}
+.words .hw{height:var(--h);width:calc(var(--h) * var(--ar))}
+.words a:hover,.words a:focus-visible{color:var(--fg)}
+.words:not(:has(a:hover,a:focus-visible)) li:first-child a{color:var(--fg)}
+.words img{display:none}
+
+/* one print at a time, swapped by the word you point at */
+.prints{position:relative;align-self:center;justify-self:center;width:min(36vw,62vh);aspect-ratio:1}
+.prints img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:14px solid var(--paper);border-bottom-width:44px;
+  box-shadow:0 20px 50px -18px rgba(0,0,0,.8);opacity:0;transform:rotate(var(--r)) scale(.97);transition:opacity .2s,transform .3s cubic-bezier(.2,.8,.3,1.2);
+  filter:contrast(1.04) saturate(.85) sepia(.08)}
+body:not(:has(.words a:hover,.words a:focus-visible)) .prints img:first-child{opacity:1;transform:rotate(var(--r))}
+body:has(.words li:nth-child(1) a:is(:hover,:focus-visible)) .prints img:nth-child(1),
+body:has(.words li:nth-child(2) a:is(:hover,:focus-visible)) .prints img:nth-child(2),
+body:has(.words li:nth-child(3) a:is(:hover,:focus-visible)) .prints img:nth-child(3),
+body:has(.words li:nth-child(4) a:is(:hover,:focus-visible)) .prints img:nth-child(4),
+body:has(.words li:nth-child(5) a:is(:hover,:focus-visible)) .prints img:nth-child(5),
+body:has(.words li:nth-child(6) a:is(:hover,:focus-visible)) .prints img:nth-child(6){opacity:1;transform:rotate(var(--r))}
+
+@media (max-width:760px){
+  :root{--h:52px}
+  body{grid-template-columns:1fr;padding:28px 20px 40px;gap:36px}
+  aside nav{flex-direction:row;gap:18px;margin-top:6px}
+  .prints{display:none}
+  .words{gap:18px}
+  .words a{display:flex;align-items:center;gap:16px;color:var(--fg)}
+  .words img{display:block;width:64px;height:64px;object-fit:cover;border:4px solid var(--paper);transform:rotate(-3deg)}
+}
+@media (prefers-reduced-motion:reduce){.prints img,.words a{transition:none}}
+</style>
+<body>
+<aside>
+  <span class="hw" style="--src:url(/hand/name.svg)" role="img" aria-label="nick trim"></span>
+  <p>athens, final-year ib. builds tools, ships them, occasionally finishes them.</p>
+  <p>on repeat <b>sweater weather</b>, the neighbourhood</p>
+  <p>last watched <b>avengers: endgame</b></p>
+  <nav><a href="mailto:nicktrim8@duck.com">email</a><a href="https://www.linkedin.com/in/nitrimandylis">linkedin</a></nav>
+</aside>
+<ul class="words">
+  <li><a href="/about/"><img src="/img/home/about.jpg" alt=""><span class="hw" style="--src:url(/hand/about.svg);--ar:2.17" role="img" aria-label="about"></span></a></li>
+  <li><a href="/work/"><img src="/img/home/work.jpg" alt=""><span class="hw" style="--src:url(/hand/work.svg);--ar:1.89" role="img" aria-label="work"></span></a></li>
+  <li><a href="/cv/"><img src="/img/home/cv.jpg" alt=""><span class="hw" style="--src:url(/hand/cv.svg);--ar:1.1" role="img" aria-label="cv"></span></a></li>
+  <li><a href="/films/"><img src="/img/home/films.jpg" alt=""><span class="hw" style="--src:url(/hand/films.svg);--ar:1.54" role="img" aria-label="films"></span></a></li>
+  <li><a href="/photos/"><img src="/img/home/photos.jpg" alt=""><span class="hw" style="--src:url(/hand/photos.svg);--ar:2.06" role="img" aria-label="photos"></span></a></li>
+  <li><a href="https://os.nicktrim.com"><img src="/img/home/night-shift.jpg" alt=""><span class="hw" style="--src:url(/hand/night-shift.svg);--ar:4.72" role="img" aria-label="night shift"></span></a></li>
+</ul>
+<div class="prints" aria-hidden="true">
+  <img src="/img/home/about.jpg" alt="" style="--r:-2deg">
+  <img src="/img/home/work.jpg" alt="" style="--r:2.5deg">
+  <img src="/img/home/cv.jpg" alt="" style="--r:-1.5deg">
+  <img src="/img/home/films.jpg" alt="" style="--r:3deg">
+  <img src="/img/home/photos.jpg" alt="" style="--r:-3deg">
+  <img src="/img/home/night-shift.jpg" alt="" style="--r:1.5deg">
+</div>
