@@ -7,7 +7,7 @@ the site root: `python3 -m http.server` here and open /).
 ## Status (2026-10-09)
 
 Done (layout pass 3, 2026-10-09: home is an organised 3x2 grid sized to the viewport, base type 21px, centred subpages): home table, five pages, nav, footer (songs + last film), print CSS,
-handwriting SVGs (tools/handwrite_svg.py from the rm-handwrite glyphs), cv
+handwriting SVGs (cut from his reMarkable page by tools/hand_from_rm.py), cv
 and work content, films.json seeded from Letterboxd + daily Action, Chillax
 self-hosted (fonts/, FFL licence alongside), CNAME, .nojekyll.
 
@@ -24,8 +24,8 @@ images are Letterboxd backdrops (stills, no text), square-cropped by hand;
 posters were rejected because square crops cut their titles.
 og.png renders from tools/og.html at 1200x630. favicon.svg, 404.html, og tags
 on every page. Night shift points at nitrimandylis.github.io/os/ (live once
-the repo is renamed). The handwriting has no "w" sample, so "work" borrows his
-"u"; the reMarkable rewrite (Grill 2) replaces all seven SVGs. About copy is a
+the repo is renamed). Handwriting is real since 2026-10-12: Quick sheets p195, take 1 of each word.
+About copy is a
 first draft for Nick to rewrite.
 Gloss is hover-only and softer since 2026-10-09: always-on, it turned dark images silver.
 
