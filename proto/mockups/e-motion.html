@@ -73,18 +73,17 @@ a{color:inherit;text-decoration:none}
 /* 3. scroll: the name fills the first screen, then shrinks into the header; polaroids develop as they scroll in */
 [data-m*="3"] body{min-height:auto}
 [data-m*="3"] .bar{position:sticky;top:0;z-index:6;background:var(--bg)}
-[data-m*="3"] .namewrap{position:sticky;top:44px;z-index:7;animation:shrink linear both;animation-timeline:scroll(root);animation-range:0 70vh}
-@keyframes shrink{to{transform:scale(.13)}}
+/* the script below writes the progress values (0 to 1): --shrink on the root, --e/--d/--wr per card.
+   Plain variables instead of CSS scroll timelines, because Firefox (and Zen) do not support those. */
+[data-m*="3"] .namewrap{position:sticky;top:44px;z-index:7;transform:scale(calc(1 - .87 * var(--shrink,0)))}
 [data-m*="3"] body::before{content:"";position:fixed;inset:0 0 auto;height:120px;z-index:5;pointer-events:none;
-  background:linear-gradient(var(--bg) 75%,transparent);opacity:0;animation:fadein linear both;animation-timeline:scroll(root);animation-range:30vh 70vh}
-@keyframes fadein{to{opacity:1}}
+  background:linear-gradient(var(--bg) 75%,transparent);opacity:calc(var(--shrink,0) * 1.6 - .6)}
 [data-m*="3"] .sub{margin-top:calc(100vh - min(31vw,calc((100vh - 500px) * 1.3)) * .84 - 170px)}
 [data-m*="3"] .doors{grid-template-columns:repeat(3,1fr);gap:9vh 4vw;padding:8vh 4vw 16vh}
 [data-m*="3"] .doors li{opacity:1;transform:none;animation:none}
-[data-m*="3"] .doors a{animation:scrollin linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
-@keyframes scrollin{from{opacity:0;transform:translateY(120px) rotate(var(--r0))}}
-[data-m*="3"] .pol img{animation:develop linear both;animation-timeline:view();animation-range:entry 10% cover 28%;animation-delay:0s}
-[data-m*="3"] .pol .hw{animation:write linear both;animation-timeline:view();animation-range:cover 20% cover 30%;animation-delay:0s}
+[data-m*="3"] .doors a{opacity:var(--e,0);transform:translateY(calc((1 - var(--e,0)) * 120px)) rotate(calc((1 - var(--e,0)) * var(--r0)))}
+[data-m*="3"] .pol img{animation:none;filter:brightness(calc(.12 + .88 * var(--d,0))) saturate(calc(.9 * var(--d,0))) contrast(calc(.6 + .45 * var(--d,0)))}
+[data-m*="3"] .pol .hw{animation:none;clip-path:inset(0 calc((1 - var(--wr,0)) * 100%) 0 0)}
 
 /* 4. ambient: the polaroids sway, the songs run past, the cursor leaves a pen line */
 [data-m*="4"] .doors .pol{animation:sway 5.5s ease-in-out infinite alternate;animation-delay:calc(var(--i) * -1.3s)}
@@ -192,6 +191,25 @@ if (mouse && m.includes('2')) for (const p of document.querySelectorAll('.pol'))
     p.style.setProperty('--lift', '-8px');
   });
   p.addEventListener('pointerleave', () => { p.style.setProperty('--rx', '0deg'); p.style.setProperty('--ry', '0deg'); p.style.setProperty('--lift', '0px'); });
+}
+
+// 3. scroll: turn scroll position into 0..1 progress values the CSS reads
+if (m.includes('3')) {
+  const root = document.documentElement, cards = [...document.querySelectorAll('.doors a')];
+  const clamp = v => Math.min(Math.max(v, 0), 1);
+  const onScroll = () => {
+    const vh = innerHeight;
+    root.style.setProperty('--shrink', clamp(scrollY / (vh * .7)).toFixed(3));
+    for (const c of cards) {
+      const top = c.getBoundingClientRect().top;
+      const seen = vh - top;                                         // how far the card has come up into view
+      c.style.setProperty('--e', clamp(seen / (vh * .45)).toFixed(3));
+      c.style.setProperty('--d', clamp((seen - vh * .15) / (vh * .4)).toFixed(3));
+      c.style.setProperty('--wr', clamp((seen - vh * .5) / (vh * .15)).toFixed(3));
+    }
+  };
+  if (calm) { root.style.setProperty('--shrink', 0); cards.forEach(c => ['--e', '--d', '--wr'].forEach(k => c.style.setProperty(k, 1))); }
+  else { onScroll(); addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); }
 }
 
 // 4. ticker of every favourite song, and a fading pen line behind the cursor
