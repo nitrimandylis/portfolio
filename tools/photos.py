@@ -1,4 +1,4 @@
-"""Publish photos: originals/*.jpg -> img/photos/<name>-1600.webp and -600.webp (EXIF and GPS stripped), data/photos.json.
+"""Publish photos: originals/*.jpg -> public/img/photos/<name>-1600.webp and -600.webp (EXIF and GPS stripped), data/photos.json.
 Run locally before pushing; originals/ is gitignored so the full-size files never leave this Mac.
 usage: uv run --with pillow tools/photos.py
 """
@@ -7,7 +7,7 @@ from pathlib import Path
 from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC, DST, OUT = ROOT / "originals", ROOT / "img" / "photos", ROOT / "data" / "photos.json"
+SRC, DST, OUT = ROOT / "originals", ROOT / "public" / "img" / "photos", ROOT / "data" / "photos.json"
 DST.mkdir(parents=True, exist_ok=True)
 photos = []
 for src in sorted(SRC.glob("*"), key=lambda p: p.stat().st_mtime, reverse=True):

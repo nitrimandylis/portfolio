@@ -47,6 +47,14 @@ overdone), polaroids as navigation.
   writes img/photos/*.webp and data/photos.json locally before push.
 - proto/ and proto/mockups/e-motion.html stay in the repo for now.
 
+### Status (2026-10-12)
+
+Built on branch `astro`: layout, stylesheet, five pages, 404, og.png,
+favicon. `bun run build` passes, screenshots checked at 1440 and 390.
+Not yet: push, Vercel import, DNS move. Main still serves the old site.
+Run locally: `bun run dev`. Deploy: push `astro`, import the repo in Vercel
+(framework auto-detected), point the apex at Vercel, merge to main.
+
 ### Open
 
 - Bio line and about copy are still the 2026-10-09 drafts; Nick rewrites.

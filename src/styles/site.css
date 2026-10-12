@@ -1,0 +1,146 @@
+/* nicktrim.com: near-black, off-white, one grey, no accent. archivo for everything, nick's hand for the signature. */
+@font-face{font-family:Archivo;src:url(/fonts/Archivo.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+@font-face{font-family:Archivo;src:url(/fonts/Archivo-Italic.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-style:italic;font-display:swap}
+
+:root{
+  --bg:#0a0a0a; --fg:#ececec; --mu:#7d7d7d; --line:rgba(236,236,236,.16);
+  --paper:#efe9dc; --ink:#1c1813;
+  --pad:40px;
+}
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--fg);font:400 16px/1.5 Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--mu)}
+a:hover{text-decoration-color:var(--fg)}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+img{display:block;max-width:100%}
+h1,h2{font-weight:500;font-size:1em;margin:0}
+p{margin:0 0 1em}
+.mu{color:var(--mu)}
+.small{font-size:13px;line-height:1.4;font-stretch:88%;color:var(--mu);font-variant-numeric:tabular-nums}
+time,.year,.rating{font-variant-numeric:tabular-nums}
+
+/* the signature: nick's handwriting, top-left of every page, links home */
+.sig{display:block;width:140px;height:44px;background:currentColor;flex:none;
+  -webkit-mask:url(/hand/name.svg) left center/contain no-repeat;mask:url(/hand/name.svg) left center/contain no-repeat}
+.top{padding:32px var(--pad) 0}
+
+/* text pages: one measure, left-aligned, generous top */
+main.page{flex:1;width:100%;max-width:calc(60ch + 2 * var(--pad));margin:0;padding:72px var(--pad) 96px}
+main.page h2{color:var(--mu);margin:2.4em 0 .7em;font-weight:400}
+main.page h2:first-of-type{margin-top:0}
+main.page ul{list-style:none;margin:0;padding:0}
+main.page li{margin:0 0 .45em}
+.lede{color:var(--mu)}
+.hi{font-weight:600}
+.where{color:var(--mu)}
+
+/* home */
+.home .top{position:absolute;top:0;left:0;right:0;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;gap:2em}
+.home{position:relative}
+.home .bio{margin:0;max-width:30em;color:var(--mu);text-align:right;font-size:15px;line-height:1.45}
+.home .about{padding:0 var(--pad);max-width:calc(58ch + 2 * var(--pad))}
+.home .about p{margin:0 0 1em;font-size:19px;line-height:1.5}
+.doors{display:flex;flex-wrap:wrap;gap:.4em 1.6em;margin:40px 0 0;padding:0 var(--pad);list-style:none;font-size:19px}
+.doors a{text-decoration:none}
+.doors a:hover{text-decoration:underline}
+.home footer{display:flex;justify-content:space-between;align-items:flex-end;gap:2em;padding:64px var(--pad) 36px;color:var(--mu);font-size:14px;line-height:1.5}
+.home footer b{font-weight:500;color:var(--fg)}
+.home footer .contact a{margin-left:1.4em;text-decoration:none}
+.home footer .contact a:hover{text-decoration:underline}
+
+/* the strip: ten polaroids in a row. on a mouse, vertical scroll slides the row; on touch, the row scrolls itself */
+.hero{--w:clamp(220px,44vh,340px)}
+.hero .stage{height:100vh;position:sticky;top:0;display:flex;align-items:center;overflow:hidden}
+.hero .track{display:flex;gap:44px;padding:0 var(--pad);will-change:transform;margin:0;list-style:none}
+.hero.rail{height:auto}
+.hero.rail .stage{height:auto;position:static;overflow-x:auto;overflow-y:hidden;padding:40px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+.hero.rail .stage::-webkit-scrollbar{display:none}
+.hero.rail .track{will-change:auto}
+.hero.rail .pol{scroll-snap-align:center}
+
+/* polaroid 600: 88 x 107, image 79 x 79, top 6, sides 4.5. no tilt physics, no gloss: a print, not a toy */
+.pol{display:block;position:relative;flex:none;width:var(--w);aspect-ratio:88/107;padding:calc(var(--w)*6/88) calc(var(--w)*4.5/88) 0;
+  background:var(--paper);border-radius:2px;color:var(--ink);text-decoration:none;transform:rotate(var(--r,0deg));
+  box-shadow:0 1px 1px rgba(0,0,0,.4),0 10px 18px -6px rgba(0,0,0,.6),0 30px 50px -20px rgba(0,0,0,.8)}
+.pol::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;mix-blend-mode:multiply;opacity:.5;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .5  0 0 0 0 .45  0 0 0 .35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.pol .img{display:block;position:relative;aspect-ratio:1;overflow:hidden;background:#111}
+.pol .img img{width:100%;height:100%;object-fit:cover}
+.pol .img::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(30,20,10,.5),inset 0 2px 4px rgba(0,0,0,.4)}
+.pol .cap{display:flex;align-items:center;height:calc(var(--w)*22/88);padding-left:2px;font-size:13px;font-stretch:88%;color:#6b6257;font-variant-numeric:tabular-nums}
+.track li:nth-child(5n+1){--r:-1.8deg}.track li:nth-child(5n+2){--r:1.2deg}.track li:nth-child(5n+3){--r:-.6deg}
+.track li:nth-child(5n+4){--r:2deg}.track li:nth-child(5n+5){--r:-1.2deg}
+
+/* work: one line per project. featured first and larger, the rest in the same form */
+.work li{margin:0 0 1.1em;max-width:60ch}
+.work .featured li{margin:0 0 1.5em}
+.work .featured .t{font-size:22px;font-weight:500;letter-spacing:-.01em;text-decoration:none}
+.work .featured .t:hover{text-decoration:underline}
+.work .t{text-decoration:none}
+.work .t:hover{text-decoration:underline}
+.work li p{margin:.1em 0 0;color:var(--mu)}
+.work li p a{color:var(--fg)}
+.work .rest li{display:flex;gap:.8em;align-items:baseline;flex-wrap:wrap;margin:0 0 .5em}
+.work .rest li p{margin:0}
+
+/* cv */
+.langs{border-collapse:collapse}
+.langs td{padding:0 2em .25em 0;vertical-align:top}
+.langs td+td{color:var(--mu)}
+
+/* films: one stats line, favourites, the diary */
+.diary li{margin:0 0 1.1em}
+.diary .line{display:flex;gap:1em;align-items:baseline;flex-wrap:wrap}
+.diary time,.diary .year,.diary .again{color:var(--mu)}
+.diary .line a{text-decoration:none}
+.diary .line a:hover{text-decoration:underline}
+.diary .rating{font-size:.85em;letter-spacing:.04em}
+.diary .review{margin:.2em 0 0;color:var(--mu);max-width:50ch}
+.diary .review p{margin:0 0 .4em}
+
+/* photos: prints at their real shape, thin border, grid. click opens the <dialog> */
+main.page.photos{max-width:none}
+.prints{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:48px 36px;align-items:start;margin:0;padding:0;list-style:none}
+.prints li{margin:0}
+.prints button{display:block;width:100%;padding:6px 6px 0;border:0;background:#f2eee6;cursor:zoom-in;color:#5e5750;font:inherit;text-align:left;
+  box-shadow:0 1px 1px rgba(0,0,0,.4),0 10px 18px -6px rgba(0,0,0,.6)}
+.prints button:focus-visible{outline-offset:4px}
+.prints img{width:100%;height:auto}
+.prints span{display:block;padding:.5em 2px .6em;font-size:13px;font-stretch:88%;font-variant-numeric:tabular-nums}
+.lightbox{max-width:none;max-height:none;width:100vw;height:100vh;margin:0;padding:24px;border:0;background:rgba(10,10,10,.96);color:var(--fg)}
+.lightbox[open]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6em}
+.lightbox::backdrop{background:transparent}
+.lightbox img{max-width:100%;max-height:calc(100vh - 110px);width:auto;height:auto;object-fit:contain}
+.lightbox p{margin:0;font-size:13px;color:var(--mu);font-variant-numeric:tabular-nums}
+.lightbox button{border:0;background:none;color:var(--mu);font:inherit;cursor:pointer}
+.lightbox button:hover{color:var(--fg)}
+.lightbox .nav{position:fixed;top:50%;transform:translateY(-50%);font-size:1.5em;padding:16px}
+.lightbox .prev{left:8px}.lightbox .next{right:8px}
+.lightbox .close{position:fixed;top:16px;right:20px}
+
+@media (max-width:720px){
+  :root{--pad:22px}
+  .top{padding-top:26px}
+  .sig{width:120px;height:38px}
+  main.page{padding:48px var(--pad) 72px}
+  .home .top{position:static;flex-direction:column;gap:.8em}
+  .home .bio{text-align:left}
+  .hero{--w:min(62vw,260px)}
+  .hero .track{gap:26px}
+  .home .about p{font-size:17px}
+  .doors{font-size:17px;margin-top:32px}
+  .home footer{flex-direction:column;align-items:flex-start;gap:.8em;padding-top:48px}
+  .home footer .contact a{margin:0 1.4em 0 0}
+  .work .featured .t{font-size:20px}
+  .prints{grid-template-columns:1fr 1fr;gap:24px 16px}
+  .prints button{padding:4px 4px 0}
+}
+@media (prefers-reduced-motion:reduce){.hero .track{transition:none}}
+@media print{
+  html{background:#fff;color:#111;font-size:11pt}
+  .sig{background:#111}
+  main.page{padding:0;max-width:none}
+  .no-print{display:none}
+  .where,main.page h2,.langs td+td{color:#555}
+}

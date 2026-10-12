@@ -1,0 +1,52 @@
+---
+// photos: prints at their real shape in a grid, newest first. click opens the <dialog>. /photos#<file> scrolls to a print.
+import Base from '../layouts/Base.astro';
+import photosJson from '../../data/photos.json';
+const photos = photosJson.photos;
+---
+<Base title="photos, nick trim" description="nick trim's photos. mostly at night.">
+  <main class="page photos">
+    {photos.length === 0 && <p class="lede">nothing here yet.</p>}
+    <ul class="prints" id="grid">
+      {photos.map((p, i) => (
+        <li id={p.file}><button data-i={i} aria-label={`open ${p.name}`}>
+          <img src={`/img/photos/${p.file}-600.webp`} width={p.w} height={p.h} alt={p.name} loading="lazy">
+          <span>{p.name}</span>
+        </button></li>
+      ))}
+    </ul>
+    <dialog class="lightbox" id="lightbox" aria-label="photo">
+      <button class="close" aria-label="close">close</button>
+      <button class="nav prev" aria-label="previous photo">&larr;</button>
+      <img alt="">
+      <p></p>
+      <button class="nav next" aria-label="next photo">&rarr;</button>
+    </dialog>
+  </main>
+
+  <script is:inline define:vars={{ photos }}>
+    const box = document.querySelector('#lightbox');
+    const big = box.querySelector('img'), caption = box.querySelector('p');
+    let current = 0;
+    function show(i) {
+      current = (i + photos.length) % photos.length;   // wrap at both ends
+      const p = photos[current];
+      big.src = `/img/photos/${p.file}-1600.webp`;
+      big.alt = p.name;
+      caption.textContent = `${p.name}  ${current + 1}/${photos.length}`;
+      if (!box.open) box.showModal();
+    }
+    document.querySelector('#grid').addEventListener('click', e => {
+      const b = e.target.closest('button');
+      if (b) show(Number(b.dataset.i));
+    });
+    box.querySelector('.prev').addEventListener('click', () => show(current - 1));
+    box.querySelector('.next').addEventListener('click', () => show(current + 1));
+    box.querySelector('.close').addEventListener('click', () => box.close());
+    box.addEventListener('click', e => { if (e.target === box) box.close(); });   // click outside the photo closes
+    box.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') show(current - 1);
+      if (e.key === 'ArrowRight') show(current + 1);
+    });   // esc closes natively
+  </script>
+</Base>

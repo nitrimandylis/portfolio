@@ -1,0 +1,37 @@
+---
+// films: one stats line, the favourites as a line, the diary as text. data/films.json is appended daily by the action.
+import Base from '../layouts/Base.astro';
+import filmsJson from '../../data/films.json';
+
+const SEED = 64;   // films watched before the letterboxd account existed
+const films = filmsJson.films;
+const year = new Date().getFullYear();
+const thisYear = films.filter(f => f.watched.startsWith(String(year))).length;
+const rated = films.map(f => f.rating).filter((r): r is number => r != null).sort((a, b) => a - b);
+const typical = rated.length ? rated[Math.floor(rated.length / 2)] : null;
+const stars = (r: number | null) => r == null ? '' : '★'.repeat(Math.floor(r)) + (r % 1 ? '½' : '');
+const favourites = [
+  ['the odyssey', 'https://letterboxd.com/film/the-odyssey-2026/'],
+  ['pacific rim', 'https://letterboxd.com/film/pacific-rim/'],
+  ['across the spider-verse', 'https://letterboxd.com/film/spider-man-across-the-spider-verse/'],
+  ['shutter island', 'https://letterboxd.com/film/shutter-island/'],
+];
+---
+<Base title="films, nick trim" description="nick trim's film diary, from letterboxd.">
+  <main class="page films">
+    <p class="lede">{thisYear} films this year, {SEED + films.length} that i know of{typical ? <>, usually <span class="rating">{stars(typical)}</span>{typical === 5 ? '. i like films.' : '.'}</> : '.'}</p>
+    <p class="lede">favourites: {favourites.map(([t, u], i) => <>{i > 0 && ', '}<a href={u}>{t}</a></>)}.</p>
+
+    <ul class="diary">
+      {films.slice(0, 20).map(f => (
+        <li>
+          <div class="line"><time datetime={f.watched}>{f.watched}</time>
+            <a href={f.url}>{f.title.toLowerCase()}</a> <span class="year">{f.year}</span>
+            <span class="rating">{stars(f.rating)}</span>{f.rewatch && <span class="again">again</span>}</div>
+          {f.review && <div class="review">{f.review.split('\n').map(p => <p>{p}</p>)}</div>}
+        </li>
+      ))}
+    </ul>
+    <p class="lede" style="margin-top:2em">the rest is on <a href="https://letterboxd.com/nick_trim8/">letterboxd</a>.</p>
+  </main>
+</Base>

@@ -1,0 +1,90 @@
+---
+// home: signature and bio, the strip of prints, then about, the doors, the song and film line, contact.
+import Base from '../layouts/Base.astro';
+import photosJson from '../../data/photos.json';
+import filmsJson from '../../data/films.json';
+import songsTxt from '../../content/songs.txt?raw';
+
+const photos = photosJson.photos;
+const last = filmsJson.films[0];
+const stars = (r: number | null) => r == null ? '' : '★'.repeat(Math.floor(r)) + (r % 1 ? '½' : '');
+// content/songs.txt: one "title, artist" per line. the browser picks one per visit.
+const songs = songsTxt.split('\n').map(s => s.trim()).filter(s => s && !s.startsWith('#'))
+  .map(s => { const [title, ...artist] = s.toLowerCase().split(','); return { title, artist: artist.join(',').trim() }; });
+---
+<Base home>
+  <header class="top" slot="top">
+    <a class="sig" href="/" aria-label="nick trim"></a>
+    <p class="bio">athens, final-year ib. builds tools, ships them, occasionally finishes them.</p>
+  </header>
+
+  <section class="hero" id="hero" aria-label="photos">
+    <div class="stage">
+      <ul class="track" id="track">
+        {photos.map(p => (
+          <li><a class="pol" href={`/photos#${p.file}`}>
+            <span class="img"><img src={`/img/photos/${p.file}-600.webp`} alt={p.name} width="600" height="600" loading="eager" decoding="async"></span>
+            <span class="cap">{p.name}</span>
+          </a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="about">
+    <p>i'm nick. i live in athens and i'm in my last year of the ib. most of my time goes to free time, which i take seriously.</p>
+    <p>i start things and then build them. a student business that came second in greece (akademix, with ja), a first place at mit futurebuilders and a third at the acstac day of ai hackathon. the rest of it is under <a href="/work">work</a>.</p>
+    <p>off the keyboard it's <a href="/films">films</a>, music, and <a href="/photos">photos</a> that look like they were taken at night, because they were.</p>
+  </section>
+
+  <ul class="doors">
+    <li><a href="/work">work</a></li>
+    <li><a href="/cv">cv</a></li>
+    <li><a href="/films">films</a></li>
+    <li><a href="/photos">photos</a></li>
+    <li><a href="https://os.nicktrim.com">night shift</a></li>
+  </ul>
+
+  <footer>
+    <div class="now">
+      <span id="song">on repeat <b>{songs[0].title}</b>, {songs[0].artist}.</span>
+      {last && <span> last watched <a href={last.url}><b>{last.title.toLowerCase()}</b></a>, {stars(last.rating)}.</span>}
+    </div>
+    <div class="contact"><a href="mailto:nicktrim8@duck.com">email</a><a href="https://www.linkedin.com/in/nitrimandylis" rel="me">linkedin</a></div>
+  </footer>
+
+  <script is:inline define:vars={{ songs }}>
+    // one random favourite per visit, no cycling
+    const s = songs[Math.floor(Math.random() * songs.length)];
+    document.querySelector('#song').innerHTML = `on repeat <b></b>, <span></span>.`;
+    document.querySelector('#song b').textContent = s.title;
+    document.querySelector('#song span').textContent = s.artist;
+  </script>
+  <script>
+    // the strip. mouse + motion allowed: the section is tall, the stage sticks, vertical scroll becomes sideways travel.
+    // touch or reduced motion: the section collapses to a row the finger scrolls (.rail), no js after this.
+    const hero = document.querySelector<HTMLElement>('#hero')!;
+    const stage = hero.querySelector<HTMLElement>('.stage')!;
+    const track = document.querySelector<HTMLElement>('#track')!;
+    const drive = matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!drive) {
+      hero.classList.add('rail');
+    } else {
+      let travel = 0;
+      const size = () => {
+        travel = Math.max(0, track.scrollWidth - stage.clientWidth);
+        hero.style.height = `${innerHeight + travel}px`;   // one px of scroll per px of travel
+        frame();
+      };
+      const frame = () => {
+        const top = hero.getBoundingClientRect().top;
+        const p = Math.min(1, Math.max(0, -top / Math.max(1, travel)));
+        track.style.transform = `translate3d(${(-p * travel).toFixed(1)}px,0,0)`;
+      };
+      addEventListener('scroll', frame, { passive: true });
+      addEventListener('resize', size);
+      document.fonts.ready.then(size);
+      size();
+    }
+  </script>
+</Base>
