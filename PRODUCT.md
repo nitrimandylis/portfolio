@@ -1,8 +1,58 @@
 # nicktrim.com
 
-Nick's personal site. Replaces breakOS (nitrimandylis/portfolio) as the
-link he hands people. Grilled 2026-10-08/09, built 2026-10-09 (this folder is
-the site root: `python3 -m http.server` here and open /).
+Nick's personal site. Replaces breakOS (now night shift, os.nicktrim.com) as
+the link he hands people.
+
+## Redesign (grilled 2026-10-12)
+
+The polaroid-table site (2026-10-09) was judged a costume: one motif on every
+page, one muted colour, no hierarchy. References that replaced the old ones:
+kubrick.life (one gesture at full scale, photos driven by scroll) and
+mmmatt.com (black, small, nothing decorative). Rejected on the way: a giant
+name (not earned), credits (a director's document), a man page (too minimal,
+overdone), polaroids as navigation.
+
+### Locked
+
+- **Audience:** peers and the design-literate internet first, business
+  contacts second. The CV page is what business contacts need.
+- **Hero:** the photos. The home opens on a strip of the real prints from
+  photos.json, newest first, as polaroids (cream frame, square, chin, slight
+  tilt). Vertical scroll slides the strip sideways (JS from mockup e). On
+  touch the strip is a native horizontal swipe. Reduced motion: static row.
+  Click a print: photos page, scrolled to that print. No hover tilt or gloss.
+- **Home order:** signature, bio line, strip, then the three about paragraphs
+  (about page folded in), doors line (work, cv, films, photos, night shift),
+  song and last-film line, email and linkedin.
+- **Pages:** home, work, cv, films, photos. Subpage chrome is the signature
+  only, linking home. No nav, no footer on subpages. Contact lives on the
+  home; the CV keeps its "email me for the long one" line.
+- **Type:** Archivo (variable, width axis for small labels). Chillax is gone.
+  Nick's handwriting survives only as the signature-sized name.
+- **Palette:** near-black #0a0a0a, off-white #ececec, one grey #7d7d7d, no
+  accent. Links are underlines. Stars in the type colour.
+- **Images:** no filter anywhere. Polaroid frames on the home strip only.
+  Photos page: thin print border at real aspect ratio, grid, lightbox.
+  Work and films are text only: no screenshots, no stills, no posters.
+- **Work:** one line per project (name, sentence, link); featured six first
+  and larger, the other 21 below in the same form.
+- **Films:** stats line, favourites as one linked line, diary as text.
+- **Stack:** Astro, Bun, hand-written CSS (no Tailwind), no component
+  library. Motion library only if the plain-JS strip falls short. Data
+  (films.json, photos.json, songs.txt) read at build time, no browser fetch.
+- **Hosting:** Vercel, deploy by push. Apex DNS moves from GitHub Pages to
+  Vercel (Nick does it). os.nicktrim.com stays on Pages. The films Action
+  keeps appending to films.json; its push triggers the build.
+- **Photos pipeline:** unchanged. originals/ gitignored, tools/photos.py
+  writes img/photos/*.webp and data/photos.json locally before push.
+- proto/ and proto/mockups/e-motion.html stay in the repo for now.
+
+### Open
+
+- Bio line and about copy are still the 2026-10-09 drafts; Nick rewrites.
+- EXIF stripping stays in tools/photos.py; verify after the Astro move.
+
+## Previous design (2026-10-09), kept for the record
 
 ## Status (2026-10-09)
 
