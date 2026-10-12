@@ -1,0 +1,55 @@
+---
+// variant: the strip at near full height. one print at a time, bleeding off both edges.
+import Base from '../layouts/Base.astro';
+import photosJson from '../../data/photos.json';
+const photos = photosJson.photos;
+---
+<Base home title="nick trim">
+  <header class="top" slot="top">
+    <a class="sig" href="/" aria-label="nick trim"></a>
+    <p class="bio">athens, final-year ib. builds tools, ships them, occasionally finishes them.</p>
+  </header>
+  <section class="hero big" id="hero" aria-label="photos">
+    <div class="stage">
+      <ul class="track" id="track">
+        {photos.map((p, i) => (
+          <li style={`--i:${i}`}><a class="pol" href={`/photos#${p.file}`}>
+            <span class="img"><img src={`/img/photos/${p.file}-1600.webp`} alt={p.name} width="1600" height="1600" loading={i < 3 ? 'eager' : 'lazy'} decoding="async"></span>
+            <span class="cap">{p.name}</span>
+          </a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <section class="about">
+    <p>i'm nick. i live in athens and i'm in my last year of the ib. most of my time goes to free time, which i take seriously.</p>
+    <p>i start things and then build them. a student business that came second in greece (akademix, with ja), a first place at mit futurebuilders and a third at the acstac day of ai hackathon. the rest of it is under <a href="/work">work</a>.</p>
+    <p>off the keyboard it's <a href="/films">films</a>, music, and <a href="/photos">photos</a> that look like they were taken at night, because they were.</p>
+  </section>
+  <ul class="doors">
+    <li><a href="/work">work</a></li><li><a href="/cv">cv</a></li><li><a href="/films">films</a></li><li><a href="/photos">photos</a></li><li><a href="https://os.nicktrim.com">night shift</a></li>
+  </ul>
+  <footer><div class="now">on repeat <b>sweater weather</b>, the neighbourhood. last watched <b>avengers: endgame</b>.</div>
+    <div class="contact"><a href="mailto:nicktrim8@duck.com">email</a><a href="https://www.linkedin.com/in/nitrimandylis" rel="me">linkedin</a></div></footer>
+  <style>
+    .hero.big{--w:min(78vh,640px);position:relative;z-index:0}
+    .hero.big .track{gap:0;padding:0 0 0 16vw}
+    .hero.big .track li{margin-left:calc(var(--w) * -0.18)}   /* overlap: each print sits on the last */
+    .hero.big .track li:first-child{margin-left:0}
+    .hero.big .pol{--r:0deg}
+    .hero.big li:nth-child(odd) .pol{--r:-2.2deg;translate:0 -2vh}
+    .hero.big li:nth-child(even) .pol{--r:1.6deg;translate:0 3vh}
+    .hero.big .pol .cap{font-size:16px;padding-left:4px}
+  </style>
+  <script>
+    const hero = document.querySelector<HTMLElement>('#hero')!, stage = hero.querySelector<HTMLElement>('.stage')!, track = document.querySelector<HTMLElement>('#track')!;
+    const drive = matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!drive) hero.classList.add('rail');
+    else {
+      let travel = 0;
+      const frame = () => { const p = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / Math.max(1, travel))); track.style.transform = `translate3d(${(-p * travel).toFixed(1)}px,0,0)`; };
+      const size = () => { travel = Math.max(0, track.scrollWidth - stage.clientWidth + innerWidth * .12); hero.style.height = `${innerHeight + travel * 1.4}px`; frame(); };
+      addEventListener('scroll', frame, { passive: true }); addEventListener('resize', size); document.fonts.ready.then(size); size();
+    }
+  </script>
+</Base>
