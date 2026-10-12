@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>mockup j: nick(1), translated</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
+<style>
+:root{--bg:#0a0a0a;--fg:#ececec;--mu:#7d7d7d;--line:rgba(236,236,236,.18)}
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--fg);font:400 16px/1.5 Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variation-settings:"wdth" 100}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 40px}
+a{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--mu)}
+a:hover{text-decoration-color:var(--fg)}
+.page{width:100%;max-width:860px}
+
+/* the header and footer lines of a man page, as hairlines */
+.rule{display:flex;justify-content:space-between;font-size:13px;color:var(--mu);padding:0 0 10px;border-bottom:1px solid var(--line);font-variation-settings:"wdth" 88}
+.rule.f{padding:10px 0 0;border:0;border-top:1px solid var(--line)}
+.rule b{font-weight:500;color:var(--fg)}
+
+/* sections: the label sits in its own column, like the flush-left header of a man page */
+dl{margin:28px 0;display:grid;grid-template-columns:9em 1fr;gap:22px 28px;align-items:baseline}
+dt{font-size:13px;color:var(--mu);letter-spacing:.02em;font-variation-settings:"wdth" 88;font-weight:500}
+dd{margin:0;max-width:58ch}
+dd p{margin:0 0 .8em}
+dd p:last-child{margin:0}
+.name{font-size:22px;font-weight:500;line-height:1.3;letter-spacing:-.01em}
+.name span{color:var(--mu);font-weight:400}
+.syn b{font-weight:600}
+.files{display:grid;grid-template-columns:max-content 1fr;gap:4px 24px}
+.files span{color:var(--mu)}
+.env{display:grid;grid-template-columns:max-content 1fr;gap:4px 24px}
+.env span{color:var(--mu)}
+.also a{margin-right:1.1em}
+@media (max-width:640px){body{padding:32px 20px}dl{grid-template-columns:1fr;gap:6px 0}dt{margin-top:18px}dt:first-child{margin-top:0}.name{font-size:19px}}
+</style>
+<body>
+<div class="page">
+  <div class="rule"><b>nick(1)</b><span>general commands manual</span><b>nick(1)</b></div>
+  <dl>
+    <dt>name</dt><dd class="name">nick trim <span>athens, final-year ib. builds tools, ships them, occasionally finishes them.</span></dd>
+    <dt>synopsis</dt><dd class="syn"><b>nick</b> [<a href="/work/">work</a> | <a href="/films/">films</a> | <a href="/photos/">photos</a>] [<a href="mailto:nicktrim8@duck.com">--email</a>]</dd>
+    <dt>description</dt><dd><p>i live in athens and i'm in my last year of the ib. most of my time goes to free time, which i take seriously.</p><p>i start things and then build them. a student business that came second in greece (akademix, with ja), a first place at mit futurebuilders and a third at the acstac day of ai hackathon. tokenpilot runs in production at omilia. the rest is under <a href="/work/">work</a>.</p><p>off the keyboard it's films, music, and photos that look like they were taken at night, because they were.</p></dd>
+    <dt>files</dt><dd class="files"><a href="/work/">work/</a><span>6 featured, 27 total</span><a href="/films/">films/</a><span>84 logged, usually five stars</span><a href="/photos/">photos/</a><span>10 prints, night, no exif</span></dd>
+    <dt>environment</dt><dd class="env"><em style="font-style:normal">on repeat</em><span>sweater weather, the neighbourhood</span><em style="font-style:normal">last watched</em><span>avengers: endgame, 2019, again</span></dd>
+    <dt>bugs</dt><dd>occasionally finishes them.</dd>
+    <dt>see also</dt><dd class="also"><a href="/cv/">cv(7)</a><a href="https://os.nicktrim.com">night-shift(8)</a><a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a><a href="https://github.com/nitrimandylis">github(1)</a></dd>
+  </dl>
+  <div class="rule f"><span>nicktrim.com</span><span>october 2026</span><b>nick(1)</b></div>
+</div>
+</body>
+</html>
