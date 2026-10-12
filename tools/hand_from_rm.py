@@ -11,6 +11,7 @@ from pathlib import Path
 ROWS = [("name", 2), ("name", 2), ("about", 4), ("cv", 4), ("work", 4),
         ("films", 4), ("photos", 4), ("night-shift", 2), ("night-shift", 2)]
 ABOVE, BELOW, PAD = 48, 24, 4   # same frame above/below the baseline for every word, so they share a scale
+MAX_GAP = 34                    # widest space allowed between two words, in page units
 
 
 def mid_y(stroke):
@@ -45,7 +46,22 @@ def split_takes(row, count):
     return takes
 
 
+def close_gaps(strokes):
+    # Pull words together where he left a wide space ("nick   trim"); letters inside a word are never this far apart.
+    # Strokes keep their original (pen) order, only their x moves.
+    shift = {}
+    total, right = 0, None
+    for i in sorted(range(len(strokes)), key=lambda i: min(x for x, _ in strokes[i])):
+        left = min(x for x, _ in strokes[i])
+        if right is not None and left - right > MAX_GAP:
+            total += left - right - MAX_GAP
+        shift[i] = total
+        right = max(right or left, max(x for x, _ in strokes[i]))
+    return [[(x - shift[i], y) for x, y in s] for i, s in enumerate(strokes)]
+
+
 def to_svg(strokes):
+    strokes = close_gaps(strokes)
     bottoms = sorted(max(p[1] for p in s) for s in strokes)
     baseline = bottoms[len(bottoms) // 2]
     x0 = min(p[0] for s in strokes for p in s) - PAD
