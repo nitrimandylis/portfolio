@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>mockup e: motion</title>
+<script>
+  // which motion layers are on: 1 load, 2 cursor, 3 scroll, 4 ambient. ?m=12 | 123 | 124 | 1234
+  document.documentElement.dataset.m = new URLSearchParams(location.search).get('m') || '12';
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
+<style>
+@font-face{font-family:Chillax;src:url(/fonts/Chillax-Variable.woff2) format("woff2");font-weight:200 700}
+:root{--bg:#000;--fg:#efe9dc;--mu:#8a8478;--line:rgba(239,233,220,.22);--paper:#efe9dc;--ink:#1c1813;--ac:#e0a35a;--pad:48px;
+  --ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--fg);font:400 17px/1.5 Chillax,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;padding:0 var(--pad)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ac);outline-offset:4px}
+.small{font-size:13px;line-height:1.4;font-variant-numeric:tabular-nums;color:var(--mu)}
+.hw{display:block;background:currentColor;-webkit-mask:var(--src) left center/contain no-repeat;mask:var(--src) left center/contain no-repeat}
+
+/* hairlines draw themselves across */
+.rule{position:relative}
+.rule::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line);transform-origin:left;
+  transform:scaleX(0);animation:draw 1.1s var(--ease) .15s forwards}
+@keyframes draw{to{transform:scaleX(1)}}
+
+.bar{display:flex;justify-content:space-between;padding:16px 0 12px}
+.bar .switch a{color:var(--fg);margin-left:10px}
+.bar .switch a.on{color:var(--ac)}
+
+/* the name: Archivo, letters rise out of a line, then stretch toward the cursor */
+.namewrap{padding-top:3vh;transform-origin:left top}
+.name{margin:0;font:900 min(31vw,calc((100vh - 500px) * 1.3))/.8 Archivo,sans-serif;letter-spacing:-.015em;white-space:nowrap;width:max-content;
+  transform-origin:left center;overflow:hidden;padding-bottom:.04em}
+.name .ch{display:inline-block;font-variation-settings:"wdth" var(--w,62);transform:translateY(105%);
+  animation:rise .9s var(--ease) forwards;animation-delay:calc(var(--i) * 55ms + .1s)}
+.name .sp{width:.18em}
+@keyframes rise{to{transform:none}}
+
+.sub{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:14px 0 12px}
+.sub p{margin:0;font-size:15px;color:var(--mu)}
+.sub p b{color:var(--fg);font-weight:500}
+
+/* polaroids: drop in, then develop like instant film, then the label is written */
+.doors{display:grid;grid-template-columns:repeat(6,1fr);gap:24px;margin:0;padding:22px 0 0;list-style:none}
+.doors li{opacity:0;transform:translateY(24px);animation:drop .7s var(--ease) forwards;animation-delay:calc(.75s + var(--i) * 90ms)}
+@keyframes drop{to{opacity:1;transform:none}}
+.doors a{display:block}
+.pol{display:block;aspect-ratio:88/107;padding:6.8% 5.1% 0;background:var(--paper);color:var(--ink);
+  --rx:0deg;--ry:0deg;--lift:0px;transform:perspective(800px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(var(--lift));
+  transition:transform .5s cubic-bezier(.2,1.4,.4,1)}
+.pol img{display:block;width:100%;aspect-ratio:1;object-fit:cover;filter:brightness(.12) saturate(0) contrast(.6);
+  animation:develop 2.8s ease-out forwards;animation-delay:calc(1.1s + var(--i) * 140ms)}
+@keyframes develop{
+  40%{filter:brightness(.6) saturate(.2) contrast(.7) sepia(.5)}
+  to{filter:brightness(1) saturate(.9) contrast(1.05) sepia(.05)}}
+.pol .hw{height:19%;width:100%;margin-left:2px;clip-path:inset(0 100% 0 0);
+  animation:write .8s ease-in-out forwards;animation-delay:calc(2.4s + var(--i) * 140ms)}
+@keyframes write{to{clip-path:inset(0 0 0 0)}}
+.note{display:flex;justify-content:space-between;gap:8px;margin-top:10px;padding-top:6px;border-top:1px solid var(--line);transition:color .2s,border-color .2s}
+.doors a:hover .note,.doors a:focus-visible .note{color:var(--ac);border-top-color:var(--ac)}
+
+.spec{margin:auto 0 0;padding:3vh 0 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
+.spec div{display:flex;align-items:baseline;gap:8px;font-size:14px}
+.spec dt{color:var(--mu)}
+.spec i{flex:1;border-bottom:1px dotted var(--mu);transform:translateY(-4px)}
+.spec dd{margin:0}
+.spec dd a{text-decoration:underline;text-decoration-color:var(--mu);text-underline-offset:3px}
+.ticker,.trail{display:none}
+
+/* 3. scroll: the name fills the first screen, then shrinks into the header; polaroids develop as they scroll in */
+[data-m*="3"] body{min-height:auto}
+[data-m*="3"] .bar{position:sticky;top:0;z-index:6;background:var(--bg)}
+[data-m*="3"] .namewrap{position:sticky;top:44px;z-index:7;animation:shrink linear both;animation-timeline:scroll(root);animation-range:0 70vh}
+@keyframes shrink{to{transform:scale(.13)}}
+[data-m*="3"] body::before{content:"";position:fixed;inset:0 0 auto;height:120px;z-index:5;pointer-events:none;
+  background:linear-gradient(var(--bg) 75%,transparent);opacity:0;animation:fadein linear both;animation-timeline:scroll(root);animation-range:30vh 70vh}
+@keyframes fadein{to{opacity:1}}
+[data-m*="3"] .sub{margin-top:calc(100vh - min(31vw,calc((100vh - 500px) * 1.3)) * .84 - 170px)}
+[data-m*="3"] .doors{grid-template-columns:repeat(3,1fr);gap:9vh 4vw;padding:8vh 4vw 16vh}
+[data-m*="3"] .doors li{opacity:1;transform:none;animation:none}
+[data-m*="3"] .doors a{animation:scrollin linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+@keyframes scrollin{from{opacity:0;transform:translateY(120px) rotate(var(--r0))}}
+[data-m*="3"] .pol img{animation:develop linear both;animation-timeline:view();animation-range:entry 10% cover 28%;animation-delay:0s}
+[data-m*="3"] .pol .hw{animation:write linear both;animation-timeline:view();animation-range:cover 20% cover 30%;animation-delay:0s}
+
+/* 4. ambient: the polaroids sway, the songs run past, the cursor leaves a pen line */
+[data-m*="4"] .doors .pol{animation:sway 5.5s ease-in-out infinite alternate;animation-delay:calc(var(--i) * -1.3s)}
+@keyframes sway{from{rotate:-1.4deg}to{rotate:1.4deg}}
+[data-m*="4"] .ticker{display:block;overflow:hidden;white-space:nowrap;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:4vh}
+[data-m*="4"] .ticker div{display:inline-block;animation:run 60s linear infinite}
+[data-m*="4"] .ticker span{margin-right:3em;font:900 22px/1 Archivo,sans-serif;font-variation-settings:"wdth" 62;letter-spacing:.01em}
+[data-m*="4"] .ticker span em{font:400 15px Chillax;color:var(--mu);margin-left:.6em}
+@keyframes run{to{transform:translateX(-50%)}}
+[data-m*="4"] .spec .song{display:none}
+[data-m*="4"] .trail{display:block;position:fixed;inset:0;z-index:20;pointer-events:none}
+
+@media (max-width:900px){
+  :root{--pad:20px}
+  .name{font-size:29vw}
+  .doors,[data-m*="3"] .doors{grid-template-columns:1fr 1fr;gap:28px 16px;padding-left:0;padding-right:0}
+  .spec{grid-template-columns:1fr;gap:8px;padding-top:40px}
+  .bar span:last-child,.note span:first-child{display:none}
+  [data-m*="3"] .sub{margin-top:calc(100svh - 29vw * .84 - 170px)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::after{animation:none !important;transition:none !important}
+  .name .ch,.doors li{transform:none;opacity:1}
+  .rule::after{transform:none}
+  .pol img{filter:none}.pol .hw{clip-path:none}
+}
+</style>
+<body>
+<header class="bar small rule"><span>nicktrim.com</span>
+  <span class="switch">motion <a href="?m=12">1+2</a><a href="?m=123">+3 scroll</a><a href="?m=124">+4 ambient</a><a href="?m=1234">all</a></span>
+  <span>athens, 37.98° n 23.73° e</span></header>
+<div class="namewrap"><h1 class="name" aria-label="nick trim">nick trim</h1></div>
+<div class="sub rule"><p><b>athens, final-year ib.</b> builds tools, ships them, occasionally finishes them.</p><span class="small">sheet 1 of 6</span></div>
+<ul class="doors">
+  <li style="--i:0;--r0:-8deg"><a href="/about/"><span class="pol"><img src="/img/home/about.jpg" alt=""><span class="hw" style="--src:url(/hand/about.svg)" role="img" aria-label="about"></span></span><span class="note small"><span>who, where</span><span>athens</span></span></a></li>
+  <li style="--i:1;--r0:6deg"><a href="/work/"><span class="pol"><img src="/img/home/work.jpg" alt=""><span class="hw" style="--src:url(/hand/work.svg)" role="img" aria-label="work"></span></span><span class="note small"><span>things i built</span><span><b class="count" data-to="6">6</b> featured</span></span></a></li>
+  <li style="--i:2;--r0:-5deg"><a href="/cv/"><span class="pol"><img src="/img/home/cv.jpg" alt=""><span class="hw" style="--src:url(/hand/cv.svg)" role="img" aria-label="cv"></span></span><span class="note small"><span>one page</span><span>oct 2026</span></span></a></li>
+  <li style="--i:3;--r0:7deg"><a href="/films/"><span class="pol"><img src="/img/home/films.jpg" alt=""><span class="hw" style="--src:url(/hand/films.svg)" role="img" aria-label="films"></span></span><span class="note small"><span>diary</span><span><b class="count" data-to="84">84</b> logged</span></span></a></li>
+  <li style="--i:4;--r0:-6deg"><a href="/photos/"><span class="pol"><img src="/img/home/photos.jpg" alt=""><span class="hw" style="--src:url(/hand/photos.svg)" role="img" aria-label="photos"></span></span><span class="note small"><span>prints</span><span><b class="count" data-to="10">10</b></span></span></a></li>
+  <li style="--i:5;--r0:5deg"><a href="https://os.nicktrim.com"><span class="pol"><img src="/img/home/night-shift.jpg" alt=""><span class="hw" style="--src:url(/hand/night-shift.svg)" role="img" aria-label="night shift"></span></span><span class="note small"><span>a fake os</span><span>breakos v4</span></span></a></li>
+</ul>
+<div class="ticker" aria-hidden="true"><div></div></div>
+<dl class="spec">
+  <div class="song"><dt>on repeat</dt><i></i><dd>sweater weather, the neighbourhood</dd></div>
+  <div><dt>last watched</dt><i></i><dd>avengers: endgame</dd></div>
+  <div><dt>contact</dt><i></i><dd><a href="mailto:nicktrim8@duck.com">email</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin</a></dd></div>
+</dl>
+<canvas class="trail" aria-hidden="true"></canvas>
+<script>
+const m = document.documentElement.dataset.m;
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mouse = matchMedia('(hover:hover) and (pointer:fine)').matches && !calm;
+for (const a of document.querySelectorAll('.switch a')) if (a.search === '?m=' + m) a.classList.add('on');
+
+// split the name into letters so each can rise and stretch on its own
+const name = document.querySelector('.name');
+name.innerHTML = [...name.textContent].map((c, i) =>
+  `<span class="ch${c === ' ' ? ' sp' : ''}" style="--i:${i}" aria-hidden="true">${c === ' ' ? '' : c}</span>`).join('');
+const letters = [...name.querySelectorAll('.ch')];
+
+// 1. the counts run up once the polaroids have landed
+if (!calm) for (const el of document.querySelectorAll('.count')) {
+  const to = +el.dataset.to, start = performance.now() + 1400;
+  el.textContent = 0;
+  const tick = now => {
+    const t = Math.min(Math.max((now - start) / 1200, 0), 1);
+    el.textContent = Math.round(to * (1 - Math.pow(1 - t, 3)));
+    if (t < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+// 2. cursor: letters near the pointer widen (Archivo's width axis), the rest stay condensed.
+// The whole name is squeezed back to the sheet width so nothing below it moves.
+let px = -9999, py = -9999;
+const width = letters.map(() => 62);
+function fitName() {
+  name.style.transform = '';
+  const natural = name.scrollWidth, room = name.parentElement.clientWidth;
+  name.style.transform = `scaleX(${Math.min(room / natural, 1.25)})`;
+}
+function frame() {
+  for (let i = 0; i < letters.length; i++) {
+    const r = letters[i].getBoundingClientRect();
+    const dx = px - (r.left + r.width / 2), dy = py - (r.top + r.height / 2);
+    const near = Math.exp(-(dx * dx) / (2 * 140 * 140)) * Math.exp(-(dy * dy) / (2 * 320 * 320));
+    const target = 62 + 63 * near;
+    width[i] += (target - width[i]) * .12;          // ease toward the target, so it feels like rubber
+    letters[i].style.setProperty('--w', width[i].toFixed(1));
+  }
+  fitName();
+  requestAnimationFrame(frame);
+}
+document.fonts.ready.then(() => { fitName(); if (mouse && m.includes('2')) requestAnimationFrame(frame); });
+addEventListener('resize', fitName);
+addEventListener('pointermove', e => { px = e.clientX; py = e.clientY; });
+document.documentElement.addEventListener('pointerleave', () => { px = py = -9999; });
+
+// 2. polaroids tilt toward the cursor like a held card
+if (mouse && m.includes('2')) for (const p of document.querySelectorAll('.pol')) {
+  p.addEventListener('pointermove', e => {
+    const r = p.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    p.style.setProperty('--ry', (x - .5) * 18 + 'deg');
+    p.style.setProperty('--rx', (.5 - y) * 18 + 'deg');
+    p.style.setProperty('--lift', '-8px');
+  });
+  p.addEventListener('pointerleave', () => { p.style.setProperty('--rx', '0deg'); p.style.setProperty('--ry', '0deg'); p.style.setProperty('--lift', '0px'); });
+}
+
+// 4. ticker of every favourite song, and a fading pen line behind the cursor
+if (m.includes('4') && !calm) {
+  fetch('/content/songs.txt').then(r => r.text()).then(t => {
+    const songs = t.split('\n').map(s => s.trim()).filter(s => s && !s.startsWith('#')).map(s => {
+      const [title, ...artist] = s.toLowerCase().split(',');
+      return `<span>${title}<em>${artist.join(',').trim()}</em></span>`;
+    }).join('');
+    document.querySelector('.ticker div').innerHTML = songs + songs;   // twice, so the loop is seamless
+  });
+  if (mouse) {
+    const cv = document.querySelector('.trail'), cx = cv.getContext('2d'), pts = [];
+    const size = () => { cv.width = innerWidth * devicePixelRatio; cv.height = innerHeight * devicePixelRatio; cx.scale(devicePixelRatio, devicePixelRatio); };
+    size(); addEventListener('resize', size);
+    addEventListener('pointermove', e => pts.push({ x: e.clientX, y: e.clientY, t: performance.now() }));
+    const draw = now => {
+      while (pts.length && now - pts[0].t > 700) pts.shift();
+      cx.clearRect(0, 0, innerWidth, innerHeight);
+      cx.lineCap = 'round'; cx.strokeStyle = '#e0a35a';
+      for (let i = 1; i < pts.length; i++) {
+        const age = (now - pts[i].t) / 700;
+        cx.globalAlpha = 1 - age; cx.lineWidth = 2.5 * (1 - age);
+        cx.beginPath(); cx.moveTo(pts[i - 1].x, pts[i - 1].y); cx.lineTo(pts[i].x, pts[i].y); cx.stroke();
+      }
+      requestAnimationFrame(draw);
+    };
+    requestAnimationFrame(draw);
+  }
+}
+</script>
