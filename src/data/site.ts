@@ -24,12 +24,12 @@ export const results = [
 export const history = [
   ['2026', 'tokenpilot, in production at omilia'],
   ['2026', '3rd, acstac day of ai hackathon'],
-  ['????', '2nd nationally, ja greece (akademix)'],
+  ['2025', '2nd nationally, ja greece (akademix)'],
   ['2025', '1st, mit raise futurebuilders uk'],
 ];
 
 // the man page's EXAMPLES: four prints by file name, in the order shown. edit this list to change them.
-const exampleFiles = ['concert', 'siena-after-dark', 'dinner', 'corfu'];
+const exampleFiles = ['siena-il-campo-at-night', 'oaka-concert', 'corfu-old-fortress', 'lycabettus-sunset'];
 export const examples = exampleFiles.map(file => {
   const i = photos.findIndex(p => p.file === file);
   if (i < 0) throw new Error(`EXAMPLES: no print called ${file} in data/photos.json`);

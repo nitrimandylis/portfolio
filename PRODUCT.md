@@ -148,6 +148,11 @@ The freeze is dropped. man(1) stays; this round fills what it left out. Locked:
   lowercased in CSS, reviews as written. Pager hidden on a single page.
 - **Bugs:** footer centre item off-centre (space-between with unequal sides); siena caption truncated.
 - **Kept:** the closing blinking prompt.
+- **Built 2026-10-13** (site-bakeoff). Photos: 25 picked by Claude from the 110 (Nick: "decide for me"), named
+  from local GPS, in date order, Athens to Corfu to Siena/San Gimignano to Rome and home. Old captions fixed:
+  "sunset" was Corfu, "siena" and "tuscany" San Gimignano, "rome" Fiumicino. Pizza cut. EXAMPLES: il campo at
+  night, oaka concert, corfu fortress, lycabettus sunset. Nick's copies sit in the shared originals/ under the
+  new names, so astro/site-2b would publish them too if their mtime-based photos.py is rerun.
 
 ### Status, branch site-2b (2026-10-13)
 
