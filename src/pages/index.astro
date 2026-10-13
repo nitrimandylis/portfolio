@@ -1,20 +1,20 @@
 ---
 // home: the name as a window onto one of the prints, the featured work as a table, the film strip,
 // then results, films and contact in one row. the photo in the letters is picked at random on each visit.
+// nothing moves on vertical scroll: the strip scrolls sideways, and the name is a still frame.
 import Base from '../layouts/Base.astro';
 import photosJson from '../../data/photos.json';
-import filmsJson from '../../data/films.json';
-import { featured, rest, links } from './work.astro';
+import { featured, rest, links } from '../data/work';
+import { favourites } from '../data/films';
 
 const photos = photosJson.photos;
-const films = filmsJson.films;
-const rated = films.map(f => f.rating).filter((r): r is number => r != null).sort((a, b) => a - b);
-const typical = rated.length ? rated[Math.floor(rated.length / 2)] : null;
-const stars = (r: number | null) => r == null ? '' : '★'.repeat(Math.floor(r)) + (r % 1 ? '½' : '');
 
 // prints that still read as a picture inside the letters. flat or dark ones turn to mud, so they stay out.
 const HERO = ['concert', 'sunset', 'corfu', 'tuscany', 'siena', 'rome'];
-const heroSet = HERO.filter(f => photos.some(p => p.file === f)).map(f => `/img/photos/${f}-1600.webp`);
+const heroFiles = HERO.filter(f => photos.some(p => p.file === f));
+// none of them published yet: fall back to the newest print rather than an empty window
+if (heroFiles.length === 0 && photos.length > 0) heroFiles.push(photos[0].file);
+const heroSet = heroFiles.map(f => `/img/photos/${f}-1600.webp`);
 
 const results = [
   ['2nd nationally, JA Greece', 'Akademix, CCO'],
@@ -56,7 +56,7 @@ const results = [
   </section>
 
   <section class="strip" aria-label="photos">
-    <div class="striphead L"><a href="/photos">02 photos — contact sheet</a><span class="mhide">slides on scroll →</span></div>
+    <div class="striphead L"><a href="/photos">02 photos — contact sheet</a><span class="mhide">scroll →</span></div>
     <div class="film">
       <div class="holes"></div>
       <div class="frames" id="track">
@@ -73,9 +73,9 @@ const results = [
     </div>
     <div class="s3 m2 R">
       <p class="label">03 films</p>
-      <p class="filmline">usually {stars(typical)}.<br>i like films.</p>
-      <p class="favs mhide">The Odyssey · Pacific Rim · Across the Spider-Verse · Shutter Island</p>
-      <a class="mono ul" href="/films" style="font-size:12px">diary →</a>
+      <p class="filmline">usually ★★★★★.<br>i like films.</p>
+      <p class="favs mhide">{favourites.map(([title]) => title).join(' · ')}</p>
+      <a class="mono ul diary" href="/films">diary →</a>
     </div>
     <div class="contact s3 m2">
       <p class="label">04 contact</p>
@@ -87,28 +87,16 @@ const results = [
   </section>
 
   <script>
-    // two camera moves on scroll, mouse only: the photo pans inside the letters while the hero leaves,
-    // and the strip slides sideways while it crosses the screen. touch and reduced motion get still frames
-    // (the strip becomes a native swipe in the css).
-    const name = document.querySelector<HTMLElement>('#name')!;
+    // a plain mouse wheel only scrolls up and down, so while the pointer is over the strip the wheel moves it
+    // sideways instead. at either end the page gets the wheel back. trackpads and touch already scroll sideways.
     const track = document.querySelector<HTMLElement>('#track')!;
-    const film = track.parentElement!;
-    const moves = matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const clamp = (v: number) => Math.min(1, Math.max(0, v));
-
-    if (moves) {
-      const frame = () => {
-        // pan: background from 35% to 55% over the first 600px of scroll
-        name.style.backgroundPosition = `50% ${(35 + 20 * clamp(scrollY / 600)).toFixed(1)}%`;
-        // strip: 0 when its top enters the bottom of the screen, 1 when its bottom leaves the top
-        const r = film.getBoundingClientRect();
-        const p = clamp((innerHeight - r.top) / (innerHeight + r.height));
-        const travel = track.scrollWidth - film.clientWidth;
-        track.style.transform = `translate3d(${(-travel * p).toFixed(1)}px,0,0)`;
-      };
-      addEventListener('scroll', frame, { passive: true });
-      addEventListener('resize', frame);
-      frame();
-    }
+    track.addEventListener('wheel', e => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;   // a sideways trackpad gesture: leave it alone
+      const atStart = track.scrollLeft <= 0;
+      const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+      if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
+      e.preventDefault();
+      track.scrollLeft += e.deltaMode === 1 ? e.deltaY * 40 : e.deltaY;   // firefox counts in lines, not pixels
+    }, { passive: false });
   </script>
 </Base>

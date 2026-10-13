@@ -1,6 +1,6 @@
 ---
 // photos: a contact sheet of every print, newest first. clicking a frame opens the projector: one print large,
-// the strip underneath as a scrubber, arrow keys to move, esc to close. /photos#<file> opens straight onto a print.
+// the strip underneath as a scrubber. arrow keys, the wheel or a swipe move one print, esc closes. /photos#<file> opens straight onto a print.
 import Base from '../layouts/Base.astro';
 import photosJson from '../../data/photos.json';
 const photos = photosJson.photos;
@@ -32,7 +32,7 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
       <button class="close">← sheet</button>
       <span class="count"></span>
       <span class="cap"></span>
-      <span class="keys">← → scrub · esc close</span>
+      <span class="keys">← → / swipe · esc close</span>
     </div>
     <div class="scrub film">
       <div class="holes"></div>
@@ -80,8 +80,37 @@ const pad = (i: number) => String(i + 1).padStart(2, '0');
       if (!box.open) return;
       if (e.key === 'ArrowLeft') show(current - 1);
       if (e.key === 'ArrowRight') show(current + 1);
-      if (e.key === 'q') box.close();
     });   // esc closes natively
+
+    // one gesture, one print. a trackpad flick fires dozens of wheel events and keeps firing after the fingers
+    // lift, so add the movement up, step once it passes 50px, then ignore the rest until the wheel is quiet for 150ms.
+    const screen = box.querySelector('.screen');
+    let moved = 0, stepped = false, quiet;
+    screen.addEventListener('wheel', e => {
+      e.preventDefault();
+      clearTimeout(quiet);
+      quiet = setTimeout(() => { moved = 0; stepped = false; }, 150);
+      if (stepped) return;
+      const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      moved += e.deltaMode === 1 ? d * 40 : d;   // firefox counts in lines, not pixels
+      if (Math.abs(moved) < 50) return;
+      show(current + Math.sign(moved));
+      stepped = true;
+    }, { passive: false });
+
+    // touch: a sideways swipe of 40px or more moves one print. mostly-vertical swipes and pinches are ignored.
+    let startX = null, startY = 0;
+    screen.addEventListener('touchstart', e => {
+      if (e.touches.length === 1) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }
+      else startX = null;
+    }, { passive: true });
+    screen.addEventListener('touchend', e => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      startX = null;
+      if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) show(current - Math.sign(dx));   // swipe left = next
+    });
 
     const start = photos.findIndex(p => `#${p.file}` === location.hash);
     if (start >= 0) show(start);

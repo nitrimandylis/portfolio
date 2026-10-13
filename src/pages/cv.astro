@@ -23,7 +23,7 @@ const rows = [
 <Base title="cv, nick trimandylis" description="nick trimandylis's cv, the short one." current="contact">
   <section class="head g">
     <div class="title s9 R"><h1>CV</h1></div>
-    <div class="note s3">nick trimandylis · athens<br>as of october 2026<br><span class="printonly">nicktrim.com · nicktrim8@duck.com</span><button class="ul noprint" onclick="print()" style="color:var(--text)">print →</button></div>
+    <div class="note s3">nick trimandylis · athens<br>as of october 2026<br><span class="printonly">nicktrim.com · nicktrim8@duck.com</span><button class="ul noprint" onclick="print()">print →</button></div>
   </section>
   <div class="table cvt g T">
     {rows.map(([sec, where, what, result]) => (
@@ -35,9 +35,9 @@ const rows = [
       </div>
     ))}
   </div>
-  <section class="g">
-    <div class="c s9 R" style="padding:28px 20px"><p class="cv-end">want the full one? <a class="ul" href="mailto:nicktrim8@duck.com?subject=the long cv">email me.</a></p></div>
-    <div class="cv-links s3" style="padding:28px 20px">
+  <section class="cv-foot g">
+    <div class="s9 R"><p class="cv-end">want the full one? <a class="ul" href="mailto:nicktrim8@duck.com?subject=the long cv">email me.</a></p></div>
+    <div class="cv-links s3">
       <a class="ul" href="mailto:nicktrim8@duck.com">nicktrim8@duck.com</a>
       <a class="ul" href="https://www.linkedin.com/in/nitrimandylis">linkedin.com/in/nitrimandylis</a>
       <a class="ul" href="https://github.com/nitrimandylis">github.com/nitrimandylis</a>

@@ -76,7 +76,7 @@ kept as the minimal fallback). Locked:
 
 - **Skeleton:** 2b, "grid as the camera". Exposed 12-col grid (4 on mobile).
 - **Hero:** NICK / TRIMANDYLIS in Anton, photo through the letters. Random
-  print per visit, slow pan on scroll. Still frame on touch / reduced motion.
+  print per visit, still frame (the scroll pan was cut 2026-10-13).
   Mobile: NICK / TRIMAN- / DYLIS.
 - **Bar:** numbered `01 work · 02 photos · 03 films · 04 contact` on every
   page, night shift right. Top-left cell: handwritten signature, home link.
@@ -84,11 +84,16 @@ kept as the minimal fallback). Locked:
   (results · films · contact). No thesis, no ask.
 - **Pages:** work (grid table, all), cv (grid table, printable, linked from
   the contact cell, not the nav), photos (contact sheet, click opens 2a's
-  projector), films (diary as grid table, latest film as one ticket stub).
+  projector), films (diary as grid table, latest film as one ticket stub,
+  30 rows a page at /films, /films/2, ...; stub and stats on page 1 only).
+- **Films line:** fixed text, "usually ★★★★★. i like films." Not a median.
 - **Type:** Anton (name only), Schibsted Grotesk (prose), JetBrains Mono (data).
 - **Motion:** load sequence (grid draws, bar types, name fills): once per
-  session, under 1s, skip on any input, none on reduced motion. Hero pan.
-  Home strip slides sideways on scroll (mockup e), native swipe on touch.
+  session, under 1s, skip on any input, none on reduced motion. Nothing
+  moves on vertical scroll (2026-10-13). The home strip is a horizontal
+  scroller everywhere; over it, the mouse wheel scrolls it sideways until an
+  end, then the page. Projector: one print per gesture (wheel, trackpad or
+  40px swipe; momentum swallowed), arrow keys, thumbnail scrub.
 - **Palette:** Nocturne blurple kept as a placeholder; brainstorm pending.
 - **Approved 2026-10-13:** Claude Design file "Nick Site.dc.html" (round 3)
   is the design. Build fixes: name line-height ~0.9 (lines collide at
@@ -104,6 +109,9 @@ every astro page: home, work, cv (new), photos (sheet + projector), films
 (table + stub), 404. Anton and JetBrains Mono self-hosted, Sharpie removed
 (proto/type.html still names it). Hero set: concert, sunset, corfu, tuscany,
 siena, rome (HERO in index.astro). Build passes; checked at 1440 and 390.
+Review fixes (2026-10-13): name sized in cqw (100vw clipped it behind a
+desktop scrollbar), signature prints, project lists in src/data/work.ts,
+shared film bits in src/data/films.ts. proto/ stays.
 Open: palette, the blurple is a placeholder in the :root variables.
 
 ### Status, branch astro (2026-10-13)
