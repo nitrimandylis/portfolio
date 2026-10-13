@@ -68,6 +68,30 @@ sticky section titles, big numbers, an ask). Locked:
 - **Touch / reduced motion:** no stage. Window shows the first photo, the
   polaroids are a row you swipe, signature hidden (the window is the name).
 
+### Direction 2b (grilled 2026-10-13, supersedes the remix)
+
+Nick disliked every built design, Astro included. Claude Design project
+2d5ff6fe (round 1: 1b/1c/1e/1f liked, 1a/1d cut; round 2: 2b picked, 2c
+kept as the minimal fallback). Locked:
+
+- **Skeleton:** 2b, "grid as the camera". Exposed 12-col grid (4 on mobile).
+- **Hero:** NICK / TRIMANDYLIS in Anton, photo through the letters. Random
+  print per visit, slow pan on scroll. Still frame on touch / reduced motion.
+  Mobile: NICK / TRIMAN- / DYLIS.
+- **Bar:** numbered `01 work · 02 photos · 03 films · 04 contact` on every
+  page, night shift right. Top-left cell: handwritten signature, home link.
+- **Home:** hero, work table (6 featured), contact-sheet strip, bottom row
+  (results · films · contact). No thesis, no ask.
+- **Pages:** work (grid table, all), cv (grid table, printable, linked from
+  the contact cell, not the nav), photos (contact sheet, click opens 2a's
+  projector), films (diary as grid table, latest film as one ticket stub).
+- **Type:** Anton (name only), Schibsted Grotesk (prose), JetBrains Mono (data).
+- **Motion:** load sequence (grid draws, bar types, name fills): once per
+  session, under 1s, skip on any input, none on reduced motion. Hero pan.
+  Home strip slides sideways on scroll (mockup e), native swipe on touch.
+- **Palette:** Nocturne blurple kept as a placeholder; brainstorm pending.
+- **Next:** one more Claude Design round with this spec, then build.
+
 ### Status (2026-10-13)
 
 Built on branch `astro`: remix home, three subpages, 404, og.png, favicon.
