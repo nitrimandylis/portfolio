@@ -62,6 +62,7 @@ sticky section titles, big numbers, an ask). Locked:
   the cv page, print stylesheet), ask. Motion: load plus scroll only.
 - **Subpages:** work (full list), films (full diary), photos (grid,
   lightbox). Signature only as chrome. cv page gone.
+- **Type (2026-10-13):** Schibsted Grotesk for text, Sharpie (Fontshare, marker script, 400 and 700 only) for the thesis, the result numbers and the ask. Archivo rejected. Both self-hosted in public/fonts. proto/type.html is the specimen page (?f=Body&d=Display).
 - **Type scale:** three-quarter deck. Thesis and ask ~40-56px, numbers
   ~64px, section titles 22px sticky. Near-black stays.
 - **Touch / reduced motion:** no stage. Window shows the first photo, the

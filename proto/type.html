@@ -1,0 +1,46 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>type candidates</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Manrope:wght@400;500;600&family=Schibsted+Grotesk:wght@400;500;600&family=Hanken+Grotesk:wght@400;500;600&family=Instrument+Sans:wght@400;500;600&family=Onest:wght@400;500;600&display=swap">
+<style>@font-face{font-family:'Sharpie';src:url(/fonts/try/sharpie-400.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Sharpie';src:url(/fonts/try/sharpie-700.woff2) format('woff2');font-weight:700}
+@font-face{font-family:'Switzer';src:url(/fonts/try/switzer-400.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'Switzer';src:url(/fonts/try/switzer-500.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'Switzer';src:url(/fonts/try/switzer-600.woff2) format('woff2');font-weight:600}
+@font-face{font-family:'General Sans';src:url(/fonts/try/general-sans-400.woff2) format('woff2');font-weight:400}
+@font-face{font-family:'General Sans';src:url(/fonts/try/general-sans-500.woff2) format('woff2');font-weight:500}
+@font-face{font-family:'General Sans';src:url(/fonts/try/general-sans-600.woff2) format('woff2');font-weight:600}</style>
+<style>
+:root{--bg:#0a0a0a;--fg:#ececec;--mu:#7d7d7d;--line:rgba(236,236,236,.16)}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.5 var(--f),sans-serif;-webkit-font-smoothing:antialiased;padding:40px}
+.sig{display:block;width:140px;height:44px;background:currentColor;-webkit-mask:url(/hand/name.svg) left center/contain no-repeat;mask:url(/hand/name.svg) left center/contain no-repeat;margin-bottom:28px}
+.label{font-size:13px;color:var(--mu);margin:0 0 40px}
+.big{font-size:40px;font-weight:500;letter-spacing:-.025em;line-height:1.08;max-width:20ch;margin:0 0 .6em}
+p{max-width:50ch;margin:0 0 2.2em}
+.numbers{display:grid;grid-template-columns:max-content 1fr;gap:18px 40px;align-items:baseline;margin:0 0 2.2em}
+.numbers strong{font-size:64px;font-weight:500;letter-spacing:-.04em;line-height:.95}
+.numbers span{max-width:44ch}
+.row{display:grid;grid-template-columns:3fr 7fr 2fr;gap:40px;padding:18px 0;border-top:1px solid var(--line);align-items:baseline}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row b{font-weight:500;font-size:18px}
+.row span{color:var(--mu)}
+.row i{font-style:normal;color:var(--mu);text-align:right}
+.pair .big,.pair .numbers strong,.pair .ask{font-family:var(--d),sans-serif;font-weight:400;letter-spacing:0}
+.pair .big{font-size:46px}.pair .ask{font-size:64px}.pair .numbers strong{font-size:72px}
+.ask{font-size:56px;font-weight:500;letter-spacing:-.03em;line-height:1;max-width:14ch;margin:48px 0 0}
+</style>
+<body>
+<span class="sig"></span>
+<p class="label" id="label"></p>
+<p class="big">i start things, then i build them.</p>
+<p>most founding teams split into the one who sells and the one who ships. i do both. on a team of four teenagers that is the difference between a deck and a demo.</p>
+<div class="numbers"><strong>2nd</strong><span>nationally, ja greece, with akademix. chief commercial officer.</span><strong>1st</strong><span>mit raise futurebuilders, uk. innovation demo, with mindreset.</span></div>
+<div class="row"><b>tokenpilot</b><span>reads an anthropic or openai admin api and tells you what every model, key and team costs.</span><i>code</i></div>
+<div class="row"><b>llm-mafia</b><span>mafia where every seat is a language model, lying to the others.</span><i>code</i></div>
+<p class="ask">not raising. hire me, admit me, or just say hi.</p>
+<script>
+  const q = new URLSearchParams(location.search); const f = q.get('f') || 'Figtree'; const d = q.get('d');
+  if (d) { document.documentElement.style.setProperty('--d', `"${d}"`); document.body.classList.add('pair'); }
+  document.documentElement.style.setProperty('--f', `"${f}"`);
+  document.querySelector('#label').textContent = (d ? d + ' + ' : '') + f.toLowerCase();
+</script>
