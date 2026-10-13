@@ -90,7 +90,12 @@ kept as the minimal fallback). Locked:
   session, under 1s, skip on any input, none on reduced motion. Hero pan.
   Home strip slides sideways on scroll (mockup e), native swipe on touch.
 - **Palette:** Nocturne blurple kept as a placeholder; brainstorm pending.
-- **Next:** one more Claude Design round with this spec, then build.
+- **Approved 2026-10-13:** Claude Design file "Nick Site.dc.html" (round 3)
+  is the design. Build fixes: name line-height ~0.9 (lines collide at
+  0.84), name sized to fill its 9 columns, hero picks from a hand-picked
+  hero-safe subset (flat photos die in the letters), work meta column shows
+  year or live/code links instead of "featured", films from films.json,
+  real signature strokes from public/hand.
 
 ### Status (2026-10-13)
 
