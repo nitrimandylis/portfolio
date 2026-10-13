@@ -46,7 +46,7 @@ import { photos, projectCount, song, month } from '../data/site';
   </main>
 </Page>
 <style>
-  .man{max-width:calc(80ch + 48px);padding:28px 24px 48px}
+  .man{max-width:calc(80ch + 48px);margin:0 auto;padding:64px 24px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
   .hf{display:flex;justify-content:space-between;gap:2ch}
   .hf:first-child{margin-bottom:1.6em}
   .hf:nth-last-child(2){margin-top:1.6em}
@@ -59,7 +59,7 @@ import { photos, projectCount, song, month } from '../data/site';
   .kv{display:grid;grid-template-columns:14ch 1fr;column-gap:1ch}
   .kv a{justify-self:start}
   @media (max-width:640px){
-    .man{padding:18px 14px 40px}
+    .man{padding:28px 14px;justify-content:flex-start}
     .b{padding-left:3ch}
     .hf{font-size:.9em}
     .kv{grid-template-columns:13ch 1fr}
