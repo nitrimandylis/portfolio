@@ -12,7 +12,7 @@ const { page } = Astro.props;
 <Shell title="films, nick trimandylis" cwd="~/films" description="nick trimandylis's film diary, from letterboxd.">
   <Cmd cmd={page.currentPage === 1 ? 'cat films.md' : `cat films.md | tail -n +${(page.currentPage - 1) * 30 + 1}`}>
     {page.currentPage === 1 && <>
-      <p>usually ★★★★★. i like films. {logged} logged, {thisYear} this year.</p>
+      <p>usually ★★★★★. i like films. {logged} in the diary, {thisYear} this year.</p>
       <p class="mu">favourites: {favourites.map(([t, u], i) => <>{i > 0 && ', '}<a href={u}>{t}</a></>)}</p>
     </>}
   </Cmd>

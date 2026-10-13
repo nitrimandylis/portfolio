@@ -1,19 +1,21 @@
 ---
-// every /man page except the home: a link back to the man page, a title, then the page. the joke is told once, on the home.
+// every man(1) page except the home: a link back to the man page, a title set like the home's section heads, then the page indented under it. the joke is told once, on the home.
 import Page from './Page.astro';
 const { title, heading, note = '', description } = Astro.props;
 ---
 <Page title={title} description={description}>
   <main class="sub">
-    <a class="back noprint" href="/">← nick(1)</a>
-    <h1>{heading}{note && <span class="mu"> · {note}</span>}</h1>
-    <slot />
+    <a class="back noprint" href="/">← nicktrim(1)</a>
+    <h1><b>{heading.toUpperCase()}</b>{note && <span class="mu"> · {note}</span>}</h1>
+    <div class="body"><slot /></div>
   </main>
 </Page>
 <style>
-  .sub{max-width:110ch;margin:0 auto;padding:48px 24px 80px}
+  /* the same column as the home, so the left edge never moves between pages */
+  .sub{max-width:calc(80ch + 48px);margin:0 auto;padding:64px 24px 80px}
   .back{display:inline-block;margin-bottom:40px}
-  h1{margin-bottom:32px}
-  @media (max-width:640px){.sub{padding:24px 14px 56px}.back{margin-bottom:28px}h1{margin-bottom:22px}}
-  @media print{.sub{padding:0;max-width:none}}
+  h1{margin-bottom:1em}
+  .body{padding-left:7ch}
+  @media (max-width:640px){.sub{padding:28px 14px 56px}.back{margin-bottom:28px}.body{padding-left:3ch}}
+  @media print{.sub{padding:0;max-width:none}.body{padding-left:0}}
 </style>

@@ -1,0 +1,12 @@
+# the photos page, in order: one print per line, named exactly like its file in originals/ (without the extension).
+# the name is also the caption. tools/photos.py reads this list.
+rome
+rome, lunch
+siena, after dark
+siena
+tuscany
+clouds
+dinner
+sunset
+corfu
+concert

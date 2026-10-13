@@ -124,6 +124,31 @@ Branch `site-bakeoff` (worktree .claude/worktrees/site-bakeoff), off site-2b. Lo
 - **Exit rule:** pick within a day of seeing both. Every branch (astro, site-2b, the loser) stays as an
   alternative. Design frozen until 2026-11-13 after the pick: copy edits only.
 
+### man(1) gaps (grilled 2026-10-13, after the man(1) roast)
+
+The freeze is dropped. man(1) stays; this round fills what it left out. Locked:
+
+- **Name:** the command is `nicktrim` (`man nicktrim`, NICKTRIM(1), `nicktrim [work | films | photos | cv] [--email]`
+  with cv added, `← nicktrim(1)` on subpages). Wherever a person is named in prose, it's "nick trimandylis" in full:
+  NAME reads `nicktrim - nick trimandylis, athens, ...`, and so do the page titles. "nick trim" is gone.
+- **Sections, canon order:** NAME, SYNOPSIS, DESCRIPTION, EXAMPLES, FILES, ENVIRONMENT, HISTORY, BUGS, SEE ALSO.
+- **DESCRIPTION:** results move out. Claude drafts 3 options in the BUGS voice, Nick picks.
+- **HISTORY:** key-value rows like FILES, year then result. Four rows: tokenpilot at omilia, 2nd ja greece,
+  1st mit futurebuilders, 3rd acstac. Years from Nick (pending).
+- **EXAMPLES:** `nicktrim photos` (link to /photos), a line "four of N. the rest under photos/.", then four
+  hand-picked prints at real shape, ~160px tall, captions, each opens /photos#file. Phone: 2x2.
+- **Photos:** ~100 new jpgs in ~/Downloads/photos/jpg plus the current 10, one pool. Claude makes a numbered
+  contact sheet, Nick picks 20-30 in order and names each. Page order is the pick order (photos.py follows a
+  list, not mtime). FILES line: `N prints, in order`; page note drops "newest first".
+- **Column:** every page 80ch, one left edge. Subpage titles in bold caps like the home's section heads,
+  grey note after, content indented 7ch. No NICKTRIM(1) header on subpages: the joke is told once.
+- **Work:** name links to the main URL; right column is a grey label (live/code), plus a `code` link only
+  when a project has both. Note says "28 projects", no featured split.
+- **Films:** counts are what's shown (SEED goes): "20 in the diary, 15 this year". Titles and favourites
+  lowercased in CSS, reviews as written. Pager hidden on a single page.
+- **Bugs:** footer centre item off-centre (space-between with unequal sides); siena caption truncated.
+- **Kept:** the closing blinking prompt.
+
 ### Status, branch site-2b (2026-10-13)
 
 2b built on branch `site-2b` (worktree .claude/worktrees/site-2b), replacing

@@ -20,6 +20,22 @@ export const results = [
   'semi-finals, young business talents',
 ];
 
+// the man page's HISTORY: [year, what happened], newest first. the rest of the results live on the cv.
+export const history = [
+  ['2026', 'tokenpilot, in production at omilia'],
+  ['2026', '3rd, acstac day of ai hackathon'],
+  ['????', '2nd nationally, ja greece (akademix)'],
+  ['2025', '1st, mit raise futurebuilders uk'],
+];
+
+// the man page's EXAMPLES: four prints by file name, in the order shown. edit this list to change them.
+const exampleFiles = ['concert', 'siena-after-dark', 'dinner', 'corfu'];
+export const examples = exampleFiles.map(file => {
+  const i = photos.findIndex(p => p.file === file);
+  if (i < 0) throw new Error(`EXAMPLES: no print called ${file} in data/photos.json`);
+  return { ...photos[i], num: i + 1 };
+});
+
 // [section, where, what, result]. the section label only shows on the first row of each group.
 export const cv = [
   ['work', 'omilia, athens', 'intern reporting to the cto. built tokenpilot', 'in production'],

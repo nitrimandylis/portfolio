@@ -30,7 +30,8 @@ b{font-weight:700}
 .row{display:contents}
 .rows .links a{margin-left:1.5ch}
 .rows .gap{grid-column:1/-1;height:.8em}
-.films-rows{grid-template-columns:11ch minmax(0,52ch) 6ch 7ch}
+.films-rows{grid-template-columns:11ch 1fr 5ch 7ch}
+.films-rows .title{text-transform:lowercase}
 .films-rows .review{grid-column:2/-1;color:var(--mu);margin-bottom:.4em}
 
 /* photos: the prints at their real shape. --h sets the row height, so wide and tall prints sit side by side */
@@ -39,7 +40,7 @@ b{font-weight:700}
 .prints:not(.strip)::after{content:"";flex:10 1 0}
 .prints button{flex:var(--r) 1 calc(var(--r) * 220px);min-width:0}
 .prints img{width:100%;height:auto;aspect-ratio:var(--r)}
-.prints .num{display:block;text-align:left;color:var(--mu);font-size:12px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prints .num{display:block;text-align:left;color:var(--mu);font-size:12px;margin-top:4px}
 .prints button:hover img,.prints button[aria-current] img{outline:1px solid var(--fg);outline-offset:3px}
 /* the shell's version: one row you scroll sideways, like a strip of negatives */
 .prints.strip{flex-wrap:nowrap;overflow-x:auto;padding:4px 4px 8px;scrollbar-width:thin}
