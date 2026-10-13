@@ -99,7 +99,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .hero .window{padding:44px 20px 36px}
 .hero h1{font:400 var(--name) /.9 Anton,sans-serif;text-transform:uppercase;letter-spacing:-.01em;white-space:nowrap;
   color:transparent;-webkit-background-clip:text;background-clip:text;background-size:cover;background-position:50% 35%;
-  --name:calc((min(100vw,1680px) * .75 - 40px) / 4.62)}
+  --name:calc((min(100vw,1680px) * .75 - 40px) / 4.8)}
 .hero h1 .m{display:none}
 .hero .side{padding:44px 20px 36px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
 .hero .bio{font-size:16px;line-height:1.5;color:var(--t2)}
@@ -197,7 +197,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   .head h1{font-size:64px}
   .head .note{padding:0 12px 18px;font-size:10px}
   .hero .window{padding:24px 10px 16px}
-  .hero h1{--name:calc((100vw - 20px) / 3.02);line-height:.88;white-space:normal}
+  .hero h1{--name:calc((100vw - 20px) / 3.12);line-height:.88;white-space:normal}
   .hero h1 .d{display:none}.hero h1 .m{display:inline}
   .hero .side{padding:0 12px 22px}
   .hero .bio{font-size:14px}
