@@ -1,14 +1,67 @@
 ---
-// the bake-off root: two versions of the same site, same words, same skin. the winner moves here.
+// the man(1) home: nick as a manual page. the only page on /man that keeps the format; the rest are plain.
 import Page from '../layouts/Page.astro';
+import { featured } from '../data/work';
+import { logged, latest } from '../data/films';
+import { photos, projectCount, song, month } from '../data/site';
 ---
 <Page>
-  <main class="pick">
-    <p class="mu">nicktrim.com, bake-off</p>
-    <p><a href="/man">man(1)</a><span class="mu">  the home is a manual page, the rest is plain</span></p>
-    <p><a href="/shell">shell</a><span class="mu">  every page is a terminal session</span></p>
+  <main class="man">
+    <div class="hf"><span>NICK(1)</span><span class="mu">General Commands Manual</span><span>NICK(1)</span></div>
+
+    <section><h2>NAME</h2>
+      <div class="b">nick trim - athens, final-year ib. builds tools, ships them.</div></section>
+
+    <section><h2>SYNOPSIS</h2>
+      <div class="b"><b>nick</b> [<a href="/work">work</a> | <a href="/films">films</a> | <a href="/photos">photos</a>] [<a href="mailto:nicktrim8@duck.com">--email</a>]</div></section>
+
+    <section><h2>DESCRIPTION</h2>
+      <div class="b">
+        <p>i live in athens and i'm in my last year of the ib. most of my time goes to free time, which i take seriously.</p>
+        <p>i start things and then build them. a student business that came second in greece (akademix, with ja), a first place at mit futurebuilders and a third at the acstac day of ai hackathon. tokenpilot runs in production at omilia. the rest is under <a href="/work">work</a>.</p>
+        <p>off the keyboard it's films, music, and photos of wherever i end up.</p>
+      </div></section>
+
+    <section><h2>FILES</h2>
+      <div class="b kv">
+        <a href="/work">work/</a><span>{featured.length} featured, {projectCount} total</span>
+        <a href="/films">films/</a><span>{logged} logged, usually five stars</span>
+        <a href="/photos">photos/</a><span>{photos.length} prints, no exif</span>
+      </div></section>
+
+    <section><h2>ENVIRONMENT</h2>
+      <div class="b kv">
+        <span>ON_REPEAT</span><span>{song}</span>
+        {latest && <><span>LAST_WATCHED</span><span>{latest.title.toLowerCase()}, {latest.year}{latest.rewatch && ', again'}</span></>}
+      </div></section>
+
+    <section><h2>BUGS</h2>
+      <div class="b">occasionally finishes them.</div></section>
+
+    <section><h2>SEE ALSO</h2>
+      <div class="b"><a href="/cv">cv(7)</a>, <a href="https://os.nicktrim.com">night-shift(8)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a>, <a href="https://github.com/nitrimandylis">github(1)</a></div></section>
+
+    <div class="hf mu"><span>nicktrim.com</span><span>{month}</span><span>NICK(1)</span></div>
+    <p class="end" aria-hidden="true"><span class="inv">(END)</span><span class="cursor"></span></p>
   </main>
 </Page>
 <style>
-  .pick{min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:1em;padding:24px;max-width:80ch;margin:0 auto;white-space:pre-wrap}
+  .man{max-width:calc(80ch + 48px);padding:28px 24px 48px}
+  .hf{display:flex;justify-content:space-between;gap:2ch}
+  .hf:first-child{margin-bottom:1.6em}
+  .hf:nth-last-child(2){margin-top:1.6em}
+  .end{margin-top:1em}
+  .inv{background:var(--fg);color:var(--bg)}   /* less prints (END) in reverse video */
+  section{margin-top:1.6em}
+  h2{font-weight:700}
+  .b{padding-left:7ch}
+  .b p+p{margin-top:1em}
+  .kv{display:grid;grid-template-columns:14ch 1fr;column-gap:1ch}
+  .kv a{justify-self:start}
+  @media (max-width:640px){
+    .man{padding:18px 14px 40px}
+    .b{padding-left:3ch}
+    .hf{font-size:.9em}
+    .kv{grid-template-columns:13ch 1fr}
+  }
 </style>

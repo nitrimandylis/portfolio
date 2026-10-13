@@ -5,15 +5,15 @@ const { title, heading, note = '', description } = Astro.props;
 ---
 <Page title={title} description={description}>
   <main class="sub">
-    <a class="back noprint" href="/man">← nick(1)</a>
+    <a class="back noprint" href="/">← nick(1)</a>
     <h1>{heading}{note && <span class="mu"> · {note}</span>}</h1>
     <slot />
   </main>
 </Page>
 <style>
-  .sub{max-width:110ch;margin:0 auto;padding:48px 24px 80px}
+  .sub{max-width:calc(110ch + 48px);padding:28px 24px 80px}
   .back{display:inline-block;margin-bottom:40px}
   h1{margin-bottom:32px}
-  @media (max-width:640px){.sub{padding:24px 14px 56px}.back{margin-bottom:28px}h1{margin-bottom:22px}}
+  @media (max-width:640px){.sub{padding:18px 14px 56px}.back{margin-bottom:28px}h1{margin-bottom:22px}}
   @media print{.sub{padding:0;max-width:none}}
 </style>

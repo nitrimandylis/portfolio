@@ -1,9 +1,9 @@
 ---
 // the diary, 30 a page (/man/films, /man/films/2, ...). data/films.json is appended daily by the action.
 import type { GetStaticPaths } from 'astro';
-import ManSub from '../../../layouts/ManSub.astro';
-import FilmRows from '../../../components/FilmRows.astro';
-import { films, logged, thisYear, favourites } from '../../../data/films';
+import ManSub from '../../layouts/ManSub.astro';
+import FilmRows from '../../components/FilmRows.astro';
+import { films, logged, thisYear, favourites } from '../../data/films';
 
 export const getStaticPaths = (({ paginate }) => paginate(films, { pageSize: 30 })) satisfies GetStaticPaths;
 const { page } = Astro.props;

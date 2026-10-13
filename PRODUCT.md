@@ -117,6 +117,10 @@ Branch `site-bakeoff` (worktree .claude/worktrees/site-bakeoff), off site-2b. Lo
 - **Skin, shared:** JetBrains Mono, #000, #e6e6e6, grey #8a8a8a, no accent. Links are underlines.
 - **Copy fixes:** counts from data; the "taken at night" claim cut (half the prints are daylight);
   NAME ends at "ships them" so BUGS keeps the punchline. Third DESCRIPTION line is a draft.
+- **Picked 2026-10-13: man(1).** The man page reads better for people who aren't technical. From the shell it takes two things:
+  everything anchored to the left edge (no centred column), and the blinking cursor, as less's
+  reverse-video `(END)` under the footer. The man site now lives at / (work, films, photos, cv at the root);
+  the shell stays built at /shell on this branch as the alternative. Freeze until 2026-11-13 starts now.
 - **Exit rule:** pick within a day of seeing both. Every branch (astro, site-2b, the loser) stays as an
   alternative. Design frozen until 2026-11-13 after the pick: copy edits only.
 
