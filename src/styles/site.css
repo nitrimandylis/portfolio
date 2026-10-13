@@ -1,195 +1,245 @@
-/* nicktrim.com: near-black, off-white, one grey, no accent. schibsted grotesk for text, sharpie for the big lines, nick's hand for the signature. */
+/* nicktrim.com, direction 2b: the grid as the camera. a 12-column grid you can see, the name as a window
+   onto a photo, everything else in tables. anton for the name, schibsted for sentences, mono for data.
+   colours are all variables: the palette is still open, nocturne's blurple is the placeholder. */
+@font-face{font-family:Anton;src:url(/fonts/Anton.woff2) format("woff2");font-display:swap}
 @font-face{font-family:Schibsted;src:url(/fonts/Schibsted.woff2) format("woff2");font-weight:400 900;font-display:swap}
-@font-face{font-family:Schibsted;src:url(/fonts/Schibsted-Italic.woff2) format("woff2");font-weight:400 900;font-style:italic;font-display:swap}
-@font-face{font-family:Sharpie;src:url(/fonts/Sharpie.woff2) format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:Sharpie;src:url(/fonts/Sharpie-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:Mono;src:url(/fonts/JetBrainsMono.woff2) format("woff2");font-weight:400 500;font-display:swap}
 
 :root{
-  --bg:#0a0a0a; --fg:#ececec; --mu:#7d7d7d; --line:rgba(236,236,236,.16);
-  --paper:#efe9dc; --ink:#1c1813;
-  --pad:40px;
+  --bg:#0c0d14; --deep:#06070b; --sprocket:#161826;
+  --text:#e9e9ed; --t2:#cfd3e5; --t3:#b2b6ca; --muted:#9397ab; --dim:#75798c;
+  --accent:#9184d9;
+  --line:rgba(233,233,237,.16); --gridline:rgba(233,233,237,.07); --hover:rgba(233,233,237,.04);
+  --cols:12;
+  --mono:Mono,ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box}
-html{background:var(--bg);color:var(--fg);font:400 16px/1.5 Schibsted,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-body{margin:0;min-height:100vh;display:flex;flex-direction:column}
-a{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--mu)}
-a:hover{text-decoration-color:var(--fg)}
-:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+html{background:var(--deep);color:var(--text);font:400 15px/1.5 Schibsted,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 img{display:block;max-width:100%}
-h1,h2{font-weight:500;font-size:1em;margin:0}
-p{margin:0 0 1em}
-.mu{color:var(--mu)}
-.small{font-size:13px;line-height:1.4;color:var(--mu);font-variant-numeric:tabular-nums}
-time,.year,.rating{font-variant-numeric:tabular-nums}
+h1,h2,p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 
-/* the signature: nick's handwriting, top-left of every page, links home */
-.sig{display:block;width:140px;height:44px;background:currentColor;flex:none;
+.mono{font-family:var(--mono)}
+.label{font:400 11px/1.4 var(--mono);color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}
+.ul{text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--dim)}
+.ul:hover{text-decoration-color:var(--text)}
+.prompt{color:var(--accent)}
+
+/* the frame: one column of the page, with the 12 grid lines painted behind everything */
+.frame{max-width:1680px;margin:0 auto;min-height:100vh;background-color:var(--bg);
+  border-left:1px solid var(--line);border-right:1px solid var(--line);
+  background-image:repeating-linear-gradient(to right,transparent 0,transparent calc(100%/var(--cols) - 1px),var(--gridline) calc(100%/var(--cols) - 1px),var(--gridline) calc(100%/var(--cols)))}
+.g{display:grid;grid-template-columns:repeat(var(--cols),1fr)}
+.L{border-bottom:1px solid var(--line)}
+.R{border-right:1px solid var(--line)}
+.T{border-top:1px solid var(--line)}
+.s1{grid-column:span 1}.s2{grid-column:span 2}.s3{grid-column:span 3}.s4{grid-column:span 4}.s5{grid-column:span 5}
+.s6{grid-column:span 6}.s7{grid-column:span 7}.s8{grid-column:span 8}.s9{grid-column:span 9}.s12{grid-column:1/-1}
+.c{padding:12px 20px}
+
+/* the bar: signature, numbered nav, night shift. same on every page */
+.bar{font:400 12px/1 var(--mono)}
+.bar .sig{display:flex;align-items:center;padding:10px 20px}
+.sig i{display:block;width:96px;height:32px;background:var(--text);
   -webkit-mask:url(/hand/name.svg) left center/contain no-repeat;mask:url(/hand/name.svg) left center/contain no-repeat}
-.top{padding:32px var(--pad) 0}
+.bar nav{display:flex;gap:32px;padding:18px 20px}
+.bar a{color:var(--muted)}
+.bar a:hover,.bar a[aria-current]{color:var(--text)}
+.bar .ns{padding:18px 20px;text-align:right}
+.bar .short{display:none}
 
-/* text pages: one measure, left-aligned, generous top */
-main.page{flex:1;width:100%;max-width:calc(60ch + 2 * var(--pad));margin:0;padding:72px var(--pad) 96px}
-main.page h2{color:var(--mu);margin:2.4em 0 .7em;font-weight:400}
-main.page h2:first-of-type{margin-top:0}
-main.page ul{list-style:none;margin:0;padding:0}
-main.page li{margin:0 0 .45em}
-.lede{color:var(--mu)}
-.hi{font-weight:600}
-.where{color:var(--mu)}
+/* corner marks, the letterbox brackets around whatever is selected */
+.marks{position:relative}
+.marks>.mk{position:absolute;width:14px;height:14px;border:0 solid var(--accent);pointer-events:none}
+.mk.tl{left:6px;top:6px;border-left-width:1px;border-top-width:1px}
+.mk.tr{right:6px;top:6px;border-right-width:1px;border-top-width:1px}
+.mk.bl{left:6px;bottom:6px;border-left-width:1px;border-bottom-width:1px}
+.mk.br{right:6px;bottom:6px;border-right-width:1px;border-bottom-width:1px}
 
-/* home: the fixed signature appears once the window has shrunk onto it */
-.home .sig.fixed{position:fixed;top:32px;left:var(--pad);z-index:3;opacity:0;pointer-events:none}
-.home .sig.fixed.on{opacity:1;pointer-events:auto}
-.home.static .sig.fixed{position:absolute}
+/* page heads: the title in anton, a mono note on the right */
+.head .title{padding:36px 20px 28px}
+.head h1{font:400 120px/.86 Anton,sans-serif;text-transform:uppercase}
+.head .note{padding:36px 20px 28px;font:400 12px/1.9 var(--mono);color:var(--muted)}
 
-/* hero: a sticky stage. the window (svg mask of the name) and the polaroid track both live in it */
-.hero{position:relative;z-index:0;--w:min(78vh,640px)}
-.hero .stage{height:100vh;position:sticky;top:0;overflow:hidden}
-.hero .bio{will-change:opacity;position:absolute;top:36px;right:var(--pad);margin:0;max-width:30em;color:var(--mu);text-align:right;font-size:15px;line-height:1.45;z-index:2}
-.hero .window{position:absolute;left:var(--pad);right:var(--pad);top:50%;translate:0 -50%;width:calc(100% - 2 * var(--pad));height:auto;max-height:80vh;
-  transform-origin:left center;will-change:transform;z-index:1}
-.hero .window .ch{transform:translateY(110%);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i) * 70ms + .15s)}
-@keyframes rise{to{transform:none}}
-.hero .track{position:absolute;top:55%;left:0;translate:0 -50%;display:flex;gap:0;padding:0;margin:0;list-style:none;will-change:transform;transform:translate3d(100vw,0,0)}
-.hero .track li{margin-left:calc(var(--w) * -0.18)}
-.hero .track li:first-child{margin-left:0}
-.hero .track li:nth-child(odd) .pol{--r:-2.2deg;translate:0 -2vh}
-.hero .track li:nth-child(even) .pol{--r:1.6deg;translate:0 3vh}
-.hero .pol .cap{font-size:16px;padding-left:4px}
-/* touch / reduced motion: no stage. the window shows the first photo, the polaroids are a row you swipe */
-.hero.rail{--w:min(62vw,320px)}
-.hero.rail .stage{height:auto;position:static;overflow:visible;padding:110px 0 0}
-.hero.rail .window{position:static;translate:none;width:calc(100% - 2 * var(--pad));margin:0 var(--pad)}
-.hero.rail .window .ch{animation:none;transform:none}
-.hero.rail .track{position:static;translate:none;transform:none;overflow-x:auto;overflow-y:hidden;gap:22px;padding:48px var(--pad) 24px;scrollbar-width:none;scroll-snap-type:x proximity}
-.hero.rail .track::-webkit-scrollbar{display:none}
-.hero.rail .track li{margin:0;scroll-snap-align:center}
-.hero.rail .track li .pol{translate:none}
-.hero.rail .pol .cap{font-size:13px}
-.home:has(.hero.rail) .sig.fixed{display:none}
+/* tables: work, cv, films. rows are grid rows, cells carry the lines */
+.table{font:400 13px/1.55 var(--mono)}
+.table .row{display:contents}
+.table .row>*{padding:12px 20px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.table .row>:last-child{border-right:0}
+.table .row:hover>*{background:var(--hover)}
+.table .row:hover .n{color:var(--accent)}
+.table .th>*{color:var(--dim)}
+.table .name{color:var(--text)}
+.table .name a:hover{text-decoration:underline;text-underline-offset:4px}
+.table .line{color:var(--t3)}
+.table .meta{color:var(--muted)}
+.table .meta a{margin-right:12px}
+.table .meta a:hover{color:var(--text)}
+.table .n,.table .sec{color:var(--dim)}
+.table .prose{font:400 14px/1.5 Schibsted,sans-serif;color:var(--t3)}
+.table .cmd{grid-column:1/-1;padding:12px 20px;color:var(--muted);border-bottom:1px solid var(--line)}
+.table a.cmd{color:var(--text)}
+.table a.cmd:hover{background:var(--hover)}
+.table .cmd .dim{color:var(--dim)}
 
-/* polaroid 600: 88 x 107, image 79 x 79, top 6, sides 4.5. a print, not a toy: no tilt physics, no gloss */
-.pol{display:block;position:relative;flex:none;width:var(--w);aspect-ratio:88/107;padding:calc(var(--w)*6/88) calc(var(--w)*4.5/88) 0;
-  background:var(--paper);border-radius:2px;color:var(--ink);text-decoration:none;transform:rotate(var(--r,0deg));
-  box-shadow:0 1px 1px rgba(0,0,0,.4),0 10px 18px -6px rgba(0,0,0,.6),0 30px 50px -20px rgba(0,0,0,.8)}
-.pol::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;mix-blend-mode:multiply;opacity:.5;
-  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .5  0 0 0 0 .45  0 0 0 .35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-.pol .img{display:block;position:relative;aspect-ratio:1;overflow:hidden;background:#111}
-.pol .img img{width:100%;height:100%;object-fit:cover}
-.pol .img::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(30,20,10,.5),inset 0 2px 4px rgba(0,0,0,.4)}
-.pol .cap{display:flex;align-items:center;height:calc(var(--w)*22/88);padding-left:2px;font-size:13px;color:#6b6257;font-variant-numeric:tabular-nums}
+/* the film strip: sprocket holes above and below a row of frames */
+.film{background:var(--deep);overflow:hidden}
+.holes{height:24px;background:repeating-linear-gradient(to right,transparent 0 16px,var(--sprocket) 16px 28px) 20px center/auto 8px repeat-x}
+.frames{display:flex}
+.frames a{flex:none;width:calc(100%/6);padding:6px 10px;position:relative}
+.frames img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover}
+.frames .num{position:absolute;left:14px;bottom:10px;font:400 10px var(--mono);color:var(--muted)}
+.frames a:hover img{outline:1px solid var(--accent);outline-offset:3px}
 
-/* sections: the deck's skeleton. title column sticky on the left, content on the right, one 12-column grid */
-.sec{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,2vw,32px);row-gap:28px;padding:clamp(56px,9vw,120px) var(--pad)}
-.sec h2{grid-column:1/4;position:sticky;top:96px;align-self:start;margin:0;font-size:22px;font-weight:500;letter-spacing:-.01em;line-height:1}
-.sec h2 small{display:block;margin-top:.6em;font-size:13px;font-weight:400;color:var(--mu);max-width:18ch;line-height:1.35}
-.sec .content{grid-column:4/12}
-.display{font-family:Sharpie,cursive;font-weight:400;letter-spacing:0}
-.sec .big{font-size:clamp(32px,3.4vw,46px);line-height:1.1;max-width:20ch;margin:0 0 .6em}
-.sec .big + p{max-width:50ch;font-size:17px}
-.sec .after{margin:1.6em 0 0;color:var(--mu);max-width:50ch}
-.numbers{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:max-content 1fr;gap:clamp(14px,2vw,26px) clamp(20px,3vw,48px);align-items:baseline}
-.numbers li{display:contents}
-.numbers strong{font-size:clamp(44px,5.2vw,72px);line-height:.95}
-.numbers span{max-width:44ch}
-.rows{list-style:none;margin:0;padding:0}
-.rows li{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,7fr) minmax(0,2fr);gap:8px clamp(16px,3vw,40px);padding:18px 0;border-top:1px solid var(--line);align-items:baseline}
-.rows li:last-child{border-bottom:1px solid var(--line)}
-.rows .t{font-weight:500;font-size:18px;letter-spacing:-.01em;text-decoration:none}
-.rows .t:hover{text-decoration:underline}
-.rows span{color:var(--mu)}
-.rows .link{text-align:right;color:var(--mu);text-decoration:none}
-.rows .link:hover{text-decoration:underline;color:var(--fg)}
-.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px clamp(20px,3vw,48px)}
-.cols h3{margin:0 0 .5em;font-size:1em;font-weight:500}
-.cols ul{margin:0;padding:0;list-style:none;display:grid;gap:.7em}
-.cols li{font-size:15px}
-.home .diary{margin:1.4em 0 0;padding:0;list-style:none}
-.home .diary li{margin:0 0 .6em}
+/* ---------- home ---------- */
+.hero .window{padding:44px 20px 36px}
+.hero h1{font:400 var(--name) /.9 Anton,sans-serif;text-transform:uppercase;letter-spacing:-.01em;white-space:nowrap;
+  color:transparent;-webkit-background-clip:text;background-clip:text;background-size:cover;background-position:50% 35%;
+  --name:calc((min(100vw,1680px) * .75 - 40px) / 4.62)}
+.hero h1 .m{display:none}
+.hero .side{padding:44px 20px 36px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.hero .bio{font-size:16px;line-height:1.5;color:var(--t2)}
+.hero .facts{font:400 11px/1.9 var(--mono);color:var(--muted);text-transform:uppercase}
+.grain{position:relative}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.striphead{display:flex;justify-content:space-between;padding:12px 20px;font:400 12px var(--mono);color:var(--muted)}
+.striphead a:hover{color:var(--text)}
+.bottom>div{padding:32px 20px}
+.results li{font-size:14px;line-height:1.5;color:var(--t2);margin-bottom:6px}
+.results .who{color:var(--muted)}
+.filmline{font-size:18px;line-height:1.3;margin-bottom:10px}
+.favs{font-size:13px;color:var(--muted);margin-bottom:10px}
+.contact a{display:block;font:400 13px/1 var(--mono);margin-bottom:12px}
 
-/* the ask, at the size of the thesis */
-.ask{padding:clamp(56px,9vw,120px) var(--pad) 40px;display:grid;gap:40px}
-.ask .big{font-size:clamp(36px,4.8vw,64px);line-height:1.02;max-width:14ch;margin:0}
-.ask .mail{font-size:clamp(20px,2vw,28px);font-weight:500;letter-spacing:-.02em;justify-self:start}
-.ask .meta{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px;color:var(--mu)}
-.ask .meta a{margin-right:18px;text-decoration:none}
-.ask .meta a:hover{text-decoration:underline}
+/* ---------- photos ---------- */
+.sheet .frames{flex-wrap:wrap}
+.sheet .frames button{flex:none;width:calc(100%/6);padding:6px 10px;position:relative}
+.sheet .frames button:hover img{outline:1px solid var(--accent);outline-offset:3px}
+.sheet .holes+.frames+.holes{margin-top:0}
+.projector{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:var(--deep);color:var(--text)}
+.projector::backdrop{background:var(--deep)}
+.projector[open]{display:flex;flex-direction:column}
+.projector .screen{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:28px 48px 44px}
+.projector .screen img{max-height:100%;max-width:100%;object-fit:contain;animation:up .2s ease-out}
+@keyframes up{from{opacity:0}}
+.projector .cap,.projector .keys,.projector .count,.projector .close{position:absolute;font:400 11px var(--mono);color:var(--muted)}
+.projector .cap{left:48px;bottom:14px;letter-spacing:.14em;text-transform:uppercase}
+.projector .keys{right:48px;bottom:14px}
+.projector .count{right:48px;top:20px;font-size:12px;color:var(--text)}
+.projector .close{left:48px;top:18px;font-size:12px}
+.projector .close:hover{color:var(--text)}
+.projector .screen{position:relative}
+.projector .mk.tl{left:20px;top:20px}.projector .mk.tr{right:20px;top:20px}
+.projector .mk.bl{left:20px;bottom:0}.projector .mk.br{right:20px;bottom:0}
+.scrub{border-top:1px solid var(--sprocket);flex:none}
+.scrub .frames{gap:6px;padding:2px 20px;overflow-x:auto;scrollbar-width:none}
+.scrub .frames button{flex:none;width:92px}
+.scrub .frames img{opacity:.5}
+.scrub .frames button[aria-current] img{opacity:1;outline:1px solid var(--accent);outline-offset:2px}
+.scrub .frames button:hover img{opacity:1}
 
-/* work: one line per project. featured first and larger, the rest in the same form */
-.work li{margin:0 0 1.1em;max-width:60ch}
-.work .featured li{margin:0 0 1.5em}
-.work .featured .t{font-size:22px;font-weight:500;letter-spacing:-.01em;text-decoration:none}
-.work .featured .t:hover{text-decoration:underline}
-.work .t{text-decoration:none}
-.work .t:hover{text-decoration:underline}
-.work li p{margin:.1em 0 0;color:var(--mu)}
-.work li p a{color:var(--fg)}
-.work .rest li{display:flex;gap:.8em;align-items:baseline;flex-wrap:wrap;margin:0 0 .5em}
-.work .rest li p{margin:0}
+/* ---------- films ---------- */
+.films-head .title{display:flex;flex-direction:column;justify-content:space-between;gap:28px}
+.films-head .stats{font:400 12px/1.9 var(--mono);color:var(--muted)}
+.films-head .stats a{color:var(--text)}
+.films-head .filmline{margin-bottom:8px}
+.stubcell{padding:28px 20px;display:flex;align-items:center;justify-content:center}
+.stub{display:flex;width:100%;max-width:380px;color:#111;filter:drop-shadow(0 10px 24px rgba(0,0,0,.6));transition:transform .2s}
+.stub:hover{transform:translateY(-2px) rotate(-.6deg)}
+.stub .main{flex:1;background:#e9e9ed;padding:16px 18px;border-radius:6px 0 0 6px}
+.stub .top{font:400 10px var(--mono);letter-spacing:.2em;color:#444;display:flex;justify-content:space-between}
+.stub .t{font:400 30px/.95 Anton,sans-serif;text-transform:uppercase;margin:12px 0 10px}
+.stub .grid3{font:400 10px var(--mono);color:#444;display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:4px 10px}
+.stub .grid3 b{font-weight:400;color:#111}
+.stub .fine{font:400 9px var(--mono);color:#666;margin-top:10px;letter-spacing:.1em}
+.stub .tear{width:0;border-left:2px dashed var(--bg);background:#e9e9ed;position:relative}
+.stub .tear::before,.stub .tear::after{content:"";position:absolute;left:-9px;width:16px;height:16px;border-radius:50%;background:var(--bg)}
+.stub .tear::before{top:-9px}.stub .tear::after{bottom:-9px}
+.stub .tail{width:84px;background:#e9e9ed;padding:16px 10px;border-radius:0 6px 6px 0;display:flex;flex-direction:column;justify-content:space-between;align-items:center}
+.stub .tail .v{font:400 9px var(--mono);letter-spacing:.2em;writing-mode:vertical-rl;color:#444}
+.stub .tail .big{font:400 22px/1 Anton,sans-serif}
+.stub .tail .d{font:400 9px var(--mono);color:#444}
+.again{color:var(--dim);margin-left:8px}
 
-/* cv */
-.langs{border-collapse:collapse}
-.langs td{padding:0 2em .25em 0;vertical-align:top}
-.langs td+td{color:var(--mu)}
+/* ---------- cv ---------- */
+.cv-end{font-size:18px}
+.cv-links a{display:block;font:400 12px/1 var(--mono);color:var(--muted);margin-bottom:10px}
+.cv-links a:hover{color:var(--text)}
+.printonly{display:none}
 
-/* films: one stats line, favourites, the diary */
-.diary li{margin:0 0 1.1em}
-.diary .line{display:flex;gap:1em;align-items:baseline;flex-wrap:wrap}
-.diary time,.diary .year,.diary .again{color:var(--mu)}
-.diary .line a{text-decoration:none}
-.diary .line a:hover{text-decoration:underline}
-.diary .rating{font-size:.85em;letter-spacing:.04em}
-.diary .review{margin:.2em 0 0;color:var(--mu);max-width:50ch}
-.diary .review p{margin:0 0 .4em}
+/* ---------- load sequence: once per session, under a second, any input skips it ---------- */
+.intro .frame{animation:draw .12s linear both}
+.intro .bar{animation:type .3s steps(24) .12s both}
+.intro .hero h1{animation:fill .4s cubic-bezier(.2,.7,.2,1) .42s both}
+@keyframes draw{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+@keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0)}}
+@keyframes fill{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0)}}
 
-/* photos: prints at their real shape, thin border, grid. click opens the <dialog> */
-main.page.photos{max-width:none}
-.prints{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:48px 36px;align-items:start;margin:0;padding:0;list-style:none}
-.prints li{margin:0}
-.prints button{display:block;width:100%;padding:6px 6px 0;border:0;background:#f2eee6;cursor:zoom-in;color:#5e5750;font:inherit;text-align:left;
-  box-shadow:0 1px 1px rgba(0,0,0,.4),0 10px 18px -6px rgba(0,0,0,.6)}
-.prints button:focus-visible{outline-offset:4px}
-.prints img{width:100%;height:auto}
-.prints span{display:block;padding:.5em 2px .6em;font-size:13px;font-variant-numeric:tabular-nums}
-.lightbox{max-width:none;max-height:none;width:100vw;height:100vh;margin:0;padding:24px;border:0;background:rgba(10,10,10,.96);color:var(--fg)}
-.lightbox[open]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6em}
-.lightbox::backdrop{background:transparent}
-.lightbox img{max-width:100%;max-height:calc(100vh - 110px);width:auto;height:auto;object-fit:contain}
-.lightbox p{margin:0;font-size:13px;color:var(--mu);font-variant-numeric:tabular-nums}
-.lightbox button{border:0;background:none;color:var(--mu);font:inherit;cursor:pointer}
-.lightbox button:hover{color:var(--fg)}
-.lightbox .nav{position:fixed;top:50%;transform:translateY(-50%);font-size:1.5em;padding:16px}
-.lightbox .prev{left:8px}.lightbox .next{right:8px}
-.lightbox .close{position:fixed;top:16px;right:20px}
-
+/* ---------- mobile: four columns ---------- */
 @media (max-width:720px){
-  :root{--pad:22px}
-  .top{padding-top:26px}
-  .sig{width:120px;height:38px}
-  main.page{padding:48px var(--pad) 72px}
-  .home .sig.fixed{top:26px}
-  .hero .bio{position:static;text-align:left;padding:0 var(--pad);margin:0 0 20px}
-  .hero.rail .stage{padding-top:84px}
-  .sec{row-gap:18px}
-  .sec h2{grid-column:1/13;position:static}
-  .sec h2 small{display:inline;margin-left:.6em}
-  .sec .content{grid-column:1/13}
-  .numbers{grid-template-columns:1fr;gap:6px}
-  .numbers strong{margin-top:14px}
-  .rows li{grid-template-columns:1fr;gap:4px}
-  .rows .link{text-align:left}
-  .cols{grid-template-columns:1fr}
-  .work .featured .t{font-size:20px}
-  .prints{grid-template-columns:1fr 1fr;gap:24px 16px}
-  .prints button{padding:4px 4px 0}
+  :root{--cols:4}
+  .s1,.s2,.s3,.s4,.s5,.s6,.s7,.s8,.s9{grid-column:1/-1}
+  .m4{grid-column:span 4}.m3{grid-column:span 3}.m2{grid-column:span 2}.m1{grid-column:span 1}
+  .mR0{border-right:0}
+  .mhide{display:none}
+  .c{padding:10px 12px}
+  .bar .sig{padding:8px 12px}
+  .sig i{width:64px;height:24px}
+  .bar nav{gap:14px;padding:14px 12px;justify-content:flex-end;font-size:11px}
+  .bar .long{display:none}.bar .short{display:inline}
+  .bar .ns{display:none}
+  .head .title{padding:22px 12px 16px}
+  .head h1{font-size:64px}
+  .head .note{padding:0 12px 18px;font-size:10px}
+  .hero .window{padding:24px 10px 16px}
+  .hero h1{--name:calc((100vw - 20px) / 3.02);line-height:.88;white-space:normal}
+  .hero h1 .d{display:none}.hero h1 .m{display:inline}
+  .hero .side{padding:0 12px 22px}
+  .hero .bio{font-size:14px}
+  .hero .facts{display:none}
+  .table{font-size:12px}
+  .table .row>*{padding:10px 12px}
+  .table .cmd{padding:10px 12px}
+  .frames a{width:25%;padding:4px 6px}
+  .film:not(.sheet) .frames{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .film:not(.sheet) .frames a{scroll-snap-align:start}
+  .sheet .frames button{width:50%;padding:4px 6px}
+  .bottom>div{padding:20px 12px}
+  /* cv: each entry becomes one block, the section label above its group */
+  .cvt .row>*{border:0;padding:2px 12px}
+  .cvt .row>:empty{display:none}
+  .cvt .sec{border-top:1px solid var(--line);padding-top:18px;text-transform:uppercase;font-size:10px}
+  .cvt .sec:empty+.name{border-top:1px solid var(--line);padding-top:12px}
+  .cvt .row>:last-child:not(:empty),.cvt .line:has(+.meta:empty){padding-bottom:12px}
+  .results li{font-size:13px}
+  .filmline{font-size:15px}
+  .contact a{font-size:11px;word-break:break-all}
+  .stubcell{padding:18px 12px}
+  .projector .screen{padding:48px 12px 40px}
+  .projector .cap{left:12px}.projector .keys{display:none}.projector .count{right:12px}.projector .close{left:12px}
 }
-@media (prefers-reduced-motion:reduce){.hero .window .ch{animation:none;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+
+/* ---------- print: the cv on paper, black ink, same grid ---------- */
 @media print{
-  html{background:#fff;color:#111;font-size:11pt}
-  .sig{background:#111}
-  main.page{padding:0;max-width:none}
-  .no-print,.hero,#thesis,#results,#work,#films,.ask .big{display:none}
-  .sec{display:block;padding:0}
-  .sec h2{position:static;margin:0 0 1em}
-  .where,main.page h2,.langs td+td{color:#555}
+  :root{--bg:#fff;--deep:#fff;--text:#111;--t2:#222;--t3:#222;--muted:#444;--dim:#666;--line:rgba(0,0,0,.2);--gridline:transparent}
+  html{background:#fff;font-size:11px}
+  .frame{border:0;max-width:none}
+  .bar nav,.bar .ns,.noprint{display:none}
+  .printonly{display:block}
+  .head h1{font-size:64px}
+  .head .title,.head .note{padding:20px 14px 14px}
+  .table{font-size:10px}
+  .table .row>*{padding:7px 14px}
+  .cv-links a::after{content:""}
+  .table .row{break-inside:avoid}
+  @page{margin:12mm}
 }

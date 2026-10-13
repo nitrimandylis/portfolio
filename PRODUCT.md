@@ -97,7 +97,16 @@ kept as the minimal fallback). Locked:
   year or live/code links instead of "featured", films from films.json,
   real signature strokes from public/hand.
 
-### Status (2026-10-13)
+### Status, branch site-2b (2026-10-13)
+
+2b built on branch `site-2b` (worktree .claude/worktrees/site-2b), replacing
+every astro page: home, work, cv (new), photos (sheet + projector), films
+(table + stub), 404. Anton and JetBrains Mono self-hosted, Sharpie removed
+(proto/type.html still names it). Hero set: concert, sunset, corfu, tuscany,
+siena, rome (HERO in index.astro). Build passes; checked at 1440 and 390.
+Open: palette, the blurple is a placeholder in the :root variables.
+
+### Status, branch astro (2026-10-13)
 
 Built on branch `astro`: remix home, three subpages, 404, og.png, favicon.
 `bun run build` passes, screenshots checked at 1440 and 390 through the

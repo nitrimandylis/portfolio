@@ -1,5 +1,5 @@
 ---
-// films: one stats line, the favourites as a line, the diary as text. data/films.json is appended daily by the action.
+// films: the diary as a table, the latest film printed as a ticket stub. data/films.json is appended daily by the action.
 import Base from '../layouts/Base.astro';
 import filmsJson from '../../data/films.json';
 
@@ -11,27 +11,53 @@ const rated = films.map(f => f.rating).filter((r): r is number => r != null).sor
 const typical = rated.length ? rated[Math.floor(rated.length / 2)] : null;
 const stars = (r: number | null) => r == null ? '' : '★'.repeat(Math.floor(r)) + (r % 1 ? '½' : '');
 const favourites = [
-  ['the odyssey', 'https://letterboxd.com/film/the-odyssey-2026/'],
-  ['pacific rim', 'https://letterboxd.com/film/pacific-rim/'],
-  ['across the spider-verse', 'https://letterboxd.com/film/spider-man-across-the-spider-verse/'],
-  ['shutter island', 'https://letterboxd.com/film/shutter-island/'],
+  ['The Odyssey', 'https://letterboxd.com/film/the-odyssey-2026/'],
+  ['Pacific Rim', 'https://letterboxd.com/film/pacific-rim/'],
+  ['Across the Spider-Verse', 'https://letterboxd.com/film/spider-man-across-the-spider-verse/'],
+  ['Shutter Island', 'https://letterboxd.com/film/shutter-island/'],
 ];
+const latest = films[0];
 ---
-<Base title="films, nick trim" description="nick trim's film diary, from letterboxd.">
-  <main class="page films">
-    <p class="lede">{thisYear} films this year, {SEED + films.length} that i know of{typical ? <>, usually <span class="rating">{stars(typical)}</span>{typical === 5 ? '. i like films.' : '.'}</> : '.'}</p>
-    <p class="lede">favourites: {favourites.map(([t, u], i) => <>{i > 0 && ', '}<a href={u}>{t}</a></>)}.</p>
+<Base title="films, nick trimandylis" description="nick trimandylis's film diary, from letterboxd." current="films">
+  <section class="head films-head g">
+    <div class="title s8 R">
+      <h1>Films</h1>
+      <div>
+        <p class="filmline">usually {stars(typical)}.{typical === 5 && ' i like films.'}</p>
+        <p class="stats">{SEED + films.length} films logged · {thisYear} this year · <a class="ul" href="https://letterboxd.com/nick_trim8/">letterboxd diary →</a><br>
+          favourites — {favourites.map(([t, u], i) => <>{i > 0 && ' · '}<a href={u}>{t}</a></>)}</p>
+      </div>
+    </div>
+    {latest && (
+      <div class="stubcell s4">
+        <a class="stub" href={latest.url} aria-label={`latest: ${latest.title}`}>
+          <div class="main">
+            <div class="top"><span>ADMIT ONE</span><span>LATEST</span></div>
+            <div class="t">{latest.title}</div>
+            <div class="grid3"><span>YEAR</span><span>SHOWTIME</span><span>SEAT</span>
+              <b>{latest.year}</b><b>{latest.watched}</b><b>{stars(latest.rating) || '—'}</b></div>
+            <div class="fine">{latest.rewatch ? 'REWATCH · ' : ''}NO REFUNDS</div>
+          </div>
+          <div class="tear"></div>
+          <div class="tail"><span class="v">ADMIT ONE</span><span class="big">★{latest.rating ?? '—'}</span><span class="d">{latest.watched.slice(5).replace('-', '·')}</span></div>
+        </a>
+      </div>
+    )}
+  </section>
 
-    <ul class="diary">
-      {films.slice(0, 20).map(f => (
-        <li>
-          <div class="line"><time datetime={f.watched}>{f.watched}</time>
-            <a href={f.url}>{f.title.toLowerCase()}</a> <span class="year">{f.year}</span>
-            <span class="rating">{stars(f.rating)}</span>{f.rewatch && <span class="again">again</span>}</div>
-          {f.review && <div class="review">{f.review.split('\n').map(p => <p>{p}</p>)}</div>}
-        </li>
-      ))}
-    </ul>
-    <p class="lede" style="margin-top:2em">the rest is on <a href="https://letterboxd.com/nick_trim8/">letterboxd</a>.</p>
-  </main>
+  <div class="table g T">
+    <div class="row th">
+      <span class="s2 m1">date</span><span class="s4 m2">film</span><span class="s1 mhide">year</span><span class="s1 m1 mR0">★</span><span class="s4 mhide">review</span>
+    </div>
+    {films.map(f => (
+      <div class="row">
+        <span class="n s2 m1"><time datetime={f.watched}>{f.watched}</time></span>
+        <span class="name s4 m2"><a href={f.url}>{f.title}</a>{f.rewatch && <span class="again">again</span>}</span>
+        <span class="meta s1 mhide">{f.year}</span>
+        <span class="name s1 m1 mR0">{stars(f.rating)}</span>
+        <span class="prose s4 mhide">{f.review}</span>
+      </div>
+    ))}
+    <span class="cmd">the rest is on <a class="ul" href="https://letterboxd.com/nick_trim8/">letterboxd</a>.</span>
+  </div>
 </Base>

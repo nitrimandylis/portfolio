@@ -1,5 +1,5 @@
 ---
-// work: text only. featured six first, then every other live project in the same form.
+// work: every project as one table row, featured six first. the home page imports both lists.
 import Base from '../layouts/Base.astro';
 export const featured = [
   { name: 'tokenpilot', url: 'https://tokenpilot.nicktrim.com', code: 'https://github.com/nitrimandylis/tokenpilot', what: 'reads an anthropic or openai admin api and tells you what every model, key and team costs. built at omilia, in production.' },
@@ -9,7 +9,7 @@ export const featured = [
   { name: 'gridcast', url: 'https://gridcast.nicktrim.com', code: 'https://github.com/nitrimandylis/gridcast', what: 'f1 race probabilities committed to git before every race and scored in public afterwards. a raspberry pi runs the weekend.' },
   { name: 'blither', url: 'https://blither.nicktrim.com', code: 'https://github.com/nitrimandylis/blither', what: 'names for your next cli, app or startup, from a character model that runs in your browser. give it hint words, it gives you fifty options.' },
 ];
-const rest = [
+export const rest = [
   ['apex', 'https://apex.nicktrim.com', 'f1 dashboard with live standings and replayable telemetry'],
   ['petal.ai', 'https://github.com/nitrimandylis/Petal.AI', 'a soft-skills coach for iphone, in swiftui'],
   ['whimprflow', 'https://github.com/nitrimandylis/WhimprFlow', 'a voice dictation app for the mac, polished and translated'],
@@ -33,20 +33,32 @@ const rest = [
   ['starspace', 'https://starspace.nicktrim.com', 'three fields of computer science, explained for school'],
   ['night shift', 'https://os.nicktrim.com', 'the old site, disguised as an operating system'],
 ];
+// the right-hand cell: 'live' when the project has a site, 'code' when it has a repo
+export const links = (url: string, code?: string) => {
+  const out: [string, string][] = [];
+  if (!url.includes('github.com')) out.push(['live', url]);
+  if (code) out.push(['code', code]);
+  else if (url.includes('github.com')) out.push(['code', url]);
+  return out;
+};
+const all = [
+  ...featured.map(f => ({ name: f.name, url: f.url, what: f.what, links: links(f.url, f.code) })),
+  ...rest.map(([name, url, what]) => ({ name, url, what, links: links(url) })),
+];
 ---
-<Base title="work, nick trim" description="things nick trim built. tokenpilot, llm-mafia, aidetect, bacpack, gridcast, blither, and the rest.">
-  <main class="page work">
-    <ul class="featured">
-      {featured.map(f => (
-        <li><a class="t" href={f.url}>{f.name}</a>
-          <p>{f.what}{f.code && <> <a href={f.code}>code</a></>}</p></li>
-      ))}
-    </ul>
-    <h2>also</h2>
-    <ul class="rest">
-      {rest.map(([name, url, what]) => (
-        <li><a class="t" href={url}>{name}</a><p>{what}</p></li>
-      ))}
-    </ul>
-  </main>
+<Base title="work, nick trimandylis" description="everything nick trimandylis has built. tokenpilot, llm-mafia, aidetect, bacpack, gridcast, blither, and the rest." current="work">
+  <section class="head g L">
+    <div class="title s9 R"><h1>Work</h1></div>
+    <div class="note s3"><span class="prompt">❯</span> ls work/ --long --all<br>{all.length} entries · featured first</div>
+  </section>
+  <div class="table g">
+    {all.map((p, i) => (
+      <div class="row">
+        <span class="n s1 mhide">{String(i + 1).padStart(2, '0')}</span>
+        <span class="name s2 m1"><a href={p.url}>{p.name}</a></span>
+        <span class="line s7 m3 mR0">{p.what}</span>
+        <span class="meta s2 mhide">{p.links.map(([label, href]) => <a href={href}>{label}</a>)}</span>
+      </div>
+    ))}
+  </div>
 </Base>
