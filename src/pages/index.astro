@@ -1,13 +1,15 @@
 ---
-// the man(1) home: nick as a manual page. the only page on /man that keeps the format; the rest are plain.
+// the man(1) home: nick as a manual page, typed into a terminal. `man nicktrim` on top, back at the prompt at the end. the only page on /man that keeps the format; the rest are plain.
 import Page from '../layouts/Page.astro';
 import { featured } from '../data/work';
 import { logged, latest } from '../data/films';
 import { photos, projectCount, song, month } from '../data/site';
 ---
 <Page>
+  <header class="titleline mu">nick@athens ~</header>
   <main class="man">
-    <div class="hf"><span>NICK(1)</span><span class="mu">General Commands Manual</span><span>NICK(1)</span></div>
+    <p class="prompt"><span class="mu">❯</span> man nicktrim</p>
+    <div class="hf top"><span>NICK(1)</span><span class="mu">General Commands Manual</span><span>NICK(1)</span></div>
 
     <section><h2>NAME</h2>
       <div class="b">nick trim - athens, final-year ib. builds tools, ships them.</div></section>
@@ -41,17 +43,17 @@ import { photos, projectCount, song, month } from '../data/site';
     <section><h2>SEE ALSO</h2>
       <div class="b"><a href="/cv">cv(7)</a>, <a href="https://os.nicktrim.com">night-shift(8)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a>, <a href="https://github.com/nitrimandylis">github(1)</a></div></section>
 
-    <div class="hf mu"><span>nicktrim.com</span><span>{month}</span><span>NICK(1)</span></div>
-    <p class="end" aria-hidden="true"><span class="inv">(END)</span><span class="cursor"></span></p>
+    <div class="hf bottom mu"><span>nicktrim.com</span><span>{month}</span><span>NICK(1)</span></div>
+    <p class="end" aria-hidden="true"><span class="mu">❯</span> <span class="cursor"></span></p>
   </main>
 </Page>
 <style>
-  .man{max-width:calc(80ch + 48px);margin:0 auto;padding:64px 24px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+  .man{max-width:calc(80ch + 48px);margin:0 auto;padding:64px 24px;min-height:calc(100vh - 40px);display:flex;flex-direction:column;justify-content:center}
   .hf{display:flex;justify-content:space-between;gap:2ch}
-  .hf:first-child{margin-bottom:1.6em}
-  .hf:nth-last-child(2){margin-top:1.6em}
-  .end{margin-top:1em}
-  .inv{background:var(--fg);color:var(--bg)}   /* less prints (END) in reverse video */
+  .prompt{margin-bottom:1.6em}
+  .top{margin-bottom:1.6em}
+  .bottom{margin-top:1.6em}
+  .end{margin-top:1.6em}
   section{margin-top:1.6em}
   h2{font-weight:700}
   .b{padding-left:7ch}

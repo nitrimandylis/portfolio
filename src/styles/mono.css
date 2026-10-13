@@ -20,6 +20,9 @@ b{font-weight:700}
 @keyframes blink{50%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.cursor{animation:none}}
 
+/* the terminal's title line, above the shell and the man page */
+.titleline{padding:10px 24px;border-bottom:1px solid var(--line);font-size:12px;text-align:center}
+
 /* ---------- lists shared by both sites ---------- */
 /* a row: a fixed name column, then the rest. on a phone the rest drops under the name */
 .rows{display:grid;grid-template-columns:var(--key,16ch) 1fr auto;gap:4px 3ch}
@@ -52,6 +55,7 @@ b{font-weight:700}
 
 @media (max-width:640px){
   html{font-size:13px}
+  .titleline{padding:8px 14px}
   .rows{grid-template-columns:1fr auto}
   .row .what{grid-column:1/-1;grid-row:2;color:var(--mu);margin-bottom:.6em}
   .row{display:grid;grid-column:1/-1;grid-template-columns:subgrid;row-gap:4px}

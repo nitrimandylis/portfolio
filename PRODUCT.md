@@ -117,8 +117,8 @@ Branch `site-bakeoff` (worktree .claude/worktrees/site-bakeoff), off site-2b. Lo
 - **Skin, shared:** JetBrains Mono, #000, #e6e6e6, grey #8a8a8a, no accent. Links are underlines.
 - **Copy fixes:** counts from data; the "taken at night" claim cut (half the prints are daylight);
   NAME ends at "ships them" so BUGS keeps the punchline. Third DESCRIPTION line is a draft.
-- **Picked 2026-10-13: man(1).** The man page reads better for people who aren't technical. From the shell it takes the blinking cursor,
-  as less's reverse-video `(END)` under the footer. The shell's left-edge layout was tried and dropped: the man
+- **Picked 2026-10-13: man(1).** The man page reads better for people who aren't technical. From the shell it takes the title line
+  (`nick@athens ~`) and the blinking prompt: the home opens on `❯ man nicktrim` and ends back at `❯ █`. The shell's left-edge layout was tried and dropped: the man
   pages stay a centred column. The man site now lives at / (work, films, photos, cv at the root);
   the shell stays built at /shell on this branch as the alternative. Freeze until 2026-11-13 starts now.
 - **Exit rule:** pick within a day of seeing both. Every branch (astro, site-2b, the loser) stays as an
