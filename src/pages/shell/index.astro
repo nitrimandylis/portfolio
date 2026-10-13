@@ -1,0 +1,28 @@
+---
+// the shell home (2c): the whole home is one terminal session. each command links to the page it stands for.
+import Shell from '../../layouts/Shell.astro';
+import Cmd from '../../components/Cmd.astro';
+import WorkList from '../../components/WorkList.astro';
+import { all, featured } from '../../data/work';
+import { favourites } from '../../data/films';
+import { results, contact, song } from '../../data/site';
+const featuredRows = all.slice(0, featured.length);
+---
+<Shell>
+  <Cmd cmd="whoami"><p>athens, final-year ib. builds tools, ships them, occasionally finishes them.</p></Cmd>
+  <Cmd cmd="ls work/ --featured" href="/shell/work">
+    <WorkList items={featuredRows} />
+    <p class="mu more">... {all.length - featured.length} more: <a href="/shell/work">ls work/ --all</a></p>
+  </Cmd>
+  <Cmd cmd="cat results.txt" href="/shell/cv"><ul>{results.map(r => <li>{r}</li>)}</ul></Cmd>
+  <Cmd cmd="cat films.md" href="/shell/films">
+    <p>usually ★★★★★. i like films.</p>
+    <p class="mu">favourites: {favourites.map(([t, u], i) => <>{i > 0 && ', '}<a href={u}>{t}</a></>)}</p>
+  </Cmd>
+  <Cmd cmd="echo $ON_REPEAT"><p>{song}</p></Cmd>
+  <Cmd cmd="contact"><p class="links">{contact.map(([label, href]) => <a href={href}>{label}</a>)}</p></Cmd>
+</Shell>
+<style>
+  .more{margin-top:.6em}
+  .links{display:flex;flex-wrap:wrap;gap:.4em 3ch}
+</style>

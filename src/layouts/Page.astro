@@ -1,0 +1,28 @@
+---
+// every page of both sites: the head tags, the shared skin, then the page.
+import '../styles/mono.css';
+const { title = 'nick trimandylis', description = 'nick trimandylis. athens, final-year ib. builds tools, shoots photos, watches films.' } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<meta name="theme-color" content="#000000">
+<link rel="preload" href="/fonts/JetBrainsMono.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="nick trimandylis">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={url}>
+<meta property="og:image" content="https://nicktrim.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<slot />
+</body>
+</html>

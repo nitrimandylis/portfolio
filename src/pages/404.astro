@@ -1,9 +1,7 @@
 ---
-import Base from '../layouts/Base.astro';
+import Page from '../layouts/Page.astro';
 ---
-<Base title="not here, nick trimandylis">
-  <section class="head g L">
-    <div class="title s9 R"><h1>404</h1></div>
-    <div class="note s3"><span class="prompt">❯</span> ls<br>no such page. <a class="ul" href="/">home →</a></div>
-  </section>
-</Base>
+<Page title="not here, nick trimandylis">
+  <main class="nf"><p>no such page.</p><p class="mu"><a href="/man">man(1)</a> · <a href="/shell">shell</a></p></main>
+</Page>
+<style>.nf{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.6em}</style>

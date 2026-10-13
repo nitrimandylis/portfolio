@@ -39,3 +39,9 @@ export const links = (url: string, code?: string) => {
   else if (url.includes('github.com')) out.push(['code', url]);
   return out;
 };
+
+// every project in one shape, featured first: what the work pages list
+export const all = [
+  ...featured.map(f => ({ name: f.name, url: f.url, what: f.what, links: links(f.url, f.code) })),
+  ...rest.map(([name, url, what]) => ({ name, url, what, links: links(url) })),
+];

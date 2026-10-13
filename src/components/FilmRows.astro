@@ -1,0 +1,14 @@
+---
+// one page of the diary: date, film, year, stars, and the review on its own line when there is one.
+import { stars } from '../data/films';
+const { films } = Astro.props;
+---
+<div class="rows films-rows">
+  {films.map(f => <>
+    <time class="mu" datetime={f.watched}>{f.watched}</time>
+    <span><a href={f.url}>{f.title}</a>{f.rewatch && <span class="mu"> (again)</span>}</span>
+    <span class="year mu">{f.year}</span>
+    <span>{stars(f.rating)}</span>
+    {f.review && <p class="review">{f.review}</p>}
+  </>)}
+</div>

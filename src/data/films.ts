@@ -7,3 +7,11 @@ export const favourites = [
   ['Across the Spider-Verse', 'https://letterboxd.com/film/spider-man-across-the-spider-verse/'],
   ['Shutter Island', 'https://letterboxd.com/film/shutter-island/'],
 ];
+
+// the diary and its counts. SEED is the films watched before the letterboxd account existed.
+import filmsJson from '../../data/films.json';
+export const films = filmsJson.films;
+export const SEED = 64;
+export const logged = SEED + films.length;
+export const thisYear = films.filter(f => f.watched.startsWith(String(new Date().getFullYear()))).length;
+export const latest = films[0];

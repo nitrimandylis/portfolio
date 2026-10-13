@@ -1,102 +1,14 @@
 ---
-// home: the name as a window onto one of the prints, the featured work as a table, the film strip,
-// then results, films and contact in one row. the photo in the letters is picked at random on each visit.
-// nothing moves on vertical scroll: the strip scrolls sideways, and the name is a still frame.
-import Base from '../layouts/Base.astro';
-import photosJson from '../../data/photos.json';
-import { featured, rest, links } from '../data/work';
-import { favourites } from '../data/films';
-
-const photos = photosJson.photos;
-
-// prints that still read as a picture inside the letters. flat or dark ones turn to mud, so they stay out.
-const HERO = ['concert', 'sunset', 'corfu', 'tuscany', 'siena', 'rome'];
-const heroFiles = HERO.filter(f => photos.some(p => p.file === f));
-// none of them published yet: fall back to the newest print rather than an empty window
-if (heroFiles.length === 0 && photos.length > 0) heroFiles.push(photos[0].file);
-const heroSet = heroFiles.map(f => `/img/photos/${f}-1600.webp`);
-
-const results = [
-  ['2nd nationally, JA Greece', 'Akademix, CCO'],
-  ['1st, MIT RAISE FutureBuilders UK', 'MindReset'],
-  ['3rd, ACSTAC Day of AI hackathon', ''],
-  ['Product and service promotion award, JA Greece trade fair', ''],
-  ['Semi-finals, Young Business Talents', ''],
-];
+// the bake-off root: two versions of the same site, same words, same skin. the winner moves here.
+import Page from '../layouts/Page.astro';
 ---
-<Base>
-  <section class="hero g grain" aria-label="nick trimandylis">
-    <div class="window s9 R marks">
-      <h1 id="name" style={`background-image:url(${heroSet[0]})`} aria-label="Nick Trimandylis">
-        <span aria-hidden="true" class="d">Nick<br>Trimandylis</span>
-        <span aria-hidden="true" class="m">Nick<br>Triman-<br>dylis</span>
-      </h1>
-      <span class="mk tl"></span><span class="mk tr"></span><span class="mk bl"></span><span class="mk br"></span>
-    </div>
-    <script is:inline define:vars={{ heroSet }}>
-      // a different print each visit, set before the first paint
-      document.getElementById('name').style.backgroundImage = `url(${heroSet[Math.floor(Math.random() * heroSet.length)]})`;
-    </script>
-    <div class="side s3">
-      <p class="bio">athens, final-year ib. builds tools, ships them, occasionally finishes them.</p>
-      <p class="facts">{featured.length + rest.length} projects · {featured.length} featured<br>{photos.length} prints<br>ath 37.98°n 23.73°e</p>
-    </div>
-  </section>
-
-  <section class="table g T" aria-label="featured work">
-    <span class="cmd"><span class="prompt">❯</span> ls work/ --long --featured</span>
-    {featured.map(f => (
-      <div class="row">
-        <span class="name s3 m1"><a href={f.url}>{f.name}</a></span>
-        <span class="line s7 m3 mR0">{f.what}</span>
-        <span class="meta s2 mhide">{links(f.url, f.code).map(([label, href]) => <a href={href}>{label}</a>)}</span>
-      </div>
-    ))}
-    <a class="cmd" href="/work"><span class="prompt">❯</span> ls work/ --all <span class="dim"># {rest.length} more →</span></a>
-  </section>
-
-  <section class="strip" aria-label="photos">
-    <div class="striphead L"><a href="/photos">02 photos — contact sheet</a><span class="mhide">scroll →</span></div>
-    <div class="film">
-      <div class="holes"></div>
-      <div class="frames" id="track">
-        {photos.map(p => <a href={`/photos#${p.file}`}><img src={`/img/photos/${p.file}-600.webp`} alt={p.name} loading="lazy" width={p.w} height={p.h}></a>)}
-      </div>
-      <div class="holes"></div>
-    </div>
-  </section>
-
-  <section class="bottom g T" id="contact">
-    <div class="results s6 m4 R mR0 L">
-      <p class="label">results</p>
-      <ul>{results.map(([what, who]) => <li>{what}{who && <span class="who"> — {who}</span>}</li>)}</ul>
-    </div>
-    <div class="s3 m2 R">
-      <p class="label">03 films</p>
-      <p class="filmline">usually ★★★★★.<br>i like films.</p>
-      <p class="favs mhide">{favourites.map(([title]) => title).join(' · ')}</p>
-      <a class="mono ul diary" href="/films">diary →</a>
-    </div>
-    <div class="contact s3 m2">
-      <p class="label">04 contact</p>
-      <a class="ul" href="mailto:nicktrim8@duck.com">nicktrim8@duck.com</a>
-      <a class="ul" href="https://www.linkedin.com/in/nitrimandylis" rel="me">linkedin.com/in/nitrimandylis</a>
-      <a class="ul" href="https://github.com/nitrimandylis" rel="me">github.com/nitrimandylis</a>
-      <a class="ul" href="/cv">cv</a>
-    </div>
-  </section>
-
-  <script>
-    // a plain mouse wheel only scrolls up and down, so while the pointer is over the strip the wheel moves it
-    // sideways instead. at either end the page gets the wheel back. trackpads and touch already scroll sideways.
-    const track = document.querySelector<HTMLElement>('#track')!;
-    track.addEventListener('wheel', e => {
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;   // a sideways trackpad gesture: leave it alone
-      const atStart = track.scrollLeft <= 0;
-      const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
-      if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
-      e.preventDefault();
-      track.scrollLeft += e.deltaMode === 1 ? e.deltaY * 40 : e.deltaY;   // firefox counts in lines, not pixels
-    }, { passive: false });
-  </script>
-</Base>
+<Page>
+  <main class="pick">
+    <p class="mu">nicktrim.com, bake-off</p>
+    <p><a href="/man">man(1)</a><span class="mu">  the home is a manual page, the rest is plain</span></p>
+    <p><a href="/shell">shell</a><span class="mu">  every page is a terminal session</span></p>
+  </main>
+</Page>
+<style>
+  .pick{min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:1em;padding:24px;max-width:80ch;margin:0 auto;white-space:pre-wrap}
+</style>

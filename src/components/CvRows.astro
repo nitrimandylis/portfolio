@@ -1,0 +1,19 @@
+---
+// the public cv from data/site.ts as rows. each section name prints once, on its own line above its group.
+import { cv } from '../data/site';
+---
+<div class="rows cv-rows">
+  {cv.map(([sec, where, what, result]) => <>
+    {sec && <b class="sec">{sec}</b>}
+    <div class="row">
+      <span>{where}</span>
+      <span class="what">{what}</span>
+      <span class="mu">{result}</span>
+    </div>
+  </>)}
+</div>
+<style>
+  .cv-rows{--key:28ch}
+  .sec{grid-column:1/-1;margin-top:1.2em}
+  .sec:first-child{margin-top:0}
+</style>

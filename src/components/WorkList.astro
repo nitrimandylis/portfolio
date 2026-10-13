@@ -1,0 +1,13 @@
+---
+// projects as rows: name, one sentence, live/code links. `items` is a list in the shape of `all` in data/work.ts.
+const { items } = Astro.props;
+---
+<div class="rows">
+  {items.map(p => (
+    <div class="row">
+      <a href={p.url}>{p.name}</a>
+      <span class="what">{p.what}</span>
+      <span class="links mu">{p.links.map(([label, href]) => <a href={href}>{label}</a>)}</span>
+    </div>
+  ))}
+</div>

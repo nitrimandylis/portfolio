@@ -102,6 +102,24 @@ kept as the minimal fallback). Locked:
   year or live/code links instead of "featured", films from films.json,
   real signature strokes from public/hand.
 
+### Bake-off: 2c vs man(1) (grilled 2026-10-13)
+
+After the 2b roast, Nick (tired of redesigning) asked for two minimal sites built in full and compared.
+Branch `site-bakeoff` (worktree .claude/worktrees/site-bakeoff), off site-2b. Locked:
+
+- **Two sites, one build:** /man and /shell, same copy and data (src/data/site.ts, work.ts, films.ts).
+  / is a chooser until one wins; the winner moves to /.
+- **man(1):** the home is mockup i, a manual page. Work, films, photos and cv are plain mono pages
+  (`← nick(1)`, a title, the content). Photos shows the real prints at their own shape, with a viewer.
+- **shell (2c):** the page is the terminal. Title line `nick@athens ~/...`, the session, a blinking prompt
+  that takes no input, `try:` bar pinned at the bottom. Every command is a link. No `play`, no audio;
+  ON_REPEAT is printed. Photos is one sideways strip.
+- **Skin, shared:** JetBrains Mono, #000, #e6e6e6, grey #8a8a8a, no accent. Links are underlines.
+- **Copy fixes:** counts from data; the "taken at night" claim cut (half the prints are daylight);
+  NAME ends at "ships them" so BUGS keeps the punchline. Third DESCRIPTION line is a draft.
+- **Exit rule:** pick within a day of seeing both. Every branch (astro, site-2b, the loser) stays as an
+  alternative. Design frozen until 2026-11-13 after the pick: copy edits only.
+
 ### Status, branch site-2b (2026-10-13)
 
 2b built on branch `site-2b` (worktree .claude/worktrees/site-2b), replacing
