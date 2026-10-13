@@ -47,10 +47,31 @@ overdone), polaroids as navigation.
   writes img/photos/*.webp and data/photos.json locally before push.
 - proto/ and proto/mockups/e-motion.html stay in the repo for now.
 
-### Status (2026-10-12)
+### Remix (grilled 2026-10-13)
 
-Built on branch `astro`: layout, stylesheet, five pages, 404, og.png,
-favicon. `bun run build` passes, screenshots checked at 1440 and 390.
+The first astro build was judged uninspiring: discipline, no gesture. New
+inputs: the mask variant (photos through the handwritten strokes), the big
+overlapping polaroids, mockup e's motion, and ~/cc/deck (one long page,
+sticky section titles, big numbers, an ask). Locked:
+
+- **Home is one long page.** Hero (name as window, photos through the
+  strokes, letters rise on load, first photo still until scroll), reveal
+  (name shrinks onto the fixed signature while full-height polaroids slide
+  through beneath), thesis, results (big numbers), work (featured rows),
+  films (stats, favourites, last five), paper trail (three columns, replaces
+  the cv page, print stylesheet), ask. Motion: load plus scroll only.
+- **Subpages:** work (full list), films (full diary), photos (grid,
+  lightbox). Signature only as chrome. cv page gone.
+- **Type scale:** three-quarter deck. Thesis and ask ~40-56px, numbers
+  ~64px, section titles 22px sticky. Near-black stays.
+- **Touch / reduced motion:** no stage. Window shows the first photo, the
+  polaroids are a row you swipe, signature hidden (the window is the name).
+
+### Status (2026-10-13)
+
+Built on branch `astro`: remix home, three subpages, 404, og.png, favicon.
+`bun run build` passes, screenshots checked at 1440 and 390 through the
+whole scroll. Copy is the deck's draft; Nick rewrites.
 Not yet: push, Vercel import, DNS move. Main still serves the old site.
 Run locally: `bun run dev`. Deploy: push `astro`, import the repo in Vercel
 (framework auto-detected), point the apex at Vercel, merge to main.

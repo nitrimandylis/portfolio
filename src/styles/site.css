@@ -35,31 +35,38 @@ main.page li{margin:0 0 .45em}
 .hi{font-weight:600}
 .where{color:var(--mu)}
 
-/* home */
-.home .top{position:absolute;top:0;left:0;right:0;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;gap:2em}
-.home{position:relative}
-.home .bio{margin:0;max-width:30em;color:var(--mu);text-align:right;font-size:15px;line-height:1.45}
-.home .about{padding:0 var(--pad);max-width:calc(58ch + 2 * var(--pad))}
-.home .about p{margin:0 0 1em;font-size:19px;line-height:1.5}
-.doors{display:flex;flex-wrap:wrap;gap:.4em 1.6em;margin:40px 0 0;padding:0 var(--pad);list-style:none;font-size:19px}
-.doors a{text-decoration:none}
-.doors a:hover{text-decoration:underline}
-.home footer{display:flex;justify-content:space-between;align-items:flex-end;gap:2em;padding:64px var(--pad) 36px;color:var(--mu);font-size:14px;line-height:1.5}
-.home footer b{font-weight:500;color:var(--fg)}
-.home footer .contact a{margin-left:1.4em;text-decoration:none}
-.home footer .contact a:hover{text-decoration:underline}
+/* home: the fixed signature appears once the window has shrunk onto it */
+.home .sig.fixed{position:fixed;top:32px;left:var(--pad);z-index:3;opacity:0;pointer-events:none}
+.home .sig.fixed.on{opacity:1;pointer-events:auto}
+.home.static .sig.fixed{position:absolute}
 
-/* the strip: ten polaroids in a row. on a mouse, vertical scroll slides the row; on touch, the row scrolls itself */
-.hero{--w:clamp(220px,44vh,340px)}
-.hero .stage{height:100vh;position:sticky;top:0;display:flex;align-items:center;overflow:hidden}
-.hero .track{display:flex;gap:44px;padding:0 var(--pad);will-change:transform;margin:0;list-style:none}
-.hero.rail{height:auto}
-.hero.rail .stage{height:auto;position:static;overflow-x:auto;overflow-y:hidden;padding:40px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
-.hero.rail .stage::-webkit-scrollbar{display:none}
-.hero.rail .track{will-change:auto}
-.hero.rail .pol{scroll-snap-align:center}
+/* hero: a sticky stage. the window (svg mask of the name) and the polaroid track both live in it */
+.hero{position:relative;z-index:0;--w:min(78vh,640px)}
+.hero .stage{height:100vh;position:sticky;top:0;overflow:hidden}
+.hero .bio{will-change:opacity;position:absolute;top:36px;right:var(--pad);margin:0;max-width:30em;color:var(--mu);text-align:right;font-size:15px;line-height:1.45;z-index:2}
+.hero .window{position:absolute;left:var(--pad);right:var(--pad);top:50%;translate:0 -50%;width:calc(100% - 2 * var(--pad));height:auto;max-height:80vh;
+  transform-origin:left center;will-change:transform;z-index:1}
+.hero .window .ch{transform:translateY(110%);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i) * 70ms + .15s)}
+@keyframes rise{to{transform:none}}
+.hero .track{position:absolute;top:55%;left:0;translate:0 -50%;display:flex;gap:0;padding:0;margin:0;list-style:none;will-change:transform;transform:translate3d(100vw,0,0)}
+.hero .track li{margin-left:calc(var(--w) * -0.18)}
+.hero .track li:first-child{margin-left:0}
+.hero .track li:nth-child(odd) .pol{--r:-2.2deg;translate:0 -2vh}
+.hero .track li:nth-child(even) .pol{--r:1.6deg;translate:0 3vh}
+.hero .pol .cap{font-size:16px;padding-left:4px}
+/* touch / reduced motion: no stage. the window shows the first photo, the polaroids are a row you swipe */
+.hero.rail{--w:min(62vw,320px)}
+.hero.rail .stage{height:auto;position:static;overflow:visible;padding:110px 0 0}
+.hero.rail .window{position:static;translate:none;width:calc(100% - 2 * var(--pad));margin:0 var(--pad)}
+.hero.rail .window .ch{animation:none;transform:none}
+.hero.rail .track{position:static;translate:none;transform:none;overflow-x:auto;overflow-y:hidden;gap:22px;padding:48px var(--pad) 24px;scrollbar-width:none;scroll-snap-type:x proximity}
+.hero.rail .track::-webkit-scrollbar{display:none}
+.hero.rail .track li{margin:0;scroll-snap-align:center}
+.hero.rail .track li .pol{translate:none}
+.hero.rail .pol .cap{font-size:13px}
+.home:has(.hero.rail) .sig.fixed{display:none}
 
-/* polaroid 600: 88 x 107, image 79 x 79, top 6, sides 4.5. no tilt physics, no gloss: a print, not a toy */
+/* polaroid 600: 88 x 107, image 79 x 79, top 6, sides 4.5. a print, not a toy: no tilt physics, no gloss */
 .pol{display:block;position:relative;flex:none;width:var(--w);aspect-ratio:88/107;padding:calc(var(--w)*6/88) calc(var(--w)*4.5/88) 0;
   background:var(--paper);border-radius:2px;color:var(--ink);text-decoration:none;transform:rotate(var(--r,0deg));
   box-shadow:0 1px 1px rgba(0,0,0,.4),0 10px 18px -6px rgba(0,0,0,.6),0 30px 50px -20px rgba(0,0,0,.8)}
@@ -69,8 +76,41 @@ main.page li{margin:0 0 .45em}
 .pol .img img{width:100%;height:100%;object-fit:cover}
 .pol .img::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(30,20,10,.5),inset 0 2px 4px rgba(0,0,0,.4)}
 .pol .cap{display:flex;align-items:center;height:calc(var(--w)*22/88);padding-left:2px;font-size:13px;font-stretch:88%;color:#6b6257;font-variant-numeric:tabular-nums}
-.track li:nth-child(5n+1){--r:-1.8deg}.track li:nth-child(5n+2){--r:1.2deg}.track li:nth-child(5n+3){--r:-.6deg}
-.track li:nth-child(5n+4){--r:2deg}.track li:nth-child(5n+5){--r:-1.2deg}
+
+/* sections: the deck's skeleton. title column sticky on the left, content on the right, one 12-column grid */
+.sec{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,2vw,32px);row-gap:28px;padding:clamp(56px,9vw,120px) var(--pad)}
+.sec h2{grid-column:1/4;position:sticky;top:96px;align-self:start;margin:0;font-size:22px;font-weight:500;letter-spacing:-.01em;line-height:1}
+.sec h2 small{display:block;margin-top:.6em;font-size:13px;font-weight:400;color:var(--mu);max-width:18ch;line-height:1.35;font-stretch:88%}
+.sec .content{grid-column:4/12}
+.sec .big{font-size:clamp(28px,3vw,40px);font-weight:500;letter-spacing:-.025em;line-height:1.08;max-width:20ch;margin:0 0 .6em}
+.sec .big + p{max-width:50ch;font-size:17px}
+.sec .after{margin:1.6em 0 0;color:var(--mu);max-width:50ch}
+.numbers{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:max-content 1fr;gap:clamp(14px,2vw,26px) clamp(20px,3vw,48px);align-items:baseline}
+.numbers li{display:contents}
+.numbers strong{font-size:clamp(40px,4.6vw,64px);font-weight:500;letter-spacing:-.04em;line-height:.95}
+.numbers span{max-width:44ch}
+.rows{list-style:none;margin:0;padding:0}
+.rows li{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,7fr) minmax(0,2fr);gap:8px clamp(16px,3vw,40px);padding:18px 0;border-top:1px solid var(--line);align-items:baseline}
+.rows li:last-child{border-bottom:1px solid var(--line)}
+.rows .t{font-weight:500;font-size:18px;letter-spacing:-.01em;text-decoration:none}
+.rows .t:hover{text-decoration:underline}
+.rows span{color:var(--mu)}
+.rows .link{text-align:right;color:var(--mu);text-decoration:none}
+.rows .link:hover{text-decoration:underline;color:var(--fg)}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px clamp(20px,3vw,48px)}
+.cols h3{margin:0 0 .5em;font-size:1em;font-weight:500}
+.cols ul{margin:0;padding:0;list-style:none;display:grid;gap:.7em}
+.cols li{font-size:15px}
+.home .diary{margin:1.4em 0 0;padding:0;list-style:none}
+.home .diary li{margin:0 0 .6em}
+
+/* the ask, at the size of the thesis */
+.ask{padding:clamp(56px,9vw,120px) var(--pad) 40px;display:grid;gap:40px}
+.ask .big{font-size:clamp(32px,4.2vw,56px);font-weight:500;letter-spacing:-.03em;line-height:1;max-width:14ch;margin:0}
+.ask .mail{font-size:clamp(20px,2vw,28px);font-weight:500;letter-spacing:-.02em;justify-self:start}
+.ask .meta{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px;color:var(--mu)}
+.ask .meta a{margin-right:18px;text-decoration:none}
+.ask .meta a:hover{text-decoration:underline}
 
 /* work: one line per project. featured first and larger, the rest in the same form */
 .work li{margin:0 0 1.1em;max-width:60ch}
@@ -124,23 +164,29 @@ main.page.photos{max-width:none}
   .top{padding-top:26px}
   .sig{width:120px;height:38px}
   main.page{padding:48px var(--pad) 72px}
-  .home .top{position:static;flex-direction:column;gap:.8em}
-  .home .bio{text-align:left}
-  .hero{--w:min(62vw,260px)}
-  .hero .track{gap:26px}
-  .home .about p{font-size:17px}
-  .doors{font-size:17px;margin-top:32px}
-  .home footer{flex-direction:column;align-items:flex-start;gap:.8em;padding-top:48px}
-  .home footer .contact a{margin:0 1.4em 0 0}
+  .home .sig.fixed{top:26px}
+  .hero .bio{position:static;text-align:left;padding:0 var(--pad);margin:0 0 20px}
+  .hero.rail .stage{padding-top:84px}
+  .sec{row-gap:18px}
+  .sec h2{grid-column:1/13;position:static}
+  .sec h2 small{display:inline;margin-left:.6em}
+  .sec .content{grid-column:1/13}
+  .numbers{grid-template-columns:1fr;gap:6px}
+  .numbers strong{margin-top:14px}
+  .rows li{grid-template-columns:1fr;gap:4px}
+  .rows .link{text-align:left}
+  .cols{grid-template-columns:1fr}
   .work .featured .t{font-size:20px}
   .prints{grid-template-columns:1fr 1fr;gap:24px 16px}
   .prints button{padding:4px 4px 0}
 }
-@media (prefers-reduced-motion:reduce){.hero .track{transition:none}}
+@media (prefers-reduced-motion:reduce){.hero .window .ch{animation:none;transform:none}}
 @media print{
   html{background:#fff;color:#111;font-size:11pt}
   .sig{background:#111}
   main.page{padding:0;max-width:none}
-  .no-print{display:none}
+  .no-print,.hero,#thesis,#results,#work,#films,.ask .big{display:none}
+  .sec{display:block;padding:0}
+  .sec h2{position:static;margin:0 0 1em}
   .where,main.page h2,.langs td+td{color:#555}
 }

@@ -1,29 +1,63 @@
 ---
-// home: signature and bio, the strip of prints, then about, the doors, the song and film line, contact.
+// home, one long page. hero: the handwritten name as a window, photos pass through the strokes on scroll, then the
+// name shrinks into the corner while the polaroids slide through at full height. then the deck's sections.
 import Base from '../layouts/Base.astro';
 import photosJson from '../../data/photos.json';
 import filmsJson from '../../data/films.json';
-import songsTxt from '../../content/songs.txt?raw';
+import nameSvg from '../../public/hand/name.svg?raw';
+import { featured } from './work.astro';
 
 const photos = photosJson.photos;
-const last = filmsJson.films[0];
+const films = filmsJson.films;
+const SEED = 64;
+const year = new Date().getFullYear();
+const thisYear = films.filter(f => f.watched.startsWith(String(year))).length;
+const rated = films.map(f => f.rating).filter((r): r is number => r != null).sort((a, b) => a - b);
+const typical = rated.length ? rated[Math.floor(rated.length / 2)] : null;
 const stars = (r: number | null) => r == null ? '' : '★'.repeat(Math.floor(r)) + (r % 1 ? '½' : '');
-// content/songs.txt: one "title, artist" per line. the browser picks one per visit.
-const songs = songsTxt.split('\n').map(s => s.trim()).filter(s => s && !s.startsWith('#'))
-  .map(s => { const [title, ...artist] = s.toLowerCase().split(','); return { title, artist: artist.join(',').trim() }; });
+
+// the signature's strokes, grouped into letters by x range so each letter can rise on its own
+const strokes = [...nameSvg.matchAll(/<polyline points="([^"]+)"/g)].map(m => m[1]);
+const ranges = strokes.map(p => { const xs = p.split(' ').map(t => parseFloat(t)); return [Math.min(...xs), Math.max(...xs)]; });
+const letters: number[][] = [];
+let end = -Infinity;
+for (const i of strokes.map((_, i) => i).sort((a, b) => ranges[a][0] - ranges[b][0])) {
+  if (ranges[i][0] > end + 1.5 || !letters.length) letters.push([]);
+  letters[letters.length - 1].push(i);
+  end = Math.max(end, ranges[i][1]);
+}
+const VB = { w: 215, h: 72 };   // name.svg viewBox
 ---
 <Base home>
-  <header class="top" slot="top">
-    <a class="sig" href="/" aria-label="nick trim"></a>
-    <p class="bio">athens, final-year ib. builds tools, ships them, occasionally finishes them.</p>
-  </header>
+  <a class="sig fixed" href="/" aria-label="nick trim, top" slot="top"></a>
 
-  <section class="hero" id="hero" aria-label="photos">
+  <section class="hero" id="hero" aria-label="nick trim">
     <div class="stage">
+      <p class="bio">athens, final-year ib. builds tools, ships them, occasionally finishes them.</p>
+
+      <svg class="window" id="window" viewBox={`0 0 ${VB.w} ${VB.h}`} aria-hidden="true">
+        <defs>
+          <mask id="name" maskUnits="userSpaceOnUse" x="0" y="0" width={VB.w} height={VB.h}>
+            {letters.map((L, i) => (
+              <g class="ch" style={`--i:${i}`} fill="none" stroke="#fff" stroke-width="6.8" stroke-linecap="round" stroke-linejoin="round">
+                {L.map(j => <polyline points={strokes[j]} />)}
+              </g>
+            ))}
+          </mask>
+        </defs>
+        <g mask="url(#name)">
+          <g id="through">
+            {photos.map((p, i) => (
+              <image href={`/img/photos/${p.file}-1600.webp`} x={i * VB.h} y="0" width={VB.h} height={VB.h} preserveAspectRatio="xMidYMid slice" />
+            ))}
+          </g>
+        </g>
+      </svg>
+
       <ul class="track" id="track">
-        {photos.map(p => (
+        {photos.map((p, i) => (
           <li><a class="pol" href={`/photos#${p.file}`}>
-            <span class="img"><img src={`/img/photos/${p.file}-600.webp`} alt={p.name} width="600" height="600" loading="eager" decoding="async"></span>
+            <span class="img"><img src={`/img/photos/${p.file}-1600.webp`} alt={p.name} width="1600" height="1600" loading={i < 2 ? 'eager' : 'lazy'} decoding="async"></span>
             <span class="cap">{p.name}</span>
           </a></li>
         ))}
@@ -31,60 +65,126 @@ const songs = songsTxt.split('\n').map(s => s.trim()).filter(s => s && !s.starts
     </div>
   </section>
 
-  <section class="about">
-    <p>i'm nick. i live in athens and i'm in my last year of the ib. most of my time goes to free time, which i take seriously.</p>
-    <p>i start things and then build them. a student business that came second in greece (akademix, with ja), a first place at mit futurebuilders and a third at the acstac day of ai hackathon. the rest of it is under <a href="/work">work</a>.</p>
-    <p>off the keyboard it's <a href="/films">films</a>, music, and <a href="/photos">photos</a> that look like they were taken at night, because they were.</p>
+  <section class="sec" id="thesis">
+    <h2>thesis<small>what i actually do</small></h2>
+    <div class="content">
+      <p class="big">i start things, then i build them.</p>
+      <p>most founding teams split into the one who sells and the one who ships. i do both. on a team of four teenagers that is the difference between a deck and a demo.</p>
+    </div>
   </section>
 
-  <ul class="doors">
-    <li><a href="/work">work</a></li>
-    <li><a href="/cv">cv</a></li>
-    <li><a href="/films">films</a></li>
-    <li><a href="/photos">photos</a></li>
-    <li><a href="https://os.nicktrim.com">night shift</a></li>
-  </ul>
+  <section class="sec" id="results">
+    <h2>results<small>five competitions, five placings</small></h2>
+    <ol class="content numbers">
+      <li><strong>2nd</strong><span>nationally, ja greece, with akademix. chief commercial officer. twelve finalists out of a hundred-odd business plans.</span></li>
+      <li><strong>1st</strong><span>mit raise futurebuilders, uk. innovation demo, with mindreset.</span></li>
+      <li><strong>3rd</strong><span>acstac day of ai hackathon, for the pitch.</span></li>
+      <li><strong>award</strong><span>product and service promotion, ja greece trade fair.</span></li>
+      <li><strong>semis</strong><span>young business talents, national round. four rounds of running a simulated company.</span></li>
+    </ol>
+  </section>
 
-  <footer>
-    <div class="now">
-      <span id="song">on repeat <b>{songs[0].title}</b>, {songs[0].artist}.</span>
-      {last && <span> last watched <a href={last.url}><b>{last.title.toLowerCase()}</b></a>, {stars(last.rating)}.</span>}
+  <section class="sec" id="work">
+    <h2>work<small>built by me, end to end</small></h2>
+    <div class="content">
+      <ul class="rows">
+        {featured.map(f => (
+          <li><a class="t" href={f.url}>{f.name}</a><span>{f.what}</span>{f.code && <a class="link" href={f.code}>code</a>}</li>
+        ))}
+      </ul>
+      <p class="after">twenty-one more, mostly tools i wanted and nobody had made. <a href="/work">the full list</a>.</p>
     </div>
-    <div class="contact"><a href="mailto:nicktrim8@duck.com">email</a><a href="https://www.linkedin.com/in/nitrimandylis" rel="me">linkedin</a></div>
+  </section>
+
+  <section class="sec" id="films">
+    <h2>films<small>the diary, from letterboxd</small></h2>
+    <div class="content">
+      <p>{thisYear} films this year, {SEED + films.length} that i know of{typical ? <>, usually <span class="rating">{stars(typical)}</span>{typical === 5 ? '. i like films.' : '.'}</> : '.'}</p>
+      <p class="mu">favourites: <a href="https://letterboxd.com/film/the-odyssey-2026/">the odyssey</a>, <a href="https://letterboxd.com/film/pacific-rim/">pacific rim</a>, <a href="https://letterboxd.com/film/spider-man-across-the-spider-verse/">across the spider-verse</a>, <a href="https://letterboxd.com/film/shutter-island/">shutter island</a>.</p>
+      <ul class="diary">
+        {films.slice(0, 5).map(f => (
+          <li><div class="line"><time datetime={f.watched}>{f.watched}</time><a href={f.url}>{f.title.toLowerCase()}</a><span class="year">{f.year}</span><span class="rating">{stars(f.rating)}</span>{f.rewatch && <span class="again">again</span>}</div></li>
+        ))}
+      </ul>
+      <p class="after"><a href="/films">the rest of the diary</a>, and <a href="/photos">the photos</a>.</p>
+    </div>
+  </section>
+
+  <section class="sec trail" id="cv">
+    <h2>paper trail<small>the cv, the short one</small></h2>
+    <div class="content cols">
+      <div><h3>work</h3><ul>
+        <li>omilia <span class="where">athens, summer 2026.</span> intern reporting to the cto. shipped tokenpilot, in production.</li>
+        <li>algroup aluminium <span class="where">athens.</span> digitised sales proposals and client quotes.</li></ul></div>
+      <div><h3>education</h3><ul>
+        <li>ib diploma, costeas-geitonas, 2025 to 2027. higher level maths, computer science, english.</li>
+        <li>national academic merit award, <span class="hi">three years running</span>.</li>
+        <li>cgsmun head of press: two newspaper issues and all the conference photography.</li></ul></div>
+      <div><h3>languages</h3><ul>
+        <li>greek, native.</li>
+        <li>english, c2. cambridge proficiency, 2023.</li>
+        <li>spanish, a2. instituto cervantes, 2023.</li></ul></div>
+    </div>
+  </section>
+
+  <footer class="ask" id="contact">
+    <p class="big">not raising. hire me, admit me, or just say hi.</p>
+    <a class="mail" href="mailto:nicktrim8@duck.com">nicktrim8@duck.com</a>
+    <div class="meta">
+      <span><a href="https://www.linkedin.com/in/nitrimandylis" rel="me">linkedin</a><a href="https://github.com/nitrimandylis">github</a><a href="mailto:nicktrim8@duck.com?subject=the long cv">the long cv</a><a href="https://os.nicktrim.com">night shift</a></span>
+      <span>athens, october 2026</span>
+    </div>
   </footer>
 
-  <script is:inline define:vars={{ songs }}>
-    // one random favourite per visit, no cycling
-    const s = songs[Math.floor(Math.random() * songs.length)];
-    document.querySelector('#song').innerHTML = `on repeat <b></b>, <span></span>.`;
-    document.querySelector('#song b').textContent = s.title;
-    document.querySelector('#song span').textContent = s.artist;
-  </script>
   <script>
-    // the strip. mouse + motion allowed: the section is tall, the stage sticks, vertical scroll becomes sideways travel.
-    // touch or reduced motion: the section collapses to a row the finger scrolls (.rail), no js after this.
+    // scroll drives two acts inside one sticky stage. act one: the photos pass through the strokes.
+    // act two: the name shrinks into the top-left corner while the polaroids slide through beneath it.
+    // touch or reduced motion: no stage, the window shows the first photo and the polaroids are a row you swipe.
     const hero = document.querySelector<HTMLElement>('#hero')!;
     const stage = hero.querySelector<HTMLElement>('.stage')!;
+    const win = document.querySelector<SVGSVGElement>('#window')!;
+    const through = document.querySelector<SVGGElement>('#through')!;
     const track = document.querySelector<HTMLElement>('#track')!;
+    const sig = document.querySelector<HTMLElement>('.sig.fixed')!;
+    const bio = hero.querySelector<HTMLElement>('.bio')!;
+    const VB_W = 215, VB_H = 72, N = through.children.length;
     const drive = matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const clamp = (v: number) => Math.min(1, Math.max(0, v));
+    const ease = (t: number) => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
     if (!drive) {
       hero.classList.add('rail');
     } else {
-      let travel = 0;
+      let a = 0, b = 0, travel = 0, scale = 1, dx = 0, dy = 0;
       const size = () => {
+        a = innerHeight * 1.2;                                          // act one: photos through the strokes
         travel = Math.max(0, track.scrollWidth - stage.clientWidth);
-        hero.style.height = `${innerHeight + travel}px`;   // one px of scroll per px of travel
+        b = Math.max(innerHeight, travel);                              // act two: shrink + polaroids
+        hero.style.height = `${innerHeight + a + b}px`;
+        // where the window ends up: exactly on the fixed signature
+        const w = win.getBoundingClientRect(), s = sig.getBoundingClientRect();
+        scale = s.width / w.width;
+        dx = s.left - w.left; dy = (s.top + s.height / 2) - (w.top + w.height / 2);
         frame();
       };
       const frame = () => {
-        const top = hero.getBoundingClientRect().top;
-        const p = Math.min(1, Math.max(0, -top / Math.max(1, travel)));
-        track.style.transform = `translate3d(${(-p * travel).toFixed(1)}px,0,0)`;
+        const y = -hero.getBoundingClientRect().top;
+        const p1 = clamp(y / a), p2 = clamp((y - a) / b);
+        // act one: the last image ends under the strokes; the row is N squares of VB_H wide
+        through.setAttribute('transform', `translate(${(-p1 * (N * VB_H - VB_W)).toFixed(2)} 0)`);
+        // act two
+        const e = ease(p2);
+        win.style.transform = `translate(${(dx * e).toFixed(1)}px, ${(dy * e).toFixed(1)}px) scale(${(1 - (1 - scale) * e).toFixed(4)})`;
+        track.style.transform = `translate3d(${(stage.clientWidth - (stage.clientWidth + travel) * p2).toFixed(1)}px,0,0)`;
+        bio.style.opacity = String(1 - e);
+        const done = p2 >= 1;
+        sig.classList.toggle('on', done);
+        win.style.visibility = done ? 'hidden' : 'visible';
       };
       addEventListener('scroll', frame, { passive: true });
       addEventListener('resize', size);
-      document.fonts.ready.then(size);
       size();
+      requestAnimationFrame(size);
     }
   </script>
 </Base>
