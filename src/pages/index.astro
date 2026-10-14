@@ -47,10 +47,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
       <div class="b"><a href="https://os.nicktrim.com">night-shift(8)</a>, <a href="https://github.com/nitrimandylis">github(1)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a>, <a href="https://letterboxd.com/nick_trim8">letterboxd(1)</a>, <a href="https://www.instagram.com/nick_trim8">instagram(1)</a>, <a href="mailto:nicktrim8@duck.com">email(1)</a></div></section>
 
     <div class="hf bottom mu"><span>nicktrim.com</span><span>{month}</span><span>NICKTRIM(1)</span></div>
-    <div class="end" aria-hidden="true">
-      <p><span class="mu">❯</span> <span class="cursor"></span></p>
-      <div class="sig" set:html={signature} />
-    </div>
+    <p class="end" aria-hidden="true"><span class="mu">❯</span> <span class="cursor"></span></p>
+    <div class="sigzone" aria-hidden="true"><div class="sig" set:html={signature} /></div>
   </main>
 </Page>
 <style>
@@ -63,9 +61,12 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .prompt{margin-bottom:1.2em}
   .top{margin-bottom:.4em}
   .bottom{margin-top:1.2em}
-  .end{margin-top:1.2em;display:flex;justify-content:space-between;align-items:flex-start}
-  /* the signature fills the empty right side of the last line, at the /about size */
-  .sig{color:var(--fg);transform:rotate(-2deg);margin-top:-56px}
+  .end{margin-top:1.2em}
+  /* the signature, at the /about size, starts under the cursor and sits centred in whatever room is left between the
+     prompt and the bottom of the screen. the page fills the screen, so on a tall one it floats, on a short one it scrolls a little */
+  .man{min-height:calc(100dvh - 40px);display:flex;flex-direction:column}
+  .sigzone{flex:1;display:flex;align-items:center;padding:24px 0 16px 2ch}
+  .sig{color:var(--fg);transform:rotate(-2deg)}
   .sig :global(svg){width:260px;height:auto;display:block}
   section{margin-top:1em}
   h2{font-weight:700}
@@ -82,8 +83,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .pol:hover{transform:rotate(0deg)}
   @media (max-width:640px){
     .man{padding:28px 14px;font-size:inherit}
-    /* the footer spans the whole width here, so no room to lift the signature beside it */
-    .sig{margin-top:0}
     .sig :global(svg){width:220px}
     .examples{grid-template-columns:1fr 1fr}
     .b{padding-left:3ch}

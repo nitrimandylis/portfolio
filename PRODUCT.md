@@ -195,10 +195,11 @@ with the signature after the cursor:
 - **Type:** the home alone at 15px / 1.45, column 84ch so the NAME line fits on one line, starts at the top
   instead of centred, section gaps 1em, prints 144px.
 - **Signature:** Nick's own pick after six tries failed (foot at 130px, margin note by SYNOPSIS, above the header,
-  title bar, leading at 300px, in place of the name in NAME). It sits on the empty right of the closing `❯ █` line
-  at the /about size (260px, -2deg), lifted 56px so "Nick" sits in the footer row left of NICKTRIM(1).
-  Phone: 220px, not lifted (the footer spans the width there).
-- **Fits:** exactly 900px at 1440x900 (bottom padding 4px), no scroll.
+  title bar, leading at 300px, in place of the name in NAME, left page margin). At the /about size (260px, -2deg),
+  its left edge under the cursor, centred between the closing `❯ █` line and the bottom of the screen (the column
+  fills the viewport, the signature takes the leftover space). Phone: 220px, same rule.
+- **Fits:** no scroll from about 1000px of viewport height up. At 1440x900 the page scrolls 120px to show the
+  signature; accepted. Fix if wanted: shrink it to ~110px on short screens only.
 - Other branches (astro, site-2b, site-bakeoff) deleted, all merged; work is on main.
 
 ### Status, branch site-bakeoff (2026-10-14)
