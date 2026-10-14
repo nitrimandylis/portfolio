@@ -38,6 +38,10 @@ const pages = { photos: '/photos', films: '/films' };
 ---
 <ManSub title="about, Nick Trimandylis" heading="about" note="the long version"
   description="Nick Trimandylis, the long version: where he started, how he works, his ventures, and what's next.">
+  <a class="pol" href="/photos" aria-label="a photo of nick, thessaloniki, march 2026">
+    <img src="/img/about-800.webp" alt="" width="450" height="800">
+    <span>thessaloniki, march 2026</span>
+  </a>
   <p class="lead">Nick Trimandylis. Athens, final-year IB.<br>computer science since forever, business since 2025.</p>
   {sections.map(([heading, note, rows]) => (
     <section>
@@ -54,6 +58,11 @@ const pages = { photos: '/photos', films: '/films' };
   ))}
 </ManSub>
 <style>
+  /* one polaroid of nick, clipped to the top of the page like the prints on the home */
+  .pol{display:block;width:220px;margin:0 0 2em;text-decoration:none;background:#efe9dc;color:#3a3129;padding:14px 14px 0;border-radius:1px;transform:rotate(-1.5deg);box-shadow:0 1px 2px rgba(0,0,0,.6),0 10px 24px -8px rgba(0,0,0,.8)}
+  .pol img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}
+  .pol span{display:block;font-size:11px;line-height:1.3;padding:8px 0 10px}
+  .pol:hover{transform:rotate(0deg)}
   .lead{margin-bottom:.4em}
   section{margin-top:2em}
   h2{margin-bottom:.6em}

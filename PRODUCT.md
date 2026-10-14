@@ -167,7 +167,7 @@ The home was missing too much about Nick, so /about is back as a man(1) subpage.
   next names UCL. No F1, no camera model, nothing private.
 - **Capitals:** proper nouns and acronyms are capitalised on every page (Athens, IB, UCL, film and song titles).
   Ordinary words stay lowercase. Photo captions are still lowercase: they come from the shared originals/ filenames.
-- **Open:** a photo of Nick at the top of /about, waiting on which picture.
+- **Photo (2026-10-14):** one polaroid at the top of /about, Nick walking down a Thessaloniki stairwell, March 2026 (GPS + date read from the original, then stripped). public/img/about-800.webp, original in originals/about-thessaloniki.tiff. Two other shots from the same night stayed in ~/cc (one has a friend in it, one is a mirror selfie).
 
 ### Handwriting and polaroids back (2026-10-14)
 
@@ -190,7 +190,7 @@ The metaphor that fits is a printout he annotated by hand and clipped photos to,
 
 Final bar the about page. Work: the featured six cut to one or two lines each. CV: key column 23ch, two
 keys and three results shortened so nothing wraps three deep. Build passes, screenshots checked.
-Left for Nick: the about photo and the new "nick trimandylis" signature (both /about), then merge
+Left for Nick: the new "nick trimandylis" signature for /about, then merge
 site-bakeoff to main, push, import in Vercel, move the apex DNS off GitHub Pages.
 
 ### Status, branch site-2b (2026-10-13)
