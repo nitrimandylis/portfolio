@@ -8,20 +8,19 @@ import { films, logged, thisYear, favourites } from '../../data/films';
 export const getStaticPaths = (({ paginate }) => paginate(films, { pageSize: 30 })) satisfies GetStaticPaths;
 const { page } = Astro.props;
 ---
-<ManSub title="films, nick trimandylis" heading="films" note={`${logged} in the diary, ${thisYear} this year`} description="nick trimandylis's film diary, from letterboxd.">
+<ManSub title="films, Nick Trimandylis" heading="films" note={`${logged} in the diary, ${thisYear} this year`} description="Nick Trimandylis's film diary, from Letterboxd.">
   {page.currentPage === 1 && <div class="intro">
     <p>usually ★★★★★. i like films.</p>
-    <p class="mu lower">favourites: {favourites.map(([t, u], i) => <>{i > 0 && ', '}<a href={u}>{t}</a></>)}</p>
+    <p class="mu">favourites: {favourites.map(([t, u], i) => <>{i > 0 && ', '}<a href={u}>{t}</a></>)}</p>
   </div>}
   <FilmRows films={page.data} />
   <p class="pager mu">
     {page.url.prev && <a href={page.url.prev}>← newer</a>}
     {page.url.next && <a href={page.url.next}>older →</a>}
-    <span>{page.lastPage > 1 && `page ${page.currentPage}/${page.lastPage}, `}the rest is on <a href="https://letterboxd.com/nick_trim8/">letterboxd</a>.</span>
+    <span>{page.lastPage > 1 && `page ${page.currentPage}/${page.lastPage}, `}the rest is on <a href="https://letterboxd.com/nick_trim8/">Letterboxd</a>.</span>
   </p>
 </ManSub>
 <style>
   .intro{margin-bottom:2em}
-  .lower a{text-transform:lowercase}
   .pager{margin-top:2em;display:flex;gap:3ch;flex-wrap:wrap}
 </style>

@@ -4,7 +4,7 @@ import Cmd from '../../components/Cmd.astro';
 import WorkList from '../../components/WorkList.astro';
 import { all } from '../../data/work';
 ---
-<Shell title="work, nick trimandylis" cwd="~/work" description="everything nick trimandylis has built. tokenpilot, llm-mafia, aidetect, bacpack, gridcast, blither, and the rest.">
+<Shell title="work, Nick Trimandylis" cwd="~/work" description="everything Nick Trimandylis has built. tokenpilot, llm-mafia, aidetect, bacpack, gridcast, blither, and the rest.">
   <Cmd cmd="ls work/ --all"><p class="mu">{all.length} projects</p></Cmd>
   <div class="gap"><WorkList items={all} /></div>
 </Shell>

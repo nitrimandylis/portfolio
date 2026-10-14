@@ -31,7 +31,6 @@ b{font-weight:700}
 .rows .links a{margin-left:1.5ch}
 .rows .gap{grid-column:1/-1;height:.8em}
 .films-rows{grid-template-columns:11ch 1fr 5ch 7ch}
-.films-rows .title{text-transform:lowercase}
 .films-rows .review{grid-column:2/-1;color:var(--mu);margin-bottom:.4em}
 
 /* photos: the prints at their real shape. --h sets the row height, so wide and tall prints sit side by side */

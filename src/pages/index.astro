@@ -13,15 +13,16 @@ const pad = (n: number) => String(n).padStart(2, '0');
     <div class="hf top"><span>NICKTRIM(1)</span><span class="mu">General Commands Manual</span><span>NICKTRIM(1)</span></div>
 
     <section><h2>NAME</h2>
-      <div class="b">nicktrim - nick trimandylis, athens, final-year ib. builds tools, ships them.</div></section>
+      <div class="b">nicktrim - Nick Trimandylis, Athens, final-year IB. builds tools, ships them.</div></section>
 
     <section><h2>SYNOPSIS</h2>
-      <div class="b"><b>nicktrim</b> [<a href="/work">work</a> | <a href="/films">films</a> | <a href="/photos">photos</a> | <a href="/cv">cv</a>] <span class="nw">[<a href="mailto:nicktrim8@duck.com">--email</a>]</span></div></section>
+      <div class="b"><b>nicktrim</b> [<a href="/about">about</a> | <a href="/work">work</a> | <a href="/films">films</a> | <a href="/photos">photos</a> | <a href="/cv">cv</a>] <span class="nw">[<a href="mailto:nicktrim8@duck.com">--email</a>]</span></div></section>
 
     <section><h2>DESCRIPTION</h2>
       <div class="b">
         <p>i build tools for problems i have, then keep using them. most of them run in a terminal.</p>
         <p>off the keyboard it's films, music, and photos of wherever i end up.</p>
+        <p>the long version: <a href="/about">about/</a></p>
       </div></section>
 
     <section><h2>EXAMPLES</h2>
@@ -48,7 +49,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
     <section><h2>ENVIRONMENT</h2>
       <div class="b kv">
         <span>ON_REPEAT</span><span>{song}</span>
-        {latest && <><span>LAST_WATCHED</span><span>{latest.title.toLowerCase()}, {latest.year}{latest.rewatch && ', again'}</span></>}
+        {latest && <><span>LAST_WATCHED</span><span>{latest.title}, {latest.year}{latest.rewatch && ', again'}</span></>}
       </div></section>
 
     <section><h2>HISTORY</h2>

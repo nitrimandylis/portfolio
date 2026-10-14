@@ -1,0 +1,64 @@
+---
+// the long version of the man page's DESCRIPTION. rows, not paragraphs: each line says one thing, the jokes live in the grey notes.
+// each section is [heading, note, rows]; a row is [key, what, right]. right is optional and prints grey, on its own line under what.
+import ManSub from '../layouts/ManSub.astro';
+
+const sections = [
+  ['origin', '', [
+    ['age 9', 'Minecraft mods, datapacks, my own 3D models in Blockbench. no code yet'],
+    ['age 13', 'first code, a Pygame course'],
+    ['2024-25', 'Akademix with friends: 2nd in Greece, hooked on startups'],
+    ['2026', 'tokenpilot, in production at Omilia'],
+  ]],
+  ['how i work', 'minus the Vicodin and the fake psychic act', [
+    ['problems', "like House: don't trust the spec, run the test myself"],
+    ['people', 'like Jane: read the room'],
+    ['ideas', 'when i drop one, i write down why'],
+  ]],
+  ['ventures', '', [
+    ['Akademix', 'replaces the apps a school runs on, with AI quizzes from the teacher\'s notes', 'commercial lead · 2nd, JA Greece'],
+    ['MindReset', 'catches study fatigue in teens before burnout', 'built the app · 1st, MIT FutureBuilders'],
+    ['ASKUS', 'drones that fly medicine to elderly islanders, ordered by phone call', 'business plan · IST, ACSTAC'],
+    ['ClearFeed', 'a browser extension that fact-checks social posts for teens', 'roadmap · 3rd, ACSTAC'],
+    ['Kizuna', "a student-led committee for my school's IB students", 'founder'],
+  ]],
+  ['off the keyboard', 'i rate films too generously', [
+    ['photos', 'wherever i end up'],
+    ['films', 'Spider-Verse, Shutter Island, Pacific Rim'],
+    ['series', 'House, The Mentalist'],
+    ['music', 'The Neighbourhood, Arctic Monkeys, The Weeknd, Kanye'],
+  ]],
+  ['next', '', [
+    ['2026-27', 'hackathons with friends, NASA Space Apps first'],
+    ['2027', 'aiming for UCL, Information Management for Business'],
+  ]],
+];
+// keys that open a page of their own
+const pages = { photos: '/photos', films: '/films' };
+---
+<ManSub title="about, Nick Trimandylis" heading="about" note="the long version"
+  description="Nick Trimandylis, the long version: where he started, how he works, his ventures, and what's next.">
+  <p class="lead">Nick Trimandylis. Athens, final-year IB.<br>computer science since forever, business since 2025.</p>
+  {sections.map(([heading, note, rows]) => (
+    <section>
+      <h2><b>{heading.toUpperCase()}</b>{note && <span class="mu"> · {note}</span>}</h2>
+      <div class="rows">
+        {rows.map(([key, what, right]) => (
+          <div class="row">
+            {pages[key] ? <a href={pages[key]}>{key}</a> : <span>{key}</span>}
+            <span class="what">{what}{right && <span class="mu right">{right}</span>}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+</ManSub>
+<style>
+  .lead{margin-bottom:.4em}
+  section{margin-top:2em}
+  h2{margin-bottom:.6em}
+  .rows{--key:11ch;grid-template-columns:var(--key) 1fr}
+  .right{display:block}
+  @media (max-width:640px){.rows{grid-template-columns:1fr}}
+  .rows a{justify-self:start}
+</style>

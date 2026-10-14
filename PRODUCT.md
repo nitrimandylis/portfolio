@@ -154,6 +154,21 @@ The freeze is dropped. man(1) stays; this round fills what it left out. Locked:
   night, oaka concert, corfu fortress, lycabettus sunset. Nick's copies sit in the shared originals/ under the
   new names, so astro/site-2b would publish them too if their mtime-based photos.py is rerun.
 
+### About page and capitals (grilled 2026-10-14)
+
+The home was missing too much about Nick, so /about is back as a man(1) subpage. Locked:
+
+- **Form:** rows, not prose (paragraphs plus lowercase plus deadpan were unreadable). Sections ORIGIN, HOW I WORK,
+  VENTURES, OFF THE KEYBOARD, NEXT; jokes live in the grey notes. Linked first in SYNOPSIS and from DESCRIPTION
+  ("the long version: about/").
+- **Content:** Minecraft at 9 (no code, Blockbench models), Pygame at 13, Akademix 2024-25; House for problems,
+  Jane for people; five ventures with role and result (Akademix commercial lead, MindReset built the app, ASKUS
+  business plan, ClearFeed roadmap, Kizuna founder); music The Neighbourhood, Arctic Monkeys, The Weeknd, Kanye;
+  next names UCL. No F1, no camera model, nothing private.
+- **Capitals:** proper nouns and acronyms are capitalised on every page (Athens, IB, UCL, film and song titles).
+  Ordinary words stay lowercase. Photo captions are still lowercase: they come from the shared originals/ filenames.
+- **Open:** a photo of Nick at the top of /about, waiting on which picture.
+
 ### Status, branch site-2b (2026-10-13)
 
 2b built on branch `site-2b` (worktree .claude/worktrees/site-2b), replacing

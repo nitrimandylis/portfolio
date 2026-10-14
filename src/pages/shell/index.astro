@@ -9,7 +9,7 @@ import { results, contact, song } from '../../data/site';
 const featuredRows = all.slice(0, featured.length);
 ---
 <Shell>
-  <Cmd cmd="whoami"><p>athens, final-year ib. builds tools, ships them, occasionally finishes them.</p></Cmd>
+  <Cmd cmd="whoami"><p>Athens, final-year IB. builds tools, ships them, occasionally finishes them.</p></Cmd>
   <Cmd cmd="ls work/ --featured" href="/shell/work">
     <WorkList items={featuredRows} />
     <p class="mu more">... {all.length - featured.length} more: <a href="/shell/work">ls work/ --all</a></p>

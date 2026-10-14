@@ -5,8 +5,8 @@ import Cmd from '../../components/Cmd.astro';
 import CvRows from '../../components/CvRows.astro';
 import { contact, month } from '../../data/site';
 ---
-<Shell title="cv, nick trimandylis" cwd="~" description="nick trimandylis's cv, the short one.">
-  <Cmd cmd="cat cv"><p>nick trimandylis, athens. as of {month}.</p></Cmd>
+<Shell title="CV, Nick Trimandylis" cwd="~" description="Nick Trimandylis's CV, the short one.">
+  <Cmd cmd="cat cv"><p>Nick Trimandylis, Athens. as of {month}.</p></Cmd>
   <div class="gap"><CvRows /></div>
   <Cmd cmd="cat cv --long">
     <p>want the full one? <a href="mailto:nicktrim8@duck.com?subject=the long cv">email me.</a> <button class="link noprint" onclick="print()">print</button></p>
