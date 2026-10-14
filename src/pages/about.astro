@@ -59,9 +59,10 @@ const pages = { photos: '/photos', films: '/films' };
 </ManSub>
 <style>
   /* one polaroid of nick, clipped to the top of the page like the prints on the home */
-  .pol{display:block;width:220px;margin:0 0 2em;text-decoration:none;background:#efe9dc;color:#3a3129;padding:14px 14px 0;border-radius:1px;transform:rotate(-1.5deg);box-shadow:0 1px 2px rgba(0,0,0,.6),0 10px 24px -8px rgba(0,0,0,.8)}
+  .pol{display:block;width:320px;margin:0 0 2em;text-decoration:none;background:#efe9dc;color:#3a3129;padding:18px 18px 0;border-radius:1px;transform:rotate(-1.5deg);box-shadow:0 1px 2px rgba(0,0,0,.6),0 10px 24px -8px rgba(0,0,0,.8)}
   .pol img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}
-  .pol span{display:block;font-size:11px;line-height:1.3;padding:8px 0 10px}
+  .pol span{display:block;font-size:12px;line-height:1.3;padding:12px 0 14px}
+  @media (max-width:640px){.pol{width:100%;max-width:320px}}
   .pol:hover{transform:rotate(0deg)}
   .lead{margin-bottom:.4em}
   section{margin-top:2em}
