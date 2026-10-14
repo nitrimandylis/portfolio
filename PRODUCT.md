@@ -186,18 +186,19 @@ The metaphor that fits is a printout he annotated by hand and clipped photos to,
   DESCRIPTION, EXAMPLES, ENVIRONMENT, SEE ALSO. AUTHOR cut the same day. `--email` left SYNOPSIS; SEE ALSO is
   external only: night-shift, github, linkedin, email(1).
 
-### Home: 1a, no signature (2026-10-14)
+### Home: 1a + signature after the cursor (2026-10-14)
 
 From the Claude Design "Home options" round (1a troff, 1b annotated printout, 1c wide terminal). 1c's two panes
-were turned down; 1b's floating margin signature was liked as an idea, not as executed. Shipped 1a,
-no signature:
+were turned down; 1b's floating margin signature was liked as an idea, not as executed. Shipped 1a
+with the signature after the cursor:
 
 - **Type:** the home alone at 15px / 1.45, column 84ch so the NAME line fits on one line, starts at the top
   instead of centred, section gaps 1em, prints 144px.
-- **Signature: dropped from the home for good.** Tried at the foot beside the closing prompt, as a margin note by
-  SYNOPSIS, above the header, in the title bar, leading the page at 300px, and in place of the name in NAME.
-  None worked; it stays on /about only. Do not re-suggest it for the home.
-- **Fits:** ends at 870px of 900 at 1440x900, no scroll.
+- **Signature:** Nick's own pick after six tries failed (foot at 130px, margin note by SYNOPSIS, above the header,
+  title bar, leading at 300px, in place of the name in NAME). It sits on the empty right of the closing `❯ █` line
+  at the /about size (260px, -2deg), lifted 56px so "Nick" sits in the footer row left of NICKTRIM(1).
+  Phone: 220px, not lifted (the footer spans the width there).
+- **Fits:** exactly 900px at 1440x900 (bottom padding 4px), no scroll.
 - Other branches (astro, site-2b, site-bakeoff) deleted, all merged; work is on main.
 
 ### Status, branch site-bakeoff (2026-10-14)

@@ -3,6 +3,7 @@
 import Page from '../layouts/Page.astro';
 import { latest } from '../data/films';
 import { photos, song, month, examples } from '../data/site';
+import signature from '../../public/hand/name.svg?raw'; // inline so the strokes take the text colour, same as /about
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 <Page>
@@ -46,12 +47,15 @@ const pad = (n: number) => String(n).padStart(2, '0');
       <div class="b"><a href="https://os.nicktrim.com">night-shift(8)</a>, <a href="https://github.com/nitrimandylis">github(1)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a>, <a href="https://letterboxd.com/nick_trim8">letterboxd(1)</a>, <a href="https://www.instagram.com/nick_trim8">instagram(1)</a>, <a href="mailto:nicktrim8@duck.com">email(1)</a></div></section>
 
     <div class="hf bottom mu"><span>nicktrim.com</span><span>{month}</span><span>NICKTRIM(1)</span></div>
-    <p class="end" aria-hidden="true"><span class="mu">❯</span> <span class="cursor"></span></p>
+    <div class="end" aria-hidden="true">
+      <p><span class="mu">❯</span> <span class="cursor"></span></p>
+      <div class="sig" set:html={signature} />
+    </div>
   </main>
 </Page>
 <style>
   /* set like troff: one size up from the subpages, starts at the top */
-  .man{max-width:calc(84ch + 48px);margin:0 auto;padding:16px 24px 12px;font-size:15px;line-height:1.45}
+  .man{max-width:calc(84ch + 48px);margin:0 auto;padding:16px 24px 4px;font-size:15px;line-height:1.45}
   /* three equal-weight cells, so the middle one sits on the true centre whatever the sides say */
   .hf{display:grid;grid-template-columns:1fr auto 1fr;gap:2ch}
   .hf span:last-child{justify-self:end}
@@ -59,7 +63,10 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .prompt{margin-bottom:1.2em}
   .top{margin-bottom:.4em}
   .bottom{margin-top:1.2em}
-  .end{margin-top:1.2em}
+  .end{margin-top:1.2em;display:flex;justify-content:space-between;align-items:flex-start}
+  /* the signature fills the empty right side of the last line, at the /about size */
+  .sig{color:var(--fg);transform:rotate(-2deg);margin-top:-56px}
+  .sig :global(svg){width:260px;height:auto;display:block}
   section{margin-top:1em}
   h2{font-weight:700}
   .b{padding-left:7ch}
@@ -75,6 +82,9 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .pol:hover{transform:rotate(0deg)}
   @media (max-width:640px){
     .man{padding:28px 14px;font-size:inherit}
+    /* the footer spans the whole width here, so no room to lift the signature beside it */
+    .sig{margin-top:0}
+    .sig :global(svg){width:220px}
     .examples{grid-template-columns:1fr 1fr}
     .b{padding-left:3ch}
     .hf{font-size:.9em}
