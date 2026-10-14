@@ -176,6 +176,10 @@ The metaphor that fits is a printout he annotated by hand and clipped photos to,
 
 - **EXAMPLES:** the four prints are polaroids (cream #efe9dc, square crop, chin with the mono caption, each
   rotated a degree or two, straightens on hover). Phone: 2x2, now a reasonable height because of the square crop.
+- **No scroll on the home (2026-10-14):** the page ends at the prompt inside one laptop viewport. Measured 880px of
+  content at 1440x900 (line-height 1.5 on the home only, 24px padding, 1.2em section gaps, prints 140px wide,
+  the photos note inline after the command, "the long version" folded into the second paragraph). A 720px-tall
+  laptop still scrolls; that is accepted. Phone scrolls as before.
 - **Signature:** tried as an AUTHOR section on the home, disliked. Moves to the top of /about once Nick writes a
   new "nick trimandylis" sample (open, with the photo of him).
 - **Cut 2026-10-14:** FILES, HISTORY (said three times: about, cv, home) and BUGS. Home is now NAME, SYNOPSIS,
