@@ -35,7 +35,7 @@ overdone), polaroids as navigation.
   Photos page: thin print border at real aspect ratio, grid, lightbox.
   Work and films are text only: no screenshots, no stills, no posters.
 - **Work:** one line per project (name, sentence, link); featured six first
-  and larger, the other 21 below in the same form.
+  and larger, the other 22 below in the same form.
 - **Films:** stats line, favourites as one linked line, diary as text.
 - **Stack:** Astro, Bun, hand-written CSS (no Tailwind), no component
   library. Motion library only if the plain-JS strip falls short. Data
@@ -190,8 +190,41 @@ The metaphor that fits is a printout he annotated by hand and clipped photos to,
 
 Final bar the about page. Work: the featured six cut to one or two lines each. CV: key column 23ch, two
 keys and three results shortened so nothing wraps three deep. Build passes, screenshots checked.
-Signature done 2026-10-14: "Nick / Trimandylis" on two lines, take 6 of 8 from Quick sheets page 200, cut by bounding-box clustering (public/hand/name.svg; the old "nick trim" is public/hand/nick-trim.svg). Nothing left open., then merge
+Signature done 2026-10-14: "Nick / Trimandylis" on two lines, take 6 of 8 from Quick sheets page 200, cut by bounding-box clustering (public/hand/name.svg; the old "nick trim" is public/hand/nick-trim.svg). Nothing left open. Then merge
 site-bakeoff to main, push, import in Vercel, move the apex DNS off GitHub Pages.
+
+### Audit and grill (2026-10-14)
+
+Two Opus subagents audited the live site: one fact-checked every claim against the memory store, GitHub
+and the data files, one built, screenshotted, link-checked and a11y-checked every page. Nick then settled
+ten questions in a grill. Locked:
+
+- **Omilia:** "in production" was unprovable (the CTO said so, Nick is not sure). Everywhere it now reads
+  "built for Omilia's CTO"; the cv result column says "shipped". Omilia may be named on work and about,
+  the CV-only rule from 2026-10-09 is relaxed for the one biggest project.
+- **Akademix:** one wording everywhere, "co-founder, commercial lead" and "2nd nationally, JA Greece".
+  The description "replaces the apps a school runs on, with AI quizzes from the teacher's notes" is accurate.
+- **MindReset, ClearFeed:** "built the app, owned the roadmap" on both. **ASKUS:** "top 10 of 130, IST Crazy
+  Business Ideas" (IST is a competition; "IST, ACSTAC" read like a typo for 1st). **Kizuna:** dead, kept,
+  "founder · retired 2026". **CGSMUN:** co-head of press (two co-heads). **MIT:** "MIT FutureBuilders",
+  no RAISE, no UK. "business since 2024" (Akademix started 2024-25).
+- **Lowercase "i"** stays: it is the voice. Proper nouns fixed: LLM-Mafia, Petal.AI, WhimprFlow (now "a
+  polished fork of..."), Starspace, AL Group, "Thessaloniki, March 2026".
+- **Wording fixes:** blither hands out five names a batch, not fifty ("names for your next CLI, app or
+  startup"); swatch themes 22 surfaces, not 22 Mac apps.
+- **/shell deleted from main** (src/pages/shell, Shell.astro, Cmd.astro, the strip CSS). It lives on
+  branch site-bakeoff only. `results` and `history` exports went with it; content/cv.txt (a dead draft) too.
+- **og.png:** the about polaroid beside `❯ man nicktrim` / NICKTRIM(1) / the NAME line, on black. Nick
+  picked it over a pure man-page header. tools/og.html renders it.
+- **Mechanics:** home h1 on the NICKTRIM(1) header line; home padding 16px so it ends inside 900px again
+  after SEE ALSO grew to two lines; JetBrains Mono re-subset with ❯ ← → (★ is not in the font, it falls
+  back); photos grid prints no longer grow, so the last row matches; about polaroid is a div, not a link,
+  signature aria-hidden; home print imgs alt=""; mailto subject URL-encoded; proto/rome.jpg EXIF stripped
+  (it carried GPS in a public repo); Anton, Schibsted and the six old handwritten word SVGs deleted.
+- **Unverified but kept on Nick's word:** Minecraft at 9, Pygame at 13, 12 finalists from 100+ plans,
+  the trade fair award, merit award 3 years running, Cervantes A2 2023.
+- **Known and accepted:** Instagram nick_trim8 is a private account; #8a8a8a on black is 6.08:1 (AA);
+  "as of October 2026" and ON_REPEAT only refresh on a rebuild, which the daily films push triggers.
 
 ### Status, branch site-2b (2026-10-13)
 

@@ -8,8 +8,8 @@ const sections = [
   ['origin', '', [
     ['age 9', 'Minecraft mods, datapacks, my own 3D models in Blockbench. no code yet'],
     ['age 13', 'first code, a Pygame course'],
-    ['2024-25', 'Akademix with friends: 2nd in Greece, hooked on startups'],
-    ['2026', 'tokenpilot, in production at Omilia'],
+    ['2024-25', 'Akademix with friends: 2nd nationally, hooked on startups'],
+    ['2026', "tokenpilot, built for Omilia's CTO"],
   ]],
   ['how i work', 'minus the Vicodin and the fake psychic act', [
     ['problems', "like House: don't trust the spec, run the test myself"],
@@ -17,11 +17,11 @@ const sections = [
     ['ideas', 'when i drop one, i write down why'],
   ]],
   ['ventures', '', [
-    ['Akademix', 'replaces the apps a school runs on, with AI quizzes from the teacher\'s notes', 'commercial lead · 2nd, JA Greece'],
-    ['MindReset', 'catches study fatigue in teens before burnout', 'built the app · 1st, MIT FutureBuilders'],
-    ['ASKUS', 'drones that fly medicine to elderly islanders, ordered by phone call', 'business plan · IST, ACSTAC'],
-    ['ClearFeed', 'a browser extension that fact-checks social posts for teens', 'roadmap · 3rd, ACSTAC'],
-    ['Kizuna', "a student-led committee for my school's IB students", 'founder'],
+    ['Akademix', 'replaces the apps a school runs on, with AI quizzes from the teacher\'s notes', 'co-founder, commercial lead · 2nd nationally, JA Greece'],
+    ['MindReset', 'catches study fatigue in teens before burnout', 'built the app, owned the roadmap · 1st, MIT FutureBuilders'],
+    ['ASKUS', 'drones that fly medicine to elderly islanders, ordered by phone call', 'business plan · top 10 of 130, IST Crazy Business Ideas'],
+    ['ClearFeed', 'a browser extension that fact-checks social posts for teens', 'built the app, owned the roadmap · 3rd, ACSTAC'],
+    ['Kizuna', "a student-led committee for my school's IB students", 'founder · retired 2026'],
   ]],
   ['off the keyboard', 'i rate films too generously', [
     ['photos', 'wherever i end up'],
@@ -40,13 +40,13 @@ const pages = { photos: '/photos', films: '/films' };
 <ManSub title="about, Nick Trimandylis" heading="about" note="the long version"
   description="Nick Trimandylis, the long version: where he started, how he works, his ventures, and what's next.">
   <div class="top">
-    <a class="pol" href="/photos" aria-label="a photo of nick, thessaloniki, march 2026">
+    <div class="pol">
       <img src="/img/about-800.webp" alt="" width="450" height="800">
-      <span>thessaloniki, march 2026</span>
-    </a>
-    <div class="sig" aria-label="nick trimandylis, signed"><Fragment set:html={signature} /></div>
+      <span>Thessaloniki, March 2026</span>
+    </div>
+    <div class="sig" aria-hidden="true"><Fragment set:html={signature} /></div>
   </div>
-  <p class="lead">Nick Trimandylis. Athens, final-year IB.<br>computer science since forever, business since 2025.</p>
+  <p class="lead">Nick Trimandylis. Athens, final-year IB.<br>computer science since forever, business since 2024.</p>
   {sections.map(([heading, note, rows]) => (
     <section>
       <h2><b>{heading.toUpperCase()}</b>{note && <span class="mu"> · {note}</span>}</h2>
@@ -67,7 +67,7 @@ const pages = { photos: '/photos', films: '/films' };
   .top{display:flex;align-items:flex-end;gap:40px;margin-bottom:2em}
   .sig{color:var(--fg);padding-bottom:28px;transform:rotate(-2deg)}
   .sig :global(svg){width:260px;height:auto;display:block}
-  .pol{display:block;width:320px;flex:none;text-decoration:none;background:#efe9dc;color:#3a3129;padding:18px 18px 0;border-radius:1px;transform:rotate(-1.5deg);box-shadow:0 1px 2px rgba(0,0,0,.6),0 10px 24px -8px rgba(0,0,0,.8)}
+  .pol{display:block;width:320px;flex:none;background:#efe9dc;color:#3a3129;padding:18px 18px 0;border-radius:1px;transform:rotate(-1.5deg);box-shadow:0 1px 2px rgba(0,0,0,.6),0 10px 24px -8px rgba(0,0,0,.8)}
   .pol img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}
   .pol span{display:block;font-size:12px;line-height:1.3;padding:12px 0 14px}
   @media (max-width:640px){.top{flex-direction:column;align-items:flex-start;gap:16px}.pol{width:100%;max-width:320px}.sig{padding:0 0 0 12px}.sig :global(svg){width:220px}}

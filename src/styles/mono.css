@@ -35,16 +35,11 @@ b{font-weight:700}
 
 /* photos: the prints at their real shape. --h sets the row height, so wide and tall prints sit side by side */
 .prints{display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px}
-/* an invisible last item soaks up the spare width, so a short last row keeps the same height as the others */
-.prints:not(.strip)::after{content:"";flex:10 1 0}
-.prints button{flex:var(--r) 1 calc(var(--r) * 220px);min-width:0}
+/* every print the same height per row: no growing, so a short last row matches the others */
+.prints button{flex:0 1 calc(var(--r) * 220px);min-width:0}
 .prints img{width:100%;height:auto;aspect-ratio:var(--r)}
 .prints .num{display:block;text-align:left;color:var(--mu);font-size:12px;margin-top:4px}
 .prints button:hover img,.prints button[aria-current] img{outline:1px solid var(--fg);outline-offset:3px}
-/* the shell's version: one row you scroll sideways, like a strip of negatives */
-.prints.strip{flex-wrap:nowrap;overflow-x:auto;padding:4px 4px 8px;scrollbar-width:thin}
-.prints.strip button{flex:none;width:auto}
-.prints.strip img{height:min(46vh,420px);width:auto}
 
 .viewer{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:20px;border:0;background:var(--bg);color:var(--fg)}
 .viewer::backdrop{background:var(--bg)}
@@ -63,7 +58,6 @@ b{font-weight:700}
   .films-rows .year{display:none}
   .films-rows .review{grid-column:2/-1}
   .prints button{flex-basis:calc(var(--r) * 140px)}
-  .prints.strip img{height:52vh}
   .viewer{padding:14px 10px}
 }
 

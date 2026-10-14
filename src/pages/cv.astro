@@ -6,7 +6,7 @@ import { contact, month } from '../data/site';
 ---
 <ManSub title="CV, Nick Trimandylis" heading="cv" note={`Nick Trimandylis, Athens, as of ${month}`} description="Nick Trimandylis's CV, the short one.">
   <CvRows />
-  <p class="end">want the full one? <a href="mailto:nicktrim8@duck.com?subject=the long cv">email me.</a>
+  <p class="end">want the full one? <a href="mailto:nicktrim8@duck.com?subject=the%20long%20cv">email me.</a>
     <button class="link noprint" onclick="print()">print</button></p>
   <p class="mu">{contact.map(([label, href], i) => <>{i > 0 && ' · '}<a href={href}>{label}</a></>)}</p>
 </ManSub>

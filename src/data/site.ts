@@ -12,22 +12,6 @@ export const contact = [
   ['github.com/nitrimandylis', 'https://github.com/nitrimandylis'],
 ];
 
-export const results = [
-  '2nd nationally, JA Greece (Akademix, CCO)',
-  '1st, MIT RAISE FutureBuilders UK (MindReset)',
-  '3rd, ACSTAC Day of AI hackathon',
-  'product and service promotion award, JA Greece trade fair',
-  'semi-finals, Young Business Talents',
-];
-
-// the man page's HISTORY: [year, what happened], newest first. the rest of the results live on the cv.
-export const history = [
-  ['2026', 'tokenpilot, in production at Omilia'],
-  ['2026', '3rd, ACSTAC Day of AI hackathon'],
-  ['2025', '2nd nationally, JA Greece (Akademix)'],
-  ['2025', '1st, MIT RAISE FutureBuilders UK'],
-];
-
 // the man page's EXAMPLES: four prints by file name, in the order shown. edit this list to change them.
 const exampleFiles = ['siena-il-campo-at-night', 'oaka-concert', 'corfu-old-fortress', 'lycabettus-sunset'];
 export const examples = exampleFiles.map(file => {
@@ -38,14 +22,14 @@ export const examples = exampleFiles.map(file => {
 
 // [section, where, what, result]. the section label only shows on the first row of each group.
 export const cv = [
-  ['work', 'Omilia, Athens', 'intern reporting to the CTO. built tokenpilot', 'in production'],
-  ['', 'ALGroup, Athens', 'digitised sales proposals and client quotes', ''],
-  ['results', 'Akademix, JA Greece', 'chief commercial officer · 12 finalists from 100+ plans', '2nd in Greece'],
+  ['work', 'Omilia, Athens', 'intern reporting to the CTO. built tokenpilot', 'shipped'],
+  ['', 'AL Group, Athens', 'digitised sales proposals and client quotes', ''],
+  ['results', 'Akademix, JA Greece', 'co-founder, commercial lead · 12 finalists from 100+ plans', '2nd nationally'],
   ['', 'JA Greece trade fair', 'product/service promotion', 'award'],
-  ['', 'MIT FutureBuilders UK', 'innovation demo', '1st place'],
+  ['', 'MIT FutureBuilders', 'innovation demo', '1st place'],
   ['', 'ACSTAC Day of AI', 'pitch', '3rd place'],
   ['', 'Young Business Talents', 'four rounds of running a simulated company', 'semi-finals'],
-  ['', 'CGSMUN', 'head of press · two newspaper issues and all conference photography', ''],
+  ['', 'CGSMUN', 'co-head of press · two newspaper issues and all conference photography', ''],
   ['education', 'Costeas-Geitonas', 'IB Diploma 2025-27 · HL Maths AA, CS, English B', ''],
   ['', 'Costeas-Geitonas', 'national academic merit award', '3 years running'],
   ['languages', 'Greek', 'native', ''],

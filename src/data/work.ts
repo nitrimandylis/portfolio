@@ -1,17 +1,17 @@
 // every project. the home page shows the featured six, the work page shows all of them.
 export const featured = [
-  { name: 'tokenpilot', url: 'https://tokenpilot.nicktrim.com', code: 'https://github.com/nitrimandylis/tokenpilot', what: 'what every model, key and team costs on an Anthropic or OpenAI account. in production at Omilia' },
-  { name: 'llm-mafia', url: 'https://mafia.nicktrim.com', code: 'https://github.com/nitrimandylis/LLM-Mafia', what: 'mafia where every seat is a language model, replayed as a noir episode' },
+  { name: 'tokenpilot', url: 'https://tokenpilot.nicktrim.com', code: 'https://github.com/nitrimandylis/tokenpilot', what: "what every model, key and team costs on an Anthropic or OpenAI account. built for Omilia's CTO" },
+  { name: 'LLM-Mafia', url: 'https://mafia.nicktrim.com', code: 'https://github.com/nitrimandylis/LLM-Mafia', what: 'Mafia where every seat is a language model, replayed as a noir episode' },
   { name: 'aidetect', url: 'https://github.com/nitrimandylis/aidetect', what: 'how AI-written a draft reads, offline, plus IB word counts' },
   { name: 'bacpack', url: 'https://github.com/nitrimandylis/bacpack', what: 'ManageBac from the terminal, minus the school site' },
   { name: 'gridcast', url: 'https://gridcast.nicktrim.com', code: 'https://github.com/nitrimandylis/gridcast', what: 'F1 race probabilities committed before every race, scored in public after' },
-  { name: 'blither', url: 'https://blither.nicktrim.com', code: 'https://github.com/nitrimandylis/blither', what: 'fifty names for your next CLI or startup, from a model in your browser' },
+  { name: 'blither', url: 'https://blither.nicktrim.com', code: 'https://github.com/nitrimandylis/blither', what: 'names for your next CLI, app or startup, from a model in your browser' },
 ];
 export const rest = [
   ['apex', 'https://apex.nicktrim.com', 'F1 dashboard with live standings and replayable telemetry'],
-  ['petal.ai', 'https://github.com/nitrimandylis/Petal.AI', 'a soft-skills coach for iPhone, in SwiftUI'],
-  ['whimprflow', 'https://github.com/nitrimandylis/WhimprFlow', 'a voice dictation app for the Mac, polished and translated'],
-  ['swatch', 'https://github.com/nitrimandylis/swatch', 'one palette, twenty-two Mac apps themed to match'],
+  ['Petal.AI', 'https://github.com/nitrimandylis/Petal.AI', 'a soft-skills coach for iPhone, in SwiftUI'],
+  ['WhimprFlow', 'https://github.com/nitrimandylis/WhimprFlow', 'a polished fork of a voice dictation app for the Mac'],
+  ['swatch', 'https://github.com/nitrimandylis/swatch', 'one palette, twenty-two surfaces themed to match'],
   ['agent-wrapped', 'https://github.com/nitrimandylis/agent-wrapped', 'your Claude Code month as a scored card, offline'],
   ['brushwork', 'https://github.com/nitrimandylis/brushwork', 'turns a photo into visible brush strokes'],
   ['nous', 'https://github.com/nitrimandylis/nous', 'any folder of linked Markdown as a force graph'],
@@ -28,7 +28,7 @@ export const rest = [
   ['loosethreads', 'https://loosethreads.nicktrim.com', 'anonymous gossip on a detective corkboard'],
   ['clawdarium', 'https://github.com/nitrimandylis/clawdarium', 'an aquarium of pixel crab animations'],
   ['IB news site', 'https://news.nicktrim.com', 'a school newspaper with its own CMS'],
-  ['starspace', 'https://starspace.nicktrim.com', 'three fields of computer science, explained for school'],
+  ['Starspace', 'https://starspace.nicktrim.com', 'three fields of computer science, explained for school'],
   ['night shift', 'https://os.nicktrim.com', 'the old site, disguised as an operating system'],
 ];
 // the right-hand cell: 'live' when the project has a site, 'code' when it has a repo

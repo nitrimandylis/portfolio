@@ -9,7 +9,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   <header class="titleline mu">nick@athens ~</header>
   <main class="man">
     <p class="prompt"><span class="mu">❯</span> man nicktrim</p>
-    <div class="hf top"><span>NICKTRIM(1)</span><span class="mu">General Commands Manual</span><span>NICKTRIM(1)</span></div>
+    <h1 class="hf top"><span>NICKTRIM(1)</span><span class="mu">General Commands Manual</span><span>NICKTRIM(1)</span></h1>
 
     <section><h2>NAME</h2>
       <div class="b">nicktrim - Nick Trimandylis, Athens, final-year IB. builds tools, ships them.</div></section>
@@ -29,7 +29,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
         <div class="examples">
           {examples.map((p, i) => (
             <a class="pol" href={`/photos#${p.file}`} style={`--r:${[-2.5,1.5,-1,2][i]}deg`}>
-              <img src={`/img/photos/${p.file}-600.webp`} alt={p.name} width={p.w} height={p.h}>
+              <img src={`/img/photos/${p.file}-600.webp`} alt="" width={p.w} height={p.h}>
               <span>{pad(p.num)} {p.name}</span>
             </a>
           ))}
@@ -50,7 +50,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   </main>
 </Page>
 <style>
-  .man{max-width:calc(80ch + 48px);margin:0 auto;padding:24px 24px;line-height:1.5;min-height:calc(100vh - 40px);display:flex;flex-direction:column;justify-content:center}
+  .man{max-width:calc(80ch + 48px);margin:0 auto;padding:16px 24px;line-height:1.5;min-height:calc(100vh - 40px);display:flex;flex-direction:column;justify-content:center}
   /* three equal-weight cells, so the middle one sits on the true centre whatever the sides say */
   .hf{display:grid;grid-template-columns:1fr auto 1fr;gap:2ch}
   .hf span:last-child{justify-self:end}

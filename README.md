@@ -42,8 +42,8 @@ NICKTRIM(1)              General Commands Manual              NICKTRIM(1)
 | 02 | **/about** | the long version as key-value rows: origin, how i work, ventures, off the keyboard, next |
 | 03 | **/work** | 28 projects, one line each, with live and code links |
 | 04 | **/cv** | the short cv as a table; ⌘P prints a paper version in black on white |
-| 05 | **/films** | the Letterboxd diary, paged, titles lowercased, reviews as written |
-| 06 | **/photos** | 25 prints at their own aspect ratio, in the order they were taken, with a viewer |
+| 05 | **/films** | the Letterboxd diary, paged, reviews as written |
+| 06 | **/photos** | 25 prints at their own aspect ratio, in the order they were picked, with a viewer |
 
 ## 🚀 Run it
 
