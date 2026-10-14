@@ -1,11 +1,11 @@
 // every project. the home page shows the featured six, the work page shows all of them.
 export const featured = [
-  { name: 'tokenpilot', url: 'https://tokenpilot.nicktrim.com', code: 'https://github.com/nitrimandylis/tokenpilot', what: 'reads an Anthropic or OpenAI admin API and tells you what every model, key and team costs. built at Omilia, in production.' },
-  { name: 'llm-mafia', url: 'https://mafia.nicktrim.com', code: 'https://github.com/nitrimandylis/LLM-Mafia', what: 'mafia where every seat is a language model, lying to the others. each game is replayed as a noir episode you can watch.' },
-  { name: 'aidetect', url: 'https://github.com/nitrimandylis/aidetect', what: 'scores a draft for how AI-written it reads, paragraph by paragraph, fully offline. also counts words the way the IB counts them.' },
-  { name: 'bacpack', url: 'https://github.com/nitrimandylis/bacpack', what: 'ManageBac from the terminal: what is due, what a task actually asks, CAS logging and portfolio entries. the school site, minus the school site.' },
-  { name: 'gridcast', url: 'https://gridcast.nicktrim.com', code: 'https://github.com/nitrimandylis/gridcast', what: 'F1 race probabilities committed to git before every race and scored in public afterwards. a Raspberry Pi runs the weekend.' },
-  { name: 'blither', url: 'https://blither.nicktrim.com', code: 'https://github.com/nitrimandylis/blither', what: 'names for your next CLI, app or startup, from a character model that runs in your browser. give it hint words, it gives you fifty options.' },
+  { name: 'tokenpilot', url: 'https://tokenpilot.nicktrim.com', code: 'https://github.com/nitrimandylis/tokenpilot', what: 'what every model, key and team costs on an Anthropic or OpenAI account. in production at Omilia' },
+  { name: 'llm-mafia', url: 'https://mafia.nicktrim.com', code: 'https://github.com/nitrimandylis/LLM-Mafia', what: 'mafia where every seat is a language model, replayed as a noir episode' },
+  { name: 'aidetect', url: 'https://github.com/nitrimandylis/aidetect', what: 'how AI-written a draft reads, offline, plus IB word counts' },
+  { name: 'bacpack', url: 'https://github.com/nitrimandylis/bacpack', what: 'ManageBac from the terminal, minus the school site' },
+  { name: 'gridcast', url: 'https://gridcast.nicktrim.com', code: 'https://github.com/nitrimandylis/gridcast', what: 'F1 race probabilities committed before every race, scored in public after' },
+  { name: 'blither', url: 'https://blither.nicktrim.com', code: 'https://github.com/nitrimandylis/blither', what: 'fifty names for your next CLI or startup, from a model in your browser' },
 ];
 export const rest = [
   ['apex', 'https://apex.nicktrim.com', 'F1 dashboard with live standings and replayable telemetry'],

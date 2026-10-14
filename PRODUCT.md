@@ -186,6 +186,13 @@ The metaphor that fits is a printout he annotated by hand and clipped photos to,
   DESCRIPTION, EXAMPLES, ENVIRONMENT, SEE ALSO. AUTHOR cut the same day. `--email` left SYNOPSIS; SEE ALSO is
   external only: night-shift, github, linkedin, email(1).
 
+### Status, branch site-bakeoff (2026-10-14)
+
+Final bar the about page. Work: the featured six cut to one or two lines each. CV: key column 23ch, two
+keys and three results shortened so nothing wraps three deep. Build passes, screenshots checked.
+Left for Nick: the about photo and the new "nick trimandylis" signature (both /about), then merge
+site-bakeoff to main, push, import in Vercel, move the apex DNS off GitHub Pages.
+
 ### Status, branch site-2b (2026-10-13)
 
 2b built on branch `site-2b` (worktree .claude/worktrees/site-2b), replacing
