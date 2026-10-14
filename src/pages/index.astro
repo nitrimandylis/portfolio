@@ -3,7 +3,6 @@
 import Page from '../layouts/Page.astro';
 import { latest } from '../data/films';
 import { photos, song, month, examples } from '../data/site';
-import signature from '../../public/hand/name.svg?raw'; // inline, so the strokes take the text colour
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 <Page>
@@ -45,12 +44,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
         {latest && <><span>LAST_WATCHED</span><span>{latest.title}, {latest.year}{latest.rewatch && ', again'}</span></>}
       </div></section>
 
-    <section><h2>AUTHOR</h2>
-      <div class="b"><a class="sig" href="/about" aria-label="nick trimandylis, about"><Fragment set:html={signature} /></a>
-        <p>Nick Trimandylis &lt;<a href="mailto:nicktrim8@duck.com">nicktrim8@duck.com</a>&gt;</p></div></section>
-
     <section><h2>SEE ALSO</h2>
-      <div class="b"><a href="https://os.nicktrim.com">night-shift(8)</a>, <a href="https://github.com/nitrimandylis">github(1)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a></div></section>
+      <div class="b"><a href="https://os.nicktrim.com">night-shift(8)</a>, <a href="https://github.com/nitrimandylis">github(1)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a>, <a href="mailto:nicktrim8@duck.com">email(1)</a></div></section>
 
     <div class="hf bottom mu"><span>nicktrim.com</span><span>{month}</span><span>NICKTRIM(1)</span></div>
     <p class="end" aria-hidden="true"><span class="mu">❯</span> <span class="cursor"></span></p>
@@ -78,9 +73,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .pol img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}
   .pol span{display:block;font-size:11px;line-height:1.3;padding:8px 0 10px;min-height:2.6em}
   .pol:hover{transform:rotate(0deg)}
-  /* the signature: his strokes, in the text colour, the size of a pen on paper */
-  .sig{display:inline-block;color:var(--fg)}
-  .sig svg{width:160px;height:auto;display:block;margin-bottom:.4em}
   @media (max-width:640px){
     .man{padding:28px 14px;justify-content:flex-start}
     .b{padding-left:3ch}
