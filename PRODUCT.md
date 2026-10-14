@@ -178,6 +178,9 @@ The metaphor that fits is a printout he annotated by hand and clipped photos to,
   rotated a degree or two, straightens on hover). Phone: 2x2, now a reasonable height because of the square crop.
 - **AUTHOR:** a new section before SEE ALSO, holding the signature (public/hand/name.svg inlined so the strokes
   take the text colour), linking to /about. Subpages unchanged.
+- **Cut 2026-10-14:** FILES, HISTORY (said three times: about, cv, home) and BUGS. Home is now NAME, SYNOPSIS,
+  DESCRIPTION, EXAMPLES, ENVIRONMENT, AUTHOR, SEE ALSO. AUTHOR carries the typed `Nick Trimandylis <email>` line
+  under the signature, so `--email` left SYNOPSIS. SEE ALSO is external only: night-shift, github, linkedin.
 - Open: the signature still reads "nick trim"; the copy rule says "nick trimandylis" in full. Needs a new
   handwriting sample or stays as the one place the short name survives.
 

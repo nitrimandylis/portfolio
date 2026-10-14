@@ -1,9 +1,8 @@
 ---
 // the man(1) home: nick as a manual page, typed into a terminal. `man nicktrim` on top, back at the prompt at the end. the only page that keeps the format; the rest are plain.
 import Page from '../layouts/Page.astro';
-import { featured } from '../data/work';
-import { logged, latest } from '../data/films';
-import { photos, projectCount, song, month, history, examples } from '../data/site';
+import { latest } from '../data/films';
+import { photos, song, month, examples } from '../data/site';
 import signature from '../../public/hand/name.svg?raw'; // inline, so the strokes take the text colour
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
@@ -17,7 +16,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
       <div class="b">nicktrim - Nick Trimandylis, Athens, final-year IB. builds tools, ships them.</div></section>
 
     <section><h2>SYNOPSIS</h2>
-      <div class="b"><b>nicktrim</b> [<a href="/about">about</a> | <a href="/work">work</a> | <a href="/films">films</a> | <a href="/photos">photos</a> | <a href="/cv">cv</a>] <span class="nw">[<a href="mailto:nicktrim8@duck.com">--email</a>]</span></div></section>
+      <div class="b"><b>nicktrim</b> [<a href="/about">about</a> | <a href="/work">work</a> | <a href="/films">films</a> | <a href="/photos">photos</a> | <a href="/cv">cv</a>]</div></section>
 
     <section><h2>DESCRIPTION</h2>
       <div class="b">
@@ -40,32 +39,18 @@ const pad = (n: number) => String(n).padStart(2, '0');
         </div>
       </div></section>
 
-    <section><h2>FILES</h2>
-      <div class="b kv">
-        <a href="/work">work/</a><span>{featured.length} featured, {projectCount} total</span>
-        <a href="/films">films/</a><span>{logged} in the diary, usually five stars</span>
-        <a href="/photos">photos/</a><span>{photos.length} prints, in order</span>
-      </div></section>
-
     <section><h2>ENVIRONMENT</h2>
       <div class="b kv">
         <span>ON_REPEAT</span><span>{song}</span>
         {latest && <><span>LAST_WATCHED</span><span>{latest.title}, {latest.year}{latest.rewatch && ', again'}</span></>}
       </div></section>
 
-    <section><h2>HISTORY</h2>
-      <div class="b kv">
-        {history.map(([year, what]) => <><span>{year}</span><span>{what}</span></>)}
-      </div></section>
-
-    <section><h2>BUGS</h2>
-      <div class="b">occasionally finishes them.</div></section>
-
     <section><h2>AUTHOR</h2>
-      <div class="b"><a class="sig" href="/about" aria-label="nick trimandylis, about"><Fragment set:html={signature} /></a></div></section>
+      <div class="b"><a class="sig" href="/about" aria-label="nick trimandylis, about"><Fragment set:html={signature} /></a>
+        <p>Nick Trimandylis &lt;<a href="mailto:nicktrim8@duck.com">nicktrim8@duck.com</a>&gt;</p></div></section>
 
     <section><h2>SEE ALSO</h2>
-      <div class="b"><a href="/cv">cv(7)</a>, <a href="https://os.nicktrim.com">night-shift(8)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a>, <a href="https://github.com/nitrimandylis">github(1)</a></div></section>
+      <div class="b"><a href="https://os.nicktrim.com">night-shift(8)</a>, <a href="https://github.com/nitrimandylis">github(1)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a></div></section>
 
     <div class="hf bottom mu"><span>nicktrim.com</span><span>{month}</span><span>NICKTRIM(1)</span></div>
     <p class="end" aria-hidden="true"><span class="mu">❯</span> <span class="cursor"></span></p>
@@ -87,7 +72,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .b p.mu{margin-top:0}
   .kv{display:grid;grid-template-columns:14ch 1fr;column-gap:1ch}
   .kv a{justify-self:start}
-  .nw{white-space:nowrap}
   /* four prints, clipped on as polaroids: cream frame, square crop, chin for the caption, each sitting a little crooked */
   .examples{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:1.2em}
   .pol{display:block;text-decoration:none;background:#efe9dc;color:#3a3129;padding:7% 7% 0;border-radius:1px;transform:rotate(var(--r));box-shadow:0 1px 2px rgba(0,0,0,.6),0 10px 24px -8px rgba(0,0,0,.8)}
@@ -96,7 +80,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .pol:hover{transform:rotate(0deg)}
   /* the signature: his strokes, in the text colour, the size of a pen on paper */
   .sig{display:inline-block;color:var(--fg)}
-  .sig svg{width:160px;height:auto;display:block}
+  .sig svg{width:160px;height:auto;display:block;margin-bottom:.4em}
   @media (max-width:640px){
     .man{padding:28px 14px;justify-content:flex-start}
     .b{padding-left:3ch}
