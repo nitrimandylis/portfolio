@@ -1,17 +1,17 @@
-# one per line: title, artist. lowercase on the page. edit freely.
-neon guts, lil uzi vert ft. pharrell
-the beach, the neighbourhood
-rip 2 my youth, the neighbourhood
-sweater weather, the neighbourhood
-cali man, esdeekid
-4 raws, esdeekid
-mist, esdeekid
-phantom, esdeekid
-take me back to eden, sleep token
-tbh, partynextdoor
-dreamin, partynextdoor
-some of your love, partynextdoor
-heartless, the weeknd
-king of the fall, the weeknd
-in the night, the weeknd
-often, the weeknd
+# one per line: title, artist. edit freely.
+Neon Guts, Lil Uzi Vert ft. Pharrell
+The Beach, The Neighbourhood
+R.I.P. 2 My Youth, The Neighbourhood
+Sweater Weather, The Neighbourhood
+Cali Man, EsDeeKid
+4 Raws, EsDeeKid
+Mist, EsDeeKid
+Phantom, EsDeeKid
+Take Me Back to Eden, Sleep Token
+TBH, PARTYNEXTDOOR
+Dreamin, PARTYNEXTDOOR
+Some of Your Love, PARTYNEXTDOOR
+Heartless, The Weeknd
+King of the Fall, The Weeknd
+In the Night, The Weeknd
+Often, The Weeknd

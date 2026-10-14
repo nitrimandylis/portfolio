@@ -47,6 +47,173 @@ overdone), polaroids as navigation.
   writes img/photos/*.webp and data/photos.json locally before push.
 - proto/ and proto/mockups/e-motion.html stay in the repo for now.
 
+### Remix (grilled 2026-10-13)
+
+The first astro build was judged uninspiring: discipline, no gesture. New
+inputs: the mask variant (photos through the handwritten strokes), the big
+overlapping polaroids, mockup e's motion, and ~/cc/deck (one long page,
+sticky section titles, big numbers, an ask). Locked:
+
+- **Home is one long page.** Hero (name as window, photos through the
+  strokes, letters rise on load, first photo still until scroll), reveal
+  (name shrinks onto the fixed signature while full-height polaroids slide
+  through beneath), thesis, results (big numbers), work (featured rows),
+  films (stats, favourites, last five), paper trail (three columns, replaces
+  the cv page, print stylesheet), ask. Motion: load plus scroll only.
+- **Subpages:** work (full list), films (full diary), photos (grid,
+  lightbox). Signature only as chrome. cv page gone.
+- **Type (2026-10-13):** Schibsted Grotesk for text, Sharpie (Fontshare, marker script, 400 and 700 only) for the thesis, the result numbers and the ask. Archivo rejected. Both self-hosted in public/fonts. proto/type.html is the specimen page (?f=Body&d=Display).
+- **Type scale:** three-quarter deck. Thesis and ask ~40-56px, numbers
+  ~64px, section titles 22px sticky. Near-black stays.
+- **Touch / reduced motion:** no stage. Window shows the first photo, the
+  polaroids are a row you swipe, signature hidden (the window is the name).
+
+### Direction 2b (grilled 2026-10-13, supersedes the remix)
+
+Nick disliked every built design, Astro included. Claude Design project
+2d5ff6fe (round 1: 1b/1c/1e/1f liked, 1a/1d cut; round 2: 2b picked, 2c
+kept as the minimal fallback). Locked:
+
+- **Skeleton:** 2b, "grid as the camera". Exposed 12-col grid (4 on mobile).
+- **Hero:** NICK / TRIMANDYLIS in Anton, photo through the letters. Random
+  print per visit, still frame (the scroll pan was cut 2026-10-13).
+  Mobile: NICK / TRIMAN- / DYLIS.
+- **Bar:** numbered `01 work · 02 photos · 03 films · 04 contact` on every
+  page, night shift right. Top-left cell: handwritten signature, home link.
+- **Home:** hero, work table (6 featured), contact-sheet strip, bottom row
+  (results · films · contact). No thesis, no ask.
+- **Pages:** work (grid table, all), cv (grid table, printable, linked from
+  the contact cell, not the nav), photos (contact sheet, click opens 2a's
+  projector), films (diary as grid table, latest film as one ticket stub,
+  30 rows a page at /films, /films/2, ...; stub and stats on page 1 only).
+- **Films line:** fixed text, "usually ★★★★★. i like films." Not a median.
+- **Type:** Anton (name only), Schibsted Grotesk (prose), JetBrains Mono (data).
+- **Motion:** load sequence (grid draws, bar types, name fills): once per
+  session, under 1s, skip on any input, none on reduced motion. Nothing
+  moves on vertical scroll (2026-10-13). The home strip is a horizontal
+  scroller everywhere; over it, the mouse wheel scrolls it sideways until an
+  end, then the page. Projector: one print per gesture (wheel, trackpad or
+  40px swipe; momentum swallowed), arrow keys, thumbnail scrub.
+- **Palette:** Nocturne blurple kept as a placeholder; brainstorm pending.
+- **Approved 2026-10-13:** Claude Design file "Nick Site.dc.html" (round 3)
+  is the design. Build fixes: name line-height ~0.9 (lines collide at
+  0.84), name sized to fill its 9 columns, hero picks from a hand-picked
+  hero-safe subset (flat photos die in the letters), work meta column shows
+  year or live/code links instead of "featured", films from films.json,
+  real signature strokes from public/hand.
+
+### Bake-off: 2c vs man(1) (grilled 2026-10-13)
+
+After the 2b roast, Nick (tired of redesigning) asked for two minimal sites built in full and compared.
+Branch `site-bakeoff` (worktree .claude/worktrees/site-bakeoff), off site-2b. Locked:
+
+- **Two sites, one build:** /man and /shell, same copy and data (src/data/site.ts, work.ts, films.ts).
+  / is a chooser until one wins; the winner moves to /.
+- **man(1):** the home is mockup i, a manual page. Work, films, photos and cv are plain mono pages
+  (`← nick(1)`, a title, the content). Photos shows the real prints at their own shape, with a viewer.
+- **shell (2c):** the page is the terminal. Title line `nick@athens ~/...`, the session, a blinking prompt
+  that takes no input, `try:` bar pinned at the bottom. Every command is a link. No `play`, no audio;
+  ON_REPEAT is printed. Photos is one sideways strip.
+- **Skin, shared:** JetBrains Mono, #000, #e6e6e6, grey #8a8a8a, no accent. Links are underlines.
+- **Copy fixes:** counts from data; the "taken at night" claim cut (half the prints are daylight);
+  NAME ends at "ships them" so BUGS keeps the punchline. Third DESCRIPTION line is a draft.
+- **Picked 2026-10-13: man(1).** The man page reads better for people who aren't technical. From the shell it takes the title line
+  (`nick@athens ~`) and the blinking prompt: the home opens on `❯ man nicktrim` and ends back at `❯ █`. The shell's left-edge layout was tried and dropped: the man
+  pages stay a centred column. The man site now lives at / (work, films, photos, cv at the root);
+  the shell stays built at /shell on this branch as the alternative. Freeze until 2026-11-13 starts now.
+- **Exit rule:** pick within a day of seeing both. Every branch (astro, site-2b, the loser) stays as an
+  alternative. Design frozen until 2026-11-13 after the pick: copy edits only.
+
+### man(1) gaps (grilled 2026-10-13, after the man(1) roast)
+
+The freeze is dropped. man(1) stays; this round fills what it left out. Locked:
+
+- **Name:** the command is `nicktrim` (`man nicktrim`, NICKTRIM(1), `nicktrim [work | films | photos | cv] [--email]`
+  with cv added, `← nicktrim(1)` on subpages). Wherever a person is named in prose, it's "nick trimandylis" in full:
+  NAME reads `nicktrim - nick trimandylis, athens, ...`, and so do the page titles. "nick trim" is gone.
+- **Sections, canon order:** NAME, SYNOPSIS, DESCRIPTION, EXAMPLES, FILES, ENVIRONMENT, HISTORY, BUGS, SEE ALSO.
+- **DESCRIPTION:** results move out. Claude drafts 3 options in the BUGS voice, Nick picks.
+- **HISTORY:** key-value rows like FILES, year then result. Four rows: tokenpilot at omilia, 2nd ja greece,
+  1st mit futurebuilders, 3rd acstac. Years from Nick (pending).
+- **EXAMPLES:** `nicktrim photos` (link to /photos), a line "four of N. the rest under photos/.", then four
+  hand-picked prints at real shape, ~160px tall, captions, each opens /photos#file. Phone: 2x2.
+- **Photos:** ~100 new jpgs in ~/Downloads/photos/jpg plus the current 10, one pool. Claude makes a numbered
+  contact sheet, Nick picks 20-30 in order and names each. Page order is the pick order (photos.py follows a
+  list, not mtime). FILES line: `N prints, in order`; page note drops "newest first".
+- **Column:** every page 80ch, one left edge. Subpage titles in bold caps like the home's section heads,
+  grey note after, content indented 7ch. No NICKTRIM(1) header on subpages: the joke is told once.
+- **Work:** name links to the main URL; right column is a grey label (live/code), plus a `code` link only
+  when a project has both. Note says "28 projects", no featured split.
+- **Films:** counts are what's shown (SEED goes): "20 in the diary, 15 this year". Titles and favourites
+  lowercased in CSS, reviews as written. Pager hidden on a single page.
+- **Bugs:** footer centre item off-centre (space-between with unequal sides); siena caption truncated.
+- **Kept:** the closing blinking prompt.
+- **Built 2026-10-13** (site-bakeoff). Photos: 25 picked by Claude from the 110 (Nick: "decide for me"), named
+  from local GPS, in date order, Athens to Corfu to Siena/San Gimignano to Rome and home. Old captions fixed:
+  "sunset" was Corfu, "siena" and "tuscany" San Gimignano, "rome" Fiumicino. Pizza cut. EXAMPLES: il campo at
+  night, oaka concert, corfu fortress, lycabettus sunset. Nick's copies sit in the shared originals/ under the
+  new names, so astro/site-2b would publish them too if their mtime-based photos.py is rerun.
+
+### About page and capitals (grilled 2026-10-14)
+
+The home was missing too much about Nick, so /about is back as a man(1) subpage. Locked:
+
+- **Form:** rows, not prose (paragraphs plus lowercase plus deadpan were unreadable). Sections ORIGIN, HOW I WORK,
+  VENTURES, OFF THE KEYBOARD, NEXT; jokes live in the grey notes. Linked first in SYNOPSIS and from DESCRIPTION
+  ("the long version: about/").
+- **Content:** Minecraft at 9 (no code, Blockbench models), Pygame at 13, Akademix 2024-25; House for problems,
+  Jane for people; five ventures with role and result (Akademix commercial lead, MindReset built the app, ASKUS
+  business plan, ClearFeed roadmap, Kizuna founder); music The Neighbourhood, Arctic Monkeys, The Weeknd, Kanye;
+  next names UCL. No F1, no camera model, nothing private.
+- **Capitals:** proper nouns and acronyms are capitalised on every page (Athens, IB, UCL, film and song titles).
+  Ordinary words stay lowercase. Photo captions are still lowercase: they come from the shared originals/ filenames.
+- **Open:** a photo of Nick at the top of /about, waiting on which picture.
+
+### Handwriting and polaroids back (2026-10-14)
+
+Nick liked the man page but missed the two things that were his: the handwriting and the polaroids.
+The metaphor that fits is a printout he annotated by hand and clipped photos to, so both live on the home only:
+
+- **EXAMPLES:** the four prints are polaroids (cream #efe9dc, square crop, chin with the mono caption, each
+  rotated a degree or two, straightens on hover). Phone: 2x2, now a reasonable height because of the square crop.
+- **No scroll on the home (2026-10-14):** the page ends at the prompt inside one laptop viewport. Measured 880px of
+  content at 1440x900 (line-height 1.5 on the home only, 24px padding, 1.2em section gaps, prints 140px wide,
+  the photos note inline after the command, "the long version" folded into the second paragraph). A 720px-tall
+  laptop still scrolls; that is accepted. Phone scrolls as before.
+- **Signature:** tried as an AUTHOR section on the home, disliked. Moves to the top of /about once Nick writes a
+  new "nick trimandylis" sample (open, with the photo of him).
+- **Cut 2026-10-14:** FILES, HISTORY (said three times: about, cv, home) and BUGS. Home is now NAME, SYNOPSIS,
+  DESCRIPTION, EXAMPLES, ENVIRONMENT, SEE ALSO. AUTHOR cut the same day. `--email` left SYNOPSIS; SEE ALSO is
+  external only: night-shift, github, linkedin, email(1).
+
+### Status, branch site-bakeoff (2026-10-14)
+
+Final bar the about page. Work: the featured six cut to one or two lines each. CV: key column 23ch, two
+keys and three results shortened so nothing wraps three deep. Build passes, screenshots checked.
+Left for Nick: the about photo and the new "nick trimandylis" signature (both /about), then merge
+site-bakeoff to main, push, import in Vercel, move the apex DNS off GitHub Pages.
+
+### Status, branch site-2b (2026-10-13)
+
+2b built on branch `site-2b` (worktree .claude/worktrees/site-2b), replacing
+every astro page: home, work, cv (new), photos (sheet + projector), films
+(table + stub), 404. Anton and JetBrains Mono self-hosted, Sharpie removed
+(proto/type.html still names it). Hero set: concert, sunset, corfu, tuscany,
+siena, rome (HERO in index.astro). Build passes; checked at 1440 and 390.
+Review fixes (2026-10-13): name sized in cqw (100vw clipped it behind a
+desktop scrollbar), signature prints, project lists in src/data/work.ts,
+shared film bits in src/data/films.ts. proto/ stays.
+Open: palette, the blurple is a placeholder in the :root variables.
+
+### Status, branch astro (2026-10-13)
+
+Built on branch `astro`: remix home, three subpages, 404, og.png, favicon.
+`bun run build` passes, screenshots checked at 1440 and 390 through the
+whole scroll. Copy is the deck's draft; Nick rewrites.
+Not yet: push, Vercel import, DNS move. Main still serves the old site.
+Run locally: `bun run dev`. Deploy: push `astro`, import the repo in Vercel
+(framework auto-detected), point the apex at Vercel, merge to main.
+
 ### Open
 
 - Bio line and about copy are still the 2026-10-09 drafts; Nick rewrites.

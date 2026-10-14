@@ -1,0 +1,14 @@
+---
+// projects as rows: name (the link), one sentence, then where the name goes ('live' or 'code') as plain text.
+// a project with both a site and a repo gets one real link: its code. `items` is a list in the shape of `all` in data/work.ts.
+const { items } = Astro.props;
+---
+<div class="rows">
+  {items.map(p => (
+    <div class="row">
+      <a href={p.url}>{p.name}</a>
+      <span class="what">{p.what}</span>
+      <span class="links mu">{p.links[0][0]}{p.links.slice(1).map(([label, href]) => <a href={href}>{label}</a>)}</span>
+    </div>
+  ))}
+</div>

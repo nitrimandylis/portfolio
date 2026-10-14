@@ -1,0 +1,9 @@
+---
+import ManSub from '../layouts/ManSub.astro';
+import WorkList from '../components/WorkList.astro';
+import { all } from '../data/work';
+---
+<ManSub title="work, Nick Trimandylis" heading="work" note={`${all.length} projects`}
+  description="everything Nick Trimandylis has built. tokenpilot, llm-mafia, aidetect, bacpack, gridcast, blither, and the rest.">
+  <WorkList items={all} />
+</ManSub>

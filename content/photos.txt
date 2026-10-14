@@ -1,0 +1,27 @@
+# the photos page, in order: one print per line, named exactly like its file in originals/ (without the extension).
+# the name is also the caption. tools/photos.py reads this list.
+oaka, concert
+corfu, old fortress
+corfu, sunset
+dinner
+dinner, the fountain
+the cat
+lycabettus, sunset
+lycabettus, night
+athens, night
+train to siena
+siena, il campo
+siena, san domenico
+siena, il campo at night
+san gimignano
+san gimignano, alley
+san gimignano, collegiata
+rome, colosseum
+rome, the forum
+rome, pantheon
+rome, trevi
+rome, the tiber
+fiumicino
+flying home
+oaka, basketball
+school court

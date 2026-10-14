@@ -1,38 +1,20 @@
 {
  "photos": [
   {
-   "file": "rome",
-   "name": "rome",
+   "file": "oaka-concert",
+   "name": "oaka, concert",
    "w": 897,
    "h": 1600
   },
   {
-   "file": "rome-lunch",
-   "name": "rome, lunch",
-   "w": 1278,
-   "h": 1600
-  },
-  {
-   "file": "siena-after-dark",
-   "name": "siena, after dark",
+   "file": "corfu-old-fortress",
+   "name": "corfu, old fortress",
    "w": 897,
    "h": 1600
   },
   {
-   "file": "siena",
-   "name": "siena",
-   "w": 897,
-   "h": 1600
-  },
-  {
-   "file": "tuscany",
-   "name": "tuscany",
-   "w": 897,
-   "h": 1600
-  },
-  {
-   "file": "clouds",
-   "name": "clouds",
+   "file": "corfu-sunset",
+   "name": "corfu, sunset",
    "w": 897,
    "h": 1600
   },
@@ -43,20 +25,128 @@
    "h": 1600
   },
   {
-   "file": "sunset",
-   "name": "sunset",
+   "file": "dinner-the-fountain",
+   "name": "dinner, the fountain",
    "w": 897,
    "h": 1600
   },
   {
-   "file": "corfu",
-   "name": "corfu",
+   "file": "the-cat",
+   "name": "the cat",
    "w": 897,
    "h": 1600
   },
   {
-   "file": "concert",
-   "name": "concert",
+   "file": "lycabettus-sunset",
+   "name": "lycabettus, sunset",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "lycabettus-night",
+   "name": "lycabettus, night",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "athens-night",
+   "name": "athens, night",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "train-to-siena",
+   "name": "train to siena",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "siena-il-campo",
+   "name": "siena, il campo",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "siena-san-domenico",
+   "name": "siena, san domenico",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "siena-il-campo-at-night",
+   "name": "siena, il campo at night",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "san-gimignano",
+   "name": "san gimignano",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "san-gimignano-alley",
+   "name": "san gimignano, alley",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "san-gimignano-collegiata",
+   "name": "san gimignano, collegiata",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "rome-colosseum",
+   "name": "rome, colosseum",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "rome-the-forum",
+   "name": "rome, the forum",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "rome-pantheon",
+   "name": "rome, pantheon",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "rome-trevi",
+   "name": "rome, trevi",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "rome-the-tiber",
+   "name": "rome, the tiber",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "fiumicino",
+   "name": "fiumicino",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "flying-home",
+   "name": "flying home",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "oaka-basketball",
+   "name": "oaka, basketball",
+   "w": 897,
+   "h": 1600
+  },
+  {
+   "file": "school-court",
+   "name": "school court",
    "w": 897,
    "h": 1600
   }

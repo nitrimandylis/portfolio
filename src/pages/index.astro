@@ -1,0 +1,83 @@
+---
+// the man(1) home: nick as a manual page, typed into a terminal. `man nicktrim` on top, back at the prompt at the end. the only page that keeps the format; the rest are plain.
+import Page from '../layouts/Page.astro';
+import { latest } from '../data/films';
+import { photos, song, month, examples } from '../data/site';
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+<Page>
+  <header class="titleline mu">nick@athens ~</header>
+  <main class="man">
+    <p class="prompt"><span class="mu">❯</span> man nicktrim</p>
+    <div class="hf top"><span>NICKTRIM(1)</span><span class="mu">General Commands Manual</span><span>NICKTRIM(1)</span></div>
+
+    <section><h2>NAME</h2>
+      <div class="b">nicktrim - Nick Trimandylis, Athens, final-year IB. builds tools, ships them.</div></section>
+
+    <section><h2>SYNOPSIS</h2>
+      <div class="b"><b>nicktrim</b> [<a href="/about">about</a> | <a href="/work">work</a> | <a href="/films">films</a> | <a href="/photos">photos</a> | <a href="/cv">cv</a>]</div></section>
+
+    <section><h2>DESCRIPTION</h2>
+      <div class="b">
+        <p>i build tools for problems i have, then keep using them. most of them run in a terminal.</p>
+        <p>off the keyboard it's films, music, and photos of wherever i end up. the long version: <a href="/about">about/</a></p>
+      </div></section>
+
+    <section><h2>EXAMPLES</h2>
+      <div class="b">
+        <p><a href="/photos">nicktrim photos</a> <span class="mu">· four of {photos.length}, the rest under <a href="/photos">photos/</a></span></p>
+        <div class="examples">
+          {examples.map((p, i) => (
+            <a class="pol" href={`/photos#${p.file}`} style={`--r:${[-2.5,1.5,-1,2][i]}deg`}>
+              <img src={`/img/photos/${p.file}-600.webp`} alt={p.name} width={p.w} height={p.h}>
+              <span>{pad(p.num)} {p.name}</span>
+            </a>
+          ))}
+        </div>
+      </div></section>
+
+    <section><h2>ENVIRONMENT</h2>
+      <div class="b kv">
+        <span>ON_REPEAT</span><span>{song}</span>
+        {latest && <><span>LAST_WATCHED</span><span>{latest.title}, {latest.year}{latest.rewatch && ', again'}</span></>}
+      </div></section>
+
+    <section><h2>SEE ALSO</h2>
+      <div class="b"><a href="https://os.nicktrim.com">night-shift(8)</a>, <a href="https://github.com/nitrimandylis">github(1)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a>, <a href="mailto:nicktrim8@duck.com">email(1)</a></div></section>
+
+    <div class="hf bottom mu"><span>nicktrim.com</span><span>{month}</span><span>NICKTRIM(1)</span></div>
+    <p class="end" aria-hidden="true"><span class="mu">❯</span> <span class="cursor"></span></p>
+  </main>
+</Page>
+<style>
+  .man{max-width:calc(80ch + 48px);margin:0 auto;padding:24px 24px;line-height:1.5;min-height:calc(100vh - 40px);display:flex;flex-direction:column;justify-content:center}
+  /* three equal-weight cells, so the middle one sits on the true centre whatever the sides say */
+  .hf{display:grid;grid-template-columns:1fr auto 1fr;gap:2ch}
+  .hf span:last-child{justify-self:end}
+  /* one viewport on a laptop: the page ends at the prompt with no scroll, so the gaps are tight */
+  .prompt{margin-bottom:1.2em}
+  .top{margin-bottom:.4em}
+  .bottom{margin-top:1.2em}
+  .end{margin-top:1.2em}
+  section{margin-top:1.2em}
+  h2{font-weight:700}
+  .b{padding-left:7ch}
+  .b p+p{margin-top:1em}
+  .b p.mu{margin-top:0}
+  .kv{display:grid;grid-template-columns:14ch 1fr;column-gap:1ch}
+  .kv a{justify-self:start}
+  /* four prints, clipped on as polaroids: cream frame, square crop, chin for the caption, each sitting a little crooked */
+  .examples{display:grid;grid-template-columns:repeat(4,140px);gap:14px;margin-top:.8em}
+  .pol{display:block;text-decoration:none;background:#efe9dc;color:#3a3129;padding:7% 7% 0;border-radius:1px;transform:rotate(var(--r));box-shadow:0 1px 2px rgba(0,0,0,.6),0 10px 24px -8px rgba(0,0,0,.8)}
+  .pol img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}
+  .pol span{display:block;font-size:11px;line-height:1.3;padding:8px 0 10px;min-height:2.6em}
+  .pol:hover{transform:rotate(0deg)}
+  @media (max-width:640px){
+    .man{padding:28px 14px;justify-content:flex-start}
+    .examples{grid-template-columns:1fr 1fr}
+    .b{padding-left:3ch}
+    .hf{font-size:.9em}
+    .kv{grid-template-columns:13ch 1fr}
+    .examples{grid-template-columns:1fr 1fr;gap:12px}
+  }
+</style>

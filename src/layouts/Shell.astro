@@ -1,0 +1,39 @@
+---
+// every /shell page: the browser page is the terminal. a title line on top, the session, a decorative prompt
+// at the end (nothing to type), and the `try:` bar pinned to the bottom. every command on the page is a link.
+import Page from './Page.astro';
+const { title, description, cwd = '~' } = Astro.props;
+const here = Astro.url.pathname.replace(/\/$/, '');
+const tries = [
+  ['cd ~', '/shell'],
+  ['open photos/', '/shell/photos'],
+  ['ls work/', '/shell/work'],
+  ['cat films.md', '/shell/films'],
+  ['cat cv', '/shell/cv'],
+  ['ssh os.nicktrim.com', 'https://os.nicktrim.com'],
+].filter(([, href]) => !(href === '/shell' && here === '/shell'));   // no `cd ~` when already home
+---
+<Page title={title} description={description}>
+  <header class="titleline mu noprint">nick@athens {cwd}</header>
+  <main class="session">
+    <slot />
+    <p class="noprint"><span class="mu">❯</span> <span class="cursor" aria-hidden="true"></span></p>
+  </main>
+  <nav class="try noprint" aria-label="pages">
+    <span class="mu">try:</span>
+    {tries.map(([label, href]) => <a href={href} aria-current={href === here || (href !== '/shell' && here.startsWith(href)) ? 'page' : undefined}>{label}</a>)}
+  </nav>
+</Page>
+<style>
+  .session{padding:28px 24px 96px}
+  .session>:global(*){max-width:120ch}
+  .session>:global(.full){max-width:none}
+  .try{position:fixed;left:0;right:0;bottom:0;display:flex;gap:3ch;padding:12px 24px;background:var(--bg);
+    border-top:1px solid var(--line);font-size:12px;white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+  .try a[aria-current]{text-decoration-color:var(--fg)}
+  @media (max-width:640px){
+    .session{padding:18px 14px 80px}
+    .try{padding:12px 14px;gap:2.5ch}
+  }
+  @media print{.session{padding:0;max-width:none}}
+</style>

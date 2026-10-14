@@ -1,0 +1,73 @@
+---
+// every print at its real shape, in the order of content/photos.txt. clicking one opens the viewer: the print as large as the
+// screen allows, arrow keys or a swipe for the next one, esc or q to close. a #<file> link opens straight onto it.
+// `strip` lays the prints in one sideways row instead of a wrapping grid.
+import { photos } from '../data/site';
+const { strip = false } = Astro.props;
+const pad = (i: number) => String(i + 1).padStart(2, '0');
+---
+<div class:list={['prints', { strip }]} id="prints">
+  {photos.map((p, i) => (
+    <button data-i={i} id={p.file} style={`--r:${(p.w / p.h).toFixed(3)}`} aria-label={`open ${p.name}`}>
+      <img src={`/img/photos/${p.file}-600.webp`} alt={p.name} loading="lazy" width={p.w} height={p.h}>
+      <span class="num">{pad(i)} {p.name}</span>
+    </button>
+  ))}
+</div>
+
+<dialog class="viewer" id="viewer" aria-label="photo viewer">
+  <div class="bar"><button class="link close">close (esc)</button><span class="count"></span></div>
+  <div class="screen"><img alt=""></div>
+  <div class="bar"><span class="cap"></span><span><button class="link prev">← prev</button> <button class="link next">next →</button></span></div>
+</dialog>
+
+<script is:inline define:vars={{ photos }}>
+  const box = document.getElementById('viewer');
+  const big = box.querySelector('img');
+  const pad = i => String(i + 1).padStart(2, '0');
+  let current = 0;
+
+  function show(i) {
+    current = (i + photos.length) % photos.length;   // wrap at both ends
+    const p = photos[current];
+    big.src = `/img/photos/${p.file}-1600.webp`;
+    big.alt = p.name;
+    box.querySelector('.cap').textContent = `${pad(current)} ${p.name}`;
+    box.querySelector('.count').textContent = `${pad(current)}/${photos.length}`;
+    history.replaceState(null, '', `#${p.file}`);
+    if (!box.open) box.showModal();
+  }
+
+  document.getElementById('prints').addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (b) show(Number(b.dataset.i));
+  });
+  box.querySelector('.close').addEventListener('click', () => box.close());
+  box.querySelector('.prev').addEventListener('click', () => show(current - 1));
+  box.querySelector('.next').addEventListener('click', () => show(current + 1));
+  box.addEventListener('close', () => history.replaceState(null, '', location.pathname));
+  // on the document, not the dialog: opened from a #print link, focus is not inside it yet. esc closes natively.
+  document.addEventListener('keydown', e => {
+    if (!box.open) return;
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+    if (e.key === 'q') box.close();
+  });
+
+  // touch: a sideways swipe of 40px or more moves one print. mostly-vertical swipes and pinches are ignored.
+  let startX = null, startY = 0;
+  box.addEventListener('touchstart', e => {
+    if (e.touches.length === 1) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }
+    else startX = null;
+  }, { passive: true });
+  box.addEventListener('touchend', e => {
+    if (startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    startX = null;
+    if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy)) show(current - Math.sign(dx));   // swipe left = next
+  });
+
+  const start = photos.findIndex(p => `#${p.file}` === location.hash);
+  if (start >= 0) show(start);
+</script>
