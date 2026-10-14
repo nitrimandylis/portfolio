@@ -3,7 +3,6 @@
 import Page from '../layouts/Page.astro';
 import { latest } from '../data/films';
 import { photos, song, month, examples } from '../data/site';
-import signature from '../../public/hand/name.svg?raw'; // inline so the strokes take the text colour, same as /about
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 <Page>
@@ -47,11 +46,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
       <div class="b"><a href="https://os.nicktrim.com">night-shift(8)</a>, <a href="https://github.com/nitrimandylis">github(1)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a>, <a href="https://letterboxd.com/nick_trim8">letterboxd(1)</a>, <a href="https://www.instagram.com/nick_trim8">instagram(1)</a>, <a href="mailto:nicktrim8@duck.com">email(1)</a></div></section>
 
     <div class="hf bottom mu"><span>nicktrim.com</span><span>{month}</span><span>NICKTRIM(1)</span></div>
-    <div class="end" aria-hidden="true">
-      <p><span class="mu">❯</span> <span class="cursor"></span></p>
-      <!-- signed at the foot of the printout, on the prompt's empty right side -->
-      <div class="sig" set:html={signature} />
-    </div>
+    <p class="end" aria-hidden="true"><span class="mu">❯</span> <span class="cursor"></span></p>
   </main>
 </Page>
 <style>
@@ -64,9 +59,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .prompt{margin-bottom:1.2em}
   .top{margin-bottom:.4em}
   .bottom{margin-top:1.2em}
-  .end{margin-top:1.2em;display:flex;justify-content:space-between;align-items:flex-start}
-  .sig{color:var(--fg);transform:rotate(-2deg);margin-top:-1em}
-  .sig :global(svg){width:130px;height:auto;display:block}
+  .end{margin-top:1.2em}
   section{margin-top:1em}
   h2{font-weight:700}
   .b{padding-left:7ch}
@@ -82,9 +75,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .pol:hover{transform:rotate(0deg)}
   @media (max-width:640px){
     .man{padding:28px 14px;font-size:inherit}
-    .end{flex-direction:column;gap:12px}
-    .sig{align-self:flex-end}
-    .sig :global(svg){width:120px}
     .examples{grid-template-columns:1fr 1fr}
     .b{padding-left:3ch}
     .hf{font-size:.9em}
