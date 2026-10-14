@@ -4,6 +4,7 @@ import Page from '../layouts/Page.astro';
 import { featured } from '../data/work';
 import { logged, latest } from '../data/films';
 import { photos, projectCount, song, month, history, examples } from '../data/site';
+import signature from '../../public/hand/name.svg?raw'; // inline, so the strokes take the text colour
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 <Page>
@@ -30,10 +31,10 @@ const pad = (n: number) => String(n).padStart(2, '0');
         <p><a href="/photos">nicktrim photos</a></p>
         <p class="mu">four of {photos.length}. the rest under <a href="/photos">photos/</a>.</p>
         <div class="examples">
-          {examples.map(p => (
-            <a href={`/photos#${p.file}`}>
-              <img src={`/img/photos/${p.file}-600.webp`} alt={p.name} width={p.w} height={p.h} style={`aspect-ratio:${p.w}/${p.h}`}>
-              <span class="mu">{pad(p.num)} {p.name}</span>
+          {examples.map((p, i) => (
+            <a class="pol" href={`/photos#${p.file}`} style={`--r:${[-2.5,1.5,-1,2][i]}deg`}>
+              <img src={`/img/photos/${p.file}-600.webp`} alt={p.name} width={p.w} height={p.h}>
+              <span>{pad(p.num)} {p.name}</span>
             </a>
           ))}
         </div>
@@ -60,6 +61,9 @@ const pad = (n: number) => String(n).padStart(2, '0');
     <section><h2>BUGS</h2>
       <div class="b">occasionally finishes them.</div></section>
 
+    <section><h2>AUTHOR</h2>
+      <div class="b"><a class="sig" href="/about" aria-label="nick trimandylis, about"><Fragment set:html={signature} /></a></div></section>
+
     <section><h2>SEE ALSO</h2>
       <div class="b"><a href="/cv">cv(7)</a>, <a href="https://os.nicktrim.com">night-shift(8)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a>, <a href="https://github.com/nitrimandylis">github(1)</a></div></section>
 
@@ -84,17 +88,20 @@ const pad = (n: number) => String(n).padStart(2, '0');
   .kv{display:grid;grid-template-columns:14ch 1fr;column-gap:1ch}
   .kv a{justify-self:start}
   .nw{white-space:nowrap}
-  /* four prints in a row at their own shape, captions under. a phone gets two by two */
-  .examples{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:start;margin-top:1em}
-  .examples a{text-decoration:none}
-  .examples img{width:100%;height:auto}
-  .examples a:hover img{outline:1px solid var(--fg);outline-offset:3px}
-  .examples span{display:block;font-size:12px;margin-top:4px}
+  /* four prints, clipped on as polaroids: cream frame, square crop, chin for the caption, each sitting a little crooked */
+  .examples{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:1.2em}
+  .pol{display:block;text-decoration:none;background:#efe9dc;color:#3a3129;padding:7% 7% 0;border-radius:1px;transform:rotate(var(--r));box-shadow:0 1px 2px rgba(0,0,0,.6),0 10px 24px -8px rgba(0,0,0,.8)}
+  .pol img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}
+  .pol span{display:block;font-size:11px;line-height:1.3;padding:8px 0 10px;min-height:2.6em}
+  .pol:hover{transform:rotate(0deg)}
+  /* the signature: his strokes, in the text colour, the size of a pen on paper */
+  .sig{display:inline-block;color:var(--fg)}
+  .sig svg{width:160px;height:auto;display:block}
   @media (max-width:640px){
     .man{padding:28px 14px;justify-content:flex-start}
     .b{padding-left:3ch}
     .hf{font-size:.9em}
     .kv{grid-template-columns:13ch 1fr}
-    .examples{grid-template-columns:1fr 1fr}
+    .examples{grid-template-columns:1fr 1fr;gap:12px}
   }
 </style>

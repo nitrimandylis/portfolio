@@ -169,6 +169,18 @@ The home was missing too much about Nick, so /about is back as a man(1) subpage.
   Ordinary words stay lowercase. Photo captions are still lowercase: they come from the shared originals/ filenames.
 - **Open:** a photo of Nick at the top of /about, waiting on which picture.
 
+### Handwriting and polaroids back (2026-10-14)
+
+Nick liked the man page but missed the two things that were his: the handwriting and the polaroids.
+The metaphor that fits is a printout he annotated by hand and clipped photos to, so both live on the home only:
+
+- **EXAMPLES:** the four prints are polaroids (cream #efe9dc, square crop, chin with the mono caption, each
+  rotated a degree or two, straightens on hover). Phone: 2x2, now a reasonable height because of the square crop.
+- **AUTHOR:** a new section before SEE ALSO, holding the signature (public/hand/name.svg inlined so the strokes
+  take the text colour), linking to /about. Subpages unchanged.
+- Open: the signature still reads "nick trim"; the copy rule says "nick trimandylis" in full. Needs a new
+  handwriting sample or stays as the one place the short name survives.
+
 ### Status, branch site-2b (2026-10-13)
 
 2b built on branch `site-2b` (worktree .claude/worktrees/site-2b), replacing
