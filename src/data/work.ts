@@ -1,3 +1,5 @@
+import repos from '../../data/repos.json';
+
 // every project. the home page shows the featured six, the work page shows all of them.
 export const featured = [
   { name: 'tokenpilot', url: 'https://tokenpilot.nicktrim.com', code: 'https://github.com/nitrimandylis/tokenpilot', what: "what every model, key and team costs on an Anthropic or OpenAI account. built for Omilia's CTO" },
@@ -40,8 +42,21 @@ export const links = (url: string, code?: string) => {
   return out;
 };
 
+// repos never shown: this site and the profile readme
+const hidden = ['portfolio', 'nitrimandylis'];
+
+// data/repos.json is rewritten daily by the work action. a repo shows up here, newest first,
+// until it is hidden or named above (by repo name or by its homepage)
+const written = JSON.stringify([featured, rest]).toLowerCase();
+const fresh = repos.filter(r =>
+  !hidden.includes(r.name) &&
+  !written.includes('/nitrimandylis/' + r.name.toLowerCase() + '"') &&   // the closing quote stops Petal.AI matching Petal.AI-finetuning
+  !(r.homepage && written.includes(r.homepage.toLowerCase()))
+);
+
 // every project in one shape, featured first: what the work pages list
 export const all = [
   ...featured.map(f => ({ name: f.name, url: f.url, what: f.what, links: links(f.url, f.code) })),
   ...rest.map(([name, url, what]) => ({ name, url, what, links: links(url) })),
+  ...fresh.map(r => ({ name: r.name, url: r.homepage || r.code, what: r.what, links: links(r.homepage || r.code, r.code) })),
 ];

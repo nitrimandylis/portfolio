@@ -1,0 +1,236 @@
+[
+ {
+  "name": "portfolio",
+  "code": "https://github.com/nitrimandylis/portfolio",
+  "homepage": "https://nicktrim.com",
+  "what": "my site, as a man page. nicktrim.com"
+ },
+ {
+  "name": "Starspace",
+  "code": "https://github.com/nitrimandylis/Starspace",
+  "homepage": "https://starspace.nicktrim.com",
+  "what": "Starspace is an interactive educational website designed to introduce middle and high school students to three cutting-edge fields of computer science"
+ },
+ {
+  "name": "IB-News-site",
+  "code": "https://github.com/nitrimandylis/IB-News-site",
+  "homepage": "https://news.nicktrim.com",
+  "what": "An online website with a content management system for a school newspaper."
+ },
+ {
+  "name": "apex",
+  "code": "https://github.com/nitrimandylis/apex",
+  "homepage": "https://apex.nicktrim.com",
+  "what": "An F1 dashboard with real standings and replayable telemetry from Jolpica + OpenF1"
+ },
+ {
+  "name": "blacksite",
+  "code": "https://github.com/nitrimandylis/blacksite",
+  "homepage": "https://blacksite.nicktrim.com",
+  "what": "BLACKSITE — monochrome hacking-ops dashboard. Next.js 16 + React 19 + raw Canvas 2D, zero runtime UI deps."
+ },
+ {
+  "name": "cosmos",
+  "code": "https://github.com/nitrimandylis/cosmos",
+  "homepage": "https://cosmos.nicktrim.com",
+  "what": "A tech demo built entirely through vibecoding with Claude Opus 4.6."
+ },
+ {
+  "name": "LLM-Mafia",
+  "code": "https://github.com/nitrimandylis/LLM-Mafia",
+  "homepage": "https://mafia.nicktrim.com",
+  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
+ },
+ {
+  "name": "blither",
+  "code": "https://github.com/nitrimandylis/blither",
+  "homepage": "https://blither.nicktrim.com",
+  "what": "Names for your next CLI, app or startup, from a character model that runs in the browser"
+ },
+ {
+  "name": "clawdarium",
+  "code": "https://github.com/nitrimandylis/clawdarium",
+  "homepage": "https://clawdarium.nicktrim.com",
+  "what": "An aquarium for Clawd: every pixel animation is a crab in a live tank"
+ },
+ {
+  "name": "pitch",
+  "code": "https://github.com/nitrimandylis/pitch",
+  "homepage": "https://pitch.nicktrim.com",
+  "what": "One-page pitch sites, one folder each, served off GitHub Pages"
+ },
+ {
+  "name": "gridcast",
+  "code": "https://github.com/nitrimandylis/gridcast",
+  "homepage": "https://gridcast.nicktrim.com",
+  "what": "F1 race outcome probabilities, committed to git before each race and scored on a public scorecard."
+ },
+ {
+  "name": "os",
+  "code": "https://github.com/nitrimandylis/os",
+  "homepage": "https://os.nicktrim.com",
+  "what": "my portfolio, disguised as an operating system. it builds. it breaks. it reboots."
+ },
+ {
+  "name": "aidetect",
+  "code": "https://github.com/nitrimandylis/aidetect",
+  "homepage": null,
+  "what": "Local, offline AI-writing detector — scores your own drafts paragraph-by-paragraph before a teacher runs Turnitin"
+ },
+ {
+  "name": "Petal.AI",
+  "code": "https://github.com/nitrimandylis/Petal.AI",
+  "homepage": null,
+  "what": "An AI Tutor developed in SwiftUI"
+ },
+ {
+  "name": "kizuna",
+  "code": "https://github.com/nitrimandylis/kizuna",
+  "homepage": "https://kizuna-initiative.vercel.app",
+  "what": "The online platform hosting the Kizuna Initiative"
+ },
+ {
+  "name": "deeplarp",
+  "code": "https://github.com/nitrimandylis/deeplarp",
+  "homepage": null,
+  "what": "Scores how much a GitHub profile or repo is larping: what it claims against what the code shows"
+ },
+ {
+  "name": "scripts",
+  "code": "https://github.com/nitrimandylis/scripts",
+  "homepage": null,
+  "what": "Small local tools, one Python file each, run with uv"
+ },
+ {
+  "name": "swatchbook",
+  "code": "https://github.com/nitrimandylis/swatchbook",
+  "homepage": null,
+  "what": "Six colour palettes for swatch, my macOS theming CLI. Wallpapers not included."
+ },
+ {
+  "name": "brushwork",
+  "code": "https://github.com/nitrimandylis/brushwork",
+  "homepage": null,
+  "what": "Turns a photograph into a painting made of visible brush strokes"
+ },
+ {
+  "name": "agent-wrapped",
+  "code": "https://github.com/nitrimandylis/agent-wrapped",
+  "homepage": null,
+  "what": "Your Claude Code month in review, scored and rendered as a shareable card. Runs entirely on your machine."
+ },
+ {
+  "name": "tokenpilot",
+  "code": "https://github.com/nitrimandylis/tokenpilot",
+  "homepage": "https://tokenpilot.nicktrim.com",
+  "what": "LLM cost analysis and optimization tool for Anthropic and OpenAI Admin APIs"
+ },
+ {
+  "name": "lamp",
+  "code": "https://github.com/nitrimandylis/lamp",
+  "homepage": null,
+  "what": "Terminal control for the Mi Bedside Lamp 2, entirely on your own network"
+ },
+ {
+  "name": "jazz",
+  "code": "https://github.com/nitrimandylis/jazz",
+  "homepage": null,
+  "what": "A terminal focus-video player"
+ },
+ {
+  "name": "excali",
+  "code": "https://github.com/nitrimandylis/excali",
+  "homepage": null,
+  "what": "Open .excalidraw files from the terminal in the real Excalidraw, with autosave — one dependency-free Bun script"
+ },
+ {
+  "name": "nous",
+  "code": "https://github.com/nitrimandylis/nous",
+  "homepage": null,
+  "what": "See any folder of linked markdown as a force graph, served on localhost"
+ },
+ {
+  "name": "jukebox",
+  "code": "https://github.com/nitrimandylis/jukebox",
+  "homepage": null,
+  "what": "An Apple Music jukebox for the terminal"
+ },
+ {
+  "name": "bootlog",
+  "code": "https://github.com/nitrimandylis/bootlog",
+  "homepage": null,
+  "what": "Prints today's git commits as a kernel boot log"
+ },
+ {
+  "name": "gridwatch",
+  "code": "https://github.com/nitrimandylis/gridwatch",
+  "homepage": null,
+  "what": "Formula 1 championship standings in the terminal, with what it takes to clinch the title"
+ },
+ {
+  "name": "nocturne",
+  "code": "https://github.com/nitrimandylis/nocturne",
+  "homepage": null,
+  "what": "A terminal music visualizer shaped like an apartment building at night, tapping macOS system audio"
+ },
+ {
+  "name": "shelf",
+  "code": "https://github.com/nitrimandylis/shelf",
+  "homepage": null,
+  "what": "Every repo you have, on GitHub and on this machine, in one table"
+ },
+ {
+  "name": "dovetail",
+  "code": "https://github.com/nitrimandylis/dovetail",
+  "homepage": null,
+  "what": "A personal CLI for finding, backing up, and safely editing macOS configs. Live files on one side, a local git repo on the other, nothing symlinked in between."
+ },
+ {
+  "name": "swatch",
+  "code": "https://github.com/nitrimandylis/swatch",
+  "homepage": null,
+  "what": "A macOS desktop theming CLI that writes individual app configs from one palette"
+ },
+ {
+  "name": "cine",
+  "code": "https://github.com/nitrimandylis/cine",
+  "homepage": null,
+  "what": "Two tabs in your terminal: Village Cinemas (Greece) showtimes with IMDB + Rotten Tomatoes verdicts, and a streaming hub that plays anything else straight into IINA — zero dependencies, zero API keys"
+ },
+ {
+  "name": "bacpack",
+  "code": "https://github.com/nitrimandylis/bacpack",
+  "homepage": null,
+  "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
+ },
+ {
+  "name": "sealfetch",
+  "code": "https://github.com/nitrimandylis/sealfetch",
+  "homepage": null,
+  "what": "the seal: source of truth for Nick's mascot, its variants, and the wallpapers that report on their own working conditions"
+ },
+ {
+  "name": "nitrimandylis",
+  "code": "https://github.com/nitrimandylis/nitrimandylis",
+  "homepage": null,
+  "what": "IBDP student · CS HL · building AI tools, web apps, and things that scale"
+ },
+ {
+  "name": "Petal.AI-finetuning",
+  "code": "https://github.com/nitrimandylis/Petal.AI-finetuning",
+  "homepage": null,
+  "what": "The python scripts for the Petal.AI LLM training"
+ },
+ {
+  "name": "loosethreads",
+  "code": "https://github.com/nitrimandylis/loosethreads",
+  "homepage": "https://loosethreads.nicktrim.com",
+  "what": "Anonymous gossip on an infinite detective-board. Pin it, connect the dots, trust nobody."
+ },
+ {
+  "name": "pm-dashboard",
+  "code": "https://github.com/nitrimandylis/pm-dashboard",
+  "homepage": null,
+  "what": "Industrial-brutalist mission-control dashboard for the IB Diploma — vanilla JS, Bun, two-way Notion sync"
+ }
+]

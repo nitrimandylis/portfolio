@@ -77,6 +77,7 @@ flowchart LR
 | skin | `src/styles/mono.css` | jetbrains mono, #000, #e6e6e6, one grey, print rules |
 | copy and data | `src/data/site.ts`, `work.ts`, `films.ts` | every fact the site states, in one place |
 | films | `tools/films.py` + `.github/workflows/films.yml` | appends new diary entries, stdlib only, commits them |
+| work | `tools/work.py` + `.github/workflows/work.yml` | rewrites `data/repos.json` from public GitHub repos daily; `work.ts` lists the ones it does not already name |
 | photos | `tools/photos.py` | webp at 1600 and 600, EXIF and GPS gone, order from `content/photos.txt` |
 | handwriting | `tools/hand_from_rm.py` | cuts stroke SVGs out of a reMarkable page |
 | drafts | `proto/` | the mockups the current design beat, kept for the record |

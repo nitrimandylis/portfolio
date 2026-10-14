@@ -36,6 +36,8 @@ overdone), polaroids as navigation.
   Work and films are text only: no screenshots, no stills, no posters.
 - **Work:** one line per project (name, sentence, link); featured six first
   and larger, the other 22 below in the same form.
+  New public repos join the bottom of the list automatically (daily Action,
+  GitHub description as the sentence) until written up by hand or hidden.
 - **Films:** stats line, favourites as one linked line, diary as text.
 - **Stack:** Astro, Bun, hand-written CSS (no Tailwind), no component
   library. Motion library only if the plain-JS strip falls short. Data
@@ -374,16 +376,27 @@ Gloss is hover-only and softer since 2026-10-09: always-on, it turned dark image
   - file manager: projects replaced by fixed joke files + `the_real_list.url`
     -> nicktrim.com/work. Trash + terminal `ls` use the same joke files.
     GALLERY / FILE_COPY / TRASH_QUIPS / FILES pin mirror goes away.
-  - breakpkg: list generated from the GitHub API (CLI repos, e.g. those with
-    man/), not hand-kept. Jokes stay.
+  - breakpkg (re-grilled 2026-10-14): public repos with the `cli` topic, filtered
+    from the repos response os.js already fetches (no extra request). Desc =
+    GitHub description. One hand-kept alias map (jukebox -> juke, dovetail ->
+    dt). Channel column and hand-written man blurbs cut; `pkg info`/`man`
+    fetch the real man page. A new CLI shows up once tagged `cli`. Jokes stay.
   - About window: keep the joke spec lines and seal; cut peripherals count,
     stack line, bio paragraph.
   - coursework .docx icons: cut.
   - Everything else stays (monitor, terminal, mail, decor, themes, eggs).
   - Bump boot-ver to v4.
-  - **One theme: E3.** Remap the :root vars in css/breakos.css to espresso +
-    tungsten (paper #17110d, ink #efe6d6, ink-soft #8f7e6c, coral #e0a35a;
-    teal and bevels re-derived). Remove theming entirely: js/swatchbook.js,
+  - **One theme: man(1) + coral (re-grilled 2026-10-14, E3 is dead with the
+    polaroid site).** bg #000, fg #e6e6e6, grey #8a8a8a, line #262626, and one
+    accent, breakOS's own coral #f25c4a, on focus and selection only. Teal
+    folds into fg/grey. Bevels become flat 1px #262626 lines. Wallpaper dots
+    stay, in #262626. Every hardcoded hex (52 css, 25 os.js) goes through
+    the vars.
+  - **Name: both.** Boot screen "night shift_" over "running breakOS v4. it
+    builds. it breaks. it drags."; <title>/og say "night shift, nick
+    trimandylis", og:description "the old site, disguised as an operating
+    system." Everything past boot stays breakOS (prompt, about, start menu).
+  - Remove theming entirely: js/swatchbook.js,
     the dark-theme block, the taskbar theme button, the head restore script,
     terminal `theme` and `swatch apply`/`swatch list` (swatch becomes a
     refusal quip like the other CLIs). VT323/Plex chrome fonts stay.
