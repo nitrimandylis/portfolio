@@ -20,7 +20,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 
     <section><h2>DESCRIPTION</h2>
       <div class="b">
-        <p>i build tools for problems i have, then keep using them. most of them run in a terminal.</p>
+        <p>i build tools for problems i have, then keep using them. most of them run in a terminal. the old site was an operating system; it still works nights as <a href="https://os.nicktrim.com" data-shift>night-shift(8)</a>.</p>
         <p>off the keyboard it's films, music, and photos of wherever i end up. the long version: <a href="/about">about/</a></p>
       </div></section>
 
@@ -41,16 +41,52 @@ const pad = (n: number) => String(n).padStart(2, '0');
       <div class="b kv">
         <span>ON_REPEAT</span><span>{song}</span>
         {latest && <><span>LAST_WATCHED</span><span>{latest.title}, {latest.year}{latest.rewatch && ', again'}</span></>}
+        <span>NIGHT_SHIFT</span><span><a href="https://os.nicktrim.com" data-shift><span id="shift">running</span></a></span>
       </div></section>
 
     <section><h2>SEE ALSO</h2>
-      <div class="b"><a href="https://os.nicktrim.com">night-shift(8)</a>, <a href="https://github.com/nitrimandylis">github(1)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a>, <a href="https://letterboxd.com/nick_trim8">letterboxd(1)</a>, <a href="https://www.instagram.com/nick_trim8">instagram(1)</a>, <a href="mailto:nicktrim8@duck.com">email(1)</a></div></section>
+      <div class="b"><a href="https://os.nicktrim.com" data-shift>night-shift(8)</a>, <a href="https://github.com/nitrimandylis">github(1)</a>, <a href="https://www.linkedin.com/in/nitrimandylis">linkedin(1)</a>, <a href="https://letterboxd.com/nick_trim8">letterboxd(1)</a>, <a href="https://www.instagram.com/nick_trim8">instagram(1)</a>, <a href="mailto:nicktrim8@duck.com">email(1)</a></div></section>
 
     <div class="hf bottom mu"><span>nicktrim.com</span><span>{month}</span><span>NICKTRIM(1)</span></div>
-    <p class="end" aria-hidden="true"><span class="mu">❯</span> <span class="cursor"></span></p>
+    <p class="end" aria-hidden="true"><span class="mu">❯</span> <span id="typed"></span><span class="cursor"></span></p>
     <div class="sigzone" aria-hidden="true"><div class="sig" set:html={signature} /></div>
   </main>
 </Page>
+<script is:inline>
+  // night-shift(8) runs like a command: it types itself at the prompt the page ends on, the screen clears, and
+  // os.nicktrim.com opens on the same `❯ night-shift` line. links stay plain links; new-tab clicks and reduced motion skip all of it
+  (() => {
+    const hour = +new Intl.DateTimeFormat('en-GB', { hour: 'numeric', hourCycle: 'h23', timeZone: 'Europe/Athens' }).format(new Date());
+    if (hour >= 22 || hour < 6) document.getElementById('shift').textContent = 'on shift now';
+
+    const typed = document.getElementById('typed');
+    const man = document.querySelector('.man');
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let busy = false;
+    document.querySelectorAll('a[data-shift]').forEach(a => a.addEventListener('click', e => {
+      if (reduced || busy || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      busy = true;
+      typed.parentElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      const word = 'night-shift';
+      let i = 0;
+      const tick = setInterval(() => {
+        typed.textContent = word.slice(0, ++i);
+        if (i < word.length) return;
+        clearInterval(tick);
+        // enter: the screen clears, then the next program loads
+        setTimeout(() => { man.style.visibility = 'hidden'; setTimeout(() => (location.href = a.href), 120); }, 260);
+      }, 45);
+    }));
+    // coming back with the back button restores the page as it was left: put the prompt back
+    addEventListener('pageshow', e => {
+      if (!e.persisted) return;
+      busy = false;
+      typed.textContent = '';
+      man.style.visibility = '';
+    });
+  })();
+</script>
 <style>
   /* set like troff: one size up from the subpages, starts at the top */
   .man{max-width:calc(84ch + 48px);margin:0 auto;padding:16px 24px 4px;font-size:15px;line-height:1.45}

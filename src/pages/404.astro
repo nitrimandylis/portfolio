@@ -2,6 +2,7 @@
 import Page from '../layouts/Page.astro';
 ---
 <Page title="not here, Nick Trimandylis">
-  <main class="nf"><p>no such page.</p><p class="mu"><a href="/">← nicktrim(1)</a></p></main>
+  <main class="nf"><p>no manual entry for <span id="path">this page</span>.</p><p class="mu">try <a href="/">nicktrim(1)</a> or <a href="https://os.nicktrim.com">night-shift(8)</a>.</p></main>
+  <script is:inline>document.getElementById('path').textContent = location.pathname;</script>
 </Page>
 <style>.nf{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.6em}</style>

@@ -367,6 +367,14 @@ Gloss is hover-only and softer since 2026-10-09: always-on, it turned dark image
 
 ## breakOS (decided 2026-10-09)
 
+**Handoff from nicktrim.com (2026-10-14):** every night-shift link carries `data-shift`. A plain click types `night-shift` at the home
+page's closing `❯` prompt, clears the screen and loads os.nicktrim.com, which opens on the same `❯ night-shift` line. New-tab clicks and
+reduced motion navigate straight away; the back button restores the prompt. DESCRIPTION's first paragraph names it, ENVIRONMENT has
+NIGHT_SHIFT (`running`, `on shift now` 22:00-06:00 Athens time, set client-side), and the 404 reads "no manual entry for <path>". The
+sentence sits inside the first paragraph on purpose: as its own paragraph it pushed the closing prompt 29px below a 900px screen.
+
+**Built 2026-10-14** in ~/cc/portfolio (remote nitrimandylis/os), pushed and live (f1cdfb3). No og:image existed, so none was made.
+
 - Repo `portfolio` is renamed `os`, served at **os.nicktrim.com** (CNAME
   file + DNS `os` CNAME nitrimandylis.github.io). Fix og:url (index.html:11).
   A NEW repo named `portfolio` hosts nicktrim.com. Separate repos: Pages is
