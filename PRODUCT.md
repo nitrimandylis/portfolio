@@ -190,7 +190,7 @@ The metaphor that fits is a printout he annotated by hand and clipped photos to,
 
 Final bar the about page. Work: the featured six cut to one or two lines each. CV: key column 23ch, two
 keys and three results shortened so nothing wraps three deep. Build passes, screenshots checked.
-Left for Nick: the new "nick trimandylis" signature for /about, then merge
+Signature done 2026-10-14: "Nick / Trimandylis" on two lines, take 6 of 8 from Quick sheets page 200, cut by bounding-box clustering (public/hand/name.svg; the old "nick trim" is public/hand/nick-trim.svg). Nothing left open., then merge
 site-bakeoff to main, push, import in Vercel, move the apex DNS off GitHub Pages.
 
 ### Status, branch site-2b (2026-10-13)

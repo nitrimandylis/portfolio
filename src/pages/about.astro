@@ -2,7 +2,7 @@
 // the long version of the man page's DESCRIPTION. rows, not paragraphs: each line says one thing, the jokes live in the grey notes.
 // each section is [heading, note, rows]; a row is [key, what, right]. right is optional and prints grey, on its own line under what.
 import ManSub from '../layouts/ManSub.astro';
-import signature from '../../public/hand/name.svg?raw'; // inline, so the strokes take the text colour. stand-in until the new "nick trimandylis" sample is cut
+import signature from '../../public/hand/name.svg?raw'; // inline, so the strokes take the text colour. take 6 of 8 from Quick sheets p200, 2026-10-14
 
 const sections = [
   ['origin', '', [
@@ -65,12 +65,12 @@ const pages = { photos: '/photos', films: '/films' };
   /* one polaroid of nick, clipped to the top of the page like the prints on the home */
   /* the photo and the signature side by side, the signature sitting at the bottom edge like it was signed next to the print */
   .top{display:flex;align-items:flex-end;gap:40px;margin-bottom:2em}
-  .sig{color:var(--fg);padding-bottom:24px;transform:rotate(-3deg)}
-  .sig svg{width:220px;height:auto;display:block}
+  .sig{color:var(--fg);padding-bottom:28px;transform:rotate(-2deg)}
+  .sig :global(svg){width:260px;height:auto;display:block}
   .pol{display:block;width:320px;flex:none;text-decoration:none;background:#efe9dc;color:#3a3129;padding:18px 18px 0;border-radius:1px;transform:rotate(-1.5deg);box-shadow:0 1px 2px rgba(0,0,0,.6),0 10px 24px -8px rgba(0,0,0,.8)}
   .pol img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}
   .pol span{display:block;font-size:12px;line-height:1.3;padding:12px 0 14px}
-  @media (max-width:640px){.top{flex-direction:column;align-items:flex-start;gap:16px}.pol{width:100%;max-width:320px}.sig{padding:0 0 0 12px}.sig svg{width:180px}}
+  @media (max-width:640px){.top{flex-direction:column;align-items:flex-start;gap:16px}.pol{width:100%;max-width:320px}.sig{padding:0 0 0 12px}.sig :global(svg){width:220px}}
   .pol:hover{transform:rotate(0deg)}
   .lead{margin-bottom:.4em}
   section{margin-top:2em}
