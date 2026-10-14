@@ -186,6 +186,19 @@ The metaphor that fits is a printout he annotated by hand and clipped photos to,
   DESCRIPTION, EXAMPLES, ENVIRONMENT, SEE ALSO. AUTHOR cut the same day. `--email` left SYNOPSIS; SEE ALSO is
   external only: night-shift, github, linkedin, email(1).
 
+### Home: 1a + signature (2026-10-14)
+
+From the Claude Design "Home options" round (1a troff, 1b annotated printout, 1c wide terminal). 1c's two panes
+were turned down; 1b's floating margin signature was liked as an idea, not as executed. Shipped 1a with the
+signature:
+
+- **Type:** the home alone at 15px / 1.45, column 84ch so the NAME line fits on one line, starts at the top
+  instead of centred, section gaps 1em, prints 144px.
+- **Signature:** public/hand/name.svg inline at 130px, -2deg, text colour, on the right of the closing `❯ █`
+  line, like signing the foot of a printout. Not an AUTHOR section. Phone: under the prompt, right, 120px.
+- **Fits:** ends at 870px of 900 at 1440x900, no scroll.
+- Other branches (astro, site-2b, site-bakeoff) deleted, all merged; work is on main.
+
 ### Status, branch site-bakeoff (2026-10-14)
 
 Final bar the about page. Work: the featured six cut to one or two lines each. CV: key column 23ch, two
