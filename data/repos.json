@@ -1,9 +1,21 @@
 [
  {
+  "name": "swatchbook",
+  "code": "https://github.com/nitrimandylis/swatchbook",
+  "homepage": null,
+  "what": "Six colour palettes for swatch, my macOS theming CLI. Wallpapers not included."
+ },
+ {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
   "what": "my site, as a man page. nicktrim.com"
+ },
+ {
+  "name": "os",
+  "code": "https://github.com/nitrimandylis/os",
+  "homepage": "https://os.nicktrim.com",
+  "what": "my portfolio, disguised as an operating system. it builds. it breaks. it reboots."
  },
  {
   "name": "Starspace",
@@ -66,12 +78,6 @@
   "what": "F1 race outcome probabilities, committed to git before each race and scored on a public scorecard."
  },
  {
-  "name": "os",
-  "code": "https://github.com/nitrimandylis/os",
-  "homepage": "https://os.nicktrim.com",
-  "what": "my portfolio, disguised as an operating system. it builds. it breaks. it reboots."
- },
- {
   "name": "aidetect",
   "code": "https://github.com/nitrimandylis/aidetect",
   "homepage": null,
@@ -100,12 +106,6 @@
   "code": "https://github.com/nitrimandylis/scripts",
   "homepage": null,
   "what": "Small local tools, one Python file each, run with uv"
- },
- {
-  "name": "swatchbook",
-  "code": "https://github.com/nitrimandylis/swatchbook",
-  "homepage": null,
-  "what": "Six colour palettes for swatch, my macOS theming CLI. Wallpapers not included."
  },
  {
   "name": "brushwork",
