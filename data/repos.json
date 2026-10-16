@@ -1,15 +1,27 @@
 [
  {
-  "name": "swatchbook",
-  "code": "https://github.com/nitrimandylis/swatchbook",
-  "homepage": null,
-  "what": "Six colour palettes for swatch, my macOS theming CLI. Wallpapers not included."
+  "name": "LLM-Mafia",
+  "code": "https://github.com/nitrimandylis/LLM-Mafia",
+  "homepage": "https://mafia.nicktrim.com",
+  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
+ },
+ {
+  "name": "deeplarp",
+  "code": "https://github.com/nitrimandylis/deeplarp",
+  "homepage": "https://deeplarp.vercel.app",
+  "what": "Scores how much a GitHub profile or repo is larping: what it claims against what the code shows"
  },
  {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
   "what": "my site, as a man page. nicktrim.com"
+ },
+ {
+  "name": "swatchbook",
+  "code": "https://github.com/nitrimandylis/swatchbook",
+  "homepage": null,
+  "what": "Six colour palettes for swatch, my macOS theming CLI. Wallpapers not included."
  },
  {
   "name": "os",
@@ -46,12 +58,6 @@
   "code": "https://github.com/nitrimandylis/cosmos",
   "homepage": "https://cosmos.nicktrim.com",
   "what": "A tech demo built entirely through vibecoding with Claude Opus 4.6."
- },
- {
-  "name": "LLM-Mafia",
-  "code": "https://github.com/nitrimandylis/LLM-Mafia",
-  "homepage": "https://mafia.nicktrim.com",
-  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
  },
  {
   "name": "blither",
@@ -94,12 +100,6 @@
   "code": "https://github.com/nitrimandylis/kizuna",
   "homepage": "https://kizuna-initiative.vercel.app",
   "what": "The online platform hosting the Kizuna Initiative"
- },
- {
-  "name": "deeplarp",
-  "code": "https://github.com/nitrimandylis/deeplarp",
-  "homepage": null,
-  "what": "Scores how much a GitHub profile or repo is larping: what it claims against what the code shows"
  },
  {
   "name": "scripts",
