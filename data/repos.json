@@ -1,5 +1,11 @@
 [
  {
+  "name": "portfolio",
+  "code": "https://github.com/nitrimandylis/portfolio",
+  "homepage": "https://nicktrim.com",
+  "what": "my site, as a man page. nicktrim.com"
+ },
+ {
   "name": "LLM-Mafia",
   "code": "https://github.com/nitrimandylis/LLM-Mafia",
   "homepage": "https://mafia.nicktrim.com",
@@ -10,12 +16,6 @@
   "code": "https://github.com/nitrimandylis/deeplarp",
   "homepage": "https://deeplarp.vercel.app",
   "what": "Scores how much a GitHub profile or repo is larping: what it claims against what the code shows"
- },
- {
-  "name": "portfolio",
-  "code": "https://github.com/nitrimandylis/portfolio",
-  "homepage": "https://nicktrim.com",
-  "what": "my site, as a man page. nicktrim.com"
  },
  {
   "name": "swatchbook",
