@@ -1,5 +1,11 @@
 [
  {
+  "name": "apex",
+  "code": "https://github.com/nitrimandylis/apex",
+  "homepage": "https://apex.nicktrim.com",
+  "what": "An F1 dashboard with real standings and replayable telemetry from Jolpica + OpenF1"
+ },
+ {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
@@ -40,12 +46,6 @@
   "code": "https://github.com/nitrimandylis/IB-News-site",
   "homepage": "https://news.nicktrim.com",
   "what": "An online website with a content management system for a school newspaper."
- },
- {
-  "name": "apex",
-  "code": "https://github.com/nitrimandylis/apex",
-  "homepage": "https://apex.nicktrim.com",
-  "what": "An F1 dashboard with real standings and replayable telemetry from Jolpica + OpenF1"
  },
  {
   "name": "blacksite",
