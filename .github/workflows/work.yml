@@ -9,6 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 tools/work.py
+        env: { GITHUB_TOKEN: "${{ github.token }}" }
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com

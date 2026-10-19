@@ -2,14 +2,17 @@
 src/data/work.ts lists any repo here that it does not already name, under the hand-written ones.
 usage: python3 tools/work.py
 """
-import json, urllib.request
+import json, os, urllib.request
 from pathlib import Path
 
 API = "https://api.github.com/users/nitrimandylis/repos?type=owner&sort=pushed&per_page=100"
 OUT = Path(__file__).resolve().parent.parent / "data" / "repos.json"
 
 if __name__ == "__main__":
-    req = urllib.request.Request(API, headers={"User-Agent": "nicktrim.com work (python)"})
+    headers = {"User-Agent": "nicktrim.com work (python)"}
+    if os.environ.get("GITHUB_TOKEN"):   # CI: shared runner IPs hit the 60/hour anonymous limit
+        headers["Authorization"] = "Bearer " + os.environ["GITHUB_TOKEN"]
+    req = urllib.request.Request(API, headers=headers)
     repos = json.loads(urllib.request.urlopen(req, timeout=30).read())
     keep = []
     for r in repos:
