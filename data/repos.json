@@ -1,5 +1,29 @@
 [
  {
+  "name": "gridcast",
+  "code": "https://github.com/nitrimandylis/gridcast",
+  "homepage": "https://gridcast.nicktrim.com",
+  "what": "F1 race outcome probabilities, committed to git before each race and scored on a public scorecard."
+ },
+ {
+  "name": "swatch",
+  "code": "https://github.com/nitrimandylis/swatch",
+  "homepage": null,
+  "what": "A macOS desktop theming CLI that writes individual app configs from one palette"
+ },
+ {
+  "name": "bacpack",
+  "code": "https://github.com/nitrimandylis/bacpack",
+  "homepage": null,
+  "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
+ },
+ {
+  "name": "aidetect",
+  "code": "https://github.com/nitrimandylis/aidetect",
+  "homepage": null,
+  "what": "Local, offline AI-writing detector — scores your own drafts paragraph-by-paragraph before a teacher runs Turnitin"
+ },
+ {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
@@ -76,18 +100,6 @@
   "code": "https://github.com/nitrimandylis/pitch",
   "homepage": "https://pitch.nicktrim.com",
   "what": "One-page pitch sites, one folder each, served off GitHub Pages"
- },
- {
-  "name": "gridcast",
-  "code": "https://github.com/nitrimandylis/gridcast",
-  "homepage": "https://gridcast.nicktrim.com",
-  "what": "F1 race outcome probabilities, committed to git before each race and scored on a public scorecard."
- },
- {
-  "name": "aidetect",
-  "code": "https://github.com/nitrimandylis/aidetect",
-  "homepage": null,
-  "what": "Local, offline AI-writing detector — scores your own drafts paragraph-by-paragraph before a teacher runs Turnitin"
  },
  {
   "name": "Petal.AI",
@@ -186,22 +198,10 @@
   "what": "A personal CLI for finding, backing up, and safely editing macOS configs. Live files on one side, a local git repo on the other, nothing symlinked in between."
  },
  {
-  "name": "swatch",
-  "code": "https://github.com/nitrimandylis/swatch",
-  "homepage": null,
-  "what": "A macOS desktop theming CLI that writes individual app configs from one palette"
- },
- {
   "name": "cine",
   "code": "https://github.com/nitrimandylis/cine",
   "homepage": null,
   "what": "Two tabs in your terminal: Village Cinemas (Greece) showtimes with IMDB + Rotten Tomatoes verdicts, and a streaming hub that plays anything else straight into IINA — zero dependencies, zero API keys"
- },
- {
-  "name": "bacpack",
-  "code": "https://github.com/nitrimandylis/bacpack",
-  "homepage": null,
-  "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
  },
  {
   "name": "sealfetch",
