@@ -1,5 +1,17 @@
 [
  {
+  "name": "apex",
+  "code": "https://github.com/nitrimandylis/apex",
+  "homepage": "https://apex.nicktrim.com",
+  "what": "An F1 dashboard with real standings and replayable telemetry from Jolpica + OpenF1"
+ },
+ {
+  "name": "portfolio",
+  "code": "https://github.com/nitrimandylis/portfolio",
+  "homepage": "https://nicktrim.com",
+  "what": "my site, as a man page. nicktrim.com"
+ },
+ {
   "name": "gridcast",
   "code": "https://github.com/nitrimandylis/gridcast",
   "homepage": "https://gridcast.nicktrim.com",
@@ -10,12 +22,6 @@
   "code": "https://github.com/nitrimandylis/LLM-Mafia",
   "homepage": "https://mafia.nicktrim.com",
   "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
- },
- {
-  "name": "portfolio",
-  "code": "https://github.com/nitrimandylis/portfolio",
-  "homepage": "https://nicktrim.com",
-  "what": "my site, as a man page. nicktrim.com"
  },
  {
   "name": "swatch",
@@ -34,12 +40,6 @@
   "code": "https://github.com/nitrimandylis/aidetect",
   "homepage": null,
   "what": "Local, offline AI-writing detector — scores your own drafts paragraph-by-paragraph before a teacher runs Turnitin"
- },
- {
-  "name": "apex",
-  "code": "https://github.com/nitrimandylis/apex",
-  "homepage": "https://apex.nicktrim.com",
-  "what": "An F1 dashboard with real standings and replayable telemetry from Jolpica + OpenF1"
  },
  {
   "name": "deeplarp",
