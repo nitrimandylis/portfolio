@@ -1,15 +1,21 @@
 [
  {
-  "name": "couch",
-  "code": "https://github.com/nitrimandylis/couch",
-  "homepage": "https://couch.nicktrim.com",
-  "what": "A film-sync room for two people in two places, on Cloudflare Workers and a Durable Object"
+  "name": "bacpack",
+  "code": "https://github.com/nitrimandylis/bacpack",
+  "homepage": null,
+  "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
  },
  {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
   "what": "my site, as a man page. nicktrim.com"
+ },
+ {
+  "name": "couch",
+  "code": "https://github.com/nitrimandylis/couch",
+  "homepage": "https://couch.nicktrim.com",
+  "what": "A film-sync room for two people in two places, on Cloudflare Workers and a Durable Object"
  },
  {
   "name": "aidetect",
@@ -22,12 +28,6 @@
   "code": "https://github.com/nitrimandylis/space-apps-mockup",
   "homepage": null,
   "what": "Mockup for the NASA Space Apps 2026 Lunar Landing Site Navigator: a 3D Sun, Earth and Moon showing power and comms windows at south pole sites"
- },
- {
-  "name": "bacpack",
-  "code": "https://github.com/nitrimandylis/bacpack",
-  "homepage": null,
-  "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
  },
  {
   "name": "apex",
