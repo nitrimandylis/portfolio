@@ -1,21 +1,75 @@
 [
  {
+  "name": "lilt",
+  "code": "https://github.com/nitrimandylis/lilt",
+  "homepage": null,
+  "what": "Word-by-word lyrics on the macOS lock screen. An open clone of Verci, rebuilt with Claude Code and REA"
+ },
+ {
+  "name": "LLM-Mafia",
+  "code": "https://github.com/nitrimandylis/LLM-Mafia",
+  "homepage": "https://mafia.nicktrim.com",
+  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
+ },
+ {
+  "name": "flick",
+  "code": "https://github.com/nitrimandylis/flick",
+  "homepage": "https://couch.nicktrim.com",
+  "what": "A film-sync room for two people in two places, on Cloudflare Workers and a Durable Object"
+ },
+ {
+  "name": "cine",
+  "code": "https://github.com/nitrimandylis/cine",
+  "homepage": null,
+  "what": "Two tabs in your terminal: Village Cinemas (Greece) showtimes with IMDB + Rotten Tomatoes verdicts, and a streaming hub that plays anything else straight into IINA — zero dependencies, zero API keys"
+ },
+ {
+  "name": "jukebox",
+  "code": "https://github.com/nitrimandylis/jukebox",
+  "homepage": null,
+  "what": "An Apple Music jukebox for the terminal"
+ },
+ {
+  "name": "dovetail",
+  "code": "https://github.com/nitrimandylis/dovetail",
+  "homepage": null,
+  "what": "A personal CLI for finding, backing up, and safely editing macOS configs. Live files on one side, a local git repo on the other, nothing symlinked in between."
+ },
+ {
   "name": "bacpack",
   "code": "https://github.com/nitrimandylis/bacpack",
   "homepage": null,
   "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
  },
  {
+  "name": "nous",
+  "code": "https://github.com/nitrimandylis/nous",
+  "homepage": null,
+  "what": "See any folder of linked markdown as a force graph, served on localhost"
+ },
+ {
+  "name": "shelf",
+  "code": "https://github.com/nitrimandylis/shelf",
+  "homepage": null,
+  "what": "Every repo you have, on GitHub and on this machine, in one table"
+ },
+ {
+  "name": "excali",
+  "code": "https://github.com/nitrimandylis/excali",
+  "homepage": null,
+  "what": "Open .excalidraw files from the terminal in the real Excalidraw, with autosave — one dependency-free Bun script"
+ },
+ {
+  "name": "bootlog",
+  "code": "https://github.com/nitrimandylis/bootlog",
+  "homepage": null,
+  "what": "Prints today's git commits as a kernel boot log"
+ },
+ {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
   "what": "my site, as a man page. nicktrim.com"
- },
- {
-  "name": "couch",
-  "code": "https://github.com/nitrimandylis/couch",
-  "homepage": "https://couch.nicktrim.com",
-  "what": "A film-sync room for two people in two places, on Cloudflare Workers and a Durable Object"
  },
  {
   "name": "aidetect",
@@ -40,12 +94,6 @@
   "code": "https://github.com/nitrimandylis/gridcast",
   "homepage": "https://gridcast.nicktrim.com",
   "what": "F1 race outcome probabilities, committed to git before each race and scored on a public scorecard."
- },
- {
-  "name": "LLM-Mafia",
-  "code": "https://github.com/nitrimandylis/LLM-Mafia",
-  "homepage": "https://mafia.nicktrim.com",
-  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
  },
  {
   "name": "swatch",
@@ -162,30 +210,6 @@
   "what": "A terminal focus-video player"
  },
  {
-  "name": "excali",
-  "code": "https://github.com/nitrimandylis/excali",
-  "homepage": null,
-  "what": "Open .excalidraw files from the terminal in the real Excalidraw, with autosave — one dependency-free Bun script"
- },
- {
-  "name": "nous",
-  "code": "https://github.com/nitrimandylis/nous",
-  "homepage": null,
-  "what": "See any folder of linked markdown as a force graph, served on localhost"
- },
- {
-  "name": "jukebox",
-  "code": "https://github.com/nitrimandylis/jukebox",
-  "homepage": null,
-  "what": "An Apple Music jukebox for the terminal"
- },
- {
-  "name": "bootlog",
-  "code": "https://github.com/nitrimandylis/bootlog",
-  "homepage": null,
-  "what": "Prints today's git commits as a kernel boot log"
- },
- {
   "name": "gridwatch",
   "code": "https://github.com/nitrimandylis/gridwatch",
   "homepage": null,
@@ -196,24 +220,6 @@
   "code": "https://github.com/nitrimandylis/nocturne",
   "homepage": null,
   "what": "A terminal music visualizer shaped like an apartment building at night, tapping macOS system audio"
- },
- {
-  "name": "shelf",
-  "code": "https://github.com/nitrimandylis/shelf",
-  "homepage": null,
-  "what": "Every repo you have, on GitHub and on this machine, in one table"
- },
- {
-  "name": "dovetail",
-  "code": "https://github.com/nitrimandylis/dovetail",
-  "homepage": null,
-  "what": "A personal CLI for finding, backing up, and safely editing macOS configs. Live files on one side, a local git repo on the other, nothing symlinked in between."
- },
- {
-  "name": "cine",
-  "code": "https://github.com/nitrimandylis/cine",
-  "homepage": null,
-  "what": "Two tabs in your terminal: Village Cinemas (Greece) showtimes with IMDB + Rotten Tomatoes verdicts, and a streaming hub that plays anything else straight into IINA — zero dependencies, zero API keys"
  },
  {
   "name": "sealfetch",
