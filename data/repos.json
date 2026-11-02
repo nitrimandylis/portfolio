@@ -1,5 +1,29 @@
 [
  {
+  "name": "flick",
+  "code": "https://github.com/nitrimandylis/flick",
+  "homepage": "https://couch.nicktrim.com",
+  "what": "Search a film or a show, pick a torrent, watch it now in a terminal UI. Or watch together, in sync, from two places."
+ },
+ {
+  "name": "cine",
+  "code": "https://github.com/nitrimandylis/cine",
+  "homepage": null,
+  "what": "Two tabs in your terminal: Village Cinemas (Greece) showtimes with IMDB + Rotten Tomatoes verdicts, and a streaming hub that plays anything else straight into IINA — zero dependencies, zero API keys"
+ },
+ {
+  "name": "madrid-brochure",
+  "code": "https://github.com/nitrimandylis/madrid-brochure",
+  "homepage": null,
+  "what": "A 12-page comic-style trip brochure for Madrid, written in HTML and printed to a fold-and-staple A5 booklet"
+ },
+ {
+  "name": "portfolio",
+  "code": "https://github.com/nitrimandylis/portfolio",
+  "homepage": "https://nicktrim.com",
+  "what": "my site, as a man page. nicktrim.com"
+ },
+ {
   "name": "lilt",
   "code": "https://github.com/nitrimandylis/lilt",
   "homepage": null,
@@ -10,18 +34,6 @@
   "code": "https://github.com/nitrimandylis/LLM-Mafia",
   "homepage": "https://mafia.nicktrim.com",
   "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
- },
- {
-  "name": "flick",
-  "code": "https://github.com/nitrimandylis/flick",
-  "homepage": "https://couch.nicktrim.com",
-  "what": "A film-sync room for two people in two places, on Cloudflare Workers and a Durable Object"
- },
- {
-  "name": "cine",
-  "code": "https://github.com/nitrimandylis/cine",
-  "homepage": null,
-  "what": "Two tabs in your terminal: Village Cinemas (Greece) showtimes with IMDB + Rotten Tomatoes verdicts, and a streaming hub that plays anything else straight into IINA — zero dependencies, zero API keys"
  },
  {
   "name": "jukebox",
@@ -64,12 +76,6 @@
   "code": "https://github.com/nitrimandylis/bootlog",
   "homepage": null,
   "what": "Prints today's git commits as a kernel boot log"
- },
- {
-  "name": "portfolio",
-  "code": "https://github.com/nitrimandylis/portfolio",
-  "homepage": "https://nicktrim.com",
-  "what": "my site, as a man page. nicktrim.com"
  },
  {
   "name": "aidetect",
