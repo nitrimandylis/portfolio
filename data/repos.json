@@ -1,5 +1,17 @@
 [
  {
+  "name": "deeplarp",
+  "code": "https://github.com/nitrimandylis/deeplarp",
+  "homepage": "https://deeplarp.nicktrim.com",
+  "what": "Scores how much a GitHub profile or repo is larping: what it claims against what the code shows"
+ },
+ {
+  "name": "portfolio",
+  "code": "https://github.com/nitrimandylis/portfolio",
+  "homepage": "https://nicktrim.com",
+  "what": "my site, as a man page. nicktrim.com"
+ },
+ {
   "name": "flick",
   "code": "https://github.com/nitrimandylis/flick",
   "homepage": "https://couch.nicktrim.com",
@@ -16,12 +28,6 @@
   "code": "https://github.com/nitrimandylis/madrid-brochure",
   "homepage": null,
   "what": "A 12-page comic-style trip brochure for Madrid, written in HTML and printed to a fold-and-staple A5 booklet"
- },
- {
-  "name": "portfolio",
-  "code": "https://github.com/nitrimandylis/portfolio",
-  "homepage": "https://nicktrim.com",
-  "what": "my site, as a man page. nicktrim.com"
  },
  {
   "name": "lilt",
@@ -106,12 +112,6 @@
   "code": "https://github.com/nitrimandylis/swatch",
   "homepage": null,
   "what": "A macOS desktop theming CLI that writes individual app configs from one palette"
- },
- {
-  "name": "deeplarp",
-  "code": "https://github.com/nitrimandylis/deeplarp",
-  "homepage": "https://deeplarp.vercel.app",
-  "what": "Scores how much a GitHub profile or repo is larping: what it claims against what the code shows"
  },
  {
   "name": "swatchbook",
