@@ -1,15 +1,21 @@
 [
  {
-  "name": "deeplarp",
-  "code": "https://github.com/nitrimandylis/deeplarp",
-  "homepage": "https://deeplarp.nicktrim.com",
-  "what": "Scores how much a GitHub profile or repo is larping: what it claims against what the code shows"
+  "name": "space-apps-2026",
+  "code": "https://github.com/nitrimandylis/space-apps-2026",
+  "homepage": null,
+  "what": "Team repo for NASA Space Apps 2026 Athens: folder rules for coding agents, Claude PR review, Discord pings"
  },
  {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
   "what": "my site, as a man page. nicktrim.com"
+ },
+ {
+  "name": "deeplarp",
+  "code": "https://github.com/nitrimandylis/deeplarp",
+  "homepage": "https://deeplarp.nicktrim.com",
+  "what": "Scores how much a GitHub profile or repo is larping: what it claims against what the code shows"
  },
  {
   "name": "flick",
