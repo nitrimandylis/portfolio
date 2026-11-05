@@ -1,11 +1,5 @@
 [
  {
-  "name": "space-apps-2026",
-  "code": "https://github.com/nitrimandylis/space-apps-2026",
-  "homepage": null,
-  "what": "Team repo for NASA Space Apps 2026 Athens: folder rules for coding agents, Claude PR review, Discord pings"
- },
- {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
@@ -94,12 +88,6 @@
   "code": "https://github.com/nitrimandylis/aidetect",
   "homepage": null,
   "what": "Local, offline AI-writing detector — scores your own drafts paragraph-by-paragraph before a teacher runs Turnitin"
- },
- {
-  "name": "space-apps-mockup",
-  "code": "https://github.com/nitrimandylis/space-apps-mockup",
-  "homepage": null,
-  "what": "Mockup for the NASA Space Apps 2026 Lunar Landing Site Navigator: a 3D Sun, Earth and Moon showing power and comms windows at south pole sites"
  },
  {
   "name": "apex",
