@@ -2,6 +2,17 @@
  "source": "https://letterboxd.com/nick_trim8/rss/",
  "films": [
   {
+   "id": "letterboxd-watch-1573006586",
+   "title": "Corpse Bride",
+   "year": 2005,
+   "watched": "2026-10-31",
+   "rating": 4.0,
+   "rewatch": false,
+   "url": "https://letterboxd.com/nick_trim8/film/corpse-bride/",
+   "poster": "https://a.ltrbxd.com/resized/sm/upload/v1/h6/lc/lu/o9GbcdP7rOg2m1NyUnUR3ZwNcTE-0-600-0-900-crop.jpg?v=1ee3b92ded",
+   "review": ""
+  },
+  {
    "id": "letterboxd-watch-1512885613",
    "title": "Avengers: Endgame",
    "year": 2019,
