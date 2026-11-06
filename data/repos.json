@@ -1,5 +1,11 @@
 [
  {
+  "name": "lilt",
+  "code": "https://github.com/nitrimandylis/lilt",
+  "homepage": null,
+  "what": "Word-by-word lyrics on the macOS lock screen. An open clone of Verci, rebuilt with Claude Code and REA"
+ },
+ {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
@@ -28,12 +34,6 @@
   "code": "https://github.com/nitrimandylis/madrid-brochure",
   "homepage": null,
   "what": "A 12-page comic-style trip brochure for Madrid, written in HTML and printed to a fold-and-staple A5 booklet"
- },
- {
-  "name": "lilt",
-  "code": "https://github.com/nitrimandylis/lilt",
-  "homepage": null,
-  "what": "Word-by-word lyrics on the macOS lock screen. An open clone of Verci, rebuilt with Claude Code and REA"
  },
  {
   "name": "LLM-Mafia",
