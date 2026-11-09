@@ -1,15 +1,15 @@
 [
  {
-  "name": "LLM-Mafia",
-  "code": "https://github.com/nitrimandylis/LLM-Mafia",
-  "homepage": "https://mafia.nicktrim.com",
-  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
- },
- {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
   "what": "my site, as a man page. nicktrim.com"
+ },
+ {
+  "name": "LLM-Mafia",
+  "code": "https://github.com/nitrimandylis/LLM-Mafia",
+  "homepage": "https://mafia.nicktrim.com",
+  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
  },
  {
   "name": "lilt",
