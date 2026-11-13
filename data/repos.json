@@ -1,5 +1,11 @@
 [
  {
+  "name": "bacpack",
+  "code": "https://github.com/nitrimandylis/bacpack",
+  "homepage": null,
+  "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
+ },
+ {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
@@ -52,12 +58,6 @@
   "code": "https://github.com/nitrimandylis/dovetail",
   "homepage": null,
   "what": "A personal CLI for finding, backing up, and safely editing macOS configs. Live files on one side, a local git repo on the other, nothing symlinked in between."
- },
- {
-  "name": "bacpack",
-  "code": "https://github.com/nitrimandylis/bacpack",
-  "homepage": null,
-  "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
  },
  {
   "name": "nous",
