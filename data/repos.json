@@ -1,15 +1,21 @@
 [
  {
-  "name": "bacpack",
-  "code": "https://github.com/nitrimandylis/bacpack",
+  "name": "lunar-navigator",
+  "code": "https://github.com/nitrimandylis/lunar-navigator",
   "homepage": null,
-  "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
+  "what": "Compare lunar south pole landing sites by sunlight and line of sight to Earth"
  },
  {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
   "what": "my site, as a man page. nicktrim.com"
+ },
+ {
+  "name": "bacpack",
+  "code": "https://github.com/nitrimandylis/bacpack",
+  "homepage": null,
+  "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
  },
  {
   "name": "LLM-Mafia",
