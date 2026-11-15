@@ -2,8 +2,14 @@
  {
   "name": "lunar-navigator",
   "code": "https://github.com/nitrimandylis/lunar-navigator",
-  "homepage": null,
+  "homepage": "https://www.moonfrom.earth/",
   "what": "Compare lunar south pole landing sites by sunlight and line of sight to Earth"
+ },
+ {
+  "name": "LLM-Mafia",
+  "code": "https://github.com/nitrimandylis/LLM-Mafia",
+  "homepage": "https://mafia.nicktrim.com",
+  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
  },
  {
   "name": "portfolio",
@@ -16,12 +22,6 @@
   "code": "https://github.com/nitrimandylis/bacpack",
   "homepage": null,
   "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
- },
- {
-  "name": "LLM-Mafia",
-  "code": "https://github.com/nitrimandylis/LLM-Mafia",
-  "homepage": "https://mafia.nicktrim.com",
-  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
  },
  {
   "name": "lilt",
