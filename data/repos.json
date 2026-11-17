@@ -1,15 +1,21 @@
 [
  {
-  "name": "moon-from-earth",
-  "code": "https://github.com/nitrimandylis/moon-from-earth",
-  "homepage": "https://www.moonfrom.earth/",
-  "what": "Compare lunar south pole landing sites by sunlight and line of sight to Earth"
+  "name": "flick",
+  "code": "https://github.com/nitrimandylis/flick",
+  "homepage": "https://couch.nicktrim.com",
+  "what": "Search a film or a show, pick a torrent, watch it now in a terminal UI. Or watch together, in sync, from two places."
  },
  {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
   "what": "my site, as a man page. nicktrim.com"
+ },
+ {
+  "name": "moon-from-earth",
+  "code": "https://github.com/nitrimandylis/moon-from-earth",
+  "homepage": "https://www.moonfrom.earth/",
+  "what": "Compare lunar south pole landing sites by sunlight and line of sight to Earth"
  },
  {
   "name": "LLM-Mafia",
@@ -34,12 +40,6 @@
   "code": "https://github.com/nitrimandylis/deeplarp",
   "homepage": "https://deeplarp.nicktrim.com",
   "what": "Scores how much a GitHub profile or repo is larping: what it claims against what the code shows"
- },
- {
-  "name": "flick",
-  "code": "https://github.com/nitrimandylis/flick",
-  "homepage": "https://couch.nicktrim.com",
-  "what": "Search a film or a show, pick a torrent, watch it now in a terminal UI. Or watch together, in sync, from two places."
  },
  {
   "name": "cine",
