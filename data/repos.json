@@ -1,15 +1,15 @@
 [
  {
-  "name": "flick",
-  "code": "https://github.com/nitrimandylis/flick",
-  "homepage": "https://couch.nicktrim.com",
-  "what": "Search a film or a show, pick a torrent, watch it now in a terminal UI. Or watch together, in sync, from two places."
- },
- {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
   "what": "my site, as a man page. nicktrim.com"
+ },
+ {
+  "name": "flick",
+  "code": "https://github.com/nitrimandylis/flick",
+  "homepage": "https://couch.nicktrim.com",
+  "what": "Search a film or a show, pick a torrent, watch it now in a terminal UI. Or watch together, in sync, from two places."
  },
  {
   "name": "moon-from-earth",
