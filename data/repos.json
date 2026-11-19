@@ -1,5 +1,11 @@
 [
  {
+  "name": "lamp",
+  "code": "https://github.com/nitrimandylis/lamp",
+  "homepage": null,
+  "what": "Terminal control for the Mi Bedside Lamp 2, entirely on your own network"
+ },
+ {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
@@ -202,12 +208,6 @@
   "code": "https://github.com/nitrimandylis/tokenpilot",
   "homepage": "https://tokenpilot.nicktrim.com",
   "what": "LLM cost analysis and optimization tool for Anthropic and OpenAI Admin APIs"
- },
- {
-  "name": "lamp",
-  "code": "https://github.com/nitrimandylis/lamp",
-  "homepage": null,
-  "what": "Terminal control for the Mi Bedside Lamp 2, entirely on your own network"
  },
  {
   "name": "jazz",
