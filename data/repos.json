@@ -1,15 +1,15 @@
 [
  {
-  "name": "lamp",
-  "code": "https://github.com/nitrimandylis/lamp",
-  "homepage": null,
-  "what": "Terminal control for the Mi Bedside Lamp 2, entirely on your own network"
- },
- {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
   "what": "my site, as a man page. nicktrim.com"
+ },
+ {
+  "name": "lamp",
+  "code": "https://github.com/nitrimandylis/lamp",
+  "homepage": null,
+  "what": "Terminal control for the Mi Bedside Lamp 2, entirely on your own network"
  },
  {
   "name": "flick",
