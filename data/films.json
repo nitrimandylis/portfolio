@@ -2,6 +2,17 @@
  "source": "https://letterboxd.com/nick_trim8/rss/",
  "films": [
   {
+   "id": "letterboxd-watch-1594988940",
+   "title": "The Wonderful Story of Henry Sugar",
+   "year": 2023,
+   "watched": "2026-11-20",
+   "rating": 5.0,
+   "rewatch": false,
+   "url": "https://letterboxd.com/nick_trim8/film/the-wonderful-story-of-henry-sugar/",
+   "poster": "https://a.ltrbxd.com/resized/film-poster/8/2/9/3/6/4/829364-the-wonderful-story-of-henry-sugar-0-600-0-900-crop.jpg?v=887a913aa6",
+   "review": ""
+  },
+  {
    "id": "letterboxd-watch-1573006586",
    "title": "Corpse Bride",
    "year": 2005,
