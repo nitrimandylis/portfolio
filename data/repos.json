@@ -6,6 +6,12 @@
   "what": "my site, as a man page. nicktrim.com"
  },
  {
+  "name": "bacpack",
+  "code": "https://github.com/nitrimandylis/bacpack",
+  "homepage": null,
+  "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
+ },
+ {
   "name": "lamp",
   "code": "https://github.com/nitrimandylis/lamp",
   "homepage": null,
@@ -28,12 +34,6 @@
   "code": "https://github.com/nitrimandylis/LLM-Mafia",
   "homepage": "https://mafia.nicktrim.com",
   "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
- },
- {
-  "name": "bacpack",
-  "code": "https://github.com/nitrimandylis/bacpack",
-  "homepage": null,
-  "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
  },
  {
   "name": "lilt",
