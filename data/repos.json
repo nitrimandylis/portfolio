@@ -1,15 +1,33 @@
 [
  {
-  "name": "portfolio",
-  "code": "https://github.com/nitrimandylis/portfolio",
-  "homepage": "https://nicktrim.com",
-  "what": "my site, as a man page. nicktrim.com"
+  "name": "swatch",
+  "code": "https://github.com/nitrimandylis/swatch",
+  "homepage": null,
+  "what": "A macOS desktop theming CLI that writes individual app configs from one palette"
+ },
+ {
+  "name": "LLM-Mafia",
+  "code": "https://github.com/nitrimandylis/LLM-Mafia",
+  "homepage": "https://mafia.nicktrim.com",
+  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
+ },
+ {
+  "name": "lilt",
+  "code": "https://github.com/nitrimandylis/lilt",
+  "homepage": null,
+  "what": "Word-by-word lyrics on the macOS lock screen. An open clone of Verci, rebuilt with Claude Code and REA"
  },
  {
   "name": "bacpack",
   "code": "https://github.com/nitrimandylis/bacpack",
   "homepage": null,
   "what": "ManageBac from the terminal: what's due, CAS experiences and reflections, and Learner Portfolio entries"
+ },
+ {
+  "name": "portfolio",
+  "code": "https://github.com/nitrimandylis/portfolio",
+  "homepage": "https://nicktrim.com",
+  "what": "my site, as a man page. nicktrim.com"
  },
  {
   "name": "lamp",
@@ -28,18 +46,6 @@
   "code": "https://github.com/nitrimandylis/moon-from-earth",
   "homepage": "https://www.moonfrom.earth/",
   "what": "Compare lunar south pole landing sites by sunlight and line of sight to Earth"
- },
- {
-  "name": "LLM-Mafia",
-  "code": "https://github.com/nitrimandylis/LLM-Mafia",
-  "homepage": "https://mafia.nicktrim.com",
-  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
- },
- {
-  "name": "lilt",
-  "code": "https://github.com/nitrimandylis/lilt",
-  "homepage": null,
-  "what": "Word-by-word lyrics on the macOS lock screen. An open clone of Verci, rebuilt with Claude Code and REA"
  },
  {
   "name": "deeplarp",
@@ -112,12 +118,6 @@
   "code": "https://github.com/nitrimandylis/gridcast",
   "homepage": "https://gridcast.nicktrim.com",
   "what": "F1 race outcome probabilities, committed to git before each race and scored on a public scorecard."
- },
- {
-  "name": "swatch",
-  "code": "https://github.com/nitrimandylis/swatch",
-  "homepage": null,
-  "what": "A macOS desktop theming CLI that writes individual app configs from one palette"
  },
  {
   "name": "swatchbook",
