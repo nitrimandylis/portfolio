@@ -1,5 +1,35 @@
 [
  {
+  "name": "swatchbook",
+  "code": "https://github.com/nitrimandylis/swatchbook",
+  "homepage": null,
+  "what": "Six colour palettes for swatch, my macOS theming CLI. Wallpapers not included."
+ },
+ {
+  "name": "flick",
+  "code": "https://github.com/nitrimandylis/flick",
+  "homepage": "https://couch.nicktrim.com",
+  "what": "Search a film or a show, pick a torrent, watch it now in a terminal UI. Or watch together, in sync, from two places."
+ },
+ {
+  "name": "LLM-Mafia",
+  "code": "https://github.com/nitrimandylis/LLM-Mafia",
+  "homepage": "https://mafia.nicktrim.com",
+  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
+ },
+ {
+  "name": "sealfetch",
+  "code": "https://github.com/nitrimandylis/sealfetch",
+  "homepage": null,
+  "what": "the seal: source of truth for Nick's mascot, its variants, and the wallpapers that report on their own working conditions"
+ },
+ {
+  "name": "madrid-brochure",
+  "code": "https://github.com/nitrimandylis/madrid-brochure",
+  "homepage": null,
+  "what": "A 12-page comic-style trip brochure for Madrid, written in HTML and printed to a fold-and-staple A5 booklet"
+ },
+ {
   "name": "portfolio",
   "code": "https://github.com/nitrimandylis/portfolio",
   "homepage": "https://nicktrim.com",
@@ -10,12 +40,6 @@
   "code": "https://github.com/nitrimandylis/swatch",
   "homepage": null,
   "what": "A macOS desktop theming CLI that writes individual app configs from one palette"
- },
- {
-  "name": "LLM-Mafia",
-  "code": "https://github.com/nitrimandylis/LLM-Mafia",
-  "homepage": "https://mafia.nicktrim.com",
-  "what": "No humans, pure model-vs-model deception. A Mafia game where every seat is an LLM, replayed as a noir episode you can watch."
  },
  {
   "name": "lilt",
@@ -36,12 +60,6 @@
   "what": "Terminal control for the Mi Bedside Lamp 2, entirely on your own network"
  },
  {
-  "name": "flick",
-  "code": "https://github.com/nitrimandylis/flick",
-  "homepage": "https://couch.nicktrim.com",
-  "what": "Search a film or a show, pick a torrent, watch it now in a terminal UI. Or watch together, in sync, from two places."
- },
- {
   "name": "moon-from-earth",
   "code": "https://github.com/nitrimandylis/moon-from-earth",
   "homepage": "https://www.moonfrom.earth/",
@@ -58,12 +76,6 @@
   "code": "https://github.com/nitrimandylis/cine",
   "homepage": null,
   "what": "Two tabs in your terminal: Village Cinemas (Greece) showtimes with IMDB + Rotten Tomatoes verdicts, and a streaming hub that plays anything else straight into IINA — zero dependencies, zero API keys"
- },
- {
-  "name": "madrid-brochure",
-  "code": "https://github.com/nitrimandylis/madrid-brochure",
-  "homepage": null,
-  "what": "A 12-page comic-style trip brochure for Madrid, written in HTML and printed to a fold-and-staple A5 booklet"
  },
  {
   "name": "jukebox",
@@ -118,12 +130,6 @@
   "code": "https://github.com/nitrimandylis/gridcast",
   "homepage": "https://gridcast.nicktrim.com",
   "what": "F1 race outcome probabilities, committed to git before each race and scored on a public scorecard."
- },
- {
-  "name": "swatchbook",
-  "code": "https://github.com/nitrimandylis/swatchbook",
-  "homepage": null,
-  "what": "Six colour palettes for swatch, my macOS theming CLI. Wallpapers not included."
  },
  {
   "name": "os",
@@ -226,12 +232,6 @@
   "code": "https://github.com/nitrimandylis/nocturne",
   "homepage": null,
   "what": "A terminal music visualizer shaped like an apartment building at night, tapping macOS system audio"
- },
- {
-  "name": "sealfetch",
-  "code": "https://github.com/nitrimandylis/sealfetch",
-  "homepage": null,
-  "what": "the seal: source of truth for Nick's mascot, its variants, and the wallpapers that report on their own working conditions"
  },
  {
   "name": "nitrimandylis",
