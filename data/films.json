@@ -2,6 +2,17 @@
  "source": "https://letterboxd.com/nick_trim8/rss/",
  "films": [
   {
+   "id": "letterboxd-watch-1601328640",
+   "title": "Dune",
+   "year": 2021,
+   "watched": "2026-11-24",
+   "rating": 3.5,
+   "rewatch": false,
+   "url": "https://letterboxd.com/nick_trim8/film/dune-2021/",
+   "poster": "https://a.ltrbxd.com/resized/sm/upload/nx/8b/vs/gc/cDbNAY0KM84cxXhmj8f0dLWza3t-0-600-0-900-crop.jpg?v=49eed12751",
+   "review": ""
+  },
+  {
    "id": "letterboxd-watch-1594988940",
    "title": "The Wonderful Story of Henry Sugar",
    "year": 2023,
