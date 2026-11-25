@@ -1,5 +1,11 @@
 [
  {
+  "name": "portfolio",
+  "code": "https://github.com/nitrimandylis/portfolio",
+  "homepage": "https://nicktrim.com",
+  "what": "my site, as a man page. nicktrim.com"
+ },
+ {
   "name": "swatchbook",
   "code": "https://github.com/nitrimandylis/swatchbook",
   "homepage": null,
@@ -28,12 +34,6 @@
   "code": "https://github.com/nitrimandylis/madrid-brochure",
   "homepage": null,
   "what": "A 12-page comic-style trip brochure for Madrid, written in HTML and printed to a fold-and-staple A5 booklet"
- },
- {
-  "name": "portfolio",
-  "code": "https://github.com/nitrimandylis/portfolio",
-  "homepage": "https://nicktrim.com",
-  "what": "my site, as a man page. nicktrim.com"
  },
  {
   "name": "swatch",
